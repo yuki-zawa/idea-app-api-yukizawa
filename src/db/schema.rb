@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_17_074320) do
+ActiveRecord::Schema.define(version: 2020_02_17_080337) do
 
   create_table "authorizations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2020_02_17_074320) do
     t.string "provider"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["provider", "uid"], name: "index_authorizations_on_provider_and_uid", unique: true
     t.index ["user_id"], name: "index_authorizations_on_user_id"
   end
 
