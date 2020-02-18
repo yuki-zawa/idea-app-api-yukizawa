@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_17_080337) do
+ActiveRecord::Schema.define(version: 2020_02_18_092351) do
 
   create_table "authorizations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -23,11 +23,27 @@ ActiveRecord::Schema.define(version: 2020_02_17_080337) do
   end
 
   create_table "genre_tags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.bigint "idea_id", null: false
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["idea_id"], name: "index_genre_tags_on_idea_id"
+  end
+
+  create_table "idea_genre_tags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "idea_id", null: false
+    t.bigint "genre_tag_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["genre_tag_id"], name: "index_idea_genre_tags_on_genre_tag_id"
+    t.index ["idea_id"], name: "index_idea_genre_tags_on_idea_id"
+  end
+
+  create_table "idea_idea_tags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "idea_id", null: false
+    t.bigint "idea_tag_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["idea_id"], name: "index_idea_idea_tags_on_idea_id"
+    t.index ["idea_tag_id"], name: "index_idea_idea_tags_on_idea_tag_id"
   end
 
   create_table "idea_multi_ideas", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -40,11 +56,9 @@ ActiveRecord::Schema.define(version: 2020_02_17_080337) do
   end
 
   create_table "idea_tags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.bigint "idea_id", null: false
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["idea_id"], name: "index_idea_tags_on_idea_id"
   end
 
   create_table "ideas", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -79,9 +93,11 @@ ActiveRecord::Schema.define(version: 2020_02_17_080337) do
   end
 
   add_foreign_key "authorizations", "users"
-  add_foreign_key "genre_tags", "ideas"
+  add_foreign_key "idea_genre_tags", "genre_tags"
+  add_foreign_key "idea_genre_tags", "ideas"
+  add_foreign_key "idea_idea_tags", "idea_tags"
+  add_foreign_key "idea_idea_tags", "ideas"
   add_foreign_key "idea_multi_ideas", "ideas"
   add_foreign_key "idea_multi_ideas", "multi_ideas"
-  add_foreign_key "idea_tags", "ideas"
   add_foreign_key "ideas", "users"
 end
