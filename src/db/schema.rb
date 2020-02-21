@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 2020_02_18_092351) do
     t.bigint "user_id", null: false
     t.string "uid"
     t.string "provider"
+    t.boolean "status", default: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["provider", "uid"], name: "index_authorizations_on_provider_and_uid", unique: true
@@ -24,6 +25,7 @@ ActiveRecord::Schema.define(version: 2020_02_18_092351) do
 
   create_table "genre_tags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
+    t.string "color"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -63,20 +65,22 @@ ActiveRecord::Schema.define(version: 2020_02_18_092351) do
 
   create_table "ideas", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "user_id", null: false
+    t.string "icon"
     t.string "title"
     t.text "detail"
     t.float "priority"
-    t.string "color"
+    t.boolean "status", default: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_ideas_on_user_id"
   end
 
   create_table "multi_ideas", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "icon"
     t.string "title"
     t.text "detail"
     t.float "priority"
-    t.string "color"
+    t.boolean "status", default: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -87,7 +91,8 @@ ActiveRecord::Schema.define(version: 2020_02_18_092351) do
     t.string "remember_digest"
     t.string "activation_digest"
     t.datetime "activated_at"
-    t.boolean "activated"
+    t.boolean "activated", default: false
+    t.boolean "status", default: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

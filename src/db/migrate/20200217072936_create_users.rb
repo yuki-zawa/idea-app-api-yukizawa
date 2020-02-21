@@ -6,7 +6,8 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.string :remember_digest
       t.string :activation_digest
       t.datetime :activated_at
-      t.boolean :activated
+      t.boolean :activated, default: false
+      t.boolean :status, default: true
 
       t.timestamps
     end
