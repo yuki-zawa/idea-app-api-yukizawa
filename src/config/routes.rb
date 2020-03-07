@@ -8,6 +8,7 @@ Rails.application.routes.draw do
           get 'me' # debug
         end
       end
+      resources :account_activations, only: [:edit]
       resources :authorizations, only: [:index, :create, :update, :destroy, :show]
       resources :ideas, only: [:index, :create, :update, :destroy, :show]
       resources :multi_ideas, only: [:index, :create, :update, :destroy, :show]
