@@ -46,14 +46,14 @@ export const Top: React.FC = () => {
         <img src="a" />
         <p className="image-text">ひらめきをストックしよう</p>
       </div>
-      <p className="start-text">ideastokkerを始める</p>
+      <p className="start-text">STOCKROOMを始める</p>
       <div className="login-container">
         <Link to='/account/create' style={createLinkStyle}>アカウントを作成</Link>
         <Link to='/' style={googleLinkStyle}>googleアカウントで登録/ログイン</Link>{/* FIXME このリンクは変更になる可能性があるのであとで編集してほしい */}
         <Link to='/account/login' style={loginLinkStyle}>ログイン</Link>
       </div>
       <div>
-        <h2 className="intro-title">What is ideastokker ?</h2>
+        <h2 className="intro-title">What is STOCKROOM ?</h2>
         <p className="intro-content">sample sample sample sample sample sample sample sample sample sample sample sample sample sample sample sample sample sample sample sample</p>
         <Link to='/introduction' style={detailLinkStyle}>詳しくはこちら➡︎</Link>
       </div>
