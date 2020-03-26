@@ -1,5 +1,7 @@
 import React from 'react';
-import { HashRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
+import { Provider } from './components/common/context/provider';
 
 import { Introduction } from './components/pages/other/Introduction'
 import { Help } from './components/pages/other/Help'
@@ -7,21 +9,25 @@ import { Top } from './components/pages/account/Top'
 import { AccountCreate } from './components/pages/account/Create'
 import { AccountLogin } from './components/pages/account/Login';
 import { IdeaList } from './components/pages/idea/List';
+import { AuthComponent } from './components/common/Auth';
 
 function App() {
   return(
     <div className="App">
-      <Router>
-        <div>
-          <Route exact path='/' component={Top}/>
-          <Route exact path='/introduction' component={Introduction}/>
-          <Route exact path='/help' component={Help}/>
-          <Route exact path='/account/create' component={AccountCreate}/>
-          <Route exact path='/account/login' component={AccountLogin}/>
-
-          <Route exact path='/home' component={IdeaList}/>
-        </div>
-      </Router>
+      <Provider>
+        <BrowserRouter>
+          <Switch>
+            <Route exact path='/' component={Top}/>
+            <Route exact path='/introduction' component={Introduction}/>
+            <Route exact path='/help' component={Help}/>
+            <Route exact path='/account/create' component={AccountCreate}/>
+            <Route exact path='/account/login' component={AccountLogin}/>
+            <AuthComponent>
+              <Route exact path='/home' component={IdeaList}/>
+            </AuthComponent>
+          </Switch>
+        </BrowserRouter>
+      </Provider>
       <style jsx global>{`
         html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,rem,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font:inherit;font-size:16px;vertical-align:baseline}html{line-height:1}ol,ul{list-style:none}table{border-collapse:collapse;border-spacing:0}caption,th,td{text-align:left;font-weight:normal;vertical-align:middle}q,blockquote{quotes:none}q:before,q:after,blockquote:before,blockquote:after{content:"";content:none}a img{border:none}article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section,summary{display:block}
 

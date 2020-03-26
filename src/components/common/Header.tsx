@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import useReactRouter from "use-react-router";
-import { Link } from 'react-router-dom';
+import { AuthContext } from "./context/provider";
+import axios from "axios";
 
 const linkStyle = {
   textAlign: "center" as "center",
@@ -14,19 +15,38 @@ const linkStyle = {
 
 type HeaderProps = {
   title: string,
-  location?: string
+  location?: string,
+  history?: any,
 };
 
 
 
 export const Header: React.FC<HeaderProps> = (props) => {
   const path = useReactRouter().location.pathname;
+  const { authState, setAuth } = useContext(AuthContext);
+
+  const send = async () => {
+    // set Authorization empty header
+    axios.defaults.headers.common['Authorization'] = '';
+    //cookie削除
+    document.cookie = "token=; expires=0";
+    setAuth({
+      isLogged: false,
+      user: null
+    });
+    window.location.href = '/'
+    return;
+  }
+
   return (
     <header>
       <ul>
         <li>left</li>
         <li className="title">{props.title}</li>
         <li>right</li>
+        <button onClick={ send }>
+          ログアウト
+        </button>
       </ul>
       <style jsx>{`
         header {
