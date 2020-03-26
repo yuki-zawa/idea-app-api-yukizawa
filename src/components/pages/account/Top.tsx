@@ -2,75 +2,113 @@ import React from 'react';
 import useReactRouter from "use-react-router";
 import { Link } from 'react-router-dom';
 
-const linkStyle = {
+const createLinkStyle = {
   textAlign: "center" as "center",
   display: "block",
-  height: "8vh",
-  lineHeight: "8vh",
+  height: "30px",
+  lineHeight: "30px",
   paddingLeft: "10px",
-  float: "left" as "left",
+  cursor: "pointer",
+  border: "3px solid #FEB342",
+  backgroundColor: "#FEB342",
+  marginBottom: "10px"
+};
+const googleLinkStyle = {
+  textAlign: "center" as "center",
+  display: "block",
+  height: "30px",
+  lineHeight: "30px",
+  paddingLeft: "10px",
+  cursor: "pointer",
+  border: "3px solid #FEB342",
+  marginBottom: "10px"
+};
+const loginLinkStyle = {
+  textAlign: "center" as "center",
+  display: "block",
+  height: "30px",
+  lineHeight: "30px",
+  paddingLeft: "10px",
+  cursor: "pointer",
+  border: "3px solid #C4C4C4",
+  backgroundColor: "#C4C4C4",
+  marginBottom: "10px"
+};
+const detailLinkStyle = {
+  textAlign: "center" as "center",
+  display: "block",
+  height: "30px",
+  lineHeight: "30px",
+  paddingLeft: "10px",
   cursor: "pointer",
 };
 
 export const Top: React.FC = () => {
   return (
-    <div>
-      <h1>ひらめきをストックしよう</h1>
-      <div>
-        <Link to='/account/create' style={linkStyle}>アカウントを作成</Link>
-        <Link to='/' style={linkStyle}>googleアカウントで登録/ログイン</Link>{/* このリンクは変更になる可能性があるのであとで編集してほしい */}
-        <Link to='/account/login' style={linkStyle}>ログイン</Link>
+    <div className="container">
+      <div className="title">
+        <img src="a" />
+        <p className="image-text">ひらめきをストックしよう</p>
       </div>
-      <h2>What is ideaStokker ?</h2>
-      <p>samplesamplesamplesamplesamplesamplesamplesamplesamplesamplesamplesamplesamplesamplesamplesamplesamplesamplesamplesample</p>
-      <Link to='/introduction' style={linkStyle}>詳しくはこちら</Link>
+      <p className="start-text">ideastokkerを始める</p>
+      <div className="login-container">
+        <Link to='/account/create' style={createLinkStyle}>アカウントを作成</Link>
+        <Link to='/' style={googleLinkStyle}>googleアカウントで登録/ログイン</Link>{/* このリンクは変更になる可能性があるのであとで編集してほしい */}
+        <Link to='/account/login' style={loginLinkStyle}>ログイン</Link>
+      </div>
+      <div>
+        <h2 className="intro-title">What is ideastokker ?</h2>
+        <p className="intro-content">sample sample sample sample sample sample sample sample sample sample sample sample sample sample sample sample sample sample sample sample</p>
+        <Link to='/introduction' style={detailLinkStyle}>詳しくはこちら➡︎</Link>
+      </div>
+
 
       <style jsx>{`
-      //example 好きに変えていいよ
-        header {
-          width: 100%;
-          height: 8vh;
-          background-color: #32CD32;
-          position: fixed;
-            left: 0;
-            top: 0;
-            z-index: 100;
-        }
-
-        .menu-container {
-          background-color: #E0FFE0;
-          width: 33vw;
-          display: inline-block;
-          position: fixed;
-            top: 8vh;
-            right: 0;
-        }
-
-        ul {
-          position: relative;
-          height: 8vh;
+        .container {
+          padding: 1rem 1.5rem;
         }
 
         .title {
-          width: 100px;
-          text-align: center;
-          line-height: 8vh;
-          position: absolute;
-          left: 0;
-          right: 0;
-          top: 0;
-          bottom :0;
-          margin: auto;
-          font-size: 20px;
-          font-weight: 700;
+          position:relative;
+          margin-bottom: 50px;
+          height: 150px; 
         }
 
-        .menu {
-          text-align: center;
-          line-height: 8vh;
-          padding-right: 10px;
-          float: right;
-          cursor: pointer;
+        .title img {
+          height: 80px;
+          width: 80px;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%)
+        }
+
+        .image-text {
+          display: inline-block;
+          font-weight: bold;
+          font-size: 18px;
+          padding-left: 100px;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%)
+        }
+
+        .start-text {
+          font-size: 16px;
+          margin: 1rem 0;
+        }
+
+        .login-container {
+          margin-bottom: 100px;
+        }
+
+        .intro-title {
+          font-weight: bold;
+          font-size: 18px;
+          margin: 1rem 0;
+        }
+
+        .intro-content {
+          margin-bottom: 32px;
         }
 
       `}</style>
