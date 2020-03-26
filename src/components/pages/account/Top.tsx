@@ -7,7 +7,6 @@ const createLinkStyle = {
   display: "block",
   height: "30px",
   lineHeight: "30px",
-  paddingLeft: "10px",
   cursor: "pointer",
   border: "3px solid #FEB342",
   backgroundColor: "#FEB342",
@@ -18,7 +17,6 @@ const googleLinkStyle = {
   display: "block",
   height: "30px",
   lineHeight: "30px",
-  paddingLeft: "10px",
   cursor: "pointer",
   border: "3px solid #FEB342",
   marginBottom: "10px"
@@ -28,7 +26,6 @@ const loginLinkStyle = {
   display: "block",
   height: "30px",
   lineHeight: "30px",
-  paddingLeft: "10px",
   cursor: "pointer",
   border: "3px solid #C4C4C4",
   backgroundColor: "#C4C4C4",
@@ -39,7 +36,6 @@ const detailLinkStyle = {
   display: "block",
   height: "30px",
   lineHeight: "30px",
-  paddingLeft: "10px",
   cursor: "pointer",
 };
 
@@ -53,7 +49,7 @@ export const Top: React.FC = () => {
       <p className="start-text">ideastokkerを始める</p>
       <div className="login-container">
         <Link to='/account/create' style={createLinkStyle}>アカウントを作成</Link>
-        <Link to='/' style={googleLinkStyle}>googleアカウントで登録/ログイン</Link>{/* このリンクは変更になる可能性があるのであとで編集してほしい */}
+        <Link to='/' style={googleLinkStyle}>googleアカウントで登録/ログイン</Link>{/* FIXME このリンクは変更になる可能性があるのであとで編集してほしい */}
         <Link to='/account/login' style={loginLinkStyle}>ログイン</Link>
       </div>
       <div>

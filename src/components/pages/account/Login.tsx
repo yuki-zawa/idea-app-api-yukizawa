@@ -1,16 +1,30 @@
-import React, { useRef, useContext, useEffect, useCallback } from 'react';
+import React, { useRef, useContext, useEffect, useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from "../../common/context/provider";
 
-const linkStyle = {
-  textAlign: "center" as "center",
+const backLinkStyle = {
   display: "block",
-  height: "8vh",
-  lineHeight: "8vh",
-  paddingLeft: "10px",
-  float: "left" as "left",
+  height: "30px",
   cursor: "pointer",
+  fontWeight: "bold" as "bold",
+  fontSize: "30px"
+};
+
+const passwordForgotLinkStyle = {
+  display: "block",
+  cursor: "pointer",
+  fontSize: "14px",
+  marginBottom: "30px",
+  color: "blue"
+};
+
+const createLinkStyle = {
+  display: "block",
+  cursor: "pointer",
+  fontSize: "14px",
+  marginBottom: "30px",
+  color: "blue"
 };
 
 export const AccountLogin: React.FC = (props: any) => {
@@ -18,6 +32,8 @@ export const AccountLogin: React.FC = (props: any) => {
   const mailRef = useRef(document.createElement("input"));
   const passwordRef = useRef(document.createElement("input"));
   const buttonRef = useRef(document.createElement("button"));
+
+  const [err, setErr] = useState("");
 
   const send = async () => {
     try {
@@ -54,6 +70,7 @@ export const AccountLogin: React.FC = (props: any) => {
     } catch (err) {
       axios.defaults.headers.common['Authorization'] = '';
       console.log(err);
+      setErr("ご記入いただいたメールアドレスもしくはパスワードが間違っています。");
     }
   }
 
@@ -93,24 +110,78 @@ export const AccountLogin: React.FC = (props: any) => {
   }, [setUserData]);
 
   return (
-    <div>
-      <h1 className="title">ideaStokkerを始める</h1>
-      <div>
-        <label>メールアドレス</label>
-        <input ref={ mailRef } type="text" placeholder="メールアドレス"/>
-        <label>パスワード</label>
-        <input ref={ passwordRef } type="password" placeholder="パスワード"/>
+    <div className="container">
+      <Link to='/' style={backLinkStyle}>←</Link>
+      <div className="err">{err}</div>
+      <h1 className="title">ログイン</h1>
+      <div className="form">
+        <div className="mail-form">
+          <label>メールアドレス</label>
+          <input ref={ mailRef } type="text" placeholder="メールアドレス"/>
+        </div>
+        <div className="password-form">
+          <label>パスワード</label>
+          <input ref={ passwordRef } type="password" placeholder="パスワード"/>
+          {/* FIXME パスワードを忘れた方はこちら 機能もつける */}
+          <Link to='/' style={passwordForgotLinkStyle}>➡︎パスワードを忘れた方はこちら</Link>
+          <Link to='/account/create' style={createLinkStyle}>新規登録はこちら</Link>
+        </div>
+        <div className="button-container">
+          <button ref={ buttonRef } onClick={ send }>
+            ログイン
+          </button>
+        </div>
       </div>
-      <p>
-        <button ref={ buttonRef } onClick={ send }>
-          ログイン
-        </button>
-      </p>
+
 
       <style jsx>{`
-      //example 好きに変えていいよ
+        .container {
+          padding: 1rem 1.5rem;
+        }
+
+        .err {
+          height: 100px;
+          color: red;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
         .title {
-          background-color: #32CD32;
+          font-size: 24px;
+          margin: 2rem 0;
+        }
+
+        .mail-form, .password-form {
+          margin-bottom: 30px;
+        }
+
+        .form label {
+          display: block;
+          margin-bottom: 0.5rem;
+        }
+
+        .form input {
+          padding: 0.5rem 0.25rem;
+          margin-bottom: 0.5rem;
+          width: 95%;
+          border: lightgray 1px solid;
+          border-bottom: #FEB342 3px solid;
+          background-color: #E3EAF5;
+        }
+
+        .button-container {
+          width: 75%;
+          margin: 0 auto;
+        }
+
+        .button-container button {
+          text-align: center;
+          padding: 0.5rem 0.25rem;
+          width: 100%;
+          background-color: #FEB342;
+          font-size: 16px;
+          font-weight: bold;
         }
       `}</style>
     </div>
