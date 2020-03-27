@@ -11,32 +11,21 @@ export const HomeLayout: React.FC<HomeLayoutProps> = ({ children, title }) => {
   return (
     <div>
       <Header title={ title }></Header>
-      <div className="wrap">
-        <main>
-          { children }
-        </main>
-      </div>
+      <main>
+        { children }
+      </main>
 
       <style jsx>{`
-        div {
-          display: flex;
-        }
-        
         .wrap {
-          position: relative;
-          width: calc(100vw - 142px);
-          height: calc(100vh - 66px);
-          overflow: hidden;
+          width: 100%;
         }
 
         main {
-          position: relative;
           width: 100%;
+          margin-top: 80px;
+          height: calc(100vh - 80px);
+          background-color: #E3EAF5;
           overflow-y: scroll;
-        }
-
-        main::-webkit-scrollbar {
-          display: none;
         }
       `}</style>
     </div>

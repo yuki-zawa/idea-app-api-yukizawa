@@ -51,23 +51,14 @@ export const Header: React.FC<HeaderProps> = (props) => {
       <style jsx>{`
         header {
           width: 100%;
-          height: 8vh;
+          height: 80px;
           background-color: #32CD32;
           position: fixed;
             left: 0;
             top: 0;
             z-index: 100;
         }
-
-        .menu-container {
-          background-color: #E0FFE0;
-          width: 33vw;
-          display: inline-block;
-          position: fixed;
-            top: 8vh;
-            right: 0;
-        }
-
+        
         ul {
           position: relative;
           height: 8vh;
@@ -76,7 +67,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
         .title {
           width: 100px;
           text-align: center;
-          line-height: 8vh;
+          line-height: 80px;
           position: absolute;
           left: 0;
           right: 0;
@@ -85,14 +76,6 @@ export const Header: React.FC<HeaderProps> = (props) => {
           margin: auto;
           font-size: 20px;
           font-weight: 700;
-        }
-
-        .menu {
-          text-align: center;
-          line-height: 8vh;
-          padding-right: 10px;
-          float: right;
-          cursor: pointer;
         }
 
       `}</style>
