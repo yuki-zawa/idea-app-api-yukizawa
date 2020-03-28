@@ -41,9 +41,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
   return (
     <header>
       <ul>
-        <li>left</li>
         <li className="title">{props.title}</li>
-        <li>right</li>
         <button onClick={ send }>
           ログアウト
         </button>
@@ -51,8 +49,8 @@ export const Header: React.FC<HeaderProps> = (props) => {
       <style jsx>{`
         header {
           width: 100%;
-          height: 80px;
-          background-color: #32CD32;
+          height: 40px;
+          background-color: white;
           position: fixed;
             left: 0;
             top: 0;
@@ -61,13 +59,13 @@ export const Header: React.FC<HeaderProps> = (props) => {
         
         ul {
           position: relative;
-          height: 8vh;
+          height: 40px;
         }
 
         .title {
           width: 100px;
           text-align: center;
-          line-height: 80px;
+          line-height: 40px;
           position: absolute;
           left: 0;
           right: 0;
