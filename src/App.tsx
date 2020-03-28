@@ -9,6 +9,7 @@ import { Top } from './components/pages/account/Top'
 import { AccountCreate } from './components/pages/account/Create'
 import { AccountLogin } from './components/pages/account/Login';
 import { IdeaList } from './components/pages/idea/List';
+import { IdeaDetail } from './components/pages/idea/Detail';
 import { AuthComponent } from './components/common/Auth';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
             <Route exact path='/account/login' component={AccountLogin}/>
             <AuthComponent>
               <Route exact path='/home' component={IdeaList}/>
+              <Route exact path='/ideas/:id' component={IdeaDetail}/>
             </AuthComponent>
           </Switch>
         </BrowserRouter>
@@ -40,12 +42,21 @@ function App() {
           color: inherit;
           text-decoration: none;
         }
-        
+
         .App {
           height: 100vh;
           -ms-overflow-style: none;    /* IE, Edge 対応 */
           scrollbar-width: none;       /* Firefox 対応 */
           overflow: auto;
+        }
+
+        button{
+          background-color: transparent;
+          border: none;
+          cursor: pointer;
+          outline: none;
+          padding: 0;
+          appearance: none;
         }
       `}</style>
     </div>
