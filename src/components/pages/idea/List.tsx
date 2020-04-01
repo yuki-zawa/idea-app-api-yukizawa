@@ -69,18 +69,16 @@ export const IdeaList: React.FC = (props: any) => {
         `/api/v1/ideas?page=${pagenation.currentPage + 1}&limit=${pagenation.perPage}`
       )
       .then(result => result.data)
-      .catch(error => {
-        console.log(error);
-      })
+      .catch(error => console.log(error))
       .finally(() => {
         setShowLoader(false);
       });
     // 配列の後ろに追加
     setIdeas(ideas.concat(response.data));
     setPagenation({
-      total: response ? response.meta.total : 0,
-      perPage: response ? response.meta.perPage: 10,
-      currentPage: response ? response.meta.currentPage : 1
+      total: response.meta.total,
+      perPage: response.meta.perPage,
+      currentPage: response.meta.currentPage
     });
   }
 
@@ -111,7 +109,7 @@ export const IdeaList: React.FC = (props: any) => {
       <div className="container">
         <InfiniteScroll
           pageStart={1}
-          hasMore={!showLoader && ideas && (pagenation.total > ideas.length)}
+          hasMore={!showLoader && ideas && pagenation.total > ideas.length}
           loadMore={fetchMoreIdeas}
           initialLoad={false}
         >

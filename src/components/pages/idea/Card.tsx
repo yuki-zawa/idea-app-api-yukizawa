@@ -16,11 +16,9 @@ const cardLinkStyle = {
   borderRadius: "5px",
   boxShadow: "2px 2px 3px lightgray",
   verticalAlign: "top"
-
 };
 
 export const Card: React.FC<CardProps> = (props: any) => {
-  console.log(props.idea);
   return (
     <Link to={`/ideas/${props.idea.id}`} style={cardLinkStyle}>
       <div className="card-container">
