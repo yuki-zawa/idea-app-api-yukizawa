@@ -11,6 +11,7 @@ import { AccountLogin } from './components/pages/account/Login';
 import { IdeaList } from './components/pages/idea/List';
 import { IdeaDetail } from './components/pages/idea/Detail';
 import { AuthComponent } from './components/common/Auth';
+import { AddModal } from './components/pages/idea/AddModal'
 
 function App() {
   return(
@@ -25,7 +26,8 @@ function App() {
             <Route exact path='/account/login' component={AccountLogin}/>
             <AuthComponent>
               <Route exact path='/home' component={IdeaList}/>
-              <Route exact path='/ideas/:id' component={IdeaDetail}/>
+              <Route exact path='/ideas/new' component={AddModal}/>
+              <Route exact path='/ideas/:id/detail' component={IdeaDetail}/>
             </AuthComponent>
           </Switch>
         </BrowserRouter>

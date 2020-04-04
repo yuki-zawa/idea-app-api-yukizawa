@@ -20,7 +20,7 @@ const cardLinkStyle = {
 
 export const Card: React.FC<CardProps> = (props: any) => {
   return (
-    <Link to={`/ideas/${props.idea.id}`} style={cardLinkStyle}>
+    <Link to={`/ideas/${props.idea.id}/detail`} style={cardLinkStyle}>
       <div className="card-container">
         <div className="title-container">
           <span className="icon">{props.idea.icon ? props.idea.icon : "😓"}</span>
