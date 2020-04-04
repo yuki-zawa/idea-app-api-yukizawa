@@ -6,6 +6,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import { createStyles, fade, Theme, makeStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 
 import { Card } from './Card'
 
@@ -128,9 +129,11 @@ export const IdeaList: React.FC = (props: any) => {
           {showLoader ? <CircularProgress style={{ margin: "24px auto" }}/> : ""}
         </div>
         <div className="btns">
-          <button className="plus">
-            ＋
-          </button>
+          <Link to='/ideas/new'>
+            <button className="plus">
+              ＋
+            </button>
+          </Link>
           <button className="shuffle">
             ⇆
           </button>
