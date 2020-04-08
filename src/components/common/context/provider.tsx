@@ -33,11 +33,18 @@ export const Provider: React.FC<ProviderProps> = ({ children }) => {
     // set Authorization header
     axios.defaults.headers.common['Authorization'] = 'Bearer ' + TokenInCookie;
 
-    let currentUser = await axios.get(`/api/v1/users/me`);
-    setAuth({
-      isLogged: true,
-      user: currentUser,
-    });
+    await axios
+      .get(`/api/v1/users/me`)
+      .then((res) => {
+        setAuth({
+          isLogged: true,
+          user: res.data,
+        });
+      })
+      .catch(() => {
+        document.cookie = "token=; expires=0";
+      });
+
   }, []);
 
 

@@ -7,6 +7,7 @@ import { AuthContext } from './../../common/context/provider'
 import axios from 'axios';
 import { Redirect } from "react-router-dom";
 import { IdeaList } from "./List";
+import { AddTagModal } from './../tag/AddModal'
 
 const backLinkStyle = {
   display: "inline-block",
@@ -29,7 +30,8 @@ export const AddModal: React.FC = () => {
   const iconRef = useRef(document.createElement("select"));
   const titleRef = useRef(document.createElement("input"));
   const memoRef = useRef(document.createElement("textarea"));
-
+  const [openAddTagModal, setOpenAddTagModal] = useState(false);
+  const [tagState, setTagState] = useState(""); // "genre" or "idea"
 
   const { authState } = useContext(AuthContext);
   console.log(authState.user)
@@ -86,6 +88,15 @@ export const AddModal: React.FC = () => {
     })
   }
 
+  const openModal = (event: any) => {
+    setTagState(event.target.id);
+    setOpenAddTagModal(true);
+  }
+
+  const closeModal = () => {
+    setOpenAddTagModal(false);
+  }
+
   return (
     <HomeLayout title="idea list">
       <div className="container">
@@ -134,12 +145,12 @@ export const AddModal: React.FC = () => {
           <hr/>
           <div className="genre-tag-container">
             <p>カテゴリータグ</p>
-            <span className="plus">+</span>
+            <span className="plus" id="genre" onClick={openModal}>+</span>
             {/* <span className="genre-tag tag">✔︎{idea.genre_tags[0].name}</span>  */}
           </div>
           <div className="idea-tag-container">
             <p>アイデアタグ</p>
-            <span className="plus">+</span>
+            <span className="plus" id="idea" onClick={openModal}>+</span>
             {/* {
             idea && idea.idea_tags.map((tag: any, index: number) => {
                 return(
@@ -152,6 +163,14 @@ export const AddModal: React.FC = () => {
           <textarea ref={memoRef} className="memo-container" placeholder="メモをしよう！" onChange={changeDetail}/>
         </div>
         <button onClick={postIdea}>追加する</button>
+        { openAddTagModal ? 
+            <AddTagModal 
+              tagState={tagState}
+              closeFunc={closeModal}
+              selectedGenreTags={[]}
+              selectedIdeaTags={[]}
+            /> : ""
+        }
         <style jsx>{`
           .container {
             height: calc(100vh - 72px);
