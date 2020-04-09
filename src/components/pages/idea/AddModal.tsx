@@ -160,13 +160,13 @@ export const AddModal: React.FC = () => {
             <input ref={titleRef} onChange={changeTitle} type="text" />
           </div>
           <hr/>
+          <p>カテゴリータグ</p>
           <div className="genre-tag-container">
-            <p>カテゴリータグ</p>
             <span className="plus" id="genre" onClick={openModal}>+</span>
             {selectedGenreTag.id !== 0 ? <span className="genre-tag tag" style={{backgroundColor: selectedGenreTag.color}}>✔︎{selectedGenreTag.name}</span> : ""}
           </div>
+          <p>アイデアタグ</p>
           <div className="idea-tag-container">
-            <p>アイデアタグ</p>
             <span className="plus" id="idea" onClick={openModal}>+</span>
             {
             selectedIdeaTags && selectedIdeaTags.map((tag: any, index: number) => {
