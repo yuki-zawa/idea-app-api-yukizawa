@@ -169,7 +169,7 @@ export const AddModal: React.FC = () => {
           <div className="idea-tag-container">
             <span className="plus" id="idea" onClick={openModal}>+</span>
             {
-            selectedIdeaTags && selectedIdeaTags.map((tag: any, index: number) => {
+              selectedIdeaTags && selectedIdeaTags.map((tag: any, index: number) => {
                 return(
                   <span className="idea-tag tag" key={index}>✔︎{tag.name}</span>
                 )

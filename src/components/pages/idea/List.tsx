@@ -9,6 +9,7 @@ import { createStyles, fade, Theme, makeStyles } from '@material-ui/core/styles'
 import { Link } from 'react-router-dom';
 
 import { Card } from './Card'
+import { ShuffleModal } from "./ShuffleModal";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,6 +38,7 @@ export const IdeaList: React.FC = (props: any) => {
   const classes = useStyles();
 
   const [ideas, setIdeas] = useState([]);
+  const [openShuffleModal, setOpenShuffleModal] = useState(false);
   const [showLoader, setShowLoader] = React.useState(false);
   const [pagenation, setPagenation] = React.useState({
     total: 0,
@@ -83,6 +85,14 @@ export const IdeaList: React.FC = (props: any) => {
     });
   }
 
+  const shuffle = async () => {
+    if(pagenation.total < 2) {
+      window.alert("アイデアを二つ以上登録してください");
+      return;
+    }
+    setOpenShuffleModal(true);
+  }
+
   useEffect(() => {
     fetchIdeas();
   }, []);
@@ -104,10 +114,10 @@ export const IdeaList: React.FC = (props: any) => {
           />
         </div>
       </div>
-      <div className="tag-search-header">
+      <div className={`tag-search-header ${false ? "blur" : ""}`}>
         <p>タグで絞り込む▼</p>
       </div>
-      <div className="container">
+      <div className={`container ${false ? "blur" : ""}`}>
         <InfiniteScroll
           pageStart={1}
           hasMore={!showLoader && ideas && pagenation.total > ideas.length}
@@ -134,17 +144,34 @@ export const IdeaList: React.FC = (props: any) => {
               ＋
             </button>
           </Link>
-          <button className="shuffle">
+          <button className="shuffle" onClick={shuffle}>
             ⇆
           </button>
         </div>
       </div>
+      <div className="blur" />
+      { openShuffleModal ? 
+          <ShuffleModal />
+        : "" 
+      }
       <style jsx>{`
         .container {
+          height: 100%;
           padding: 1.25rem 1rem;
           overflow: auto;
           clear: both;
           margin-top: 72px;
+        }
+
+        .blur{
+          display: ${openShuffleModal ? ";" : "none;"}
+          background-color: gray;
+          opacity: 0.7;
+          filter: blur(7px);
+          width: 100%;
+          height: calc(100vh - 80px);
+          position: absolute;
+          top: 80px;
         }
 
         .list-header {
