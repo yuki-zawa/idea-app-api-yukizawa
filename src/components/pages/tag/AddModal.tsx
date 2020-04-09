@@ -112,6 +112,20 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
     setTagState(event.target.id);
   }
 
+  const selectTag = (event: any) => {
+    if (tagState === "genre"){
+      setSelectedGenreTag(tags[event.target.dataset.id]);
+      tags.splice(event.target.dataset.id, 1);
+      setTags(tags.concat(selectedGenreTag).sort((a: any, b: any) => { return a.id > b.id ? 1 : -1 }));
+      // setTags(temp.sort((a: any, b: any) => { return a.id > b.id ? 1 : -1 }));
+    } else {
+      console.log(tags[event.target.dataset.id])
+      setSelectedIdeaTags(selectedIdeaTags.concat(tags[event.target.dataset.id]));
+      tags.splice(event.target.dataset.id, 1)
+      setTags(tags);
+    }
+  }
+
   const completeModal = () => {
     props.setSelectedIdeaTags(selectedIdeaTags);
     props.setSelectedGenreTag(selectedGenreTag);
@@ -129,12 +143,10 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
     await axios
       .get(url)
       .then(res => {
-        //FIXME 選ばれてるやつは表示しない
         console.log(res.data.data);
         if (tagState === "genre"){
-          setTags(res.data.data.filter((value: any)=>{ return value.id !== selectedGenreTag.id }));
+          setTags(res.data.data.filter((value: any)=>{return value.id !== selectedGenreTag.id}));
         } else {
-          console.log(res.data.data)
           var tempArray = res.data.data
           selectedIdeaTags.map((value: any) => {
             tempArray = tempArray.filter((data: any) => {return value.id !== data.id})
@@ -185,7 +197,7 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
         {
           tags.map((tag: any, index: number) => {
             return(
-              <p className="tag" key={index}>{tag.name}</p>
+              <p className="tag" key={index} data-id={index} onClick={selectTag}>{tag.name}</p>
             )
           })
         }
