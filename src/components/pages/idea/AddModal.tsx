@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useRef, useContext, useEffect } from "react";
 import { HomeLayout } from "../../common/HomeLayout";
 import useReactRouter from "use-react-router";
 import { Link } from 'react-router-dom';
@@ -33,9 +33,12 @@ export const AddModal: React.FC = () => {
   const [openAddTagModal, setOpenAddTagModal] = useState(false);
   const [tagState, setTagState] = useState(""); // "genre" or "idea"
 
-  const { authState } = useContext(AuthContext);
-  console.log(authState.user)
-
+  const [selectedGenreTag, setSelectedGenreTag] = useState({
+    id: 0,
+    name: "",
+    color: "",
+  });
+  const [selectedIdeaTags, setSelectedIdeaTags] = useState([]);
   const [addData, setAddData] = useState<AddParam>({
     idea: {
       icon: "",
@@ -97,6 +100,20 @@ export const AddModal: React.FC = () => {
     setOpenAddTagModal(false);
   }
 
+  useEffect(() => {
+    var temp :Array<any> = [];
+    selectedIdeaTags.map((tag: any) => {
+      temp.push({"id": tag.id})
+    });
+    setAddData({
+      ...addData,
+      genre_tag: {
+        id: selectedGenreTag.id
+      },
+      idea_tags: temp
+    })
+  },[selectedIdeaTags, selectedGenreTag]);
+
   return (
     <HomeLayout title="idea list">
       <div className="container">
@@ -146,18 +163,18 @@ export const AddModal: React.FC = () => {
           <div className="genre-tag-container">
             <p>カテゴリータグ</p>
             <span className="plus" id="genre" onClick={openModal}>+</span>
-            {/* <span className="genre-tag tag">✔︎{idea.genre_tags[0].name}</span>  */}
+            {selectedGenreTag.id !== 0 ? <span className="genre-tag tag" style={{backgroundColor: selectedGenreTag.color}}>✔︎{selectedGenreTag.name}</span> : ""}
           </div>
           <div className="idea-tag-container">
             <p>アイデアタグ</p>
             <span className="plus" id="idea" onClick={openModal}>+</span>
-            {/* {
-            idea && idea.idea_tags.map((tag: any, index: number) => {
+            {
+            selectedIdeaTags && selectedIdeaTags.map((tag: any, index: number) => {
                 return(
                   <span className="idea-tag tag" key={index}>✔︎{tag.name}</span>
                 )
               })
-            } */}
+            }
           </div>
           <p className="memo-label">メモ</p>
           <textarea ref={memoRef} className="memo-container" placeholder="メモをしよう！" onChange={changeDetail}/>
@@ -167,8 +184,10 @@ export const AddModal: React.FC = () => {
             <AddTagModal 
               tagState={tagState}
               closeFunc={closeModal}
-              selectedGenreTags={[]}
-              selectedIdeaTags={[]}
+              selectedGenreTag={selectedGenreTag}
+              setSelectedGenreTag={setSelectedGenreTag}
+              selectedIdeaTags={selectedIdeaTags}
+              setSelectedIdeaTags={setSelectedIdeaTags}
             /> : ""
         }
         <style jsx>{`

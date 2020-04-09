@@ -19,8 +19,10 @@ const backLinkStyle = {
 type AddTagModalProps = {
   tagState: string,
   closeFunc: any,
-  selectedGenreTags: Array<any>,
+  selectedGenreTag: any,
+  setSelectedGenreTag: any,
   selectedIdeaTags: Array<any>,
+  setSelectedIdeaTags: any,
 };
 
 export interface AddGenreTagParam {
@@ -39,11 +41,7 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
 
   const [showLoader, setShowLoader] = useState(true);
   const [tags, setTags] = useState([]);
-  const [selectedGenreTags, setSelectedGenreTags] = useState(props.selectedGenreTags);
-  const [selectedIdeaTags, setSelectedIdeaTags] = useState(props.selectedIdeaTags);
   const [tagState, setTagState] = useState(props.tagState); // "genre" or "idea"
-  const { authState } = useContext(AuthContext);
-  console.log(authState.user)
 
   const [addGenreTag, setAddGenreTag] = useState<AddGenreTagParam>({
     color: "",
@@ -56,11 +54,15 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
     user_id: 0
   });
 
+  const [selectedGenreTag, setSelectedGenreTag] = useState(props.selectedGenreTag);
+  const [selectedIdeaTags, setSelectedIdeaTags] = useState(props.selectedIdeaTags);
+
   const handleChange = () => {
     if (tagState === "genre"){
       setAddGenreTag({
         ...addGenreTag,
-        name: nameRef.current.value
+        name: nameRef.current.value,
+        color: "red" //FIXME ここで色のランダム入れる
       })
     } else {
       setAddIdeaTag({
@@ -71,13 +73,11 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
   }
 
   const postTag = async () => {
-    console.log("追加する");
     var url;
     if (tagState === "genre"){
       setAddGenreTag({
         ...addGenreTag,
-        name: nameRef.current.value,
-        color: "red"
+        name: nameRef.current.value
       })
       url ="/api/v1/genre_tags";
       await axios
@@ -85,11 +85,12 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
         .then(res => {
           console.log(res.data);
           nameRef.current.value = '';
+          if (selectedGenreTag.id !== 0) {
+            setTags(tags.concat(selectedGenreTag))
+          }
+          setSelectedGenreTag(res.data)
         })
-        .catch(err => console.log(err))
-        .finally(() => {
-          fetchTags(); //再fetchしないで追加する方が良さそう FIXME
-        });
+        .catch(err => console.log(err));
     } else {
       setAddIdeaTag({
         ...addIdeaTag,
@@ -101,16 +102,20 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
         .then(res => {
           console.log(res.data)
           nameRef.current.value = '';
+          setSelectedIdeaTags(selectedIdeaTags.concat(res.data));
         })
         .catch(err => console.log(err))
-        .finally(() => {
-          fetchTags();//再fetchしないで追加する方が良さそう FIXME
-        });
     }
   }
 
   const changeTag = (event: any) => {
     setTagState(event.target.id);
+  }
+
+  const completeModal = () => {
+    props.setSelectedIdeaTags(selectedIdeaTags);
+    props.setSelectedGenreTag(selectedGenreTag);
+    props.closeFunc();
   }
 
   const fetchTags = async () => {
@@ -124,8 +129,18 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
     await axios
       .get(url)
       .then(res => {
+        //FIXME 選ばれてるやつは表示しない
         console.log(res.data.data);
-        setTags(res.data.data);
+        if (tagState === "genre"){
+          setTags(res.data.data.filter((value: any)=>{ return value.id !== selectedGenreTag.id }));
+        } else {
+          console.log(res.data.data)
+          var tempArray = res.data.data
+          selectedIdeaTags.map((value: any) => {
+            tempArray = tempArray.filter((data: any) => {return value.id !== data.id})
+          })
+          setTags(tempArray);
+        }
         setShowLoader(false);
       })
       .catch(err => console.log(err));
@@ -145,7 +160,7 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
             <span id="genre" onClick={changeTag}>カテゴリータグ</span>
             <span id="idea" onClick={changeTag}>アイデアタグ</span>
           </li>
-          <li>✔️</li>
+          <li onClick={completeModal}>✔️</li>
         </ul>
       </div>
       <div className="btn-container">
@@ -155,6 +170,16 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
         </button>
       </div>
       <p>追加済みのタグ</p>
+        {
+          tagState === "genre" ?
+            selectedGenreTag ? <p className="tag" color={selectedGenreTag.color}>{selectedGenreTag.name}</p> : ""
+          :
+          selectedIdeaTags.map((tag: any, index: number) => {
+            return(
+              <p className="tag" key={index}>{tag.name}</p>
+            )
+          })
+        }
       <p>タグを選択して追加する</p>
       <div className="tag-container">
         {
