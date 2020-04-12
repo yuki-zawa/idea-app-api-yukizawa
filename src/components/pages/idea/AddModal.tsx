@@ -24,7 +24,8 @@ export interface AddParam {
   idea_tags: any
 }
 
-const icons = ["😆", "😅", "💦", "😱"]
+const icons = ["😆", "😅", "💦", "😱"];
+const priorityLables = ["ひらめき度を設定しよう", "いいことを思いついた！", "なかなかいいひらめきだ！", "これはすごいひらめきだ！", "君は天才だ！", "世紀の大発見だ！"];
 
 export const AddModal: React.FC = () => {
   const iconRef = useRef(document.createElement("select"));
@@ -136,7 +137,7 @@ export const AddModal: React.FC = () => {
             <Rating 
               name="size-large"
               size="large"
-              style={{fontSize: "30px"}}
+              style={{height: "40px", lineHeight: "40px"}}
               defaultValue={0}
               onChange={(event, newValue) => {
                 console.log(newValue);
@@ -153,7 +154,10 @@ export const AddModal: React.FC = () => {
                 console.log(newHover);
                 console.log(event);
               }}
-          />
+            />
+            <div className="priority">
+              <p className="priority-label">{addData.idea.priority ? priorityLables[addData.idea.priority] : priorityLables[0]}</p>
+            </div>
           </div>
           <div>
             <label>タイトル</label>
@@ -220,6 +224,33 @@ export const AddModal: React.FC = () => {
             width: 48px;
             font-size: 48px;
             margin-bottom: 16px;
+          }
+
+          .priority {
+            position: relative;
+            display: inline-block;
+            margin: 1em 0 1em 24px;
+            padding: 7px 10px;
+            min-width: 120px;
+            max-width: 100%;
+            font-size: 16px;
+            background: #FEB342;
+            border-radius: 5px;
+          }
+          
+          .priority:before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: -20px;
+            margin-top: -8px;
+            border: 8px solid transparent;
+            border-right: 15px solid #FEB342;
+          }
+
+          .priority-label {
+            margin: 0;
+            padding: 0;
           }
 
           .idea-title {

@@ -73,6 +73,10 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
   }
 
   const postTag = async () => {
+    if (nameRef.current.value === ''){
+      //FIXME エラー表示させる
+      window.alert("文字が空")
+    }
     var url;
     if (tagState === "genre"){
       setAddGenreTag({
@@ -145,11 +149,11 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
       .then(res => {
         console.log(res.data.data);
         if (tagState === "genre"){
-          setTags(res.data.data.filter((value: any)=>{return value.id !== selectedGenreTag.id}));
+          setTags(res.data.data.filter((value: any) => { return value.id !== selectedGenreTag.id }));
         } else {
           var tempArray = res.data.data
           selectedIdeaTags.map((value: any) => {
-            tempArray = tempArray.filter((data: any) => {return value.id !== data.id})
+            tempArray = tempArray.filter((data: any) => { return value.id !== data.id })
           })
           setTags(tempArray);
         }
