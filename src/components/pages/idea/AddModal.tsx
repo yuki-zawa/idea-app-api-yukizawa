@@ -123,7 +123,7 @@ export const AddModal: React.FC = () => {
         </div>
         <div>
           <div>
-            <select name="category" id="category" onChange={changeCategory} ref={iconRef}>
+            <select name="category" id="category" onChange={changeCategory} ref={iconRef} className="styled-select">
               <option value="アイコンを選択 ▼">アイコンを選択 ▼</option>
               {
                 icons.map((icon: any, i) => {
@@ -160,8 +160,13 @@ export const AddModal: React.FC = () => {
             </div>
           </div>
           <div>
-            <label>タイトル</label>
-            <input ref={titleRef} onChange={changeTitle} type="text" />
+            <input 
+              ref={titleRef}
+              onChange={changeTitle}
+              placeholder={"アイデアを一言で表すと？"}
+              type="text"
+              className="title-input"
+            />
           </div>
           <hr/>
           <p>カテゴリータグ</p>
@@ -195,10 +200,32 @@ export const AddModal: React.FC = () => {
             /> : ""
         }
         <style jsx>{`
+        
           .container {
             height: calc(100vh - 72px);
             background-color: white;
             padding: 1.25rem 1rem;
+          }
+
+          .styled-select {
+            /* デフォルトのスタイルを解除 */
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            appearance: none;
+            /* スタイル */
+            display: inline-block;
+            width: 70px;
+            height: 70px;
+            padding: 0.5em;
+            cursor: pointer;
+            font-size: 32px;
+            border-radius: 4px;
+            background-color: #f7f9fb;
+          }
+
+          /* IEでデフォルトの矢印を消す */
+          .styled-select::-ms-expand {
+            display: none;
           }
 
           .top-part {
@@ -256,6 +283,13 @@ export const AddModal: React.FC = () => {
           .idea-title {
             margin: 0.75rem 0;
             font-size: 24px;
+          }
+
+          .title-input {
+            width: 95%;
+            height: 16px;
+            font-size: 16px;
+            padding: 0.25rem 0.5rem;
           }
 
           .plus {
