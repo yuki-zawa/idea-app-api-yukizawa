@@ -3,24 +3,33 @@ import React from "react";
 import { Link } from 'react-router-dom';
 
 type CardProps = {
-  idea: any
+  idea: any,
+  cardWidth: string,
+  cardHeight: string,
+  cardContentLine: number,
+  boxShadow?: string,
+  backgroundColor?: string,
+  disabled?: boolean
 };
 
-const cardLinkStyle = {
-  display: "inline-block",
-  width: "48%",
-  margin: "1%",
-  cursor: "pointer",
-  backgroundColor: "white",
-  marginBottom: "16px",
-  borderRadius: "5px",
-  boxShadow: "2px 2px 3px lightgray",
-  verticalAlign: "top"
-};
+
 
 export const Card: React.FC<CardProps> = (props: any) => {
+  const cardLinkStyle = {
+    display: "inline-block",
+    width: `${props.cardWidth}`,
+    height: ``,
+    margin: "1%",
+    cursor: "pointer",
+    backgroundColor: `${props.backgroundColor ? props.backgroundColor : "white"}`,
+    marginBottom: "16px",
+    borderRadius: "5px",
+    boxShadow: `${props.boxShadow ? props.boxShadow : "2px 2px 3px lightgray"}`,
+    verticalAlign: "top",
+  };
+
   return (
-    <Link to={`/ideas/${props.idea.id}/detail`} style={cardLinkStyle}>
+    <Link to={`/ideas/${props.idea.id}/detail`} style={cardLinkStyle} onClick={(event) => props.disabled ? event.preventDefault() : ""}>
       <div className="card-container">
         <div className="title-container">
           <span className="icon">{props.idea.icon ? props.idea.icon : "😓"}</span>
@@ -46,7 +55,7 @@ export const Card: React.FC<CardProps> = (props: any) => {
       <style jsx>
       {`
         .card-container{
-          height: 175px;
+          height: ${props.cardHeight};
           padding: 0.75rem 0.5rem;
         }
 
@@ -115,7 +124,7 @@ export const Card: React.FC<CardProps> = (props: any) => {
         .text-container p{
           display: -webkit-box;
           -webkit-box-orient: vertical;
-          -webkit-line-clamp: 4;
+          -webkit-line-clamp: ${props.cardContentLine};
         }
       `}
       </style>

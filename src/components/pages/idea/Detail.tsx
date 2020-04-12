@@ -146,6 +146,7 @@ export const IdeaDetail: React.FC = () => {
         .idea-title {
           margin: 0.75rem 0;
           font-size: 24px;
+          overflow-x: scroll;
         }
 
         .plus {

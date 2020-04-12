@@ -57,8 +57,6 @@ export const Top: React.FC = () => {
         <p className="intro-content">sample sample sample sample sample sample sample sample sample sample sample sample sample sample sample sample sample sample sample sample</p>
         <Link to='/introduction' style={detailLinkStyle}>詳しくはこちら➡︎</Link>
       </div>
-
-
       <style jsx>{`
         .container {
           padding: 1rem 1.5rem;

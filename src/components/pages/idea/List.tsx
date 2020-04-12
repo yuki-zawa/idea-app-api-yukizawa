@@ -85,12 +85,16 @@ export const IdeaList: React.FC = (props: any) => {
     });
   }
 
-  const shuffle = async () => {
+  const shuffle = () => {
     if(pagenation.total < 2) {
       window.alert("アイデアを二つ以上登録してください");
       return;
     }
     setOpenShuffleModal(true);
+  }
+
+  const closeShuffleModal = () => {
+    setOpenShuffleModal(false);
   }
 
   useEffect(() => {
@@ -130,6 +134,9 @@ export const IdeaList: React.FC = (props: any) => {
                 <Card 
                   idea={idea} 
                   key={index}
+                  cardWidth={"48%"}
+                  cardHeight={"175px"}
+                  cardContentLine={4}
                 />
               )
             })
@@ -151,7 +158,9 @@ export const IdeaList: React.FC = (props: any) => {
       </div>
       <div className="blur" />
       { openShuffleModal ? 
-          <ShuffleModal />
+          <ShuffleModal 
+            closeShuffleModal={closeShuffleModal}
+          />
         : "" 
       }
       <style jsx>{`
@@ -217,6 +226,7 @@ export const IdeaList: React.FC = (props: any) => {
         }
 
         .btns {
+          width: 176px;
           position: absolute;
             bottom: 30px;
             left: 50%;
