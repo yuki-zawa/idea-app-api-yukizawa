@@ -36,6 +36,8 @@ export interface AddIdeaTagParam {
   user_id: number,
 }
 
+const colors = ["#FFDADB", "#FCE9FF", "#FFF6CB", "#FFE5C7", "#CEF9DF", "#D0E0FF", "#E9DFFF", "#F1FFC8", "#E0FAFF", "#EFEFEF"];
+
 export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
   const nameRef = useRef(document.createElement("input"));
 
@@ -62,7 +64,7 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
       setAddGenreTag({
         ...addGenreTag,
         name: nameRef.current.value,
-        color: "red" //FIXME ここで色のランダム入れる
+        color: colors[Math.floor(Math.random()*10)]
       })
     } else {
       setAddIdeaTag({
