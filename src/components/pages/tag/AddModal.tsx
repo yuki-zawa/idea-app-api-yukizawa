@@ -173,37 +173,38 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
     <div className="container">
       <div className="inner-header">
         <ul>
-          <li onClick={props.closeFunc}>×</li>
+          <li onClick={props.closeFunc} className="cross-btn">×</li>
           <li>
-            <span id="genre" onClick={changeTag}>カテゴリータグ</span>
-            <span id="idea" onClick={changeTag}>アイデアタグ</span>
+            <span id="genre" onClick={changeTag} style={{color: tagState === "genre" ? "" : "lightgray"}}>カテゴリータグ</span>｜<span id="idea" onClick={changeTag} style={{color: tagState === "idea" ? "" : "lightgray"}}>アイデアタグ</span>
           </li>
-          <li onClick={completeModal}>✔️</li>
+          <li onClick={completeModal} className="check-btn">✔️</li>
         </ul>
       </div>
       <div className="btn-container">
-        <input ref={nameRef} onChange={handleChange}/>
-        <button onClick={postTag}>
-          タグを追加する　=>
+        <input ref={nameRef} onChange={handleChange} className="input-name" placeholder="create new tag"/>
+        <button onClick={postTag} className="add-btn">
+          タグを追加する =>
         </button>
       </div>
-      <p>追加済みのタグ</p>
+      <p className="label">追加済みのタグ</p>
+      <div className="selected-tag-container">
         {
           tagState === "genre" ?
-            selectedGenreTag ? <p className="tag" color={selectedGenreTag.color}>{selectedGenreTag.name}</p> : ""
+            selectedGenreTag ? <p className="tag" style={{backgroundColor: selectedGenreTag.color}}>{selectedGenreTag.name}</p> : ""
           :
           selectedIdeaTags.map((tag: any, index: number) => {
             return(
-              <p className="tag" key={index}>{tag.name}</p>
+              <p className="tag" key={index} style={{backgroundColor: "#E3EAF5"}}>{tag.name}</p>
             )
           })
         }
-      <p>タグを選択して追加する</p>
+      </div>
+      <p className="label">タグを選択して追加する</p>
       <div className="tag-container">
         {
           tags.map((tag: any, index: number) => {
             return(
-              <p className="tag" key={index} data-id={index} onClick={selectTag}>{tag.name}</p>
+              <p className="tag" key={index} data-id={index} onClick={selectTag} style={{backgroundColor: tagState === "genre"? tag.color :"#E3EAF5"}}>{tag.name}</p>
             )
           })
         }
@@ -214,13 +215,88 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
       <style jsx>{`
         .container {
           height: 100%;
-          width: 100%;
+          width: calc(100% - 32px);
           margin-top: 40px;
           background-color: white;
+          padding: 16px;
           position: absolute;
-          top: 0;
-          left: 0;
+            top: 0;
+            left: 0;
         }
+
+        .inner-header {
+          padding: 20px 0;
+          text-align: center;
+          position: relative;
+          display: inline-block;
+          width: 100%;
+        }
+
+        .cross-btn {
+          font-size: 32px;
+          font-weight: bold;
+          position: absolute;
+            left: 0;
+            top: 14px;
+        }
+
+        .check-btn {
+          font-size: 24px;
+          font-weight: bold;
+          color: lightblue;
+          position: absolute;
+            right: 2px;
+            top: 16px;
+        }
+
+        .input-name {
+          width: 100%;
+          height: 24px;
+          border-radius: 5px;
+          background-color: #E3EAF5;
+          border: 1px solid #ccc
+        }
+
+        .btn-container {
+          text-align: right;
+          margin-bottom: 24px;
+        }
+
+        .add-btn {
+          width: 150px;
+          background-color: #FEB342;
+          padding: 0.25rem 1.25rem;
+          margin: 1rem 0;
+          border-radius: 5px;
+          font-size: 12px;
+          font-weight: bold;
+        }
+
+        .label {
+          font-size: 12px;
+          font-weight: bold;
+        }
+
+        .selected-tag-container {
+          height: 32px;
+          width: auto;
+          white-space:nowrap;
+          overflow-x: scroll;
+          -ms-overflow-style: none;
+        }
+
+        .selected-tag-container::-webkit-scrollbar {
+          display:none;
+        }
+
+        .tag {
+          display: inline-block;
+          padding: 0.25rem 0.5rem;
+          margin: 0.25rem 0.5rem;
+          border-radius: 5px;
+        }
+
+        .selected-tag-container {}
       `}</style>
     </div>
   );

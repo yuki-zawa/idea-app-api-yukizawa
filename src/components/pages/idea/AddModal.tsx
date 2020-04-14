@@ -188,7 +188,7 @@ export const AddModal: React.FC = () => {
           <p className="memo-label">メモ</p>
           <textarea ref={memoRef} className="memo-container" placeholder="メモをしよう！" onChange={changeDetail}/>
         </div>
-        <button onClick={postIdea}>追加する</button>
+        <button onClick={postIdea} className="add-btn">追加する</button>
         { openAddTagModal ? 
             <AddTagModal 
               tagState={tagState}
@@ -344,6 +344,17 @@ export const AddModal: React.FC = () => {
 
           .text {
             padding: 1rem 0.75rem;
+          }
+
+          .add-btn {
+            display: block;
+            width: 200px;
+            background-color: #FEB342;
+            padding: 0.5rem 1.25rem;
+            margin: 1rem auto;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
           }
         `}</style>
       </div>
