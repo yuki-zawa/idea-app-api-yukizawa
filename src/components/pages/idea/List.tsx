@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { HomeLayout } from "../../common/HomeLayout";
 import axios from 'axios';
 import InfiniteScroll from "react-infinite-scroller";

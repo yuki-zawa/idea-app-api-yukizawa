@@ -1,15 +1,6 @@
-import React, { useState, useRef, useContext, useEffect } from "react";
-import { HomeLayout } from "../../common/HomeLayout";
-import useReactRouter from "use-react-router";
-import { Link } from 'react-router-dom';
-import { Rating } from '@material-ui/lab';
-import { AuthContext } from './../../common/context/provider'
+import React, { useState, useEffect } from "react";
 import axios from 'axios';
-import { Redirect } from "react-router-dom";
-import { IdeaList } from "./List";
-import { AddTagModal } from './../tag/AddModal'
 import { Card } from './Card'
-import { prependOnceListener } from "cluster";
 
 type ShuffleModalProps = {
   closeShuffleModal: any,
