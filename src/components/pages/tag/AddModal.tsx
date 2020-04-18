@@ -1,20 +1,6 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
-import { HomeLayout } from "../../common/HomeLayout";
-import useReactRouter from "use-react-router";
+import React, { useState, useRef, useEffect } from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { Link } from 'react-router-dom';
-import { Rating } from '@material-ui/lab';
-import { AuthContext } from './../../common/context/provider'
 import axios from 'axios';
-
-const backLinkStyle = {
-  display: "inline-block",
-  height: "24px",
-  width: "24px",
-  cursor: "pointer",
-  fontWeight: "bold" as "bold",
-  fontSize: "24px"
-};
 
 type AddTagModalProps = {
   tagState: string,

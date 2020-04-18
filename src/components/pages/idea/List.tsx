@@ -1,15 +1,16 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { HomeLayout } from "../../common/HomeLayout";
 import axios from 'axios';
 import InfiniteScroll from "react-infinite-scroller";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
-import { createStyles, fade, Theme, makeStyles } from '@material-ui/core/styles';
+import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 
 import { Card } from './Card'
 import { ShuffleModal } from "./ShuffleModal";
+import { TagSearch } from "./TagSearch";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -45,6 +46,8 @@ export const IdeaList: React.FC = (props: any) => {
     perPage: 10,
     currentPage: 1
   });
+
+
 
   const fetchIdeas = async () => {
     setShowLoader(true);
@@ -118,10 +121,8 @@ export const IdeaList: React.FC = (props: any) => {
           />
         </div>
       </div>
-      <div className={`tag-search-header ${false ? "blur" : ""}`}>
-        <p>タグで絞り込む▼</p>
-      </div>
-      <div className={`container ${false ? "blur" : ""}`}>
+      <TagSearch />
+      <div className={`container`}>
         <InfiniteScroll
           pageStart={1}
           hasMore={!showLoader && ideas && pagenation.total > ideas.length}
@@ -206,23 +207,6 @@ export const IdeaList: React.FC = (props: any) => {
           display: flex;
           align-items: center;
           justify-content: center; 
-        }
-
-        .tag-search-header {
-          text-align: center;
-          height: 32px;
-          position: absolute;
-            width: 100%;
-            top: 80px;
-            z-index: 100;
-          background-color: black;
-          color: white;
-          border-radius: 0px 0px 10px 10px;
-        }
-
-        .tag-search-header p {
-          line-height: 32px;
-          font-weight: bold;
         }
 
         .btns {
