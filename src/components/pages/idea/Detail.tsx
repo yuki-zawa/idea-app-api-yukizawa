@@ -90,12 +90,10 @@ export const IdeaDetail: React.FC = () => {
               <hr/>
               <div className="genre-tag-container">
                 <p>カテゴリータグ</p>
-                <span className="plus">+</span>
                 <span className="genre-tag tag">✔︎{idea.genre_tags[0].name}</span> 
               </div>
               <div className="idea-tag-container">
                 <p>アイデアタグ</p>
-                <span className="plus">+</span>
                 {
                   idea.idea_tags.map((tag: any, index: number) => {
                     return(
