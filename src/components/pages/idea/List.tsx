@@ -46,6 +46,8 @@ export const IdeaList: React.FC = (props: any) => {
     currentPage: 1
   });
 
+  const [searchState, setSearchState] = useState(false);
+
   const fetchIdeas = async () => {
     setShowLoader(true);
 
@@ -97,6 +99,18 @@ export const IdeaList: React.FC = (props: any) => {
     setOpenShuffleModal(false);
   }
 
+  const pullDown = () => {
+    document.getElementsByClassName('tag-search-header')[0].classList.add('active');
+    document.getElementsByClassName('tag-search-header')[0].getElementsByClassName('text')[0].textContent = "タグで絞り込む▲";
+    setSearchState(true);
+  }
+
+  const pullUp = () => {
+    document.getElementsByClassName('tag-search-header')[0].classList.remove('active');
+    document.getElementsByClassName('tag-search-header')[0].getElementsByClassName('text')[0].textContent = "タグで絞り込む▼";
+    setSearchState(false);
+  }
+
   useEffect(() => {
     fetchIdeas();
   }, []);
@@ -118,10 +132,16 @@ export const IdeaList: React.FC = (props: any) => {
           />
         </div>
       </div>
-      <div className={`tag-search-header ${false ? "blur" : ""}`}>
-        <p>タグで絞り込む▼</p>
+      <div className={`tag-search-header`}>
+        <div className="serch-content">
+          a
+          <button>
+            選択したタグで絞り込む =>
+          </button>
+        </div>
+        <p className="text" onClick={searchState ? pullUp : pullDown}>タグで絞り込む▼</p>
       </div>
-      <div className={`container ${false ? "blur" : ""}`}>
+      <div className={`container`}>
         <InfiniteScroll
           pageStart={1}
           hasMore={!showLoader && ideas && pagenation.total > ideas.length}
@@ -214,14 +234,40 @@ export const IdeaList: React.FC = (props: any) => {
           position: absolute;
             width: 100%;
             top: 80px;
-            z-index: 100;
+            z-index: 99;
           background-color: black;
           color: white;
           border-radius: 0px 0px 10px 10px;
+          transition: all 400ms 0s ease;
+        }
+
+        .active {
+          transform: translateY(80vh);
         }
 
         .tag-search-header p {
           line-height: 32px;
+          font-weight: bold;
+        }
+
+        .serch-content {
+          width: 100%;
+          color: black;
+          position: absolute;
+            top: -80vh;
+            z-index: -1;
+          height: 80vh;
+          background-color: white;
+        }
+
+        .serch-content button{
+          display: block;
+          width: 200px;
+          background-color: #FEB342;
+          padding: 0.5rem 1.25rem;
+          margin: 1rem auto;
+          border-radius: 5px;
+          font-size: 12px;
           font-weight: bold;
         }
 
