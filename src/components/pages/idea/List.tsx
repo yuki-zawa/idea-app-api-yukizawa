@@ -47,13 +47,13 @@ export const IdeaList: React.FC = (props: any) => {
     currentPage: 1
   });
 
-
+  const [tagSearchQuery, setTagSearchQuery] = useState('');
 
   const fetchIdeas = async () => {
     setShowLoader(true);
 
     let response = await axios
-      .get(`/api/v1/ideas?page=${pagenation.currentPage}&limit=${pagenation.perPage}`)
+      .get(`/api/v1/ideas?page=${1}&limit=${10}${tagSearchQuery}`)
       .then(result => result.data)
       .catch(error => console.log(error))
       .finally(() => {
@@ -72,7 +72,7 @@ export const IdeaList: React.FC = (props: any) => {
     setShowLoader(true);
     let response = await axios
       .get(
-        `/api/v1/ideas?page=${pagenation.currentPage + 1}&limit=${pagenation.perPage}`
+        `/api/v1/ideas?page=${pagenation.currentPage + 1}&limit=${pagenation.perPage}${tagSearchQuery}`
       )
       .then(result => result.data)
       .catch(error => console.log(error))
@@ -102,7 +102,9 @@ export const IdeaList: React.FC = (props: any) => {
 
   useEffect(() => {
     fetchIdeas();
-  }, []);
+    console.log(tagSearchQuery)
+  }, [tagSearchQuery]);
+
 
   return (
     <HomeLayout title="idea list">
@@ -121,7 +123,9 @@ export const IdeaList: React.FC = (props: any) => {
           />
         </div>
       </div>
-      <TagSearch />
+      <TagSearch
+        setQuery={setTagSearchQuery}
+      />
       <div className={`container`}>
         <InfiniteScroll
           pageStart={1}
