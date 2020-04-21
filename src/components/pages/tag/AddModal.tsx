@@ -111,7 +111,6 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
       setTags(tags.concat(selectedGenreTag).sort((a: any, b: any) => { return a.id > b.id ? 1 : -1 }));
       // setTags(temp.sort((a: any, b: any) => { return a.id > b.id ? 1 : -1 }));
     } else {
-      console.log(tags[event.target.dataset.id])
       setSelectedIdeaTags(selectedIdeaTags.concat(tags[event.target.dataset.id]));
       tags.splice(event.target.dataset.id, 1)
       setTags(tags);

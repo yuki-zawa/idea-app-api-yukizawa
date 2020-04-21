@@ -1,7 +1,9 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
+import axios from 'axios';
+import InfiniteScroll from "react-infinite-scroller";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,9 +28,32 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export const TagSearch: React.FC = () => {
+type TagSearchProps = {
+  setQuery: any,
+};
+
+export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
   const classes = useStyles();
   const [searchState, setSearchState] = useState(false);
+  const [genreTags, setGenreTags] = useState<any>([]);
+  const [ideaTags, setIdeaTags] = useState<any>([]);
+  const [selectedGenreTag, setSelectedGenreTag] = useState({
+    id: 0,
+    name: '',
+    color: '',
+    user_id: 0
+  });
+  const [selectedIdeaTags, setSelectedIdeaTags] = useState([]);
+  const [pagenationForGenreTags, setPagenationForGenreTags] = React.useState({
+    total: 0,
+    perPage: 10,
+    currentPage: 1
+  });
+  const [pagenationForIdeaTags, setPagenationForIdeaTags] = React.useState({
+    total: 0,
+    perPage: 10,
+    currentPage: 1
+  });
 
   const pullDown = () => {
     document.getElementsByClassName('tag-search-header')[0].classList.add('active');
@@ -42,9 +67,103 @@ export const TagSearch: React.FC = () => {
     setSearchState(false);
   }
 
+  const fetchGenreTags = async () => {
+    let response = await axios
+      .get(`/api/v1/genre_tags?page=${pagenationForGenreTags.currentPage}&limit=${pagenationForGenreTags.perPage}`)
+      .then(result => result.data)
+      .catch(error => console.log(error));
+    
+    setGenreTags(response.data);
+    setPagenationForGenreTags({
+      total: response.meta.total,
+      perPage: response.meta.perPage,
+      currentPage: response.meta.currentPage
+    });
+  }
+
+  const fetchIdeaTags = async () => {
+    let response = await axios
+      .get(`/api/v1/idea_tags?page=${pagenationForIdeaTags.currentPage}&limit=${pagenationForIdeaTags.perPage}`)
+      .then(result => result.data)
+      .catch(error => console.log(error));
+    
+    setIdeaTags(response.data);
+    setPagenationForIdeaTags({
+      total: response.meta.total,
+      perPage: response.meta.perPage,
+      currentPage: response.meta.currentPage
+    });
+  }
+
+  const fetchMoreGenreTags = async () => {
+    let response = await axios
+      .get(
+        `/api/v1/genre_tags?page=${pagenationForGenreTags.currentPage + 1}&limit=${pagenationForGenreTags.perPage}`
+      )
+      .then(result => result.data)
+      .catch(error => console.log(error));
+
+    // 配列の後ろに追加
+    setGenreTags(genreTags.concat(response.data));
+    setPagenationForGenreTags({
+      total: response.meta.total,
+      perPage: response.meta.perPage,
+      currentPage: response.meta.currentPage
+    });
+  }
+
+  const fetchMoreIdeaTags = async () => {
+    let response = await axios
+      .get(
+        `/api/v1/idea_tags?page=${pagenationForIdeaTags.currentPage + 1}&limit=${pagenationForIdeaTags.perPage}`
+      )
+      .then(result => result.data)
+      .catch(error => console.log(error));
+    // 配列の後ろに追加
+    setIdeaTags(ideaTags.concat(response.data));
+    setPagenationForIdeaTags({
+      total: response.meta.total,
+      perPage: response.meta.perPage,
+      currentPage: response.meta.currentPage
+    });
+  }
+
+  const selectTag = (type: string, event: any) => {
+    if(type==='genre'){
+      setSelectedGenreTag(genreTags[event.target.dataset.id]);
+      genreTags.splice(event.target.dataset.id, 1);
+      if(selectedGenreTag.id !== 0) {
+        setGenreTags(genreTags.concat(selectedGenreTag).sort((a: any, b: any) => { return a.id > b.id ? 1 : -1 }));
+      }
+    } else {
+      setSelectedIdeaTags(selectedIdeaTags.concat(ideaTags[event.target.dataset.id]));
+      ideaTags.splice(event.target.dataset.id, 1)
+      setIdeaTags(ideaTags);
+    }
+  }
+
   const filter = () => {
+    var queryString = '';
+    if(selectedGenreTag.id !== 0){
+      queryString += `&genre_tags=${selectedGenreTag.id}`;
+    }
+    if(selectedIdeaTags.length !== 0){
+      queryString += `&idea_tags=`;
+      selectedIdeaTags.map((ideaTag: any, index: number) => {
+        queryString += ideaTag.id
+        if(selectedIdeaTags.length-1 !== index){
+          queryString += ','
+        } 
+      })
+    }
+    props.setQuery(queryString);
     pullUp();
   }
+
+  useEffect(() => {
+    fetchGenreTags();
+    fetchIdeaTags();
+  }, [])
 
   return (
     <div className="container">
@@ -68,6 +187,27 @@ export const TagSearch: React.FC = () => {
                           }}
                 />
               </div>
+              <div style={{height:"calc(100% - 60px)", overflow:"auto"}}>
+                <div style={{borderBottom: "1px solid lightgray"}}>
+                  {
+                    selectedGenreTag.id !== 0 ? <p style={{backgroundColor: selectedGenreTag.color}} className="tag">{selectedGenreTag.name}</p> : ''
+                  }
+                </div>
+                <InfiniteScroll
+                  pageStart={1}
+                  hasMore={genreTags && pagenationForGenreTags.total > genreTags.length}
+                  loadMore={fetchMoreGenreTags}
+                  initialLoad={false}
+                >
+                  {
+                    genreTags && genreTags.map((genreTag: any, index: number) => {
+                      return (
+                        <p key={index} data-id={index} style={{backgroundColor: genreTag.color}} className="tag" onClick={(event) => selectTag("genre", event)}>{genreTag.name}</p>
+                      )
+                    })
+                  }
+                </InfiniteScroll>
+              </div>
             </div>
           </div>
           <div className="tag-container">
@@ -87,6 +227,31 @@ export const TagSearch: React.FC = () => {
                             input: classes.inputInput,
                           }}
                 />
+              </div>
+              <div style={{height:"calc(100% - 60px)", overflow:"auto"}}>
+                <div style={{borderBottom: "1px solid lightgray"}}>
+                  {
+                    selectedIdeaTags && selectedIdeaTags.map((ideaTag: any, index: number) => {
+                      return (
+                        <p key={index} style={{backgroundColor: '#E3EAF5'}} className="tag">{ideaTag.name}</p>
+                      )
+                    })
+                  }
+                </div>
+                <InfiniteScroll
+                  pageStart={1}
+                  hasMore={ideaTags && pagenationForIdeaTags.total > ideaTags.length}
+                  loadMore={fetchMoreIdeaTags}
+                  initialLoad={false}
+                >
+                  {
+                    ideaTags && ideaTags.map((ideaTag: any, index: number) => {
+                      return (
+                        <p key={index} data-id={index} style={{backgroundColor: '#E3EAF5'}} className="tag" onClick={(event) => selectTag("idea", event)}>{ideaTag.name}</p>
+                      )
+                    })
+                  }
+                </InfiniteScroll>
               </div>
             </div>
           </div>
@@ -179,6 +344,15 @@ export const TagSearch: React.FC = () => {
           display: flex;
           align-items: center;
           justify-content: center; 
+        }
+
+        .tag {
+          width: 70%;
+          padding: 0.125rem 0.25rem;
+          margin: 0.5rem auto;
+          border-radius: 4px;
+          box-shadow: 2px 2px 3px lightgray;
+          overflow: hidden;
         }
       `}</style>
     </div>
