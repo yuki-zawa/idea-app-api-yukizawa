@@ -37,6 +37,8 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
   const [searchState, setSearchState] = useState(false);
   const [genreTags, setGenreTags] = useState<any>([]);
   const [ideaTags, setIdeaTags] = useState<any>([]);
+  const [genreTagWord, setGenreTagWord] = useState('');
+  const [ideaTagWord, setIdeaTagWord] = useState('');
   const [selectedGenreTag, setSelectedGenreTag] = useState({
     id: 0,
     name: '',
@@ -69,11 +71,11 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
 
   const fetchGenreTags = async () => {
     let response = await axios
-      .get(`/api/v1/genre_tags?page=${pagenationForGenreTags.currentPage}&limit=${pagenationForGenreTags.perPage}`)
+      .get(`/api/v1/genre_tags?page=${1}&limit=${10}&word=${genreTagWord}`)
       .then(result => result.data)
       .catch(error => console.log(error));
-    
-    setGenreTags(response.data);
+
+    setGenreTags(response.data.filter((tag: any) => tag.id !== selectedGenreTag.id));
     setPagenationForGenreTags({
       total: response.meta.total,
       perPage: response.meta.perPage,
@@ -83,10 +85,10 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
 
   const fetchIdeaTags = async () => {
     let response = await axios
-      .get(`/api/v1/idea_tags?page=${pagenationForIdeaTags.currentPage}&limit=${pagenationForIdeaTags.perPage}`)
+      .get(`/api/v1/idea_tags?page=${1}&limit=${10}&word=${ideaTagWord}`)
       .then(result => result.data)
       .catch(error => console.log(error));
-    
+
     setIdeaTags(response.data);
     setPagenationForIdeaTags({
       total: response.meta.total,
@@ -102,9 +104,8 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
       )
       .then(result => result.data)
       .catch(error => console.log(error));
-
     // 配列の後ろに追加
-    setGenreTags(genreTags.concat(response.data));
+    setGenreTags(genreTags.concat(response.data.filter((tag: any) => tag.id !== selectedGenreTag.id)));
     setPagenationForGenreTags({
       total: response.meta.total,
       perPage: response.meta.perPage,
@@ -160,10 +161,21 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
     pullUp();
   }
 
+  const handleIdeaTagChange = (event: any) => {
+    setIdeaTagWord(event.target.value);
+  }
+
+  const handleGenreTagChange = (event: any) => {
+    setGenreTagWord(event.target.value);
+  }
+
   useEffect(() => {
     fetchGenreTags();
+  }, [genreTagWord]);
+
+  useEffect(() => {
     fetchIdeaTags();
-  }, [])
+  }, [ideaTagWord]);
 
   return (
     <div className="container">
@@ -181,6 +193,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                 <InputBase
                   placeholder="アイデアを検索する"
                   inputProps={{ 'aria-label': 'search' }}
+                  onChange={(event) => handleGenreTagChange(event)}
                   classes={{
                             root: classes.inputRoot,
                             input: classes.inputInput,
@@ -222,6 +235,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                 <InputBase
                   placeholder="アイデアを検索する"
                   inputProps={{ 'aria-label': 'search' }}
+                  onChange={(event) => handleIdeaTagChange(event)}
                   classes={{
                             root: classes.inputRoot,
                             input: classes.inputInput,
