@@ -168,6 +168,22 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
   const handleGenreTagChange = (event: any) => {
     setGenreTagWord(event.target.value);
   }
+  
+  const deleteTag = (type: string, event: any) => {
+    if(type==='genre'){
+      setGenreTags(genreTags.concat(selectedGenreTag).sort((a: any, b: any) => { return a.id > b.id ? 1 : -1 }));
+      setSelectedGenreTag({
+        id: 0,
+        name: '',
+        color: '',
+        user_id: 0
+      });
+    } else {
+      setIdeaTags(ideaTags.concat(selectedIdeaTags[event.target.dataset.id]).sort((a: any, b: any) => { return a.id > b.id ? 1 : -1 }));
+      selectedIdeaTags.splice(event.target.dataset.id, 1)
+      setSelectedIdeaTags(selectedIdeaTags);
+    }
+  }
 
   useEffect(() => {
     fetchGenreTags();
@@ -203,7 +219,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
               <div style={{height:"calc(100% - 60px)", overflow:"auto"}}>
                 <div style={{borderBottom: "1px solid lightgray"}}>
                   {
-                    selectedGenreTag.id !== 0 ? <p style={{backgroundColor: selectedGenreTag.color}} className="tag">{selectedGenreTag.name}</p> : ''
+                    selectedGenreTag.id !== 0 ? <p style={{backgroundColor: selectedGenreTag.color}} className="tag" data-id={0} onClick={(event) => deleteTag("genre", event)}>{selectedGenreTag.name}</p> : ''
                   }
                 </div>
                 <InfiniteScroll
@@ -247,7 +263,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                   {
                     selectedIdeaTags && selectedIdeaTags.map((ideaTag: any, index: number) => {
                       return (
-                        <p key={index} style={{backgroundColor: '#E3EAF5'}} className="tag">{ideaTag.name}</p>
+                        <p key={index} style={{backgroundColor: '#E3EAF5'}} className="tag" data-id={index} onClick={(event) => deleteTag("idea", event)}>{ideaTag.name}</p>
                       )
                     })
                   }
