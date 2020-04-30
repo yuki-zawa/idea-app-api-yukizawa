@@ -46,10 +46,10 @@ function App() {
         }
 
         .App {
-          height: 100vh;
+          // height: 100vh;
           -ms-overflow-style: none;    /* IE, Edge 対応 */
           scrollbar-width: none;       /* Firefox 対応 */
-          overflow: auto;
+          //overflow: auto;
         }
 
         button{
