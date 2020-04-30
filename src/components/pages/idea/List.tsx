@@ -39,6 +39,7 @@ export const IdeaList: React.FC = (props: any) => {
   const classes = useStyles();
 
   const [ideas, setIdeas] = useState([]);
+  const [word, setWord] = useState('');
   const [openShuffleModal, setOpenShuffleModal] = useState(false);
   const [showLoader, setShowLoader] = React.useState(false);
   const [pagenation, setPagenation] = React.useState({
@@ -100,9 +101,12 @@ export const IdeaList: React.FC = (props: any) => {
     setOpenShuffleModal(false);
   }
 
+  const handleChange = (event: any) => {
+    setTagSearchQuery(tagSearchQuery + `&word=${event.target.value}`);
+  }
+
   useEffect(() => {
     fetchIdeas();
-    console.log(tagSearchQuery)
   }, [tagSearchQuery]);
 
 
@@ -120,11 +124,13 @@ export const IdeaList: React.FC = (props: any) => {
                       root: classes.inputRoot,
                       input: classes.inputInput,
                     }}
+            onChange={handleChange}
           />
         </div>
       </div>
       <TagSearch
         setQuery={setTagSearchQuery}
+        currentQuery={tagSearchQuery}
       />
       <div className={`container`}>
         <InfiniteScroll

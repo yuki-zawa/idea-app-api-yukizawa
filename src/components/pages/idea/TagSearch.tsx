@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 type TagSearchProps = {
   setQuery: any,
+  currentQuery: any,
 };
 
 export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
@@ -162,7 +163,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
   }
 
   const filter = () => {
-    var queryString = '';
+    var queryString = props.currentQuery.replace(/&genre_tags=.*(?=&)|&genre_tags=.*(?!&)|&idea_tags=.*(?=&)|&idea_tags=.*(?!&)/g, '');
     if(selectedGenreTag.id !== 0){
       queryString += `&genre_tags=${selectedGenreTag.id}`;
     }
@@ -227,7 +228,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                 <InputBase
                   placeholder="アイデアを検索する"
                   inputProps={{ 'aria-label': 'search' }}
-                  onChange={(event) => handleGenreTagChange(event)}
+                  onChange={handleGenreTagChange}
                   classes={{
                             root: classes.inputRoot,
                             input: classes.inputInput,
@@ -269,7 +270,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                 <InputBase
                   placeholder="アイデアを検索する"
                   inputProps={{ 'aria-label': 'search' }}
-                  onChange={(event) => handleIdeaTagChange(event)}
+                  onChange={handleIdeaTagChange}
                   classes={{
                             root: classes.inputRoot,
                             input: classes.inputInput,
