@@ -314,7 +314,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
         .tag-search-header {
           text-align: center;
           height: 32px;
-          position: absolute;
+          position: fixed;
             width: 100%;
             top: 80px;
             z-index: 99;

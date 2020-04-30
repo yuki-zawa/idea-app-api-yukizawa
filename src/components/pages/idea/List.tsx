@@ -176,11 +176,14 @@ export const IdeaList: React.FC = (props: any) => {
       }
       <style jsx>{`
         .container {
-          height: 100%;
+          height: calc(100vh - 108px);
+          width: calc(100% - 2rem);
           padding: 1.25rem 1rem;
-          overflow: auto;
           clear: both;
-          margin-top: 72px;
+          position: fixed;
+          top: 108px;
+          left: 0;
+          overflow-y: scroll;
         }
 
         .blur{
@@ -197,7 +200,7 @@ export const IdeaList: React.FC = (props: any) => {
         .list-header {
           height: 40px;
           background-color: white;
-          position: absolute;
+          position: fixed;
           width: 100%;
           top: 40px;
           z-index: 100;
@@ -221,7 +224,7 @@ export const IdeaList: React.FC = (props: any) => {
 
         .btns {
           width: 176px;
-          position: absolute;
+          position: fixed;
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%)
