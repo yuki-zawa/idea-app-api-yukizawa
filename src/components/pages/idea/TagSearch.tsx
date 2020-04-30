@@ -89,7 +89,16 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
       .then(result => result.data)
       .catch(error => console.log(error));
 
-    setIdeaTags(response.data);
+    setIdeaTags(response.data.filter((tag: any) => {
+      var flag = true;
+      selectedIdeaTags.map((selectedTag: any) => {
+        if (selectedTag.id === tag.id) {
+          flag = false;
+          return;
+        }
+      })
+      return flag;
+    }));
     setPagenationForIdeaTags({
       total: response.meta.total,
       perPage: response.meta.perPage,
