@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import useReactRouter from "use-react-router";
-import { Link } from 'react-router-dom';
+import { AuthContext } from "./context/provider";
+import axios from "axios";
 
 const linkStyle = {
   textAlign: "center" as "center",
@@ -14,49 +15,58 @@ const linkStyle = {
 
 type HeaderProps = {
   title: string,
-  location?: string
+  location?: string,
+  history?: any,
 };
 
 
 
 export const Header: React.FC<HeaderProps> = (props) => {
   const path = useReactRouter().location.pathname;
+  const { authState, setAuth } = useContext(AuthContext);
+
+  const send = async () => {
+    // set Authorization empty header
+    axios.defaults.headers.common['Authorization'] = '';
+    //cookie削除
+    document.cookie = "token=; expires=0";
+    setAuth({
+      isLogged: false,
+      user: null
+    });
+    window.location.href = '/'
+    return;
+  }
+
   return (
     <header>
       <ul>
-        <li>left</li>
         <li className="title">{props.title}</li>
-        <li>right</li>
+        <button onClick={ send }>
+          ログアウト
+        </button>
       </ul>
       <style jsx>{`
         header {
           width: 100%;
-          height: 8vh;
-          background-color: #32CD32;
+          height: 40px;
+          background-color: white;
           position: fixed;
             left: 0;
             top: 0;
             z-index: 100;
+          box-shadow: 0px 0px 10px gray;
         }
-
-        .menu-container {
-          background-color: #E0FFE0;
-          width: 33vw;
-          display: inline-block;
-          position: fixed;
-            top: 8vh;
-            right: 0;
-        }
-
+        
         ul {
           position: relative;
-          height: 8vh;
+          height: 40px;
         }
 
         .title {
           width: 100px;
           text-align: center;
-          line-height: 8vh;
+          line-height: 40px;
           position: absolute;
           left: 0;
           right: 0;
@@ -65,14 +75,6 @@ export const Header: React.FC<HeaderProps> = (props) => {
           margin: auto;
           font-size: 20px;
           font-weight: 700;
-        }
-
-        .menu {
-          text-align: center;
-          line-height: 8vh;
-          padding-right: 10px;
-          float: right;
-          cursor: pointer;
         }
 
       `}</style>

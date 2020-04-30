@@ -14,7 +14,7 @@ const linkStyle = {
 export const AccountCreate: React.FC = () => {
   return (
     <div>
-      <h1 className="title">ideaStokkerを始める</h1>
+      <h1 className="title">STOCKROOMを始める</h1>
       <div>
         <label>メールアドレス</label>
         <input type="text" placeholder="メールアドレス"/>
