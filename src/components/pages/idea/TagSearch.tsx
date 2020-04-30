@@ -218,7 +218,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
         <div className="serch-content">
           <div className="tag-container">
             <div className="label">
-              <label>カテゴリー</label><span className="btn">絞り込みを解除</span>
+              <label>カテゴリー</label>
             </div>
             <div className="tag-search">
               <div className="search">
@@ -260,7 +260,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
           </div>
           <div className="tag-container">
             <div className="label">
-              <label>アイデア</label><span className="btn">全て選択する</span>
+              <label>アイデア</label>
             </div>
             <div className="tag-search">
               <div className="search">
