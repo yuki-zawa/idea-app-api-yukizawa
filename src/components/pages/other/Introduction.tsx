@@ -4,14 +4,24 @@ import Logotype from './../../../../src/components/images/logotype.svg'
 import About01 from './../../../../src/components/images/about-01.png'
 import About02 from './../../../../src/components/images/about-02.png'
 import About03 from './../../../../src/components/images/about-03.png'
-import Features01 from './../../../../src/components/images/features-01.png'
-import Features02 from './../../../../src/components/images/features-02.png'
-import Features03 from './../../../../src/components/images/features-03.png'
+import FeaturesNum01 from './../../../../src/components/images/features-num01.png'
+import FeaturesNum02 from './../../../../src/components/images/features-num02.png'
+import FeaturesNum03 from './../../../../src/components/images/features-num03.png'
+import FeaturesImg01 from './../../../../src/components/images/features-img01.png'
+import FeaturesImg02 from './../../../../src/components/images/features-img02.png'
+import FeaturesImg03 from './../../../../src/components/images/features-img03.png'
+import FeaturesMock01 from './../../../../src/components/images/features-mock01.png'
+import FeaturesMock02 from './../../../../src/components/images/features-mock02.png'
+import FeaturesMock03 from './../../../../src/components/images/features-mock03.png'
 import Note from './../../../../src/components/images/first-view-note.svg'
 import Appicon from './../../../../src/components/images/app-icon.png'
 import AboutTitle from './../../../../src/components/images/about-title.svg'
 import FeaturesTitle from './../../../../src/components/images/features-title.svg'
 import RecommendTitle from './../../../../src/components/images/recommend-title.svg'
+import Recommend from './../../../../src/components/images/recommend.png'
+import Begin from './../../../../src/components/images/begin.svg'
+import PartitionTop from './../../../../src/components/images/Partition-top.svg'
+import PartitionBottom from './../../../../src/components/images/Partition-bottom.svg'
 
 const body = {
     background: "#fff",
@@ -26,7 +36,7 @@ const body = {
 
 export const Introduction: React.FC = () => {
   return (
-    <div>
+    <div className="body">
         <link href="https://fonts.googleapis.com/css2?family=Sawarabi+Gothic&display=swap" rel="stylesheet"></link>
         <header className="header">
             <img className="header-title-logo" src={ Logotype } alt="STOCKROOM"/>
@@ -49,15 +59,16 @@ export const Introduction: React.FC = () => {
                 </div>
             </div>
         </section>
-        <section className="about-section">
-            <div className="about-title_wrapper">
-                <img className="about-title" src={ AboutTitle } alt="About"/>
+        {/* about */}
+        <section className="page-section">
+            <div className="page-title_wrapper">
+                <img className="page-title" src={ AboutTitle } alt="About"/>
             </div>
             <section className="about-subsection">
                 <h2 className="about-subtitle">ひらめきをストックする<br/>メモアプリ</h2>
                 <p className="about-sentence">
                     欲しい洋服、SNSのネタ、事業のアイデア…<br/>
-                    STOCKROOMは様々な「ひらめき」を一ヶ所にまとめることができるメモアプリです。
+                    STOCKROOMは、あなたの様々な「ひらめき」を一ヶ所にまとめるメモアプリです。
                 </p>
                 <div className="about-img_wrapper01">
                     <img className="about-img" src={ About01 } alt=""/>
@@ -67,7 +78,7 @@ export const Introduction: React.FC = () => {
             <section className="about-subsection">
                 <h2 className="about-subtitle">タグ機能で頭の中を<br/>整理しよう</h2>
                 <p className="about-sentence">
-                    ひらめきはタグ機能で整理できます。さらに、絞り込み機能でいつでも探してるひらめきを探し出すことができます。
+                    ひらめきはタグ機能を使って整理できます。さらに、絞り込み機能でいつでも探してるひらめきを探し出すことができます。
                 </p>
                 <div className="about-img_wrapper02">
                     <img className="about-img" src={ About02 } alt=""/>
@@ -76,51 +87,66 @@ export const Introduction: React.FC = () => {
             <section className="about-subsection_last">
                 <h2 className="about-subtitle">プロジェクトを超えて<br/>ひらめきを活用しよう</h2>
                 <p className="about-sentence">
-                    欲しい洋服、SNSのネタ、事業のアイデア…<br/>
-                    STOCKROOMは様々な「ひらめき」を一ヶ所にまとめることができるメモアプリです。
+                    ひらめきを一箇所にまとめることで、プロジェクトを超えて柔軟にひらめきを活用することができます！
                 </p>
                 <div className="about-img_wrapper03">
                     <img className="about-img" src={ About03 } alt=""/>
                 </div>
             </section>
         </section>
-        <section className="recommend-section">
-            <div className="recommend-title_wrapper">
-                <img className="recommend-title" src={ RecommendTitle } alt="Recommend"/>
+        {/* features */}
+        <section className="page-section">
+            <div className="page-title_wrapper">
+                <img className="page-title" src={ RecommendTitle } alt="Recommend"/>
             </div>
             <h2 className="recommend-subtitle">ホーム画面に追加する</h2>
             <p className="recommend-sentence">STOCKROOMはホーム画面に追加することでアプリのように使うことが出来ます。是非ホーム画面に追加してご利用ください！</p>
-            <img className="recommend-img" src="recommend-img" alt=""/>
-            <button className="recommend-img">ホーム画面に追加する方法</button>
-        </section>
-        <section className="features-section">
-            <div className="about-title_wrapper">
-                <img className="about-title" src={ AboutTitle } alt="About"/>
+            <img className="recommend-img" src={ Recommend } alt=""/>
+            <button className="recommend-btn">ホーム画面に追加する方法</button>
+        </section>  
+        {/* features */}
+        <section className="page-section features-section">
+            <div className="page-title_wrapper">
+                <img className="page-title" src={ FeaturesTitle } alt="Features"/>
             </div>
-            <section className="features-section">
-                <img className="features-num" src="img/features-num01.png" alt="01"/>
-                <h2>ひらめきをストックする</h2>
-                <img className="features-img" src="img/features-img01.png" alt=""/>
-                <p className="features-sentense">何かをひらめいた瞬間に、サクッと手軽にメモができます。ひらめきにはタグをつけることができ、頭の中の整理整頓に役立ちます。</p>
-                <img className="features-mock-img" src="img/features-mock01.png" alt=""/>
-            </section>
-            <section className="features-section">
-                <img className="features-num" src="img/features-num02.png" alt="02"/>
+            <img className="features-partition" src={ PartitionBottom } alt=""/>
+            <section className="features-subsection">
+                <img className="features-num" src={ FeaturesNum01 } alt="01"/>
                 <h2 className="features-subtitle">ひらめきをストックする</h2>
-                <img className="features-img" src="img/features-img02.png" alt=""/>
+                <div className="features-img_wrapper01">
+                    <img className="features-img" src={ FeaturesImg01 } alt=""/>
+                </div>
                 <p className="features-sentense">何かをひらめいた瞬間に、サクッと手軽にメモができます。ひらめきにはタグをつけることができ、頭の中の整理整頓に役立ちます。</p>
-                <img className="features-mock-img" src="img/features-mock02.png" alt=""/>
+                <img className="features-mock-img" src={ FeaturesMock01 } alt=""/>
             </section>
-            <section className="features-section">
-                <img className="features-num" src="img/features-num03.png" alt="03"/>
+            <img className="features-partition" src={ PartitionTop } alt=""/>
+            <img className="features-partition" src={ PartitionBottom } alt=""/>
+            <section className="features-subsection">
+                <img className="features-num" src={ FeaturesNum02 } alt="02"/>
+                <h2 className="features-subtitle">ひらめきを見返す</h2>
+                <div className="features-img_wrapper02">
+                    <img className="features-img" src={ FeaturesImg02 } alt=""/>
+                </div>
+                <p className="features-sentense">何かをひらめいた瞬間に、サクッと手軽にメモができます。ひらめきにはタグをつけることができ、頭の中の整理整頓に役立ちます。</p>
+                <img className="features-mock-img" src={ FeaturesMock02 } alt=""/>
+            </section>
+            <img className="features-partition" src={ PartitionTop } alt=""/>
+            <img className="features-partition" src={ PartitionBottom } alt=""/>
+            <section className="features-subsection">
+                <img className="features-num" src={ FeaturesNum03 } alt="03"/>
                 <h2 className="features-subtitle">新しく、ひらめく</h2>
-                <img className="features-img" src="img/features-img03.png" alt=""/>
+                <div className="features-img_wrapper03">
+                    <img className="features-img" src={ FeaturesImg03 } alt=""/>
+                </div>
                 <p className="features-sentense">新しいアイデアがなかなか出てこない時、「シャッフル機能」でランダムなアイデアの組み合わせを提案。あなたの新たなひらめきをサポートします！</p>
-                <img className="features-mock-img" src="img/features-mock03.png" alt=""/>
+                <img className="features-mock-img" src={ FeaturesMock03 } alt=""/>
             </section>
+            <img src={ PartitionBottom } alt=""/>
         </section>
-        <section className="demand-section">
-            <h1 className="demand-title">Let's begin</h1>
+        <section className="page-section demand-section">
+            <div className="demand-title_wrapper">
+                <img className="demand-title" src={ Begin } alt="begin"/>
+            </div>
             <p className="demand-sentence">
                 STOCKROOMを使って、<br/>
                 創作活動を充実させましょう!
@@ -144,6 +170,11 @@ export const Introduction: React.FC = () => {
             }
             p{
                 font-size: 16px;
+                line-height: 1.6em;
+            }
+            .body{
+                width: 100%;
+                overflow-x: hidden;
             }
             .header{
                 background-color: white;
@@ -179,6 +210,7 @@ export const Introduction: React.FC = () => {
                 position: relative;
                 background-color: #FEB342;
                 margin-bottom: 100px;
+                width: 100%;
             }
             .firstview-note{
                 display: flex;
@@ -192,6 +224,7 @@ export const Introduction: React.FC = () => {
                 padding: 88px 40px 0 40px;
                 display: flex;
                 flex-direction: column;
+                transform:rotate(-1deg);
             }
             .firstview-note_bg{
                 z-index: 1;
@@ -218,6 +251,9 @@ export const Introduction: React.FC = () => {
             }
             .firstview-caption{
                 margin-bottom: 24px;
+                line-height: 1.4em;
+                font-weight: bold;
+                letter: spacing: 2em;
             }
             .firstview-btn{
                 background-color: #FEB342;
@@ -228,15 +264,19 @@ export const Introduction: React.FC = () => {
                 margin-right: 0;
                 margin-left: auto;
             }
-            //about
-            .about-section{
+
+            .page-section{
                 padding: 0 32px;
+                margin-bottom: 120px;
             }
-            .about-title_wrapper{
+            .page-title_wrapper{
                 margin: 0 auto 72px auto;
                 padding-left: 32px;
                 text-align: center;
             }
+
+            //about
+            
             .about-subsection{
                 margin-bottom: 80px;
             }
@@ -267,6 +307,114 @@ export const Introduction: React.FC = () => {
             .about-img{
                 width: 100%;
                 height: auto;
+            }
+
+            // recommend
+            .recommend-subtitle{
+                font-size: 24px;
+                line-height: 1.4em;
+                font-weight: bold;
+                color: #FEB342;
+                margin-bottom: 20px;
+                text-align: center;
+            }
+            .recommend-sentence{
+                text-align: justify;
+                line-height: 1.6em;
+                margin-bottom: 32px;
+            }
+            .recommend-img{
+                width: 100%;
+                height: auto;
+                margin-bottom: 40px;
+            }
+            .recommend-btn{
+                background-color: #FEB342;
+                width: 220px;
+                height: 32px;
+                font-weight: bold;
+                border-radius: 4px;
+                margin: 0 auto;
+            }
+
+            //festures
+            .features-section{
+                padding: 0;
+                padding-top: 64px;
+                background-color: #FEB342;
+                
+            }
+            .features-partition{
+                width: 100%;
+                height: auto;
+            }
+            .features-subsection{
+                padding: 0 32px;
+                background-color: white;
+            }
+            .features-num{
+                width: 64px;
+                height: auto;
+                margin-bottom: 32px;
+            }
+            .features-subtitle{
+                font-size: 24px;
+                line-height: 1.4em;
+                font-weight: bold;
+                color: black;
+                margin-bottom: 20px;
+            }
+            .features-mock-img{
+                width: 100%;
+                height: auto;
+            }
+            .features-sentense{
+                text-align: justify;
+                line-height: 1.6em;
+                margin-bottom: 40px;
+            }
+            .features-img_wrapper01{
+                width: 270px;
+                margin: 0 auto 44px auto;
+            }
+            .features-img_wrapper02{
+                width: 320px;
+                margin: 0 auto 44px auto;
+            }
+            .features-img_wrapper03{
+                width: 240px;
+                margin: 0 auto 44px auto;
+            }
+            .features-img{
+                width: 100%;
+                height: auto;
+            }
+
+            //demand
+            .demand-section{
+                background-color: #FEB342;
+                padding: 120px 0;
+            }
+            .demand-title_wrapper{
+                width: 220px;
+                margin: 0 auto 40px auto;
+            }
+            .demand-title{
+                width: 100%;
+                height: auto;
+            }
+            .demand-sentence{
+                text-align: center;
+                font-weight: bold;
+                margin-bottom: 72px;
+            }
+            .demand-btn{
+                background-color: white;
+                width: 120px;
+                height: 32px;
+                font-weight: bold;
+                border-radius: 4px;
+                margin: 0 auto;
             }
         `}</style>
     </div>
