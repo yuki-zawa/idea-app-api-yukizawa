@@ -138,7 +138,7 @@ export const IdeaList: React.FC = (props: any) => {
           hasMore={!showLoader && ideas && pagenation.total > ideas.length}
           loadMore={fetchMoreIdeas}
           initialLoad={false}
-          threshold={500}
+          useWindow={false}
         >
           {
             ideas && ideas.map((idea, index) => {
@@ -179,7 +179,7 @@ export const IdeaList: React.FC = (props: any) => {
         .container {
           height: 100vh;
           width: 100%;
-          padding: 100px 1rem 1.25rem 1rem;
+          padding: 140px 1rem 1.25rem 1rem;
           box-sizing: border-box;
           overflow-y: scroll;
         }

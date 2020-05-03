@@ -246,6 +246,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                   hasMore={genreTags && pagenationForGenreTags.total > genreTags.length}
                   loadMore={fetchMoreGenreTags}
                   initialLoad={false}
+                  useWindow={false}
                 >
                   {
                     genreTags && genreTags.map((genreTag: any, index: number) => {
@@ -292,6 +293,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                   hasMore={ideaTags && pagenationForIdeaTags.total > ideaTags.length}
                   loadMore={fetchMoreIdeaTags}
                   initialLoad={false}
+                  useWindow={false}
                 >
                   {
                     ideaTags && ideaTags.map((ideaTag: any, index: number) => {
