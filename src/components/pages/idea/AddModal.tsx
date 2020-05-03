@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Rating } from '@material-ui/lab';
 import axios from 'axios';
 import { AddTagModal } from './../tag/AddModal'
+import { Icon } from './../../common/Const'
 
 const backLinkStyle = {
   display: "inline-block",
@@ -20,7 +21,6 @@ export interface AddParam {
   idea_tags: any
 }
 
-const icons = ["😆", "😅", "💦", "😱"];
 const priorityLables = ["ひらめき度を設定しよう", "いいことを思いついた！", "なかなかいいひらめきだ！", "これはすごいひらめきだ！", "君は天才だ！", "世紀の大発見だ！"];
 
 export const AddModal: React.FC = () => {
@@ -48,8 +48,6 @@ export const AddModal: React.FC = () => {
   });
 
   const postIdea = async () => {
-    console.log(addData);
-    // なぜか404 error API testerではうまくいく
     await axios
       .post('/api/v1/ideas', addData)
       .then(res => {
@@ -122,7 +120,7 @@ export const AddModal: React.FC = () => {
             <select name="category" id="category" onChange={changeCategory} ref={iconRef} className="styled-select">
               <option value="アイコンを選択 ▼">アイコンを選択 ▼</option>
               {
-                icons.map((icon: any, i) => {
+                Icon.icons.map((icon: any, i) => {
                   return <option value={icon} key={i}>{icon}</option>
                 })
               }
@@ -159,7 +157,7 @@ export const AddModal: React.FC = () => {
             <input 
               ref={titleRef}
               onChange={changeTitle}
-              placeholder={"アイデアを一言で表すと？"}
+              placeholder="アイデアを一言で表すと？"
               type="text"
               className="title-input"
             />
