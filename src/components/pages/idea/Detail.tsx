@@ -6,6 +6,8 @@ import { Rating } from '@material-ui/lab';
 
 import axios from 'axios';
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { AddTagModal } from './../tag/AddModal'
+import { Icon } from './../../common/Const'
 
 const backLinkStyle = {
   display: "inline-block",
@@ -16,6 +18,14 @@ const backLinkStyle = {
   fontSize: "24px"
 };
 
+export interface AddParam {
+  idea: any,
+  genre_tag: any,
+  idea_tags: any
+}
+
+const priorityLables = ["ひらめき度を設定しよう", "いいことを思いついた！", "なかなかいいひらめきだ！", "これはすごいひらめきだ！", "君は天才だ！", "世紀の大発見だ！"];
+
 export const IdeaDetail: React.FC = () => {
   const { match }: any = useReactRouter();
   const [idea, setIdea] = useState({
@@ -24,15 +34,38 @@ export const IdeaDetail: React.FC = () => {
     detail: "",
     priority: 0,
     genre_tags: [{
+      id: 0,
       name: "",
       color: ""
     }],
     idea_tags: []
   });
+  const [editData, setEditData] = useState<AddParam>({
+    idea: {
+      icon: "",
+      title: "",
+      detail: "",
+      priority: 0,
+    },
+    genre_tag: {
+      id: 0
+    },
+    idea_tags: []
+  })
   const [showLoader, setShowLoader] = React.useState(false);
   const [editState, setEditState] = React.useState(false);
 
-  const fetchIdeas = async () => {
+  const [openAddTagModal, setOpenAddTagModal] = useState(false);
+  const [tagState, setTagState] = useState(""); // "genre" or "idea"
+
+  const [selectedGenreTag, setSelectedGenreTag] = useState({
+    id: 0,
+    name: "",
+    color: "",
+  });
+  const [selectedIdeaTags, setSelectedIdeaTags] = useState([]);
+
+  const fetchIdea = async () => {
     setShowLoader(true);
 
     let response = await axios
@@ -43,6 +76,48 @@ export const IdeaDetail: React.FC = () => {
         setShowLoader(false);
       });
       setIdea(response);
+      setEditData({
+        idea: {
+          icon: response.icon,
+          title: response.title,
+          detail: response.detail,
+          priority: response.priority,
+        },
+        genre_tag: {
+          id: response.genre_tags[0].id,
+          name: response.genre_tags[0].name,
+          color: response.genre_tags[0].color,
+        },
+        idea_tags: response.idea_tags
+      })
+      setSelectedGenreTag(response.genre_tags[0]);
+      setSelectedIdeaTags(response.idea_tags)
+  }
+
+  const putIdea = async () => {
+    setShowLoader(true);
+    let response = await axios
+      .put(`/api/v1/ideas/${match.params.id}`, editData)
+      .catch(error => console.log(error))
+      .then((result: any) => result.data)
+      .finally(() => {
+        setShowLoader(false);
+      });
+    setIdea(response);
+    setEditData({
+      idea: {
+        icon: response.icon,
+        title: response.title,
+        detail: response.detail,
+        priority: response.priority,
+      },
+      genre_tag: {
+        id: response.genre_tags[0].id,
+        name: response.genre_tags[0].name,
+        color: response.genre_tags[0].color,
+      },
+      idea_tags: response.idea_tags
+    })
   }
 
 
@@ -51,16 +126,45 @@ export const IdeaDetail: React.FC = () => {
     setEditState(true);
   };
 
+  const completeEdit = () => {
+    setEditState(false);
+    putIdea();
+  }
+
+  const openModal = (event: any) => {
+    setTagState(event.target.id);
+    setOpenAddTagModal(true);
+  }
+
+  const closeModal = () => {
+    setOpenAddTagModal(false);
+  }
+
   useEffect(() => {
-    fetchIdeas();
+    var temp :Array<any> = [];
+    selectedIdeaTags.map((tag: any) => {
+      temp.push({"id": tag.id})
+    });
+    setEditData({
+      ...editData,
+      genre_tag: {
+        id: selectedGenreTag.id
+      },
+      idea_tags: temp
+    })
+  },[selectedIdeaTags, selectedGenreTag]);
+
+  useEffect(() => {
+    fetchIdea();
   }, []);
-  console.log(idea)
+
   return (
     <HomeLayout title="idea list">
       <div className="container">
         <div className="top-part"> 
           <Link to='/home' style={backLinkStyle}>←</Link>
-          { showLoader ? "" : <div className="edit" onClick={editMode}>✏︎</div> }
+          { !showLoader && !editState ? <div className="edit" onClick={editMode}>✏︎</div> : "" }
+          { !showLoader && editState ? <button className="complete" onClick={completeEdit}>✏︎ 完了</button> : "" }
         </div>
         {
           showLoader ?
@@ -68,53 +172,160 @@ export const IdeaDetail: React.FC = () => {
               <CircularProgress style={{ margin: "24px auto" }}/>
             </div> :
             <div>
-              <p className="icon">{idea.icon ? idea.icon : "😓"}</p>
+              {
+                !editState ?
+                  <p className="icon">{idea.icon ? idea.icon : "😓"}</p>
+                  :<div>
+                    <select name="category" id="category" className="styled-select">
+                      <option value="アイコンを選択 ▼">アイコンを選択 ▼</option>
+                      {
+                        Icon.icons.map((icon: any, i) => {
+                          return <option value={icon} key={i} selected={icon === editData.idea.icon} >{icon}</option>
+                        })
+                      }
+                    </select>
+                  </div>
+                }
               {/* https://material-ui.com/components/rating/ */}
               <Rating 
                 name="size-large"
                 size="large"
                 style={{fontSize: "30px"}}
-                defaultValue={idea.priority}
-                value={idea.priority}
+                value={!editState ? idea.priority : editData.idea.priority}
+                readOnly={!editState}
                 onChange={(event, newValue) => {
-                  console.log(newValue);
-                  console.log(event);
+                  setEditData({
+                    ...editData,
+                    idea: {
+                      ...editData.idea,
+                      priority: newValue
+                    }
+                  });
                 }}
-                onChangeActive={(event, newHover) => {
-                  console.log(newHover);
-                  console.log(event);
-                }}
-                // readOnly
               />
-              <h1 className="idea-title">{idea.title}</h1>
-              <hr/>
-              <div className="genre-tag-container">
-                <p>カテゴリータグ</p>
-                <span className="genre-tag tag">✔︎{idea.genre_tags[0].name}</span> 
+              <div className="priority">
+                {!editState ?
+                  <p className="priority-label">{priorityLables[Math.round(idea.priority)]}</p>
+                  :<p className="priority-label">{priorityLables[Math.round(editData.idea.priority)]}</p>
+                }
               </div>
-              <div className="idea-tag-container">
-                <p>アイデアタグ</p>
+              {
+                !editState ? 
+                  <h1 className="idea-title">{idea.title}</h1>:
+                  <div>
+                    <input 
+                      onChange={(event) => {
+                        setEditData({
+                          ...editData,
+                          idea: {
+                            ...editData.idea,
+                            title: event.target.value
+                          }
+                        });
+                      }}
+                      value={editData.idea.title}
+                      placeholder="アイデアを一言で表すと？"
+                      type="text"
+                      className="title-input"
+                    />
+                  </div>
+              }
+              <hr/>
+              <p className="tag-label">カテゴリータグ</p>
+              <div className="genre-tag-container">
                 {
+                  !editState ?
+                  <span className="genre-tag tag">✔︎{idea.genre_tags[0].name}</span>:
+                  <div>
+                    <span className="plus" id="genre" onClick={openModal}>+</span>
+                    {selectedGenreTag.id !== 0 ? <span className="genre-tag tag" style={{backgroundColor: selectedGenreTag.color}}>✔︎{selectedGenreTag.name}</span> : ""}
+                  </div>
+                }
+              </div>
+              <p className="tag-label">アイデアタグ</p>
+              <div className="idea-tag-container">
+                {
+                  !editState ?
                   idea.idea_tags.map((tag: any, index: number) => {
                     return(
                       <span className="idea-tag tag" key={index}>✔︎{tag.name}</span>
                     )
                   })
+                  :
+                  <div>
+                    <span className="plus" id="idea" onClick={openModal}>+</span>
+                    {
+                      selectedIdeaTags && selectedIdeaTags.map((tag: any, index: number) => {
+                        return(
+                          <span className="idea-tag tag" key={index}>✔︎{tag.name}</span>
+                        )
+                      })
+                    }
+                  </div>
                 }
               </div>
               <p className="memo-label">メモ</p>
-              <div className="memo-container">
-                <p className="text">{idea.detail}</p>
-              </div>
+              {
+                !editState ?
+                  <div className="memo-container">
+                    <p className="text">{idea.detail}</p>
+                  </div>
+                :
+                  <textarea
+                    className="memo-container"
+                    placeholder="メモをしよう！"
+                    onChange={(event) => {
+                      setEditData({
+                        ...editData,
+                        idea: {
+                          ...editData.idea,
+                          detail: event.target.value
+                        }
+                      });
+                    }}
+                    value={editData.idea.detail}
+                  />
+              }
             </div>
         }
       </div>
+      { openAddTagModal ? 
+          <AddTagModal 
+            tagState={tagState}
+            closeFunc={closeModal}
+            selectedGenreTag={selectedGenreTag}
+            setSelectedGenreTag={setSelectedGenreTag}
+            selectedIdeaTags={selectedIdeaTags}
+            setSelectedIdeaTags={setSelectedIdeaTags}
+          /> : ""
+      }
       <style jsx>{`
         .container {
           height: 100%;
           background-color: white;
           padding: 1.25rem 1rem;
           padding-top: calc(1.25rem + 40px);
+        }
+
+        .styled-select {
+          /* デフォルトのスタイルを解除 */
+          -moz-appearance: none;
+          -webkit-appearance: none;
+          appearance: none;
+          /* スタイル */
+          display: inline-block;
+          width: 70px;
+          height: 70px;
+          padding: 0.5em;
+          cursor: pointer;
+          font-size: 32px;
+          border-radius: 4px;
+          background-color: #f7f9fb;
+        }
+
+        /* IEでデフォルトの矢印を消す */
+        .styled-select::-ms-expand {
+          display: none;
         }
 
         .top-part {
@@ -134,6 +345,14 @@ export const IdeaDetail: React.FC = () => {
           font-size: 24px;
           font-weight: bold;
         }
+        .complete {
+          display: inline-block;
+          float: right;
+          height: 24px;
+          line-height: 24px;
+          font-size: 16px;
+          font-weight: bold;
+        }
 
         .icon {
           height: 48px;
@@ -142,10 +361,50 @@ export const IdeaDetail: React.FC = () => {
           margin-bottom: 16px;
         }
 
+        .priority {
+          position: relative;
+          display: inline-block;
+          margin: 1em 0 1em 24px;
+          padding: 7px 10px;
+          min-width: 120px;
+          max-width: 100%;
+          font-size: 16px;
+          background: #FEB342;
+          border-radius: 5px;
+        }
+        
+        .priority:before {
+          content: "";
+          position: absolute;
+          top: 50%;
+          left: -20px;
+          margin-top: -8px;
+          border: 8px solid transparent;
+          border-right: 15px solid #FEB342;
+        }
+
+        .priority-label {
+          margin: 0;
+          padding: 0;
+        }
+
         .idea-title {
           margin: 0.75rem 0;
           font-size: 24px;
           overflow-x: scroll;
+          -ms-overflow-style: none;    /* IE, Edge 対応 */
+          scrollbar-width: none;       /* Firefox 対応 */
+        }
+
+        .idea-title::-webkit-scrollbar {  /* Chrome, Safari 対応 */
+          display:none;
+        }
+
+        .title-input {
+          width: 95%;
+          height: 16px;
+          font-size: 16px;
+          padding: 0.25rem 0.5rem;
         }
 
         .plus {
@@ -170,7 +429,7 @@ export const IdeaDetail: React.FC = () => {
           margin-bottom: 5px;
         }
 
-        .genre-tag-container p, .idea-tag-container p {
+        .tag-label {
           margin: 0.5rem 0;
         }
 
@@ -199,6 +458,7 @@ export const IdeaDetail: React.FC = () => {
           height: 160px;
           overflow-y: scroll;
           border: 1px black solid;
+          width: 100%;
         }
 
         .text {
