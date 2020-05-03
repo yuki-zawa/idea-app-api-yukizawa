@@ -22,6 +22,7 @@ import Recommend from './../../../../src/components/images/recommend.png'
 import Begin from './../../../../src/components/images/begin.svg'
 import PartitionTop from './../../../../src/components/images/Partition-top.svg'
 import PartitionBottom from './../../../../src/components/images/Partition-bottom.svg'
+import FooterLogo from './../../../../src/components/images/footer-logo.svg'
 
 const body = {
     background: "#fff",
@@ -94,7 +95,7 @@ export const Introduction: React.FC = () => {
                 </div>
             </section>
         </section>
-        {/* features */}
+        {/* reccomend */}
         <section className="page-section">
             <div className="page-title_wrapper">
                 <img className="page-title" src={ RecommendTitle } alt="Recommend"/>
@@ -102,7 +103,10 @@ export const Introduction: React.FC = () => {
             <h2 className="recommend-subtitle">ホーム画面に追加する</h2>
             <p className="recommend-sentence">STOCKROOMはホーム画面に追加することでアプリのように使うことが出来ます。是非ホーム画面に追加してご利用ください！</p>
             <img className="recommend-img" src={ Recommend } alt=""/>
-            <button className="recommend-btn">ホーム画面に追加する方法</button>
+            <div className="recommend-btn_wrapper">
+                <button className="recommend-btn">ホーム画面に追加する方法</button>
+            </div>
+            
         </section>  
         {/* features */}
         <section className="page-section features-section">
@@ -119,7 +123,7 @@ export const Introduction: React.FC = () => {
                 <p className="features-sentense">何かをひらめいた瞬間に、サクッと手軽にメモができます。ひらめきにはタグをつけることができ、頭の中の整理整頓に役立ちます。</p>
                 <img className="features-mock-img" src={ FeaturesMock01 } alt=""/>
             </section>
-            <img className="features-partition" src={ PartitionTop } alt=""/>
+            <img className="features-partition partition-top" src={ PartitionTop } alt=""/>
             <img className="features-partition" src={ PartitionBottom } alt=""/>
             <section className="features-subsection">
                 <img className="features-num" src={ FeaturesNum02 } alt="02"/>
@@ -130,7 +134,7 @@ export const Introduction: React.FC = () => {
                 <p className="features-sentense">何かをひらめいた瞬間に、サクッと手軽にメモができます。ひらめきにはタグをつけることができ、頭の中の整理整頓に役立ちます。</p>
                 <img className="features-mock-img" src={ FeaturesMock02 } alt=""/>
             </section>
-            <img className="features-partition" src={ PartitionTop } alt=""/>
+            <img className="features-partition partition-top" src={ PartitionTop } alt=""/>
             <img className="features-partition" src={ PartitionBottom } alt=""/>
             <section className="features-subsection">
                 <img className="features-num" src={ FeaturesNum03 } alt="03"/>
@@ -141,8 +145,8 @@ export const Introduction: React.FC = () => {
                 <p className="features-sentense">新しいアイデアがなかなか出てこない時、「シャッフル機能」でランダムなアイデアの組み合わせを提案。あなたの新たなひらめきをサポートします！</p>
                 <img className="features-mock-img" src={ FeaturesMock03 } alt=""/>
             </section>
-            <img src={ PartitionBottom } alt=""/>
         </section>
+        <img className="demand-partition" src={ PartitionTop } alt=""/>
         <section className="page-section demand-section">
             <div className="demand-title_wrapper">
                 <img className="demand-title" src={ Begin } alt="begin"/>
@@ -151,18 +155,31 @@ export const Introduction: React.FC = () => {
                 STOCKROOMを使って、<br/>
                 創作活動を充実させましょう!
             </p>
-            <button className="demand-btn">
-                さっそく始める
-            </button>
+            <div className="demand-btn_wrapper">
+                <button className="demand-btn">
+                    さっそく始める
+                </button>
+            </div>
+
         </section>
         <footer>
-            <img src="img/fotter-logo/png" alt="STOCKROOM"/>
-            <ul className="footer-menu">
-                <li className="footer-option">会員登録</li>
-                <li className="footer-option">ログイン</li>
-                <li className="footer-option">お問い合わせ</li>
-                <li className="footer-option">利用規約</li>
-            </ul>
+            <div className="footer-content">
+                <img className="footer-logo" src={ FooterLogo } alt="STOCKROOM"/>
+                <div className="footer-menu">
+                    <ul className="footer-login">
+                        <li className="footer-option">会員登録</li>
+                        <li className="footer-option">ログイン</li>
+                    </ul>
+                    <ul className="footer-help">
+                        <li className="footer-option">お問い合わせ</li>
+                        <li className="footer-option">利用規約</li>
+                    </ul>
+                </div>
+            </div>
+            <div className="footer-copyright_wrapper">
+                <small className="footer-copyright">&copy; 2020 STOCKROOM</small>
+            </div>
+            
         </footer>
         <style jsx>{`
             *{
@@ -328,13 +345,15 @@ export const Introduction: React.FC = () => {
                 height: auto;
                 margin-bottom: 40px;
             }
+            .recommend-btn_wrapper{
+                text-align:center;
+            }
             .recommend-btn{
                 background-color: #FEB342;
                 width: 220px;
                 height: 32px;
                 font-weight: bold;
                 border-radius: 4px;
-                margin: 0 auto;
             }
 
             //festures
@@ -342,7 +361,10 @@ export const Introduction: React.FC = () => {
                 padding: 0;
                 padding-top: 64px;
                 background-color: #FEB342;
-                
+                z-index: 10;
+            }
+            .partition-top{
+                margin-bottom: 60px;
             }
             .features-partition{
                 width: 100%;
@@ -351,6 +373,7 @@ export const Introduction: React.FC = () => {
             .features-subsection{
                 padding: 0 32px;
                 background-color: white;
+                margin-top: -20px;
             }
             .features-num{
                 width: 64px;
@@ -390,10 +413,21 @@ export const Introduction: React.FC = () => {
                 height: auto;
             }
 
+            .demand-partition{
+                width: 100%;
+                height: auto;
+                background-color: #FEB342;
+                margin-top: -30px;
+                z-index: 1;
+            }
+
             //demand
             .demand-section{
                 background-color: #FEB342;
-                padding: 120px 0;
+                padding: 150px 0;
+                z-index: 10;
+                margin-top: -30px;
+                margin-bottom: 0;
             }
             .demand-title_wrapper{
                 width: 220px;
@@ -414,7 +448,38 @@ export const Introduction: React.FC = () => {
                 height: 32px;
                 font-weight: bold;
                 border-radius: 4px;
+                
+            }
+            .demand-btn_wrapper{
                 margin: 0 auto;
+                text-align: center;
+            }
+            footer{
+                padding: 32px 32px 44px 32px;
+            }
+            .footer-content{
+                display: flex;
+                margin-bottom: 24px;
+            }
+            .footer-logo{
+                widthn: 64px;
+                height: auto;
+                margin-right: 44px;
+            }
+            .footer-menu{
+                margin-top: 32px;
+            }
+            .footer-login{
+                margin-bottom: 32px;
+            }
+            .footer-option{
+                margin-bottom: 18px;
+            }
+            .footer-copyright_wrapper{
+                text-align:center;
+            }
+            .footer-copyright{
+                color: #333;
             }
         `}</style>
     </div>
