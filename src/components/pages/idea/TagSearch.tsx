@@ -60,7 +60,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
 
   const pullDown = () => {
     document.getElementsByClassName('tag-search-header')[0].classList.add('active');
-    document.getElementsByClassName('tag-search-header')[0].getElementsByClassName('text')[0].textContent = "タグで絞り込む▲";
+    document.getElementsByClassName('tag-search-header')[0].getElementsByClassName('text')[0].textContent = "キャンセル▲";
     setSearchState(true);
   }
 
