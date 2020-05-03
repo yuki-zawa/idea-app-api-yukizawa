@@ -114,6 +114,7 @@ export const IdeaDetail: React.FC = () => {
           height: 100%;
           background-color: white;
           padding: 1.25rem 1rem;
+          padding-top: calc(1.25rem + 40px);
         }
 
         .top-part {

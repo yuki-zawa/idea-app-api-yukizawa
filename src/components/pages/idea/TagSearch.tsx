@@ -247,6 +247,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                   loadMore={fetchMoreGenreTags}
                   initialLoad={false}
                   useWindow={false}
+                  threshold={400}
                 >
                   {
                     genreTags && genreTags.map((genreTag: any, index: number) => {
@@ -294,6 +295,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                   loadMore={fetchMoreIdeaTags}
                   initialLoad={false}
                   useWindow={false}
+                  threshold={400}
                 >
                   {
                     ideaTags && ideaTags.map((ideaTag: any, index: number) => {
