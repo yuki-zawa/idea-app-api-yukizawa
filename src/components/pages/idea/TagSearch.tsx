@@ -336,7 +336,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
         .serch-content {
           width: 100%;
           color: black;
-          position: absolute;
+          position: fixed;
             top: -80vh;
             z-index: -1;
           height: 80vh;
