@@ -138,6 +138,7 @@ export const IdeaList: React.FC = (props: any) => {
           hasMore={!showLoader && ideas && pagenation.total > ideas.length}
           loadMore={fetchMoreIdeas}
           initialLoad={false}
+          useWindow={false}
         >
           {
             ideas && ideas.map((idea, index) => {
@@ -176,11 +177,11 @@ export const IdeaList: React.FC = (props: any) => {
       }
       <style jsx>{`
         .container {
-          height: 100%;
-          padding: 1.25rem 1rem;
-          overflow: auto;
-          clear: both;
-          margin-top: 72px;
+          height: 100vh;
+          width: 100%;
+          padding: 140px 1rem 1.25rem 1rem;
+          box-sizing: border-box;
+          overflow-y: scroll;
         }
 
         .blur{
@@ -197,7 +198,7 @@ export const IdeaList: React.FC = (props: any) => {
         .list-header {
           height: 40px;
           background-color: white;
-          position: absolute;
+          position: fixed;
           width: 100%;
           top: 40px;
           z-index: 100;
@@ -221,7 +222,7 @@ export const IdeaList: React.FC = (props: any) => {
 
         .btns {
           width: 176px;
-          position: absolute;
+          position: fixed;
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%)

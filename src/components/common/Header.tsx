@@ -59,7 +59,6 @@ export const Header: React.FC<HeaderProps> = (props) => {
         }
         
         ul {
-          position: relative;
           height: 40px;
         }
 

@@ -246,6 +246,8 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                   hasMore={genreTags && pagenationForGenreTags.total > genreTags.length}
                   loadMore={fetchMoreGenreTags}
                   initialLoad={false}
+                  useWindow={false}
+                  threshold={400}
                 >
                   {
                     genreTags && genreTags.map((genreTag: any, index: number) => {
@@ -292,6 +294,8 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                   hasMore={ideaTags && pagenationForIdeaTags.total > ideaTags.length}
                   loadMore={fetchMoreIdeaTags}
                   initialLoad={false}
+                  useWindow={false}
+                  threshold={400}
                 >
                   {
                     ideaTags && ideaTags.map((ideaTag: any, index: number) => {
@@ -314,7 +318,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
         .tag-search-header {
           text-align: center;
           height: 32px;
-          position: absolute;
+          position: fixed;
             width: 100%;
             top: 80px;
             z-index: 99;
@@ -336,7 +340,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
         .serch-content {
           width: 100%;
           color: black;
-          position: absolute;
+          position: fixed;
             top: -80vh;
             z-index: -1;
           height: 80vh;

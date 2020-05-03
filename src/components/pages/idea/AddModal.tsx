@@ -201,6 +201,7 @@ export const AddModal: React.FC = () => {
             height: calc(100vh - 72px);
             background-color: white;
             padding: 1.25rem 1rem;
+            padding-top: calc(1.25rem + 40px);
           }
 
           .styled-select {
