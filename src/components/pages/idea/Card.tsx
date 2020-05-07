@@ -37,13 +37,13 @@ export const Card: React.FC<CardProps> = (props: any) => {
         </div>
         <div className="genre-tag-container">
           {/* ジャンルタグは基本一つ */}
-          <span className="genre-tag tag">✔︎{props.idea.genre_tags[0].name}</span>
+          <span className="genre-tag tag">{props.idea.genre_tags[0].name}</span>
         </div>
         <div className="idea-tag-container">
           {
             props.idea.idea_tags.map((tag: any, index: number) => {
               return(
-                <span className="idea-tag tag" key={index}>✔︎{tag.name}</span>
+                <span className="idea-tag tag" key={index}>{tag.name}</span>
               )
             })
           }

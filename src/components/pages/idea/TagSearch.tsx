@@ -149,7 +149,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
   }
 
   const selectTag = (type: string, event: any) => {
-    if(type==='genre'){
+    if(type === 'genre'){
       setSelectedGenreTag(genreTags[event.target.dataset.id]);
       genreTags.splice(event.target.dataset.id, 1);
       if(selectedGenreTag.id !== 0) {
@@ -238,7 +238,13 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
               <div style={{height:"calc(100% - 60px)", overflow:"auto"}}>
                 <div style={{borderBottom: "1px solid lightgray"}}>
                   {
-                    selectedGenreTag.id !== 0 ? <p style={{backgroundColor: selectedGenreTag.color}} className="tag" data-id={0} onClick={(event) => deleteTag("genre", event)}>{selectedGenreTag.name}</p> : ''
+                    selectedGenreTag.id !== 0 ? 
+                      <p style={{backgroundColor: selectedGenreTag.color}} className="tag" data-id={0} onClick={(event) => deleteTag("genre", event)}>
+                        <svg data-id={0} width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M8.33317 3L3.74984 7.58333L1.6665 5.5" stroke="#434343" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span data-id={0}>{selectedGenreTag.name}</span>
+                      </p> : ''
                   }
                 </div>
                 <InfiniteScroll
@@ -252,7 +258,12 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                   {
                     genreTags && genreTags.map((genreTag: any, index: number) => {
                       return (
-                        <p key={index} data-id={index} style={{backgroundColor: genreTag.color}} className="tag" onClick={(event) => selectTag("genre", event)}>{genreTag.name}</p>
+                        <p key={index} data-id={index} style={{backgroundColor: genreTag.color}} className="tag" onClick={(event) => selectTag("genre", event)}>
+                          <svg data-id={index} width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="6" cy="6" r="4.5" stroke="#434343" stroke-dasharray="2 1"/>
+                          </svg>
+                          <span data-id={index}>{genreTag.name}</span>
+                        </p>
                       )
                     })
                   }
@@ -284,7 +295,12 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                   {
                     selectedIdeaTags && selectedIdeaTags.map((ideaTag: any, index: number) => {
                       return (
-                        <p key={index} style={{backgroundColor: '#E3EAF5'}} className="tag" data-id={index} onClick={(event) => deleteTag("idea", event)}>{ideaTag.name}</p>
+                        <p key={index} style={{backgroundColor: '#E3EAF5'}} className="tag" data-id={index} onClick={(event) => deleteTag("idea", event)}>
+                          <svg data-id={index} width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8.33317 3L3.74984 7.58333L1.6665 5.5" stroke="#434343" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                          <span data-id={index}>{ideaTag.name}</span>
+                        </p>
                       )
                     })
                   }
@@ -300,7 +316,12 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                   {
                     ideaTags && ideaTags.map((ideaTag: any, index: number) => {
                       return (
-                        <p key={index} data-id={index} style={{backgroundColor: '#E3EAF5'}} className="tag" onClick={(event) => selectTag("idea", event)}>{ideaTag.name}</p>
+                        <p key={index} data-id={index} style={{backgroundColor: '#E3EAF5'}} className="tag" onClick={(event) => selectTag("idea", event)}>
+                          <svg data-id={index} width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="6" cy="6" r="4.5" stroke="#434343" stroke-dasharray="2 1"/>
+                          </svg>
+                          <span data-id={index}>{ideaTag.name}</span>
+                        </p>
                       )
                     })
                   }
@@ -334,7 +355,6 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
 
         .tag-search-header p {
           line-height: 32px;
-          font-weight: bold;
         }
 
         .serch-content {
@@ -406,6 +426,14 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
           border-radius: 4px;
           box-shadow: 2px 2px 3px lightgray;
           overflow: hidden;
+        }
+
+        svg {
+          margin-right: 4px;
+        }
+
+        .text {
+          font-weight: bold;
         }
       `}</style>
     </div>
