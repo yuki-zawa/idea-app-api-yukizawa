@@ -5,6 +5,7 @@ import { Rating } from '@material-ui/lab';
 import axios from 'axios';
 import { AddTagModal } from './../tag/AddModal'
 import { Icon } from './../../common/Const'
+import { X } from 'react-feather';
 
 const backLinkStyle = {
   display: "inline-block",
@@ -95,6 +96,18 @@ export const AddModal: React.FC = () => {
     setOpenAddTagModal(false);
   }
 
+  const selectDelete = (type: string, event: any) => {
+    if (type === "idea") {
+      setSelectedIdeaTags(selectedIdeaTags.filter((tag: any) => tag.id !== Number(event.target.dataset.id)))
+    } else {
+      setSelectedGenreTag({
+        id: 0,
+        name: "",
+        color: "",
+      })
+    }
+  }
+
   useEffect(() => {
     var temp :Array<any> = [];
     selectedIdeaTags.map((tag: any) => {
@@ -166,7 +179,11 @@ export const AddModal: React.FC = () => {
           <p>カテゴリータグ</p>
           <div className="genre-tag-container">
             <span className="plus" id="genre" onClick={openModal}>+</span>
-            {selectedGenreTag.id !== 0 ? <span className="genre-tag tag" style={{backgroundColor: selectedGenreTag.color}}>✔︎{selectedGenreTag.name}</span> : ""}
+            {selectedGenreTag.id !== 0 ? 
+            <span className="genre-tag tag" style={{backgroundColor: selectedGenreTag.color}}>
+              <X size={14} onClick={(event) => selectDelete("genre", event)}/>
+              <span className="tag-name">{selectedGenreTag.name}</span>
+            </span> : ""}
           </div>
           <p>アイデアタグ</p>
           <div className="idea-tag-container">
@@ -174,7 +191,10 @@ export const AddModal: React.FC = () => {
             {
               selectedIdeaTags && selectedIdeaTags.map((tag: any, index: number) => {
                 return(
-                  <span className="idea-tag tag" key={index}>✔︎{tag.name}</span>
+                  <span className="idea-tag tag" key={index}>
+                    <X size={14} onClick={(event) => selectDelete("idea", event)} data-id={tag.id}/>
+                    <span className="tag-name">{tag.name}</span>
+                  </span>
                 )
               })
             }
@@ -350,6 +370,10 @@ export const AddModal: React.FC = () => {
             border-radius: 5px;
             font-size: 12px;
             font-weight: bold;
+          }
+
+          .tag-name {
+            vertical-align: text-top;
           }
         `}</style>
       </div>

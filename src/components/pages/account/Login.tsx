@@ -16,7 +16,7 @@ const passwordForgotLinkStyle = {
   cursor: "pointer",
   fontSize: "14px",
   marginBottom: "30px",
-  color: "blue"
+  color: "#579AFF"
 };
 
 const createLinkStyle = {
@@ -24,7 +24,7 @@ const createLinkStyle = {
   cursor: "pointer",
   fontSize: "14px",
   marginBottom: "30px",
-  color: "blue"
+  color: "#579AFF"
 };
 
 export const AccountLogin: React.FC = (props: any) => {

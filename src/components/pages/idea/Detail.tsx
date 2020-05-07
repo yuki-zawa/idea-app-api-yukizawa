@@ -8,6 +8,7 @@ import axios from 'axios';
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { AddTagModal } from './../tag/AddModal'
 import { Icon } from './../../common/Const'
+import { X } from 'react-feather';
 
 const backLinkStyle = {
   display: "inline-block",
@@ -98,8 +99,8 @@ export const IdeaDetail: React.FC = () => {
     setShowLoader(true);
     let response = await axios
       .put(`/api/v1/ideas/${match.params.id}`, editData)
-      .catch(error => console.log(error))
       .then((result: any) => result.data)
+      .catch(error => console.log(error))
       .finally(() => {
         setShowLoader(false);
       });
@@ -138,6 +139,18 @@ export const IdeaDetail: React.FC = () => {
 
   const closeModal = () => {
     setOpenAddTagModal(false);
+  }
+
+  const selectDelete = (type: string, event: any) => {
+    if (type === "idea") {
+      setSelectedIdeaTags(selectedIdeaTags.filter((tag: any) => tag.id !== Number(event.target.dataset.id)))
+    } else {
+      setSelectedGenreTag({
+        id: 0,
+        name: "",
+        color: "",
+      })
+    }
   }
 
   useEffect(() => {
@@ -238,7 +251,11 @@ export const IdeaDetail: React.FC = () => {
                   <span className="genre-tag tag">✔︎{idea.genre_tags[0].name}</span>:
                   <div>
                     <span className="plus" id="genre" onClick={openModal}>+</span>
-                    {selectedGenreTag.id !== 0 ? <span className="genre-tag tag" style={{backgroundColor: selectedGenreTag.color}}>✔︎{selectedGenreTag.name}</span> : ""}
+                    {selectedGenreTag.id !== 0 ? 
+                    <span className="genre-tag tag" style={{backgroundColor: selectedGenreTag.color}}>
+                      <X size={14} onClick={(event) => selectDelete("genre", event)}/>
+                      <span className="tag-name">{selectedGenreTag.name}</span>
+                    </span> : ""}
                   </div>
                 }
               </div>
@@ -257,7 +274,10 @@ export const IdeaDetail: React.FC = () => {
                     {
                       selectedIdeaTags && selectedIdeaTags.map((tag: any, index: number) => {
                         return(
-                          <span className="idea-tag tag" key={index}>✔︎{tag.name}</span>
+                          <span className="idea-tag tag" key={index}>
+                            <X size={14} onClick={(event) => selectDelete("idea", event)} data-id={tag.id}/>
+                            <span className="tag-name">{tag.name}</span>
+                          </span>
                         )
                       })
                     }
@@ -463,6 +483,10 @@ export const IdeaDetail: React.FC = () => {
 
         .text {
           padding: 1rem 0.75rem;
+        }
+
+        .tag-name {
+          vertical-align: text-top;
         }
       `}</style>
     </HomeLayout>

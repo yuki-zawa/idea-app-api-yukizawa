@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import axios from 'axios';
+import { X } from 'react-feather';
 
 type AddTagModalProps = {
   tagState: string,
@@ -149,6 +150,24 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
       .catch(err => console.log(err));
   }
 
+  const selectDelete = (type: string, event: any) => {
+    if (type === "idea") {
+      setSelectedIdeaTags(selectedIdeaTags.filter((tag: any) => {
+        if(tag.id === Number(event.target.dataset.id)){
+          setTags(tags.concat(tag).sort((a: any, b: any) => { return a.id > b.id ? 1 : -1 }));
+        }
+        return tag.id !== Number(event.target.dataset.id)
+      }))
+    } else {
+      setTags(tags.concat(selectedGenreTag).sort((a: any, b: any) => { return a.id > b.id ? 1 : -1 }));
+      setSelectedGenreTag({
+        id: 0,
+        name: "",
+        color: "",
+      })
+    }
+  }
+
   useEffect(() => {
     fetchTags();
   },[tagState]);
@@ -175,11 +194,18 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
       <div className="selected-tag-container">
         {
           tagState === "genre" ?
-            selectedGenreTag ? <p className="tag" style={{backgroundColor: selectedGenreTag.color}}>{selectedGenreTag.name}</p> : ""
+            selectedGenreTag.id !== 0 ? 
+            <p className="tag" style={{backgroundColor: selectedGenreTag.color}}>
+              <X size={14} onClick={(event) => selectDelete("genre", event)}/>
+              <span>{selectedGenreTag.name}</span>
+            </p> : ""
           :
           selectedIdeaTags.map((tag: any, index: number) => {
             return(
-              <p className="tag" key={index} style={{backgroundColor: "#E3EAF5"}}>{tag.name}</p>
+              <p className="tag" key={index} style={{backgroundColor: "#E3EAF5"}}>
+                <X size={14} onClick={(event) => selectDelete("idea", event)} data-id={tag.id}/>
+                <span>{tag.name}</span>
+              </p>
             )
           })
         }
