@@ -39,7 +39,6 @@ export const IdeaList: React.FC = (props: any) => {
   const classes = useStyles();
 
   const [ideas, setIdeas] = useState([]);
-  const [word, setWord] = useState('');
   const [openShuffleModal, setOpenShuffleModal] = useState(false);
   const [showLoader, setShowLoader] = React.useState(false);
   const [pagenation, setPagenation] = React.useState({

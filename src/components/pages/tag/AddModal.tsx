@@ -76,7 +76,6 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
       await axios
         .post(url, addGenreTag)
         .then(res => {
-          console.log(res.data);
           nameRef.current.value = '';
           if (selectedGenreTag.id !== 0) {
             setTags(tags.concat(selectedGenreTag))
@@ -93,7 +92,6 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
       await axios
         .post(url, addIdeaTag)
         .then(res => {
-          console.log(res.data)
           nameRef.current.value = '';
           setSelectedIdeaTags(selectedIdeaTags.concat(res.data));
         })
@@ -135,7 +133,6 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
     await axios
       .get(url)
       .then(res => {
-        console.log(res.data.data);
         if (tagState === "genre"){
           setTags(res.data.data.filter((value: any) => { return value.id !== selectedGenreTag.id }));
         } else {
