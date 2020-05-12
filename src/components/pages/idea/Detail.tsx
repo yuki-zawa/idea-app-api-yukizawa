@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { HomeLayout } from "../../common/HomeLayout";
 import useReactRouter from "use-react-router";
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Rating } from '@material-ui/lab';
 
 import axios from 'axios';
@@ -9,6 +9,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { AddTagModal } from './../tag/AddModal'
 import { Icon } from './../../common/Const'
 import { X } from 'react-feather';
+import { Card } from './Card'
 
 const backLinkStyle = {
   display: "inline-block",
@@ -19,7 +20,7 @@ const backLinkStyle = {
   fontSize: "24px"
 };
 
-export interface AddParam {
+export interface EditParam {
   idea: any,
   genre_tag: any,
   idea_tags: any
@@ -27,7 +28,8 @@ export interface AddParam {
 
 const priorityLables = ["ひらめき度を設定しよう", "いいことを思いついた！", "なかなかいいひらめきだ！", "これはすごいひらめきだ！", "君は天才だ！", "世紀の大発見だ！"];
 
-export const IdeaDetail: React.FC = () => {
+export const IdeaDetail: React.FC = (props: any) => {
+  const history = useHistory();
   const { match }: any = useReactRouter();
   const [idea, setIdea] = useState({
     icon: "",
@@ -39,9 +41,10 @@ export const IdeaDetail: React.FC = () => {
       name: "",
       color: ""
     }],
-    idea_tags: []
+    idea_tags: [],
+    followers: new Array()
   });
-  const [editData, setEditData] = useState<AddParam>({
+  const [editData, setEditData] = useState<EditParam>({
     idea: {
       icon: "",
       title: "",
@@ -53,6 +56,33 @@ export const IdeaDetail: React.FC = () => {
     },
     idea_tags: []
   })
+//この下はやばい、直さないとやばい
+  const [idea1, setIdea1] = useState({
+    id: 0,
+    icon: "",
+    title: "",
+    detail: "",
+    priority: 0,
+    genre_tags: [{
+      name: "",
+      color: ""
+    }],
+    idea_tags: []
+  });
+  const [idea2, setIdea2] = useState({
+    id: 0,
+    icon: "",
+    title: "",
+    detail: "",
+    priority: 0,
+    genre_tags: [{
+      name: "",
+      color: ""
+    }],
+    idea_tags: []
+  });
+
+
   const [showLoader, setShowLoader] = React.useState(false);
   const [editState, setEditState] = React.useState(false);
 
@@ -123,7 +153,6 @@ export const IdeaDetail: React.FC = () => {
 
 
   const editMode = () => {
-    console.log("edit mode!!!!!!!!!");
     setEditState(true);
   };
 
@@ -153,6 +182,18 @@ export const IdeaDetail: React.FC = () => {
     }
   }
 
+  const getIdeas = async () => {
+    await axios
+      .get(`/api/v1/ideas/${idea.followers[0].id}`)
+      .then(result => setIdea1(result.data))
+      .catch(error => console.log(error))
+    
+    await axios
+      .get(`/api/v1/ideas/${idea.followers[1].id}`)
+      .then(result => setIdea2(result.data))
+      .catch(error => console.log(error))
+  }
+
   useEffect(() => {
     var temp :Array<any> = [];
     selectedIdeaTags.map((tag: any) => {
@@ -171,11 +212,17 @@ export const IdeaDetail: React.FC = () => {
     fetchIdea();
   }, []);
 
+  useEffect(() => {
+    if(idea.followers.length !== 0){
+      getIdeas();
+    }
+  }, [idea]);
+
   return (
     <HomeLayout title="idea list">
       <div className="container">
         <div className="top-part"> 
-          <Link to='/home' style={backLinkStyle}>←</Link>
+          <button onClick={() => history.goBack()} style={backLinkStyle}>←</button>
           { !showLoader && !editState ? <div className="edit" onClick={editMode}>✏︎</div> : "" }
           { !showLoader && editState ? <button className="complete" onClick={completeEdit}>✏︎ 完了</button> : "" }
         </div>
@@ -184,7 +231,7 @@ export const IdeaDetail: React.FC = () => {
             <div style={{ textAlign: "center", paddingBottom: "10px" }}>
               <CircularProgress style={{ margin: "24px auto" }}/>
             </div> :
-            <div>
+            <div className="input-container">
               {
                 !editState ?
                   <p className="icon">{idea.icon ? idea.icon : "😓"}</p>
@@ -308,23 +355,44 @@ export const IdeaDetail: React.FC = () => {
               }
             </div>
         }
+        {idea.followers.length !== 0 ? 
+          <div className="origin-idea">
+            <p>シャッフルした元のアイデア</p>
+            {[idea1, idea2].map((idea: any) => {
+              return (
+                <Card 
+                  idea={idea}
+                  cardWidth={"100%"}
+                  cardHeight={"132px"}
+                  backgroundColor={"#FCFCFC"}
+                  cardContentLine={2}
+                />
+              )
+            })}
+          </div>
+        : ""}
+        { openAddTagModal ? 
+            <AddTagModal 
+              tagState={tagState}
+              closeFunc={closeModal}
+              selectedGenreTag={selectedGenreTag}
+              setSelectedGenreTag={setSelectedGenreTag}
+              selectedIdeaTags={selectedIdeaTags}
+              setSelectedIdeaTags={setSelectedIdeaTags}
+            /> : ""
+        }
       </div>
-      { openAddTagModal ? 
-          <AddTagModal 
-            tagState={tagState}
-            closeFunc={closeModal}
-            selectedGenreTag={selectedGenreTag}
-            setSelectedGenreTag={setSelectedGenreTag}
-            selectedIdeaTags={selectedIdeaTags}
-            setSelectedIdeaTags={setSelectedIdeaTags}
-          /> : ""
-      }
       <style jsx>{`
         .container {
           height: 100%;
           background-color: white;
           padding: 1.25rem 1rem;
           padding-top: calc(1.25rem + 40px);
+        }
+
+        .input-container {
+          padding-bottom: 16px;
+          border-bottom: 2px dashed lightgray;
         }
 
         .styled-select {
@@ -487,6 +555,15 @@ export const IdeaDetail: React.FC = () => {
 
         .tag-name {
           vertical-align: text-top;
+        }
+
+        .origin-idea {
+          padding-top: 16px;
+          background-color: white;
+        }
+
+        .origin-idea p {
+          margin: 8px 0;
         }
       `}</style>
     </HomeLayout>
