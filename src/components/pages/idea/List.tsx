@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     inputRoot: {
       color: 'inherit',
-      background: '#f1f1f1',
       padding: theme.spacing(0, 0, 0, 1.5),
       width: '100%',
     },
@@ -225,7 +224,7 @@ export const IdeaList: React.FC = (props: any) => {
         }
 
         .search {
-            background-color: #1F1F1;
+            background-color: #F1F1F1;
             border: 1px solid #c4c4c4;
             border-radius: 4px;
             height: 32px;
