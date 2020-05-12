@@ -22,9 +22,9 @@ export const Card: React.FC<CardProps> = (props: any) => {
     margin: "1%",
     cursor: "pointer",
     backgroundColor: `${props.backgroundColor ? props.backgroundColor : "white"}`,
-    marginBottom: "16px",
-    borderRadius: "5px",
-    boxShadow: `${props.boxShadow ? props.boxShadow : "2px 2px 3px lightgray"}`,
+    marginBottom: "12px",
+    borderRadius: "4px",
+    boxShadow: `${props.boxShadow ? props.boxShadow : "0 0px 4px rgba(0,0,0,0.2)"}`,
     verticalAlign: "top",
   };
 
@@ -56,7 +56,10 @@ export const Card: React.FC<CardProps> = (props: any) => {
       {`
         .card-container{
           height: ${props.cardHeight};
-          padding: 0.75rem 0.5rem;
+          padding: 8px 4px;
+          box-sizing: border-box;
+          border: 1px solid #C4C4C4;
+          border-radius: 4px;
         }
 
         .icon {
@@ -81,26 +84,25 @@ export const Card: React.FC<CardProps> = (props: any) => {
         }
 
         .tag {
-          display: inline-block;
-          width: 100px;
-          padding: 0.25rem 0.25rem;
-          border-radius: 4px;
-          box-shadow: 2px 2px 3px lightgray;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
+            display: inline;
+            padding: 2px 6px 1px 6px;
+            border-radius: 4px;
+            box-sizing: border-box;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
-        .genre-tag-container, .idea-tag-container {
-          margin-bottom: 5px;
+        .genre-tag-container {
+          margin-bottom: 8px;
         }
-
         .idea-tag-container {
-          height: 30px;
-          width: auto;
+          width: 100%;
           white-space:nowrap;
-          overflow-x: auto;
           -ms-overflow-style: none;
+          display: flex;
+          flex-direction: row;
+          margin-bottom: 14px;
         }
 
         .idea-tag-container::-webkit-scrollbar {

@@ -7,20 +7,26 @@ import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
-
+import { Search } from 'react-feather';
+import { List } from 'react-feather';
+import Sort from '../../images/sort.svg'
 import { Card } from './Card'
 import { ShuffleModal } from "./ShuffleModal";
 import { TagSearch } from "./TagSearch";
+
+
+
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     inputRoot: {
       color: 'inherit',
-      backgroundColor: "#E3EAF5",
-      borderRadius: "5px",
+      background: '#f1f1f1',
+      padding: theme.spacing(0, 0, 0, 1.5),
+      width: '100%',
     },
     inputInput: {
-      padding: theme.spacing(1, 1, 1, 0),
+      padding: theme.spacing(1, 1, 0.5, 0),
       // vertical padding + font size from searchIcon
       paddingLeft: `calc(0.25rem + ${theme.spacing(3)}px)`,
       transition: theme.transitions.create('width'),
@@ -115,7 +121,7 @@ export const IdeaList: React.FC = (props: any) => {
       <div className="list-header">
         <div className="search">
           <div className="search-icon">
-            <SearchIcon />
+            <Search size={24} />
           </div>
           <InputBase
             placeholder="アイデアを検索する"
@@ -127,7 +133,14 @@ export const IdeaList: React.FC = (props: any) => {
             onChange={handleChange}
           />
         </div>
+        <div className="sort">
+            <img className="sort-icon" src={ Sort } alt=""/>
+        </div>
+        <div className="switch">
+            <List className="switch-icon" size ={18}/>
+        </div>
       </div>
+        
       <TagSearch
         setQuery={setTagSearchQuery}
         currentQuery={tagSearchQuery}
@@ -147,7 +160,7 @@ export const IdeaList: React.FC = (props: any) => {
                   idea={idea} 
                   key={index}
                   cardWidth={"48%"}
-                  cardHeight={"175px"}
+                  cardHeight={"160px"}
                   cardContentLine={4}
                 />
               )
@@ -157,17 +170,17 @@ export const IdeaList: React.FC = (props: any) => {
         <div style={{ textAlign: "center", paddingBottom: "10px" }}>
           {showLoader ? <CircularProgress style={{ margin: "24px auto" }}/> : ""}
         </div>
-        <div className="btns">
-          <Link to='/ideas/new'>
-            <button className="plus">
-              ＋
-            </button>
-          </Link>
-          <button className="shuffle" onClick={shuffle}>
-            ⇆
-          </button>
-        </div>
       </div>
+        <div className="footer-menu">
+            <Link to='/ideas/new'>
+                <button className="plus">
+                ＋
+                </button>
+            </Link>
+            <button className="shuffle" onClick={shuffle}>
+                ⇆
+            </button>
+        </div>
       <div className="blur" />
       { openShuffleModal ? 
           <ShuffleModal 
@@ -179,9 +192,10 @@ export const IdeaList: React.FC = (props: any) => {
         .container {
           height: 100vh;
           width: 100%;
-          padding: 140px 1rem 1.25rem 1rem;
+          padding: 148px 12px 72px 12px;
           box-sizing: border-box;
           overflow-y: scroll;
+          background-color: white;
         }
 
         .blur{
@@ -196,18 +210,43 @@ export const IdeaList: React.FC = (props: any) => {
         }
 
         .list-header {
-          height: 40px;
-          background-color: white;
-          position: fixed;
-          width: 100%;
-          top: 40px;
-          z-index: 100;
+            width: 100%;
+            top: 88px;
+            height: 56px;
+            z-index: 98;
+            padding: 16px 16px 0 16px;
+            box-sizing: border-box;
+            background-color: white;
+            position: fixed;
+            display: flex;
         }
 
         .search {
-          position: relative;
-          display: inline-block;
-          padding: 0 0.5rem;
+            background-color: #1F1F1;
+            border: 1px solid #c4c4c4;
+            border-radius: 4px;
+            height: 32px;
+            margin-right: 12px;
+            width: calc(100% - 88px);
+        }
+        .sort{
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            border: 1px solid #c4c4c4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+        }
+        .switch{
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            border: 1px solid #c4c4c4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .search-icon {
@@ -218,17 +257,18 @@ export const IdeaList: React.FC = (props: any) => {
           display: flex;
           align-items: center;
           justify-content: center; 
+          padding-left: 10px;
         }
 
-        .btns {
-          width: 176px;
-          position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%)
+        .footer-menu {
+            width: 100%;
+            height: 72px;
+            position: fixed;
+            bottom: 0;
+            background-color: #434343;
         }
 
-        .btns button {
+        .footer-menu button {
           height: 64px;
           width: 64px;
           font-size: 48px;
