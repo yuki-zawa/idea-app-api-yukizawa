@@ -141,7 +141,7 @@ export const IdeaList: React.FC = (props: any) => {
           useWindow={false}
         >
           {
-            ideas && ideas.map((idea, index) => {
+            !(!showLoader && ideas.length === 0) ? ideas && ideas.map((idea, index) => {
               return (
                 <Card 
                   idea={idea} 
@@ -151,7 +151,11 @@ export const IdeaList: React.FC = (props: any) => {
                   cardContentLine={4}
                 />
               )
-            })
+            }) : 
+            <div className="no-idea">
+              <p>まだひらめきがありません！</p>
+              <p>ひらめきを追加しましょう！</p>
+            </div>
           }
         </InfiniteScroll>
         <div style={{ textAlign: "center", paddingBottom: "10px" }}>
@@ -244,6 +248,15 @@ export const IdeaList: React.FC = (props: any) => {
 
         .shuffle {
           background-color: #E3EAF5;
+        }
+
+        .no-idea {
+          text-align: center;
+        }
+
+        .no-idea p {
+          margin-bottom: 10px;
+          font-size: 20px;
         }
       `}</style>
     </HomeLayout>
