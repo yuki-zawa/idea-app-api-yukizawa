@@ -4,6 +4,7 @@ import InputBase from '@material-ui/core/InputBase';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import InfiniteScroll from "react-infinite-scroller";
+import { Tag } from 'react-feather';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -60,13 +61,13 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
 
   const pullDown = () => {
     document.getElementsByClassName('tag-search-header')[0].classList.add('active');
-    document.getElementsByClassName('tag-search-header')[0].getElementsByClassName('text')[0].textContent = "キャンセル▲";
+    document.getElementsByClassName('tag-search-header')[0].getElementsByClassName('text')[0].textContent = "キャンセル";
     setSearchState(true);
   }
 
   const pullUp = () => {
     document.getElementsByClassName('tag-search-header')[0].classList.remove('active');
-    document.getElementsByClassName('tag-search-header')[0].getElementsByClassName('text')[0].textContent = "タグで絞り込む▼";
+    document.getElementsByClassName('tag-search-header')[0].getElementsByClassName('text')[0].textContent = "タグで絞り込む";
     setSearchState(false);
   }
 
@@ -333,20 +334,25 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
             選択したタグで絞り込む =>
           </button>
         </div>
-        <p className="text" onClick={searchState ? pullUp : pullDown}>タグで絞り込む▼</p>
+        <p className="text-container" onClick={searchState ? pullUp : pullDown}>
+            <Tag size={18}/>
+            <span className="text">タグで絞り込む</span>
+        </p>
       </div>
       <style jsx>{`
         .tag-search-header {
-          text-align: center;
-          height: 32px;
-          position: fixed;
+            text-align: center;
+            height: 44px;
+            position: fixed;
             width: 100%;
-            top: 80px;
+            top: 44px;
+            box-sizing: border-box;
             z-index: 99;
-          background-color: black;
-          color: white;
-          border-radius: 0px 0px 10px 10px;
-          transition: all 400ms 0s ease;
+            padding: 8px 0;
+            background-color: #434343;
+            color: white;
+            border-radius: 0px 0px 8px 8px;
+            transition: all 400ms 0s ease;
         }
 
         .active {
@@ -432,8 +438,15 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
           margin-right: 4px;
         }
 
-        .text {
+        .text-container {
           font-weight: bold;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+        }
+        .text{
+            margin-left: 6px;
         }
       `}</style>
     </div>

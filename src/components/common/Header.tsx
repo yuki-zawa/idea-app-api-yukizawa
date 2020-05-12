@@ -49,7 +49,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
       <style jsx>{`
         header {
           width: 100%;
-          height: 40px;
+          height: 44px;
           background-color: white;
           position: fixed;
             left: 0;
