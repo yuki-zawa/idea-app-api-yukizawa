@@ -213,7 +213,7 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
       <p className="label">タグを選択して追加する</p>
       <div className="tag-container">
         {
-          tags.map((tag: any, index: number) => {
+          !showLoader && tags.map((tag: any, index: number) => {
             return(
               <p className="tag" key={index} data-id={index} onClick={selectTag} style={{backgroundColor: tagState === "genre"? tag.color :"#E3EAF5"}}>{tag.name}</p>
             )
