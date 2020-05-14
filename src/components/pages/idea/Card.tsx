@@ -1,5 +1,4 @@
 import React from "react";
-
 import { Link } from 'react-router-dom';
 
 type CardProps = {
@@ -11,8 +10,6 @@ type CardProps = {
   backgroundColor?: string,
   disabled?: boolean
 };
-
-
 
 export const Card: React.FC<CardProps> = (props: any) => {
   const cardLinkStyle = {
@@ -84,18 +81,19 @@ export const Card: React.FC<CardProps> = (props: any) => {
         }
 
         .tag {
-            display: inline;
-            padding: 2px 6px 1px 6px;
-            border-radius: 4px;
-            box-sizing: border-box;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+          display: inline;
+          padding: 2px 6px 1px 6px;
+          border-radius: 4px;
+          box-sizing: border-box;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
 
         .genre-tag-container {
           margin-bottom: 8px;
         }
+
         .idea-tag-container {
           width: 100%;
           white-space:nowrap;
