@@ -7,8 +7,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
-import { Search } from 'react-feather';
-import { List } from 'react-feather';
+import { Search,Home,User,List,Shuffle,Plus } from 'react-feather';
 import Sort from '../../images/sort.svg'
 import { Card } from './Card'
 import { ShuffleModal } from "./ShuffleModal";
@@ -174,15 +173,33 @@ export const IdeaList: React.FC = (props: any) => {
         </div>
       </div>
         <div className="footer-menu">
-            <Link to='/ideas/new'>
-                <button className="plus">
-                ＋
-                </button>
+            <Link to='/home'>
+                <div className="home-btn footer-btn">
+                    <Home color="white" size="28"/>
+                </div>
             </Link>
-            <button className="shuffle" onClick={shuffle}>
-                ⇆
+            <Link to='/ideas/new'>
+                <div className="search-btn footer-btn">
+                    <Search color="white" size="28"/>
+                </div>
+            </Link>
+            <div className="footer-btn">
+                {/* addボタン用の空白 */}
+            </div>
+            <button className="shuffle-btn footer-btn" onClick={shuffle}>
+                <Shuffle color="white" size="28"/>
             </button>
+            <Link to='/ideas/new'>
+                <div className="user-btn footer-btn">
+                    <User color="white" size="28"/>
+                </div>
+            </Link>
         </div>
+        <Link to='/ideas/new'>
+            <button className="add-btn" >
+                <Plus color="#434343" size="28"/>
+            </button>
+        </Link>
       <div className="blur" />
       { openShuffleModal ? 
           <ShuffleModal 
@@ -268,24 +285,33 @@ export const IdeaList: React.FC = (props: any) => {
             position: fixed;
             bottom: 0;
             background-color: #434343;
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 36px;
+            box-sizing: border-box;
         }
 
-        .footer-menu button {
-          height: 64px;
-          width: 64px;
-          font-size: 48px;
-          line-height: 64px;
-          border-radius: 50%;
-          box-shadow: 0px 0px 10px gray;
-          margin: 0.5rem 0.75rem;
+        .add-btn{
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            -webkit- transform: translateX(-50%);
+            bottom: 32px;
+            height: 48px;
+            width: 48px;
+            border-radius: 50%;
+            background-color: #FEB342;
+            display: flex;
+          justify-content: center;
+          align-items: center;
         }
 
-        .plus {
-          background-color: #FEB342;
-        }
-
-        .shuffle {
-          background-color: #E3EAF5;
+        .footer-btn {
+          width: 44px;
+          height: 44px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
 
         .no-idea {
