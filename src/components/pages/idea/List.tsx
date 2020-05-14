@@ -7,9 +7,10 @@ import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
-import { Search,Home,User,List,Shuffle,Plus } from 'react-feather';
+import { Search, Home, User, List, Shuffle, Plus, Grid } from 'react-feather';
 import Sort from '../../images/sort.svg'
 import { Card } from './Card'
+import { Card2 } from './Card2'
 import { ShuffleModal } from "./ShuffleModal";
 import { TagSearch } from "./TagSearch";
 import { SortModal } from "./SortModal";
@@ -46,6 +47,7 @@ export const IdeaList: React.FC = (props: any) => {
   const [ideas, setIdeas] = useState([]);
   const [openShuffleModal, setOpenShuffleModal] = useState(false);
   const [openSortModal, setOpenSortModal] = useState(false);
+  const [listState, setListState] = useState(false);
   const [showLoader, setShowLoader] = React.useState(false);
   const [pagenation, setPagenation] = React.useState({
     total: 0,
@@ -115,6 +117,10 @@ export const IdeaList: React.FC = (props: any) => {
     setOpenSortModal(bool);
   }
 
+  const handleChangeListState = (bool: boolean) => {
+    setListState(bool);
+  }
+
   useEffect(() => {
     fetchIdeas();
   }, [tagSearchQuery]);
@@ -141,7 +147,13 @@ export const IdeaList: React.FC = (props: any) => {
           <img className="sort-icon" src={ Sort } alt="sort-icon" onClick={() => handleChangeSortOpen(true)}/>
         </div>
         <div className="switch">
-          <List className="switch-icon" size ={18}/>
+          {
+            listState ?
+              <Grid className="grid-icon" size="18" onClick={() => handleChangeListState(false)}/>
+              :
+              <List className="switch-icon" size="18" onClick={() => handleChangeListState(true)}/>
+          }
+          
         </div>
         {openSortModal ?
         <SortModal
@@ -166,13 +178,18 @@ export const IdeaList: React.FC = (props: any) => {
           {
             !(!showLoader && ideas.length === 0) ? ideas && ideas.map((idea, index) => {
               return (
-                <Card 
-                  idea={idea} 
-                  key={index}
-                  cardWidth={"48%"}
-                  cardHeight={"200px"}
-                  cardContentLine={4}
-                />
+                listState ? 
+                  <Card2
+                    idea={idea} 
+                    key={index}
+                  /> :
+                  <Card
+                    idea={idea} 
+                    key={index}
+                    cardWidth={"48%"}
+                    cardHeight={"200px"}
+                    cardContentLine={4}
+                  />
               )
             }) : 
             <div className="no-idea">
