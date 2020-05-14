@@ -8,7 +8,7 @@ import axios from 'axios';
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { AddTagModal } from './../tag/AddModal'
 import { Icon } from './../../common/Const'
-import { X } from 'react-feather';
+import { X, Edit3, Trash2 } from 'react-feather';
 import { Card } from './Card'
 
 const backLinkStyle = {
@@ -151,6 +151,16 @@ export const IdeaDetail: React.FC = (props: any) => {
     })
   }
 
+  const deleteIdea = async () => {
+    if (window.confirm("本当にこのアイデアを削除しますか?")) { 
+      await axios
+        .delete(`/api/v1/ideas/${match.params.id}`)
+        .then(res => {
+          window.location.href = "/home";
+        })
+        .catch(err => console.log(err));
+    }
+  }
 
   const editMode = () => {
     setEditState(true);
@@ -223,8 +233,16 @@ export const IdeaDetail: React.FC = (props: any) => {
       <div className="container">
         <div className="top-part"> 
           <button onClick={() => history.goBack()} style={backLinkStyle}>←</button>
-          { !showLoader && !editState ? <div className="edit" onClick={editMode}>✏︎</div> : "" }
-          { !showLoader && editState ? <button className="complete" onClick={completeEdit}>✏︎ 完了</button> : "" }
+          { !showLoader && !editState ?
+            <div className="btn-container">
+              <span className="delete" onClick={deleteIdea}>
+                <Trash2 />
+              </span>
+              <span className="edit" onClick={editMode}>
+                <Edit3 />
+              </span>
+            </div> : "" }
+          { !showLoader && editState ? <button className="complete" onClick={completeEdit}>完了</button> : "" }
         </div>
         {
           showLoader ?
@@ -424,15 +442,15 @@ export const IdeaDetail: React.FC = (props: any) => {
           border-top: 4px dashed lightgray;
         }
 
-        .edit {
+        .btn-container {
           display: inline-block;
           float: right;
-          height: 24px;
-          width: 24px;
-          line-height: 24px;
-          font-size: 24px;
-          font-weight: bold;
         }
+
+        .btn-container span {
+          margin-left: 8px;
+        }
+
         .complete {
           display: inline-block;
           float: right;
