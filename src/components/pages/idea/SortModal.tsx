@@ -23,25 +23,41 @@ export const SortModal: React.FC<SortModalProps> = (props: any) => {
         <p>並べ替え</p>
         <button onClick={() => props.handleChangeSortOpen(false)}>完了</button>
       </div>
-      <div className="list">
-        <p id="new" onClick={sort} className={sortValue === "new" ? "selected" : ""}>
-          {sortValue === "new" ? <Check size="20"/> : ""}
-          追加した日：新しい順
-        </p>
-        <p id="old" onClick={sort} className={sortValue === "old" ? "selected" : ""}>
-          {sortValue === "old" ? <Check size="20"/> : ""}
-          追加した日：古い順
-        </p>
-        <p id="high" onClick={sort} className={sortValue === "high" ? "selected" : ""}>
-          {sortValue === "high" ? <Check size="20"/> : ""}
-          ひらめき度：高い順
-        </p>
-        <p id="low" onClick={sort} className={sortValue === "low" ? "selected" : ""}>
-          {sortValue === "low" ? <Check size="20"/> : ""}
-          ひらめき度：低い順
-        </p>
-      </div>
-      <style jsx>{`
+      <ul className="list">
+				<li className="list-option">
+					<span className="check_wrapper">
+						{sortValue === "new" ? <Check size="20"/> : ""}
+					</span>
+					<p id="new" onClick={sort} className={sortValue === "new" ? "selected" : ""}>
+          	追加した日：新しい順
+        	</p>	
+				</li>
+				<li className="list-option">
+					<span className="check_wrapper">
+						{sortValue === "old" ? <Check size="20"/> : ""}
+					</span>
+					<p id="old" onClick={sort} className={sortValue === "old" ? "selected" : ""}>
+						追加した日：古い順　
+					</p>
+				</li>
+				<li className="list-option">
+					<span className="check_wrapper">
+						{sortValue === "high" ? <Check size="20"/> : ""}
+					</span>
+					<p id="high" onClick={sort} className={sortValue === "high" ? "selected" : ""}>
+						ひらめき度：高い順　
+					</p>
+				</li>
+				<li className="list-option">
+					<span className="check_wrapper">
+						{sortValue === "low" ? <Check size="20"/> : ""}
+					</span>
+					<p id="low" onClick={sort} className={sortValue === "low" ? "selected" : ""}>
+						ひらめき度：低い順　
+					</p>
+				</li>
+      </ul>
+			<style jsx>{`
         .container {
           background-color: white;
           box-sizing: border-box;
@@ -50,14 +66,17 @@ export const SortModal: React.FC<SortModalProps> = (props: any) => {
           border-radius: 4px;
           box-shadow: 0 0px 4px rgba(0,0,0,0.2);
           position: absolute;
-            top: 56px;
-            left: 0;
+					top: 56px;
+					max-width: 400px;
+					right: 16px;
+					left: auto;
         }
 
         .header {
           height: 32px;
           width: 100%;
-          text-align: center;
+					text-align: center;
+					padding: 4px 0;
         }
 
         .header p {
@@ -66,8 +85,8 @@ export const SortModal: React.FC<SortModalProps> = (props: any) => {
 
         .header button {
           position: absolute;
-            right: 12px;
-            top: 0;
+					right: 12px;
+					top: 3px;
           height: 32px;
           font-size: 16px;
           font-weight: bold;
@@ -76,16 +95,28 @@ export const SortModal: React.FC<SortModalProps> = (props: any) => {
 
         .list {
           background-color: #F1F1F1;
-          text-align: center;
-        }
+					text-align: center;
+					padding: 12px 0;
+				}
+				
+				.list-option{
+					display: flex;
+					align-items: center;
+					justify-content: center;
+				}
 
         .list p {
           padding: 10px 0;
         }
 
         .selected {
-          font-weight: bold;
-        }
+					font-weight: bold;
+				}
+				.check_wrapper{
+					width: 2em;
+					height: 1em;
+					margin-bottom: 4px;
+				}
       `}</style>
     </div>
   );
