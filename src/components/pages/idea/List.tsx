@@ -3,20 +3,15 @@ import { HomeLayout } from "../../common/HomeLayout";
 import axios from 'axios';
 import InfiniteScroll from "react-infinite-scroller";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
-import { Search, Home, User, List, Shuffle, Plus, Grid } from 'react-feather';
+import { Search,List,Shuffle,Plus,Settings } from 'react-feather';
 import Sort from '../../images/sort.svg'
 import { Card } from './Card'
-import { Card2 } from './Card2'
 import { ShuffleModal } from "./ShuffleModal";
 import { TagSearch } from "./TagSearch";
 import { SortModal } from "./SortModal";
-
-
-
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -47,7 +42,6 @@ export const IdeaList: React.FC = (props: any) => {
   const [ideas, setIdeas] = useState([]);
   const [openShuffleModal, setOpenShuffleModal] = useState(false);
   const [openSortModal, setOpenSortModal] = useState(false);
-  const [listState, setListState] = useState(false);
   const [showLoader, setShowLoader] = React.useState(false);
   const [pagenation, setPagenation] = React.useState({
     total: 0,
@@ -117,10 +111,6 @@ export const IdeaList: React.FC = (props: any) => {
     setOpenSortModal(bool);
   }
 
-  const handleChangeListState = (bool: boolean) => {
-    setListState(bool);
-  }
-
   useEffect(() => {
     fetchIdeas();
   }, [tagSearchQuery]);
@@ -147,13 +137,7 @@ export const IdeaList: React.FC = (props: any) => {
           <img className="sort-icon" src={ Sort } alt="sort-icon" onClick={() => handleChangeSortOpen(true)}/>
         </div>
         <div className="switch">
-          {
-            listState ?
-              <Grid className="grid-icon" size="18" onClick={() => handleChangeListState(false)}/>
-              :
-              <List className="switch-icon" size="18" onClick={() => handleChangeListState(true)}/>
-          }
-          
+          <List className="switch-icon" size ={18}/>
         </div>
         {openSortModal ?
         <SortModal
@@ -178,18 +162,13 @@ export const IdeaList: React.FC = (props: any) => {
           {
             !(!showLoader && ideas.length === 0) ? ideas && ideas.map((idea, index) => {
               return (
-                listState ? 
-                  <Card2
-                    idea={idea} 
-                    key={index}
-                  /> :
-                  <Card
-                    idea={idea} 
-                    key={index}
-                    cardWidth={"48%"}
-                    cardHeight={"200px"}
-                    cardContentLine={4}
-                  />
+                <Card 
+                  idea={idea} 
+                  key={index}
+                  cardWidth={"48%"}
+                  cardHeight={"200px"}
+                  cardContentLine={4}
+                />
               )
             }) : 
             <div className="no-idea">
@@ -203,33 +182,32 @@ export const IdeaList: React.FC = (props: any) => {
         </div>
       </div>
         <div className="footer-menu">
-            <Link to='/home'>
+            {/* <Link to='/home'>
                 <div className="home-btn footer-btn">
                     <Home color="white" size="28"/>
                 </div>
-            </Link>
-            <Link to='/ideas/new'>
-                <div className="search-btn footer-btn">
-                    <Search color="white" size="28"/>
-                </div>
-            </Link>
-            <div className="footer-btn">
-                {/* addボタン用の空白 */}
-            </div>
+            </Link> */}
             <button className="shuffle-btn footer-btn" onClick={shuffle}>
                 <Shuffle color="white" size="28"/>
             </button>
             <Link to='/ideas/new'>
+                <button className="add-btn" >
+                    <Plus color="#434343" size="28"/>
+                </button>
+            </Link>
+            {/* <Link to='/ideas/new'>
+                <div className="search-btn footer-btn">
+                    <Search color="white" size="28"/>
+                </div>
+            </Link> */}
+            <Link to='/ideas/new'>
                 <div className="user-btn footer-btn">
-                    <User color="white" size="28"/>
+                    <Settings color="white" size="28"/>
                 </div>
             </Link>
         </div>
-        <Link to='/ideas/new'>
-            <button className="add-btn" >
-                <Plus color="#434343" size="28"/>
-            </button>
-        </Link>
+        
+        
       <div className="blur" />
       { openShuffleModal ? 
           <ShuffleModal 
@@ -312,23 +290,24 @@ export const IdeaList: React.FC = (props: any) => {
         }
 
         .footer-menu {
-          width: 100%;
+          width: 280px;
           height: 72px;
+          border-radius: 72px;
+          box-sizing: border-box;
+          padding: 12px 40px;
+
           position: fixed;
-          bottom: 0;
+					left: 50%;
+          transform: translateX(-50%);
+          -webkit- transform: translateX(-50%);
+          bottom: 12px;
+          
           background-color: #434343;
           display: flex;
           justify-content: space-between;
-          padding: 12px 36px;
-          box-sizing: border-box;
         }
 
         .add-btn{
-          position: absolute;
-            left: 50%;
-          transform: translateX(-50%);
-          -webkit- transform: translateX(-50%);
-          bottom: 32px;
           height: 48px;
           width: 48px;
           border-radius: 50%;
