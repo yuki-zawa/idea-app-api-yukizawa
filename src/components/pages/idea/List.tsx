@@ -12,6 +12,7 @@ import Sort from '../../images/sort.svg'
 import { Card } from './Card'
 import { ShuffleModal } from "./ShuffleModal";
 import { TagSearch } from "./TagSearch";
+import { SortModal } from "./SortModal";
 
 
 
@@ -44,6 +45,7 @@ export const IdeaList: React.FC = (props: any) => {
 
   const [ideas, setIdeas] = useState([]);
   const [openShuffleModal, setOpenShuffleModal] = useState(false);
+  const [openSortModal, setOpenSortModal] = useState(false);
   const [showLoader, setShowLoader] = React.useState(false);
   const [pagenation, setPagenation] = React.useState({
     total: 0,
@@ -51,7 +53,7 @@ export const IdeaList: React.FC = (props: any) => {
     currentPage: 1
   });
 
-  const [tagSearchQuery, setTagSearchQuery] = useState('');
+  const [tagSearchQuery, setTagSearchQuery] = useState('&sort=new');
 
   const fetchIdeas = async () => {
     setShowLoader(true);
@@ -105,7 +107,12 @@ export const IdeaList: React.FC = (props: any) => {
   }
 
   const handleChange = (event: any) => {
-    setTagSearchQuery(tagSearchQuery + `&word=${event.target.value}`);
+    var queryString = tagSearchQuery.replace(/&word=.*(?=&)|&word=.*(?!&)/g, '');
+    setTagSearchQuery(queryString + `&word=${event.target.value}`);
+  }
+
+  const handleChangeSortOpen = (bool: boolean) => {
+    setOpenSortModal(bool);
   }
 
   useEffect(() => {
@@ -131,13 +138,19 @@ export const IdeaList: React.FC = (props: any) => {
           />
         </div>
         <div className="sort">
-            <img className="sort-icon" src={ Sort } alt=""/>
+          <img className="sort-icon" src={ Sort } alt="sort-icon" onClick={() => handleChangeSortOpen(true)}/>
         </div>
         <div className="switch">
-            <List className="switch-icon" size ={18}/>
+          <List className="switch-icon" size ={18}/>
         </div>
+        {openSortModal ?
+        <SortModal
+          handleChangeSortOpen={handleChangeSortOpen}
+          setQuery={setTagSearchQuery}
+          currentQuery={tagSearchQuery}
+        />
+        : ""}
       </div>
-        
       <TagSearch
         setQuery={setTagSearchQuery}
         currentQuery={tagSearchQuery}
@@ -229,43 +242,45 @@ export const IdeaList: React.FC = (props: any) => {
         }
 
         .list-header {
-            width: 100%;
-            top: 88px;
-            height: 56px;
-            z-index: 98;
-            padding: 16px 16px 0 16px;
-            box-sizing: border-box;
-            background-color: white;
-            position: fixed;
-            display: flex;
+          width: 100%;
+          top: 88px;
+          height: 56px;
+          z-index: 98;
+          padding: 16px 16px 0 16px;
+          box-sizing: border-box;
+          background-color: white;
+          position: fixed;
+          display: flex;
         }
 
         .search {
-            background-color: #F1F1F1;
-            border: 1px solid #c4c4c4;
-            border-radius: 4px;
-            height: 32px;
-            margin-right: 12px;
-            width: calc(100% - 88px);
+          background-color: #F1F1F1;
+          border: 1px solid #c4c4c4;
+          border-radius: 4px;
+          height: 32px;
+          margin-right: 12px;
+          width: calc(100% - 88px);
         }
+
         .sort{
-            width: 32px;
-            height: 32px;
-            border-radius: 4px;
-            border: 1px solid #c4c4c4;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 12px;
+          width: 32px;
+          height: 32px;
+          border-radius: 4px;
+          border: 1px solid #c4c4c4;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-right: 12px;
         }
+
         .switch{
-            width: 32px;
-            height: 32px;
-            border-radius: 4px;
-            border: 1px solid #c4c4c4;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+          width: 32px;
+          height: 32px;
+          border-radius: 4px;
+          border: 1px solid #c4c4c4;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
         .search-icon {
@@ -280,28 +295,28 @@ export const IdeaList: React.FC = (props: any) => {
         }
 
         .footer-menu {
-            width: 100%;
-            height: 72px;
-            position: fixed;
-            bottom: 0;
-            background-color: #434343;
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 36px;
-            box-sizing: border-box;
+          width: 100%;
+          height: 72px;
+          position: fixed;
+          bottom: 0;
+          background-color: #434343;
+          display: flex;
+          justify-content: space-between;
+          padding: 12px 36px;
+          box-sizing: border-box;
         }
 
         .add-btn{
-            position: absolute;
+          position: absolute;
             left: 50%;
-            transform: translateX(-50%);
-            -webkit- transform: translateX(-50%);
-            bottom: 32px;
-            height: 48px;
-            width: 48px;
-            border-radius: 50%;
-            background-color: #FEB342;
-            display: flex;
+          transform: translateX(-50%);
+          -webkit- transform: translateX(-50%);
+          bottom: 32px;
+          height: 48px;
+          width: 48px;
+          border-radius: 50%;
+          background-color: #FEB342;
+          display: flex;
           justify-content: center;
           align-items: center;
         }
