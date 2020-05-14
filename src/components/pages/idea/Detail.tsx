@@ -363,7 +363,7 @@ export const IdeaDetail: React.FC = (props: any) => {
                 <Card 
                   idea={idea}
                   cardWidth={"100%"}
-                  cardHeight={"132px"}
+                  cardHeight={"170px"}
                   backgroundColor={"#FCFCFC"}
                   cardContentLine={2}
                 />

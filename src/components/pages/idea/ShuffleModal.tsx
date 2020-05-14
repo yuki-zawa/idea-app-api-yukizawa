@@ -65,7 +65,7 @@ export const ShuffleModal: React.FC<ShuffleModalProps> = (props: any) => {
         <Card 
           idea={idea1}
           cardWidth={"100%"}
-          cardHeight={"132px"}
+          cardHeight={"170px"}
           backgroundColor={"#FCFCFC"}
           boxShadow={"0px 0px 12px 0px lightgray"}
           cardContentLine={2}
@@ -75,7 +75,7 @@ export const ShuffleModal: React.FC<ShuffleModalProps> = (props: any) => {
         <Card
           idea={idea2}
           cardWidth={"100%"}
-          cardHeight={"132px"}
+          cardHeight={"170px"}
           backgroundColor={"#FCFCFC"}
           boxShadow={"0px 0px 12px 0px lightgray"}
           cardContentLine={2}
