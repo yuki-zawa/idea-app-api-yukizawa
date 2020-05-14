@@ -32,6 +32,12 @@ export const Card: React.FC<CardProps> = (props: any) => {
           <span className="icon">{props.idea.icon ? props.idea.icon : "😓"}</span>
           <span className="title-text">{props.idea.title}</span>
         </div>
+        <div className="priority-container">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 0.5L10.3175 5.195L15.5 5.9525L11.75 9.605L12.635 14.765L8 12.3275L3.365 14.765L4.25 9.605L0.5 5.9525L5.6825 5.195L8 0.5Z" fill="#FEB342" stroke="#FEB342" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>{props.idea.priority}</span>
+        </div>
         <div className="genre-tag-container">
           {/* ジャンルタグは基本一つ */}
           <span className="genre-tag tag">{props.idea.genre_tags[0].name}</span>
@@ -78,6 +84,15 @@ export const Card: React.FC<CardProps> = (props: any) => {
 
         .title-container {
           margin-bottom: 2%;
+        }
+
+        .priority-container {
+          margin-bottom: 8px;
+          color: #FEB342;
+        }
+
+        .priority-container span {
+          font-weight: bold;
         }
 
         .tag {
