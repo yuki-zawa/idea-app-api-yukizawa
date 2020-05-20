@@ -31,29 +31,31 @@ export const Card2: React.FC<CardProps> = (props: any) => {
           <span className="icon">{props.idea.icon ? props.idea.icon : "😓"}</span>
           <span className="title-text">{props.idea.title}</span>
         </div>
-        <div className="priority-container">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M8 0.5L10.3175 5.195L15.5 5.9525L11.75 9.605L12.635 14.765L8 12.3275L3.365 14.765L4.25 9.605L0.5 5.9525L5.6825 5.195L8 0.5Z" fill="#FEB342" stroke="#FEB342" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <span>{!!props.idea.priority ? props.idea.priority : '-'}</span>
-        </div>
-        <div className="tag-container">
-          {/* ジャンルタグは基本一つ */}
-          {props.idea.genre_tags[0] ? <span className="genre-tag tag">{props.idea.genre_tags[0].name}</span> : ""}
-          {
-            props.idea.idea_tags.map((tag: any, index: number) => {
-              return(
-                <span className="idea-tag tag" key={index}>{tag.name}</span>
-              )
-            })
-          }
+        <div className="contents">
+            <div className="priority-container">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 0.5L10.3175 5.195L15.5 5.9525L11.75 9.605L12.635 14.765L8 12.3275L3.365 14.765L4.25 9.605L0.5 5.9525L5.6825 5.195L8 0.5Z" fill="#FEB342" stroke="#FEB342" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>{!!props.idea.priority ? props.idea.priority : '-'}</span>
+            </div>
+            <div className="tag-container">
+            {/* ジャンルタグは基本一つ */}
+            {props.idea.genre_tags[0] ? <span className="genre-tag tag">{props.idea.genre_tags[0].name}</span> : ""}
+            {
+                props.idea.idea_tags.map((tag: any, index: number) => {
+                return(
+                    <span className="idea-tag tag" key={index}>{tag.name}</span>
+                )
+                })
+            }
+            </div>
         </div>
       </div>
       <style jsx>
       {`
         .card-container{
           height: ${props.cardHeight};
-          padding: 8px 4px;
+          padding: 8px 12px;
           box-sizing: border-box;
           border: 1px solid #C4C4C4;
           border-radius: 4px;
@@ -80,8 +82,12 @@ export const Card2: React.FC<CardProps> = (props: any) => {
           margin-bottom: 2%;
         }
 
+        .contents{
+            display: flex;
+        }
+
         .priority-container {
-          margin-bottom: 8px;
+          width: 40px;    
           color: #FEB342;
         }
 
@@ -101,12 +107,11 @@ export const Card2: React.FC<CardProps> = (props: any) => {
         }
 
         .tag-container {
-          width: 100%;
+          width: calc(100% - 40px);
           white-space:nowrap;
           -ms-overflow-style: none;
           display: flex;
           flex-direction: row;
-          margin-bottom: 14px;
         }
 
         .tag-container::-webkit-scrollbar {

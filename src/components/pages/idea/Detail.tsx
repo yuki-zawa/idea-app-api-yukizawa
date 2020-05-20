@@ -8,17 +8,11 @@ import axios from 'axios';
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { AddTagModal } from './../tag/AddModal'
 import { Icon } from './../../common/Const'
+import Star from './../../images/star.svg'
+import StarIcon from '@material-ui/icons/Star';
 import { X, Edit3, Trash2 } from 'react-feather';
-import { Card } from './Card'
 
-const backLinkStyle = {
-  display: "inline-block",
-  height: "24px",
-  width: "24px",
-  cursor: "pointer",
-  fontWeight: "bold" as "bold",
-  fontSize: "24px"
-};
+import { Card } from './Card'
 
 export interface EditParam {
   idea: any,
@@ -236,7 +230,9 @@ export const IdeaDetail: React.FC = (props: any) => {
     <HomeLayout title="idea list">
       <div className="container">
         <div className="top-part"> 
-          <button onClick={() => history.goBack()} style={backLinkStyle}>←</button>
+          <button onClick={() => history.goBack()} className="cancel-btn">
+            <X size={20} color="#333"/>
+          </button>
           { !showLoader && !editState ?
             <div className="btn-container">
               <span className="delete" onClick={deleteIdea}>
@@ -254,43 +250,42 @@ export const IdeaDetail: React.FC = (props: any) => {
               <CircularProgress style={{ margin: "24px auto" }}/>
             </div> :
             <div className="input-container">
-              {
-                !editState ?
-                  <p className="icon">{idea.icon ? idea.icon : "😓"}</p>
-                  :<div>
-                    <select name="category" id="category" className="styled-select">
-                      <option value="アイコンを選択 ▼">アイコンを選択 ▼</option>
-                      {
-                        Icon.icons.map((icon: any, i) => {
-                          return <option value={icon} key={i} selected={icon === editData.idea.icon} >{icon}</option>
-                        })
-                      }
-                    </select>
-                  </div>
-                }
-              {/* https://material-ui.com/components/rating/ */}
-              <Rating 
-                name="size-large"
-                size="large"
-                style={{fontSize: "30px"}}
-                value={!editState ? idea.priority : editData.idea.priority}
-                readOnly={!editState}
-                onChange={(event, newValue) => {
-                  setEditData({
-                    ...editData,
-                    idea: {
-                      ...editData.idea,
-                      priority: newValue
+                { 
+                    !editState ?
+                    <p className="icon">{idea.icon ? idea.icon : "😓"}</p>
+                    :<div>
+                        <select name="category" id="category" className="styled-select">
+                        <option value="アイコンを選択 ▼">アイコンを選択 ▼</option>
+                        {
+                            Icon.icons.map((icon: any, i) => {
+                            return <option value={icon} key={i} selected={icon === editData.idea.icon} >{icon}</option>
+                            })
+                        }
+                        </select>
+                    </div>
+                }   
+                {/* https://material-ui.com/components/rating/ */}
+                <Rating 
+                    name="size-large" size="large"
+                    value={!editState ? idea.priority : editData.idea.priority}
+										readOnly={!editState}
+										icon={<StarIcon />}
+                    onChange={(event, newValue) => {
+                    setEditData({
+                        ...editData,
+                        idea: {
+                        ...editData.idea,
+                        priority: newValue
+                        }
+                    });
+                    }}
+                />
+                <div className="priority">
+                    {!editState ?
+                    <p className="priority-label">{priorityLables[Math.round(idea.priority)]}</p>
+                    :<p className="priority-label">{priorityLables[Math.round(editData.idea.priority)]}</p>
                     }
-                  });
-                }}
-              />
-              <div className="priority">
-                {!editState ?
-                  <p className="priority-label">{priorityLables[Math.round(idea.priority)]}</p>
-                  :<p className="priority-label">{priorityLables[Math.round(editData.idea.priority)]}</p>
-                }
-              </div>
+                </div>
               {
                 !editState ? 
                   <h1 className="idea-title">{idea.title}</h1>:
@@ -317,7 +312,7 @@ export const IdeaDetail: React.FC = (props: any) => {
               <div className="genre-tag-container">
                 {
                   !editState ?
-                  (idea.genre_tags[0] ? <span className="genre-tag tag">✔︎{idea.genre_tags[0].name}</span> : ''):
+                  (idea.genre_tags[0] ? <span className="genre-tag tag">{idea.genre_tags[0].name}</span> : ''):
                   <div>
                     <span className="plus" id="genre" onClick={openModal}>+</span>
                     {selectedGenreTag.id !== 0 ? 
@@ -334,7 +329,7 @@ export const IdeaDetail: React.FC = (props: any) => {
                   !editState ?
                   idea.idea_tags.map((tag: any, index: number) => {
                     return(
-                      <span className="idea-tag tag" key={index}>✔︎{tag.name}</span>
+                      <span className="idea-tag tag" key={index}>{tag.name}</span>
                     )
                   })
                   :
@@ -406,10 +401,12 @@ export const IdeaDetail: React.FC = (props: any) => {
       </div>
       <style jsx>{`
         .container {
-          height: 100%;
+          height: calc(100% - 40px);
+          width: 100%;
+          box-sizing: border-box;
+          margin-top: 40px;
           background-color: white;
-          padding: 1.25rem 1rem;
-          padding-top: calc(1.25rem + 40px);
+          padding: 28px 20px;
         }
 
         .input-container {
@@ -443,7 +440,8 @@ export const IdeaDetail: React.FC = (props: any) => {
         }
 
         hr {
-          border-top: 4px dashed lightgray;
+          border-top: 2px dashed #E3EAF5;
+          margin-bottom: 14px;
         }
 
         .btn-container {
@@ -455,7 +453,14 @@ export const IdeaDetail: React.FC = (props: any) => {
           margin-left: 8px;
         }
 
-        .complete {
+        .cancel-btn{
+          font-size: 16px;
+          color: #007AFF;
+        }
+
+        .complete { 
+          font-size: 16px;
+          color: #007AFF;
           display: inline-block;
           float: right;
           height: 24px;
@@ -474,20 +479,20 @@ export const IdeaDetail: React.FC = (props: any) => {
         .priority {
           position: relative;
           display: inline-block;
-          margin: 1em 0 1em 24px;
+          margin-left: 18px;
           padding: 7px 10px;
           min-width: 120px;
           max-width: 100%;
-          font-size: 16px;
+          font-size: 10px;
           background: #FEB342;
-          border-radius: 5px;
+          border-radius: 4px;
         }
         
         .priority:before {
           content: "";
           position: absolute;
           top: 50%;
-          left: -20px;
+          left: -18px;
           margin-top: -8px;
           border: 8px solid transparent;
           border-right: 15px solid #FEB342;
@@ -500,7 +505,7 @@ export const IdeaDetail: React.FC = (props: any) => {
 
         .idea-title {
           margin: 0.75rem 0;
-          font-size: 24px;
+          font-size: 18px;
           overflow-x: scroll;
           -ms-overflow-style: none;    /* IE, Edge 対応 */
           scrollbar-width: none;       /* Firefox 対応 */
@@ -525,30 +530,27 @@ export const IdeaDetail: React.FC = (props: any) => {
         }
 
         .tag {
-          display: inline-block;
           width: 100px;
-          padding: 0.25rem 0.25rem;
+          padding: 2px 8px;
           border-radius: 4px;
-          box-shadow: 2px 2px 3px lightgray;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
         }
 
-        .genre-tag-container, .idea-tag-container, .memo-label {
-          margin-bottom: 5px;
+        .genre-tag-container{
+          margin-bottom: 24px;
         }
 
         .tag-label {
-          margin: 0.5rem 0;
+          margin-bottom: 12px;
         }
 
         .idea-tag-container {
-          height: 64px;
           width: auto;
           white-space: nowrap;
-          overflow-x: auto;
           -ms-overflow-style: none;
+          margin-bottom: 24px;
         }
 
         .idea-tag-container::-webkit-scrollbar {
@@ -564,15 +566,21 @@ export const IdeaDetail: React.FC = (props: any) => {
           background-color: #E3EAF5;
         }
 
+        .memo-label{
+            margin-bottom: 6px;
+        }
+
         .memo-container {
-          height: 160px;
+          min-height: 6em;
           overflow-y: scroll;
           border: 1px black solid;
           width: 100%;
+          padding: 0.5em;
+          box-sizing: border-box;
+          text-align: justify;
         }
 
         .text {
-          padding: 1rem 0.75rem;
         }
 
         .tag-name {

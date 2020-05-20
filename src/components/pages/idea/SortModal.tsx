@@ -66,10 +66,10 @@ export const SortModal: React.FC<SortModalProps> = (props: any) => {
           border-radius: 4px;
           box-shadow: 0 0px 4px rgba(0,0,0,0.2);
           position: absolute;
-					top: 56px;
-					max-width: 400px;
-					right: 16px;
-					left: auto;
+          top: 56px;
+          max-width: 320px;
+          right: 16px;
+          left: auto;
         }
 
         .header {

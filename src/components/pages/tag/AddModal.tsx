@@ -173,27 +173,23 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
   return (
     <div className="container">
       <div className="inner-header">
-        <ul>
-          <li onClick={props.closeFunc} className="cross-btn">×</li>
-          <li>
-            <span id="genre" onClick={changeTag} style={{color: tagState === "genre" ? "" : "lightgray"}}>カテゴリータグ</span>｜<span id="idea" onClick={changeTag} style={{color: tagState === "idea" ? "" : "lightgray"}}>アイデアタグ</span>
-          </li>
-          <li onClick={completeModal} className="check-btn">✔️</li>
-        </ul>
+        <span onClick={props.closeFunc} className="cross-btn">
+            <X size={20}  />
+        </span>
+        <span onClick={completeModal} className="check-btn">完了</span>
       </div>
-      <div className="btn-container">
-        <input ref={nameRef} onChange={handleChange} className="input-name" placeholder="create new tag"/>
-        <button onClick={postTag} className="add-btn">
-          タグを追加する =>
-        </button>
+      <p className="header-title">タグの編集</p>
+      <div className="change-tag">
+        <span id="genre" onClick={changeTag} style={{color: tagState === "genre" ? "" : "lightgray"}}>カテゴリータグ</span>｜<span id="idea" onClick={changeTag} style={{color: tagState === "idea" ? "" : "lightgray"}}>アイデアタグ</span>
       </div>
-      <p className="label">追加済みのタグ</p>
+
+      <p className="label">選択中のカテゴリー</p>
       <div className="selected-tag-container">
         {
           tagState === "genre" ?
             selectedGenreTag.id !== 0 ? 
             <p className="tag" style={{backgroundColor: selectedGenreTag.color}}>
-              <X size={14} onClick={(event) => selectDelete("genre", event)}/>
+              <X size={14} className="tag-icon" onClick={(event) => selectDelete("genre", event)}/>
               <span>{selectedGenreTag.name}</span>
             </p> : ""
           :
@@ -207,7 +203,14 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
           })
         }
       </div>
-      <p className="label">タグを選択して追加する</p>
+      <p className="label">カテゴリーを変更する</p>
+      <div className="btn-container">
+        <input ref={nameRef} onChange={handleChange} className="input-name" placeholder="新しいカテゴリーを作成"/>
+        <button onClick={postTag} className="add-btn">
+          作成する
+        </button>
+      </div>
+      
       <div className="tag-container">
         {
           !showLoader && tags.map((tag: any, index: number) => {
@@ -222,67 +225,85 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
       </div>
       <style jsx>{`
         .container {
-          height: 100%;
-          width: calc(100% - 32px);
+          height: calc(100% - 40px);
+          width: 100%;
+          box-sizing: border-box;
           margin-top: 40px;
           background-color: white;
-          padding: 16px;
+          padding: 28px 20px;
           position: absolute;
-            top: 0;
-            left: 0;
+          top: 0;
+          left: 0;
         }
 
         .inner-header {
-          padding: 20px 0;
           text-align: center;
           position: relative;
           display: inline-block;
           width: 100%;
         }
 
+        .header-title{
+          text-align: center;
+          margin-bottom: 32px;
+          font-size: 14px;
+          color: #7A7A7A;
+        }
+
         .cross-btn {
-          font-size: 32px;
-          font-weight: bold;
+          left: 0;
+          right: auto;
           position: absolute;
-            left: 0;
-            top: 14px;
         }
 
         .check-btn {
-          font-size: 24px;
+          font-size: 16px;
           font-weight: bold;
-          color: lightblue;
+          color: #579AFF;
+          left: auto;
+          right: 0;
           position: absolute;
-            right: 2px;
-            top: 16px;
+        }
+
+        .change-tag{
+          text-align: center;
+          margin-bottom: 36px;
         }
 
         .input-name {
-          width: 100%;
-          height: 24px;
-          border-radius: 5px;
-          background-color: #E3EAF5;
-          border: 1px solid #ccc
+          padding: 8px 6px;
+          background: #FFFFFF;
+          border: 1px solid #C4C4C4;
+          box-sizing: border-box;
+          border-radius: 4px;
+          width: calc(100% - 80px);
         }
 
         .btn-container {
-          text-align: right;
           margin-bottom: 24px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
         }
 
         .add-btn {
-          width: 150px;
-          background-color: #FEB342;
-          padding: 0.25rem 1.25rem;
-          margin: 1rem 0;
-          border-radius: 5px;
-          font-size: 12px;
-          font-weight: bold;
+          padding: 4px 8px;
+          height: 27px;
+          right: 20.5px;
+          background: #FFFFFF;
+          border: 1px solid #C4C4C4;
+          box-sizing: border-box;
+          border-radius: 4px;
+          font-size: 14px;
+          text-align: center;
+          color: #333;
+          
         }
 
         .label {
           font-size: 12px;
-          font-weight: bold;
+          color: #333;
+          margin-bottom: 12px;
         }
 
         .selected-tag-container {
@@ -298,13 +319,24 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
         }
 
         .tag {
-          display: inline-block;
-          padding: 0.25rem 0.5rem;
-          margin: 0.25rem 0.5rem;
-          border-radius: 5px;
+          display: inline;
+          padding: 2px 6px 1px 6px;
+          border-radius: 4px;
+          box-sizing: border-box;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          margin: 0 12px 8px 0;
+        }
+        .selected-tag-container {
+          padding-top: 4px;
+          margin-bottom: 44px;
         }
 
-        .selected-tag-container {}
+        .tag-container{
+          display: flex;
+          flex-wrap: wrap;
+        }
       `}</style>
     </div>
   );
