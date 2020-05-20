@@ -242,7 +242,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                     selectedGenreTag.id !== 0 ? 
                       <p style={{backgroundColor: selectedGenreTag.color}} className="tag" data-id={0} onClick={(event) => deleteTag("genre", event)}>
                         <svg data-id={0} width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M8.33317 3L3.74984 7.58333L1.6665 5.5" stroke="#434343" stroke-linecap="round" stroke-linejoin="round"/>
+                          <path d="M8.33317 3L3.74984 7.58333L1.6665 5.5" stroke="#434343" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
                         <span data-id={0}>{selectedGenreTag.name}</span>
                       </p> : ''
@@ -261,7 +261,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                       return (
                         <p key={index} data-id={index} style={{backgroundColor: genreTag.color}} className="tag" onClick={(event) => selectTag("genre", event)}>
                           <svg data-id={index} width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="6" cy="6" r="4.5" stroke="#434343" stroke-dasharray="2 1"/>
+                            <circle cx="6" cy="6" r="4.5" stroke="#434343" strokeDasharray="2 1"/>
                           </svg>
                           <span data-id={index}>{genreTag.name}</span>
                         </p>
@@ -298,7 +298,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                       return (
                         <p key={index} style={{backgroundColor: '#E3EAF5'}} className="tag" data-id={index} onClick={(event) => deleteTag("idea", event)}>
                           <svg data-id={index} width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M8.33317 3L3.74984 7.58333L1.6665 5.5" stroke="#434343" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M8.33317 3L3.74984 7.58333L1.6665 5.5" stroke="#434343" strokeLinecap="round" strokeLinejoin="round"/>
                           </svg>
                           <span data-id={index}>{ideaTag.name}</span>
                         </p>
@@ -319,7 +319,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                       return (
                         <p key={index} data-id={index} style={{backgroundColor: '#E3EAF5'}} className="tag" onClick={(event) => selectTag("idea", event)}>
                           <svg data-id={index} width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="6" cy="6" r="4.5" stroke="#434343" stroke-dasharray="2 1"/>
+                            <circle cx="6" cy="6" r="4.5" stroke="#434343" strokeDasharray="2 1"/>
                           </svg>
                           <span data-id={index}>{ideaTag.name}</span>
                         </p>
