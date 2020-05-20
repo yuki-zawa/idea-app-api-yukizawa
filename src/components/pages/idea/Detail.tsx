@@ -115,13 +115,17 @@ export const IdeaDetail: React.FC = (props: any) => {
           priority: response.priority,
         },
         genre_tag: {
-          id: response.genre_tags[0].id,
-          name: response.genre_tags[0].name,
-          color: response.genre_tags[0].color,
+          id: response.genre_tags[0] ? response.genre_tags[0].id : 0,
+          name: response.genre_tags[0] ? response.genre_tags[0].name : '',
+          color: response.genre_tags[0] ? response.genre_tags[0].color : '',
         },
         idea_tags: response.idea_tags
       })
-      setSelectedGenreTag(response.genre_tags[0]);
+      setSelectedGenreTag(response.genre_tags[0] ? response.genre_tags[0] : {
+        id: 0,
+        name: "",
+        color: "",
+      });
       setSelectedIdeaTags(response.idea_tags)
   }
 
@@ -143,9 +147,9 @@ export const IdeaDetail: React.FC = (props: any) => {
         priority: response.priority,
       },
       genre_tag: {
-        id: response.genre_tags[0].id,
-        name: response.genre_tags[0].name,
-        color: response.genre_tags[0].color,
+        id: response.genre_tags[0] ? response.genre_tags[0].id : 0,
+        name: response.genre_tags[0] ? response.genre_tags[0].name : '',
+        color: response.genre_tags[0] ? response.genre_tags[0].color : '',
       },
       idea_tags: response.idea_tags
     })
@@ -313,7 +317,7 @@ export const IdeaDetail: React.FC = (props: any) => {
               <div className="genre-tag-container">
                 {
                   !editState ?
-                  <span className="genre-tag tag">✔︎{idea.genre_tags[0].name}</span>:
+                  (idea.genre_tags[0] ? <span className="genre-tag tag">✔︎{idea.genre_tags[0].name}</span> : ''):
                   <div>
                     <span className="plus" id="genre" onClick={openModal}>+</span>
                     {selectedGenreTag.id !== 0 ? 
@@ -552,7 +556,7 @@ export const IdeaDetail: React.FC = (props: any) => {
         }
 
         .genre-tag {
-          background-color: ${idea.genre_tags[0].color};
+          background-color: ${idea.genre_tags[0] ? idea.genre_tags[0].color : ''};
         }
 
         .idea-tag {
