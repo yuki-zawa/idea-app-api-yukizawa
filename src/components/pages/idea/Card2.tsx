@@ -39,7 +39,7 @@ export const Card2: React.FC<CardProps> = (props: any) => {
         </div>
         <div className="tag-container">
           {/* ジャンルタグは基本一つ */}
-          <span className="genre-tag tag">{props.idea.genre_tags[0].name}</span>
+          {props.idea.genre_tags[0] ? <span className="genre-tag tag">{props.idea.genre_tags[0].name}</span> : ""}
           {
             props.idea.idea_tags.map((tag: any, index: number) => {
               return(
@@ -115,7 +115,7 @@ export const Card2: React.FC<CardProps> = (props: any) => {
 
         .genre-tag {
           margin-right: 8px;
-          background-color: ${props.idea.genre_tags[0].color};
+          background-color: ${props.idea.genre_tags[0] ? props.idea.genre_tags[0].color : ""};
         }
 
         .idea-tag {

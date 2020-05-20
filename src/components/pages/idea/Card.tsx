@@ -40,7 +40,7 @@ export const Card: React.FC<CardProps> = (props: any) => {
         </div>
         <div className="genre-tag-container">
           {/* ジャンルタグは基本一つ */}
-          <span className="genre-tag tag">{props.idea.genre_tags[0].name}</span>
+          {props.idea.genre_tags[0] ? <span className="genre-tag tag">{props.idea.genre_tags[0].name}</span> : ""}
         </div>
         <div className="idea-tag-container">
           {
@@ -124,7 +124,7 @@ export const Card: React.FC<CardProps> = (props: any) => {
         }
 
         .genre-tag {
-          background-color: ${props.idea.genre_tags[0].color};
+          background-color: ${props.idea.genre_tags[0] ? props.idea.genre_tags[0].color : ''};
         }
 
         .idea-tag {
