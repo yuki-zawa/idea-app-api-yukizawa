@@ -47,7 +47,6 @@ export const AccountLogin: React.FC = (props: any) => {
       )
       .then(res => res.data)
       .catch(err => console.log(err));
-      console.log(user);
       // set Authorization header
       axios.defaults.headers.common['Authorization'] = 'Bearer ' + user.token;
       //cookieに保存
@@ -59,7 +58,6 @@ export const AccountLogin: React.FC = (props: any) => {
       });
 
       if(authState.isLogged){
-        console.log("login send button to /home");
         props.history.push({
           pathname: "/home"
         })
@@ -93,7 +91,6 @@ export const AccountLogin: React.FC = (props: any) => {
       });
 
       if(authState.isLogged){
-        console.log("login set user data function to /home");
         props.history.push({
           pathname: "/home"
         });

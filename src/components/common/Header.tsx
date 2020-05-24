@@ -34,7 +34,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
       isLogged: false,
       user: null
     });
-    window.location.href = '/'
+    window.location.pathname = '/'
     return;
   }
 

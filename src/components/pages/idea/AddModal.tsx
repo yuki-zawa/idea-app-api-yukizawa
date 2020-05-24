@@ -65,7 +65,7 @@ export const AddModal: React.FC = (props: any) => {
         ideas: tempIdeas
       })
       .then(res => {
-        window.location.href = "/home";
+        window.location.pathname = "/home";
       })
       .catch(err => console.log(err));
   }

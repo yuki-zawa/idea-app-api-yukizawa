@@ -29,7 +29,6 @@ export const Provider: React.FC<ProviderProps> = ({ children }) => {
 
   const fetchData = useCallback(async () => {
     let TokenInCookie = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-
     // set Authorization header
     axios.defaults.headers.common['Authorization'] = 'Bearer ' + TokenInCookie;
 

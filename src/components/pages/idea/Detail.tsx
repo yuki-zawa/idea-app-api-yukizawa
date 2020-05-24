@@ -154,7 +154,7 @@ export const IdeaDetail: React.FC = (props: any) => {
       await axios
         .delete(`/api/v1/ideas/${match.params.id}`)
         .then(res => {
-          window.location.href = "/home";
+          window.location.pathname = "/home";
         })
         .catch(err => console.log(err));
     }
@@ -257,9 +257,9 @@ export const IdeaDetail: React.FC = (props: any) => {
                         <select name="category" id="category" className="styled-select">
                         <option value="アイコンを選択 ▼">アイコンを選択 ▼</option>
                         {
-                            Icon.icons.map((icon: any, i) => {
+                          Icon.icons.map((icon: any, i) => {
                             return <option value={icon} key={i} selected={icon === editData.idea.icon} >{icon}</option>
-                            })
+                          })
                         }
                         </select>
                     </div>
