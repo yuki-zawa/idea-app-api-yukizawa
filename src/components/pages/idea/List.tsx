@@ -123,7 +123,7 @@ export const IdeaList: React.FC = (props: any) => {
 
 
   return (
-    <HomeLayout title="idea list">
+    <HomeLayout title="STOCKROOM">
       <div className="list-header">
         <div className="search">
           <div className="search-icon">

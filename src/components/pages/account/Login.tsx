@@ -2,6 +2,7 @@ import React, { useRef, useContext, useEffect, useCallback, useState } from 'rea
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from "../../common/context/provider";
+import { ArrowLeft } from 'react-feather';
 
 const backLinkStyle = {
   display: "block",
@@ -16,6 +17,7 @@ const passwordForgotLinkStyle = {
   cursor: "pointer",
   fontSize: "14px",
   marginBottom: "30px",
+  marginTop: "8px",
   color: "#579AFF"
 };
 
@@ -108,7 +110,9 @@ export const AccountLogin: React.FC = (props: any) => {
 
   return (
     <div className="container">
-      <Link to='/' style={backLinkStyle}>←</Link>
+      <Link to='/' style={backLinkStyle}>
+          <ArrowLeft size={24}/>
+      </Link>
       <div className="err">{err}</div>
       <h1 className="title">ログイン</h1>
       <div className="form">
@@ -133,11 +137,11 @@ export const AccountLogin: React.FC = (props: any) => {
 
       <style jsx>{`
         .container {
-          padding: 1rem 1.5rem;
+            padding: 60px 24px 0 24px;
         }
 
         .err {
-          height: 100px;
+          height: 77px;
           color: red;
           display: flex;
           justify-content: center;
@@ -145,40 +149,43 @@ export const AccountLogin: React.FC = (props: any) => {
         }
 
         .title {
-          font-size: 24px;
-          margin: 2rem 0;
+          font-size: 18px;
+          margin-bottom: 32px;
         }
 
         .mail-form, .password-form {
-          margin-bottom: 30px;
+          margin-bottom: 24px;
         }
 
         .form label {
           display: block;
           margin-bottom: 0.5rem;
+          font-size: 12px;
         }
 
         .form input {
-          padding: 0.5rem 0.25rem;
-          margin-bottom: 0.5rem;
-          width: 95%;
-          border: lightgray 1px solid;
-          border-bottom: #FEB342 3px solid;
+          padding: 0.5rem 0.5rem;
+          width: 100%;
+          border: none;
+          border-bottom: #FEB342 2px solid;
           background-color: #E3EAF5;
+          font-size: 18px;
+          box-sizing: border-box;
         }
 
         .button-container {
-          width: 75%;
+          width: 314px;
           margin: 0 auto;
         }
 
         .button-container button {
           text-align: center;
           padding: 0.5rem 0.25rem;
+          box-sizing: border-box;
           width: 100%;
           background-color: #FEB342;
           font-size: 16px;
-          font-weight: bold;
+          border-radius :4px;
         }
       `}</style>
     </div>

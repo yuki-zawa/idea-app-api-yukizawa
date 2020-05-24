@@ -172,12 +172,10 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
 
   return (
     <div className="container">
-      <div className="inner-header">
-        <span onClick={props.closeFunc} className="cross-btn">
-            <X size={20}  />
-        </span>
-        <span onClick={completeModal} className="check-btn">完了</span>
-      </div>
+      <span onClick={props.closeFunc} className="cross-btn">
+          <X size={20}  />
+      </span>
+      <span onClick={completeModal} className="check-btn">完了</span>
       <p className="header-title">タグの編集</p>
       <div className="change-tag">
         <span id="genre" onClick={changeTag} style={{color: tagState === "genre" ? "" : "lightgray"}}>カテゴリータグ</span>｜<span id="idea" onClick={changeTag} style={{color: tagState === "idea" ? "" : "lightgray"}}>アイデアタグ</span>

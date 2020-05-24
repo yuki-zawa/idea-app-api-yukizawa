@@ -227,7 +227,7 @@ export const IdeaDetail: React.FC = (props: any) => {
   }, [idea]);
 
   return (
-    <HomeLayout title="idea list">
+    <HomeLayout title="STOCKROOM">
       <div className="container">
         <div className="top-part"> 
           <button onClick={() => history.goBack()} className="cancel-btn">
