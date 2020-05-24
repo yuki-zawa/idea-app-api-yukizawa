@@ -2,44 +2,46 @@ import React from 'react';
 import useReactRouter from "use-react-router";
 import { Link } from 'react-router-dom';
 import Logo from './../../../../src/components/images/logo.svg'
+import GoogleLogo from './../../images/google-icon.svg';
 
 const createLinkStyle = {
   textAlign: "center" as "center",
   display: "block",
-  height: "30px",
-  lineHeight: "30px",
+  height: "32px",
+  lineHeight: "32px",
   cursor: "pointer",
-  border: "3px solid #FEB342",
   borderRadius: "4px",
   backgroundColor: "#FEB342",
-  marginBottom: "10px"
+  marginBottom: "16px",
+  fontSize: "14px"
 };
 const googleLinkStyle = {
-  textAlign: "center" as "center",
-  display: "block",
-  height: "30px",
-  lineHeight: "30px",
+  display: "flex",
+  alignItems: "center" as "center",
+  height: "36px",
+  lineHeight: "36px",
   cursor: "pointer",
-  border: "3px solid #FEB342",
-  marginBottom: "10px",
-  borderRadius: "4px"
+  border: "2px solid #FEB342",
+  boxSizing: "border-box" as "border-box",
+  marginBottom: "16px",
+  borderRadius: "4px",
+  fontSize: "14px"
 };
 const loginLinkStyle = {
   textAlign: "center" as "center",
   display: "block",
-  height: "30px",
-  lineHeight: "30px",
+  height: "36px",
+  lineHeight: "36px",
   cursor: "pointer",
   borderRadius: "4px",
-  border: "3px solid #C4C4C4",
   backgroundColor: "#C4C4C4",
-  marginBottom: "10px"
+  fontSize: "14px"
 };
 const detailLinkStyle = {
   textAlign: "center" as "center",
   display: "block",
-  height: "30px",
-  lineHeight: "30px",
+  height: "36px",
+  lineHeight: "36px",
   cursor: "pointer",
   borderRadius: "4px"
 };
@@ -54,7 +56,10 @@ export const Top: React.FC = () => {
             <p className="start-text">STOCKROOMを始める</p>
             <div className="login-container">
                 <Link to='/account/create' style={createLinkStyle}>アカウントを作成</Link>
-                <Link to='/' style={googleLinkStyle}>googleアカウントで登録/ログイン</Link>{/* FIXME このリンクは変更になる可能性があるのであとで編集してほしい */}
+                <Link to='/' style={googleLinkStyle}>
+                    <img className="google-logo" src={GoogleLogo} alt=""/>
+                    <p className="google-text">Googleアカウントで登録/ログイン</p>
+                </Link>{/* FIXME このリンクは変更になる可能性があるのであとで編集してほしい */}
                 <Link to='/account/login' style={loginLinkStyle}>ログイン</Link>
             </div>
         </div>
@@ -66,8 +71,12 @@ export const Top: React.FC = () => {
             <Link to='/introduction' style={detailLinkStyle}>詳しくはこちら➡︎</Link>
         </div>
       <style jsx>{`
+        .login-container{
+            width: 314px;
+            margin: 0 atuto;
+        }
         .container {
-          padding: 40px 28px;
+          padding: 0 28px;
           box-sizing: border-box;
         }
 
@@ -78,6 +87,17 @@ export const Top: React.FC = () => {
         }
         .top-logo{
             width: 70px;
+            height: auto;
+        }
+
+        .google-text{
+            margin: 0 auto;
+            font-size: 14px;
+        }
+        .google-logo{
+            position: absolute;
+            margin-left: 8px;
+            width: 20px;
             height: auto;
         }
 
@@ -92,12 +112,9 @@ export const Top: React.FC = () => {
         }
 
         .start-text {
-          font-size: 16px;
-          margin: 1rem 0;
-        }
-
-        .login-container {
-          margin-bottom: 100px;
+          font-size: 18px;
+          font-weight: bold;
+          margin-bottom: 16px;
         }
 
         .introduction{
@@ -105,6 +122,7 @@ export const Top: React.FC = () => {
             position: fixed;
             padding: 40px 28px;
             box-sizing: border-box;
+            bottom: 80px;
         }
         .intro-title {
           font-weight: bold;

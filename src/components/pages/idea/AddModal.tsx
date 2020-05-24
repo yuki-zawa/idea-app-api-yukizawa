@@ -136,7 +136,7 @@ export const AddModal: React.FC = (props: any) => {
   },[selectedIdeaTags, selectedGenreTag]);
 
   return (
-    <HomeLayout title="idea list">
+    <HomeLayout title="STOCKROOM">
       <div className="container">
         <div className="top-part"> 
           <button onClick={() => history.goBack()} style={backLinkStyle}>←</button>
