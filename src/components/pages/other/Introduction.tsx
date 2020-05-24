@@ -24,16 +24,36 @@ import PartitionTop from './../../../../src/components/images/Partition-top.svg'
 import PartitionBottom from './../../../../src/components/images/Partition-bottom.svg'
 import FooterLogo from './../../../../src/components/images/footer-logo.svg'
 
-const body = {
-    background: "#fff",
-    textAlign: "center" as "center",
-    display: "block",
-    height: "8vh",
-    lineHeight: "8vh",
-    paddingLeft: "10px",
-    float: "left" as "left",
-    cursor: "pointer",
+const headerLinkStyle = {
+    borderBottom: '3px #feb342 solid',
+    marginRight: '12px',
+    fontSize: '14px',
+    fontWeight: 'bold' as 'bold',
 };
+
+const topStartBtnStyle = {
+    backgroundColor: '#FEB342',
+    width: '120px',
+    height: '32px',
+    fontWeight: 'bold' as 'bold',
+    borderRadius: '4px',
+    marginRight: '0',
+    marginLeft: 'auto' as 'auto',
+    lineHeight: '32px',
+    fontSize: '12px',
+    textAlign: 'center' as 'center',
+}
+
+const demandBtnStyle = {
+    backgroundColor: 'white',
+    width: '120px',
+    height: '32px',
+    fontWeight: 'bold' as 'bold',
+    borderRadius: '4px',
+    lineHeight: '32px',
+    fontSize: '12px',
+    display: 'inline-block'
+}
 
 export const Introduction: React.FC = () => {
   return (
@@ -42,8 +62,8 @@ export const Introduction: React.FC = () => {
         <header className="header">
             <img className="header-title-logo" src={ Logotype } alt="STOCKROOM"/>
             <div className="header-link-container">
-                <p className="header-link">ログイン</p>
-                <p className="header-link">会員登録</p>
+                <Link style={headerLinkStyle} to='/account/login'>ログイン</Link>
+                <Link style={headerLinkStyle} to='/account/create'>会員登録</Link>
             </div>
         </header>
         <section className="firstview-section">
@@ -56,7 +76,7 @@ export const Introduction: React.FC = () => {
                         <p className="firstview-caption-body">あなただけの、</p><br/>
                         <p className="firstview-caption-body">ひらめきをストックする場所。</p>
                     </div>
-                    <button className="firstview-btn">さっそく始める</button>
+                    <Link to='/' style={topStartBtnStyle}>さっそく始める</Link>
                 </div>
             </div>
         </section>
@@ -156,9 +176,9 @@ export const Introduction: React.FC = () => {
                 創作活動を充実させましょう!
             </p>
             <div className="demand-btn_wrapper">
-                <button className="demand-btn">
+                <Link to='/' style={demandBtnStyle}>
                     さっそく始める
-                </button>
+                </Link>
             </div>
 
         </section>
@@ -214,12 +234,6 @@ export const Introduction: React.FC = () => {
                 display: flex;
                 margin-top: 8px;
             }
-            .header-link{
-                border-bottom: 3px #feb342 solid;
-                margin-right: 12px;
-                font-size: 14px;
-                font-weight: bold;
-            }
             //ファーストビュー
             .firstview-section{
                 top: 46px;
@@ -272,16 +286,6 @@ export const Introduction: React.FC = () => {
                 font-weight: bold;
                 letter: spacing: 2em;
             }
-            .firstview-btn{
-                background-color: #FEB342;
-                width: 120px;
-                height: 32px;
-                font-weight: bold;
-                border-radius: 4px;
-                margin-right: 0;
-                margin-left: auto;
-            }
-
             .page-section{
                 padding: 0 32px;
                 margin-bottom: 120px;
@@ -441,14 +445,6 @@ export const Introduction: React.FC = () => {
                 text-align: center;
                 font-weight: bold;
                 margin-bottom: 72px;
-            }
-            .demand-btn{
-                background-color: white;
-                width: 120px;
-                height: 32px;
-                font-weight: bold;
-                border-radius: 4px;
-                
             }
             .demand-btn_wrapper{
                 margin: 0 auto;
