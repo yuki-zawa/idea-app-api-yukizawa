@@ -56,10 +56,10 @@ export const Top: React.FC = () => {
             <p className="start-text">STOCKROOMを始める</p>
             <div className="login-container">
                 <Link to='/account/create' style={createLinkStyle}>アカウントを作成</Link>
-                <Link to='/' style={googleLinkStyle}>
+                <a href="https://idea-stocker-api.herokuapp.com/auth/google_oauth2" style={googleLinkStyle}>
                     <img className="google-logo" src={GoogleLogo} alt=""/>
                     <p className="google-text">Googleアカウントで登録/ログイン</p>
-                </Link>{/* FIXME このリンクは変更になる可能性があるのであとで編集してほしい */}
+                </a>
                 <Link to='/account/login' style={loginLinkStyle}>ログイン</Link>
             </div>
         </div>
