@@ -34,7 +34,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
       isLogged: false,
       user: null
     });
-    window.location.href = '/'
+    window.location.pathname = '/'
     return;
   }
 
@@ -49,7 +49,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
       <style jsx>{`
         header {
           width: 100%;
-          height: 40px;
+          height: 44px;
           background-color: white;
           position: fixed;
             left: 0;
@@ -59,22 +59,20 @@ export const Header: React.FC<HeaderProps> = (props) => {
         }
         
         ul {
-          position: relative;
           height: 40px;
         }
 
         .title {
           width: 100px;
           text-align: center;
-          line-height: 40px;
+          line-height: 44px;
           position: absolute;
           left: 0;
           right: 0;
           top: 0;
           bottom :0;
           margin: auto;
-          font-size: 20px;
-          font-weight: 700;
+          font-size: 12px;
         }
 
       `}</style>

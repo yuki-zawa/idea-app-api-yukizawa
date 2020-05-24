@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
+import { Link, useHistory } from 'react-router-dom';
 import { Card } from './Card'
 
 type ShuffleModalProps = {
@@ -8,6 +9,7 @@ type ShuffleModalProps = {
 
 
 export const ShuffleModal: React.FC<ShuffleModalProps> = (props: any) => {
+  const history = useHistory();
   const [idea1, setIdea1] = useState({
     id: 0,
     icon: "",
@@ -42,9 +44,17 @@ export const ShuffleModal: React.FC<ShuffleModalProps> = (props: any) => {
       .catch(error => console.log(error));
   }
 
+  const onClick = () => {
+    history.push({
+      pathname: '/ideas/new',
+      state: { originIdeas: [idea1, idea2] }
+    });
+  }
+
   useEffect(() => {
     fetchIdeas();
   },[])
+
   return (
     <div className="container">
       <div className="title">
@@ -55,7 +65,7 @@ export const ShuffleModal: React.FC<ShuffleModalProps> = (props: any) => {
         <Card 
           idea={idea1}
           cardWidth={"100%"}
-          cardHeight={"132px"}
+          cardHeight={"170px"}
           backgroundColor={"#FCFCFC"}
           boxShadow={"0px 0px 12px 0px lightgray"}
           cardContentLine={2}
@@ -65,7 +75,7 @@ export const ShuffleModal: React.FC<ShuffleModalProps> = (props: any) => {
         <Card
           idea={idea2}
           cardWidth={"100%"}
-          cardHeight={"132px"}
+          cardHeight={"170px"}
           backgroundColor={"#FCFCFC"}
           boxShadow={"0px 0px 12px 0px lightgray"}
           cardContentLine={2}
@@ -73,7 +83,7 @@ export const ShuffleModal: React.FC<ShuffleModalProps> = (props: any) => {
         />
       </div>
       <div className="btn-container">
-        <button className="new-btn">新しいアイデアを追加する➡︎</button>
+        <button className="new-btn" onClick={onClick}>新しいアイデアを追加する➡︎</button>
       </div>
       <div className="shuffle">
         <button onClick={fetchIdeas}>⇆</button>

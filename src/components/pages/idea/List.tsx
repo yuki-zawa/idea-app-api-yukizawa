@@ -3,30 +3,32 @@ import { HomeLayout } from "../../common/HomeLayout";
 import axios from 'axios';
 import InfiniteScroll from "react-infinite-scroller";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
-
-import { Card } from './Card'
+import { Search, List, Shuffle, Plus, Settings, Grid } from 'react-feather';
+import Sort from '../../images/sort.svg'
+import { Card } from './Card';
+import { Card2 } from './Card2';
 import { ShuffleModal } from "./ShuffleModal";
 import { TagSearch } from "./TagSearch";
+import { SortModal } from "./SortModal";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     inputRoot: {
       color: 'inherit',
-      backgroundColor: "#E3EAF5",
-      borderRadius: "5px",
+      padding: theme.spacing(0, 0, 0, 1.5),
+      width: '100%',
     },
     inputInput: {
-      padding: theme.spacing(1, 1, 1, 0),
+      padding: theme.spacing(1, 1, 0.5, 0),
       // vertical padding + font size from searchIcon
       paddingLeft: `calc(0.25rem + ${theme.spacing(3)}px)`,
       transition: theme.transitions.create('width'),
       width: '100%',
       [theme.breakpoints.up('sm')]: {
-        width: '12ch',
+        width: '100%',
         '&:focus': {
           width: '20ch',
         },
@@ -39,16 +41,17 @@ export const IdeaList: React.FC = (props: any) => {
   const classes = useStyles();
 
   const [ideas, setIdeas] = useState([]);
-  const [word, setWord] = useState('');
   const [openShuffleModal, setOpenShuffleModal] = useState(false);
+  const [openSortModal, setOpenSortModal] = useState(false);
   const [showLoader, setShowLoader] = React.useState(false);
+  const [listState, setListState] = useState(false);
   const [pagenation, setPagenation] = React.useState({
     total: 0,
     perPage: 10,
     currentPage: 1
   });
 
-  const [tagSearchQuery, setTagSearchQuery] = useState('');
+  const [tagSearchQuery, setTagSearchQuery] = useState('&sort=new');
 
   const fetchIdeas = async () => {
     setShowLoader(true);
@@ -89,6 +92,10 @@ export const IdeaList: React.FC = (props: any) => {
     });
   }
 
+  const handleChangeListState = (bool: boolean) => {
+    setListState(bool);
+  }
+
   const shuffle = () => {
     if(pagenation.total < 2) {
       window.alert("アイデアを二つ以上登録してください");
@@ -102,7 +109,12 @@ export const IdeaList: React.FC = (props: any) => {
   }
 
   const handleChange = (event: any) => {
-    setTagSearchQuery(tagSearchQuery + `&word=${event.target.value}`);
+    var queryString = tagSearchQuery.replace(/&word=.*(?=&)|&word=.*(?!&)/g, '');
+    setTagSearchQuery(queryString + `&word=${event.target.value}`);
+  }
+
+  const handleChangeSortOpen = (bool: boolean) => {
+    setOpenSortModal(bool);
   }
 
   useEffect(() => {
@@ -111,11 +123,11 @@ export const IdeaList: React.FC = (props: any) => {
 
 
   return (
-    <HomeLayout title="idea list">
+    <HomeLayout title="STOCKROOM">
       <div className="list-header">
         <div className="search">
           <div className="search-icon">
-            <SearchIcon />
+            <Search size={24} />
           </div>
           <InputBase
             placeholder="アイデアを検索する"
@@ -127,6 +139,24 @@ export const IdeaList: React.FC = (props: any) => {
             onChange={handleChange}
           />
         </div>
+        <div className="sort">
+          <img className="sort-icon" src={ Sort } alt="sort-icon" onClick={() => handleChangeSortOpen(true)}/>
+        </div>
+        <div className="switch">
+          {
+            listState ?
+              <Grid className="grid-icon" size="18" onClick={() => handleChangeListState(false)}/>
+              :
+              <List className="switch-icon" size="18" onClick={() => handleChangeListState(true)}/>
+          }
+        </div>
+        {openSortModal ?
+        <SortModal
+          handleChangeSortOpen={handleChangeSortOpen}
+          setQuery={setTagSearchQuery}
+          currentQuery={tagSearchQuery}
+        />
+        : ""}
       </div>
       <TagSearch
         setQuery={setTagSearchQuery}
@@ -138,35 +168,62 @@ export const IdeaList: React.FC = (props: any) => {
           hasMore={!showLoader && ideas && pagenation.total > ideas.length}
           loadMore={fetchMoreIdeas}
           initialLoad={false}
+          useWindow={false}
         >
           {
-            ideas && ideas.map((idea, index) => {
+            !(!showLoader && ideas.length === 0) ? ideas && ideas.map((idea, index) => {
               return (
-                <Card 
-                  idea={idea} 
-                  key={index}
-                  cardWidth={"48%"}
-                  cardHeight={"175px"}
-                  cardContentLine={4}
-                />
+                listState ? 
+                  <Card2
+                    idea={idea} 
+                    key={index}
+                  /> :
+                  <Card
+                    idea={idea} 
+                    key={index}
+                    cardWidth={"48%"}
+                    cardHeight={"200px"}
+                    cardContentLine={4}
+                  />
               )
-            })
+            }) : 
+            <div className="no-idea">
+              <p>まだひらめきがありません！</p>
+              <p>ひらめきを追加しましょう！</p>
+            </div>
           }
         </InfiniteScroll>
         <div style={{ textAlign: "center", paddingBottom: "10px" }}>
           {showLoader ? <CircularProgress style={{ margin: "24px auto" }}/> : ""}
         </div>
-        <div className="btns">
-          <Link to='/ideas/new'>
-            <button className="plus">
-              ＋
-            </button>
-          </Link>
-          <button className="shuffle" onClick={shuffle}>
-            ⇆
-          </button>
-        </div>
       </div>
+        <div className="footer-menu">
+            {/* <Link to='/home'>
+                <div className="home-btn footer-btn">
+                    <Home color="white" size="28"/>
+                </div>
+            </Link> */}
+            <button className="shuffle-btn footer-btn" onClick={shuffle}>
+                <Shuffle color="white" size="28"/>
+            </button>
+            <Link to='/ideas/new'>
+                <button className="add-btn" >
+                    <Plus color="#434343" size="28"/>
+                </button>
+            </Link>
+            {/* <Link to='/ideas/new'>
+                <div className="search-btn footer-btn">
+                    <Search color="white" size="28"/>
+                </div>
+            </Link> */}
+            <Link to='/ideas/new'>
+                <div className="user-btn footer-btn">
+                    <Settings color="white" size="28"/>
+                </div>
+            </Link>
+        </div>
+        
+        
       <div className="blur" />
       { openShuffleModal ? 
           <ShuffleModal 
@@ -176,11 +233,12 @@ export const IdeaList: React.FC = (props: any) => {
       }
       <style jsx>{`
         .container {
-          height: 100%;
-          padding: 1.25rem 1rem;
-          overflow: auto;
-          clear: both;
-          margin-top: 72px;
+          height: 100vh;
+          width: 100%;
+          padding: 148px 12px 72px 12px;
+          box-sizing: border-box;
+          overflow-y: scroll;
+          background-color: white;
         }
 
         .blur{
@@ -195,18 +253,45 @@ export const IdeaList: React.FC = (props: any) => {
         }
 
         .list-header {
-          height: 40px;
-          background-color: white;
-          position: absolute;
           width: 100%;
-          top: 40px;
-          z-index: 100;
+          top: 88px;
+          height: 56px;
+          z-index: 98;
+          padding: 16px 16px 0 16px;
+          box-sizing: border-box;
+          background-color: white;
+          position: fixed;
+          display: flex;
         }
 
         .search {
-          position: relative;
-          display: inline-block;
-          padding: 0 0.5rem;
+          background-color: #F1F1F1;
+          border: 1px solid #c4c4c4;
+          border-radius: 4px;
+          height: 32px;
+          margin-right: 12px;
+          width: calc(100% - 88px);
+        }
+
+        .sort{
+          width: 32px;
+          height: 32px;
+          border-radius: 4px;
+          border: 1px solid #c4c4c4;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-right: 12px;
+        }
+
+        .switch{
+          width: 32px;
+          height: 32px;
+          border-radius: 4px;
+          border: 1px solid #c4c4c4;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
         .search-icon {
@@ -217,32 +302,52 @@ export const IdeaList: React.FC = (props: any) => {
           display: flex;
           align-items: center;
           justify-content: center; 
+          padding-left: 10px;
         }
 
-        .btns {
-          width: 176px;
-          position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%)
+        .footer-menu {
+          width: 280px;
+          height: 72px;
+          border-radius: 72px;
+          box-sizing: border-box;
+          padding: 12px 40px;
+
+          position: fixed;
+					left: 50%;
+          transform: translateX(-50%);
+          -webkit- transform: translateX(-50%);
+          bottom: 12px;
+          
+          background-color: #434343;
+          display: flex;
+          justify-content: space-between;
         }
 
-        .btns button {
-          height: 64px;
-          width: 64px;
-          font-size: 48px;
-          line-height: 64px;
+        .add-btn{
+          height: 48px;
+          width: 48px;
           border-radius: 50%;
-          box-shadow: 0px 0px 10px gray;
-          margin: 0.5rem 0.75rem;
-        }
-
-        .plus {
           background-color: #FEB342;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
 
-        .shuffle {
-          background-color: #E3EAF5;
+        .footer-btn {
+          width: 44px;
+          height: 44px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .no-idea {
+          text-align: center;
+        }
+
+        .no-idea p {
+          margin-bottom: 10px;
+          font-size: 20px;
         }
       `}</style>
     </HomeLayout>

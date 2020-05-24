@@ -1,9 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 import { HomeLayout } from "../../common/HomeLayout";
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Rating } from '@material-ui/lab';
 import axios from 'axios';
 import { AddTagModal } from './../tag/AddModal'
+import { Icon } from './../../common/Const'
+import { X } from 'react-feather';
+import { Card } from './Card'
 
 const backLinkStyle = {
   display: "inline-block",
@@ -17,13 +20,14 @@ const backLinkStyle = {
 export interface AddParam {
   idea: any,
   genre_tag: any,
-  idea_tags: any
+  idea_tags: any,
+  ideas: any
 }
 
-const icons = ["😆", "😅", "💦", "😱"];
 const priorityLables = ["ひらめき度を設定しよう", "いいことを思いついた！", "なかなかいいひらめきだ！", "これはすごいひらめきだ！", "君は天才だ！", "世紀の大発見だ！"];
 
-export const AddModal: React.FC = () => {
+export const AddModal: React.FC = (props: any) => {
+  const history = useHistory();
   const iconRef = useRef(document.createElement("select"));
   const titleRef = useRef(document.createElement("input"));
   const memoRef = useRef(document.createElement("textarea"));
@@ -44,16 +48,24 @@ export const AddModal: React.FC = () => {
       priority: 0,
     },
     genre_tag: {},
-    idea_tags: []
+    idea_tags: [],
+    ideas: []
   });
 
   const postIdea = async () => {
-    console.log(addData);
-    // なぜか404 error API testerではうまくいく
+    var tempIdeas :Array<any> = [];
+    if(props.location.state && props.location.state.originIdeas){
+      props.location.state.originIdeas.map((idea: any) => {
+        tempIdeas.push({"id": idea.id})
+      });
+    }
     await axios
-      .post('/api/v1/ideas', addData)
+      .post('/api/v1/ideas', {
+        ...addData,
+        ideas: tempIdeas
+      })
       .then(res => {
-        window.location.href = "/home";
+        window.location.pathname = "/home";
       })
       .catch(err => console.log(err));
   }
@@ -97,6 +109,18 @@ export const AddModal: React.FC = () => {
     setOpenAddTagModal(false);
   }
 
+  const selectDelete = (type: string, event: any) => {
+    if (type === "idea") {
+      setSelectedIdeaTags(selectedIdeaTags.filter((tag: any) => tag.id !== Number(event.target.dataset.id)))
+    } else {
+      setSelectedGenreTag({
+        id: 0,
+        name: "",
+        color: "",
+      })
+    }
+  }
+
   useEffect(() => {
     var temp :Array<any> = [];
     selectedIdeaTags.map((tag: any) => {
@@ -112,17 +136,17 @@ export const AddModal: React.FC = () => {
   },[selectedIdeaTags, selectedGenreTag]);
 
   return (
-    <HomeLayout title="idea list">
+    <HomeLayout title="STOCKROOM">
       <div className="container">
         <div className="top-part"> 
-          <Link to='/home' style={backLinkStyle}>←</Link>
+          <button onClick={() => history.goBack()} style={backLinkStyle}>←</button>
         </div>
-        <div>
+        <div className="input-container">
           <div>
             <select name="category" id="category" onChange={changeCategory} ref={iconRef} className="styled-select">
               <option value="アイコンを選択 ▼">アイコンを選択 ▼</option>
               {
-                icons.map((icon: any, i) => {
+                Icon.icons.map((icon: any, i) => {
                   return <option value={icon} key={i}>{icon}</option>
                 })
               }
@@ -136,8 +160,6 @@ export const AddModal: React.FC = () => {
               style={{height: "40px", lineHeight: "40px"}}
               defaultValue={0}
               onChange={(event, newValue) => {
-                console.log(newValue);
-                console.log(event);
                 setAddData({
                   ...addData,
                   idea: {
@@ -159,7 +181,7 @@ export const AddModal: React.FC = () => {
             <input 
               ref={titleRef}
               onChange={changeTitle}
-              placeholder={"アイデアを一言で表すと？"}
+              placeholder="アイデアを一言で表すと？"
               type="text"
               className="title-input"
             />
@@ -168,7 +190,11 @@ export const AddModal: React.FC = () => {
           <p>カテゴリータグ</p>
           <div className="genre-tag-container">
             <span className="plus" id="genre" onClick={openModal}>+</span>
-            {selectedGenreTag.id !== 0 ? <span className="genre-tag tag" style={{backgroundColor: selectedGenreTag.color}}>✔︎{selectedGenreTag.name}</span> : ""}
+            {selectedGenreTag.id !== 0 ? 
+            <span className="genre-tag tag" style={{backgroundColor: selectedGenreTag.color}}>
+              <X size={14} onClick={(event) => selectDelete("genre", event)}/>
+              <span className="tag-name">{selectedGenreTag.name}</span>
+            </span> : ""}
           </div>
           <p>アイデアタグ</p>
           <div className="idea-tag-container">
@@ -176,7 +202,10 @@ export const AddModal: React.FC = () => {
             {
               selectedIdeaTags && selectedIdeaTags.map((tag: any, index: number) => {
                 return(
-                  <span className="idea-tag tag" key={index}>✔︎{tag.name}</span>
+                  <span className="idea-tag tag" key={index}>
+                    <X size={14} onClick={(event) => selectDelete("idea", event)} data-id={tag.id}/>
+                    <span className="tag-name">{tag.name}</span>
+                  </span>
                 )
               })
             }
@@ -184,6 +213,22 @@ export const AddModal: React.FC = () => {
           <p className="memo-label">メモ</p>
           <textarea ref={memoRef} className="memo-container" placeholder="メモをしよう！" onChange={changeDetail}/>
         </div>
+        {props.location.state ? 
+          <div className="origin-idea">
+            <p>シャッフルした元のアイデア</p>
+            {props.location.state.originIdeas.map((idea: any) => {
+              return (
+                <Card 
+                  idea={idea}
+                  cardWidth={"100%"}
+                  cardHeight={"170px"}
+                  backgroundColor={"#FCFCFC"}
+                  cardContentLine={2}
+                />
+              )
+            })}
+          </div>
+        : ""}
         <button onClick={postIdea} className="add-btn">追加する</button>
         { openAddTagModal ? 
             <AddTagModal 
@@ -198,9 +243,14 @@ export const AddModal: React.FC = () => {
         <style jsx>{`
         
           .container {
-            height: calc(100vh - 72px);
             background-color: white;
             padding: 1.25rem 1rem;
+            padding-top: calc(1.25rem + 40px);
+          }
+
+          .input-container {
+            padding-bottom: 16px;
+            border-bottom: 2px dashed lightgray;
           }
 
           .styled-select {
@@ -351,6 +401,18 @@ export const AddModal: React.FC = () => {
             border-radius: 5px;
             font-size: 12px;
             font-weight: bold;
+          }
+
+          .tag-name {
+            vertical-align: text-top;
+          }
+
+          .origin-idea {
+            margin-top: 16px;
+          }
+
+          .origin-idea p {
+            margin: 8px 0;
           }
         `}</style>
       </div>

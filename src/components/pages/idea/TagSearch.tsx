@@ -4,6 +4,7 @@ import InputBase from '@material-ui/core/InputBase';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import InfiniteScroll from "react-infinite-scroller";
+import { Tag } from 'react-feather';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -60,13 +61,13 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
 
   const pullDown = () => {
     document.getElementsByClassName('tag-search-header')[0].classList.add('active');
-    document.getElementsByClassName('tag-search-header')[0].getElementsByClassName('text')[0].textContent = "タグで絞り込む▲";
+    document.getElementsByClassName('tag-search-header')[0].getElementsByClassName('text')[0].textContent = "キャンセル";
     setSearchState(true);
   }
 
   const pullUp = () => {
     document.getElementsByClassName('tag-search-header')[0].classList.remove('active');
-    document.getElementsByClassName('tag-search-header')[0].getElementsByClassName('text')[0].textContent = "タグで絞り込む▼";
+    document.getElementsByClassName('tag-search-header')[0].getElementsByClassName('text')[0].textContent = "タグで絞り込む";
     setSearchState(false);
   }
 
@@ -149,7 +150,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
   }
 
   const selectTag = (type: string, event: any) => {
-    if(type==='genre'){
+    if(type === 'genre'){
       setSelectedGenreTag(genreTags[event.target.dataset.id]);
       genreTags.splice(event.target.dataset.id, 1);
       if(selectedGenreTag.id !== 0) {
@@ -218,7 +219,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
         <div className="serch-content">
           <div className="tag-container">
             <div className="label">
-              <label>カテゴリー</label><span className="btn">絞り込みを解除</span>
+              <label>カテゴリー</label>
             </div>
             <div className="tag-search">
               <div className="search">
@@ -238,7 +239,13 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
               <div style={{height:"calc(100% - 60px)", overflow:"auto"}}>
                 <div style={{borderBottom: "1px solid lightgray"}}>
                   {
-                    selectedGenreTag.id !== 0 ? <p style={{backgroundColor: selectedGenreTag.color}} className="tag" data-id={0} onClick={(event) => deleteTag("genre", event)}>{selectedGenreTag.name}</p> : ''
+                    selectedGenreTag.id !== 0 ? 
+                      <p style={{backgroundColor: selectedGenreTag.color}} className="tag" data-id={0} onClick={(event) => deleteTag("genre", event)}>
+                        <svg data-id={0} width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M8.33317 3L3.74984 7.58333L1.6665 5.5" stroke="#434343" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                        <span data-id={0}>{selectedGenreTag.name}</span>
+                      </p> : ''
                   }
                 </div>
                 <InfiniteScroll
@@ -246,11 +253,18 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                   hasMore={genreTags && pagenationForGenreTags.total > genreTags.length}
                   loadMore={fetchMoreGenreTags}
                   initialLoad={false}
+                  useWindow={false}
+                  style={{height: "100%"}}
                 >
                   {
                     genreTags && genreTags.map((genreTag: any, index: number) => {
                       return (
-                        <p key={index} data-id={index} style={{backgroundColor: genreTag.color}} className="tag" onClick={(event) => selectTag("genre", event)}>{genreTag.name}</p>
+                        <p key={index} data-id={index} style={{backgroundColor: genreTag.color}} className="tag" onClick={(event) => selectTag("genre", event)}>
+                          <svg data-id={index} width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="6" cy="6" r="4.5" stroke="#434343" strokeDasharray="2 1"/>
+                          </svg>
+                          <span data-id={index}>{genreTag.name}</span>
+                        </p>
                       )
                     })
                   }
@@ -260,7 +274,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
           </div>
           <div className="tag-container">
             <div className="label">
-              <label>アイデア</label><span className="btn">全て選択する</span>
+              <label>アイデア</label>
             </div>
             <div className="tag-search">
               <div className="search">
@@ -282,7 +296,12 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                   {
                     selectedIdeaTags && selectedIdeaTags.map((ideaTag: any, index: number) => {
                       return (
-                        <p key={index} style={{backgroundColor: '#E3EAF5'}} className="tag" data-id={index} onClick={(event) => deleteTag("idea", event)}>{ideaTag.name}</p>
+                        <p key={index} style={{backgroundColor: '#E3EAF5'}} className="tag" data-id={index} onClick={(event) => deleteTag("idea", event)}>
+                          <svg data-id={index} width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8.33317 3L3.74984 7.58333L1.6665 5.5" stroke="#434343" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                          <span data-id={index}>{ideaTag.name}</span>
+                        </p>
                       )
                     })
                   }
@@ -292,11 +311,18 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                   hasMore={ideaTags && pagenationForIdeaTags.total > ideaTags.length}
                   loadMore={fetchMoreIdeaTags}
                   initialLoad={false}
+                  useWindow={false}
+                  style={{height: "100%"}}
                 >
                   {
                     ideaTags && ideaTags.map((ideaTag: any, index: number) => {
                       return (
-                        <p key={index} data-id={index} style={{backgroundColor: '#E3EAF5'}} className="tag" onClick={(event) => selectTag("idea", event)}>{ideaTag.name}</p>
+                        <p key={index} data-id={index} style={{backgroundColor: '#E3EAF5'}} className="tag" onClick={(event) => selectTag("idea", event)}>
+                          <svg data-id={index} width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="6" cy="6" r="4.5" stroke="#434343" strokeDasharray="2 1"/>
+                          </svg>
+                          <span data-id={index}>{ideaTag.name}</span>
+                        </p>
                       )
                     })
                   }
@@ -308,20 +334,25 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
             選択したタグで絞り込む =>
           </button>
         </div>
-        <p className="text" onClick={searchState ? pullUp : pullDown}>タグで絞り込む▼</p>
+        <p className="text-container" onClick={searchState ? pullUp : pullDown}>
+            <Tag size={18}/>
+            <span className="text">タグで絞り込む</span>
+        </p>
       </div>
       <style jsx>{`
         .tag-search-header {
-          text-align: center;
-          height: 32px;
-          position: absolute;
+            text-align: center;
+            height: 44px;
+            position: fixed;
             width: 100%;
-            top: 80px;
+            top: 44px;
+            box-sizing: border-box;
             z-index: 99;
-          background-color: black;
-          color: white;
-          border-radius: 0px 0px 10px 10px;
-          transition: all 400ms 0s ease;
+            padding: 8px 0;
+            background-color: #434343;
+            color: white;
+            border-radius: 0px 0px 8px 8px;
+            transition: all 400ms 0s ease;
         }
 
         .active {
@@ -330,13 +361,12 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
 
         .tag-search-header p {
           line-height: 32px;
-          font-weight: bold;
         }
 
         .serch-content {
           width: 100%;
           color: black;
-          position: absolute;
+          position: fixed;
             top: -80vh;
             z-index: -1;
           height: 80vh;
@@ -402,6 +432,21 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
           border-radius: 4px;
           box-shadow: 2px 2px 3px lightgray;
           overflow: hidden;
+        }
+
+        svg {
+          margin-right: 4px;
+        }
+
+        .text-container {
+          font-weight: bold;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+        }
+        .text{
+            margin-left: 6px;
         }
       `}</style>
     </div>
