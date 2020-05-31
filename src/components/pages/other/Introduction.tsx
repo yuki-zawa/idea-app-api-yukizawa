@@ -25,7 +25,7 @@ import PartitionBottom from './../../../../src/components/images/Partition-botto
 import FooterLogo from './../../../../src/components/images/footer-logo.svg'
 
 const headerLinkStyle = {
-    borderBottom: '3px #feb342 solid',
+    borderBottom: '2px #feb342 solid',
     marginRight: '12px',
     fontSize: '14px',
     fontWeight: 'bold' as 'bold',
@@ -118,22 +118,27 @@ export const Introduction: React.FC = () => {
         {/* reccomend */}
         <section className="page-section">
             <div className="page-title_wrapper">
-                <img className="page-title" src={ RecommendTitle } alt="Recommend"/>
+              <img className="page-title" src={ RecommendTitle } alt="Recommend"/>
             </div>
             <h2 className="recommend-subtitle">ホーム画面に追加する</h2>
             <p className="recommend-sentence">STOCKROOMはホーム画面に追加することでアプリのように使うことが出来ます。是非ホーム画面に追加してご利用ください！</p>
-            <img className="recommend-img" src={ Recommend } alt=""/>
+            <div className="recommend-img_wrapper">
+              <img className="recommend-img" src={ Recommend } alt=""/>
+            </div>
+            
             <div className="recommend-btn_wrapper">
-                <button className="recommend-btn">ホーム画面に追加する方法</button>
+              <button className="recommend-btn">ホーム画面に追加する方法</button>
             </div>
             
         </section>  
         {/* features */}
-        <section className="page-section features-section">
-            <div className="page-title_wrapper">
+        <section className="features-section">
+            <div className="page-title_wrapper features-title_wrapper">
                 <img className="page-title" src={ FeaturesTitle } alt="Features"/>
             </div>
-            <img className="features-partition" src={ PartitionBottom } alt=""/>
+            <div className="features-partition_wrapper">
+                <img className="features-partition-top" src={ PartitionBottom } alt=""/>
+            </div>
             <section className="features-subsection">
                 <img className="features-num" src={ FeaturesNum01 } alt="01"/>
                 <h2 className="features-subtitle">ひらめきをストックする</h2>
@@ -143,8 +148,10 @@ export const Introduction: React.FC = () => {
                 <p className="features-sentense">何かをひらめいた瞬間に、サクッと手軽にメモができます。ひらめきにはタグをつけることができ、頭の中の整理整頓に役立ちます。</p>
                 <img className="features-mock-img" src={ FeaturesMock01 } alt=""/>
             </section>
-            <img className="features-partition partition-top" src={ PartitionTop } alt=""/>
-            <img className="features-partition" src={ PartitionBottom } alt=""/>
+            <div className="features-partition_wrapper">
+                <img className="features-partition partition-top" src={ PartitionTop } alt=""/>
+                <img className="features-partition" src={ PartitionBottom } alt=""/>
+            </div>
             <section className="features-subsection">
                 <img className="features-num" src={ FeaturesNum02 } alt="02"/>
                 <h2 className="features-subtitle">ひらめきを見返す</h2>
@@ -154,8 +161,10 @@ export const Introduction: React.FC = () => {
                 <p className="features-sentense">何かをひらめいた瞬間に、サクッと手軽にメモができます。ひらめきにはタグをつけることができ、頭の中の整理整頓に役立ちます。</p>
                 <img className="features-mock-img" src={ FeaturesMock02 } alt=""/>
             </section>
-            <img className="features-partition partition-top" src={ PartitionTop } alt=""/>
-            <img className="features-partition" src={ PartitionBottom } alt=""/>
+            <div className="features-partition_wrapper">
+                <img className="features-partition partition-top" src={ PartitionTop } alt=""/>
+                <img className="features-partition" src={ PartitionBottom } alt=""/>
+            </div>
             <section className="features-subsection">
                 <img className="features-num" src={ FeaturesNum03 } alt="03"/>
                 <h2 className="features-subtitle">新しく、ひらめく</h2>
@@ -165,8 +174,11 @@ export const Introduction: React.FC = () => {
                 <p className="features-sentense">新しいアイデアがなかなか出てこない時、「シャッフル機能」でランダムなアイデアの組み合わせを提案。あなたの新たなひらめきをサポートします！</p>
                 <img className="features-mock-img" src={ FeaturesMock03 } alt=""/>
             </section>
+            <div className="demand-partition_wrapper">
+                <img className="demand-partition" src={ PartitionTop } alt=""/>
+            </div>
         </section>
-        <img className="demand-partition" src={ PartitionTop } alt=""/>
+        
         <section className="page-section demand-section">
             <div className="demand-title_wrapper">
                 <img className="demand-title" src={ Begin } alt="begin"/>
@@ -184,7 +196,10 @@ export const Introduction: React.FC = () => {
         </section>
         <footer>
             <div className="footer-content">
-                <img className="footer-logo" src={ FooterLogo } alt="STOCKROOM"/>
+                <div className="footer-logo_wrapper">
+                    <img className="footer-logo" src={ FooterLogo } alt="STOCKROOM"/>
+                </div>
+                
                 <div className="footer-menu">
                     <ul className="footer-login">
                         <li className="footer-option">会員登録</li>
@@ -344,6 +359,12 @@ export const Introduction: React.FC = () => {
                 line-height: 1.6em;
                 margin-bottom: 32px;
             }
+            .recommend-img_wrapper{
+                width: 320px;
+                height: auto;
+                text-align: center;
+                margin-bottom: 40px;
+            }
             .recommend-img{
                 width: 100%;
                 height: auto;
@@ -364,15 +385,28 @@ export const Introduction: React.FC = () => {
             .features-section{
                 padding: 0;
                 padding-top: 64px;
-                background-color: #FEB342;
+                background-color: #fff;
                 z-index: 10;
             }
-            .partition-top{
-                margin-bottom: 60px;
+            .features-title_wrapper{
+                margin: 0;
+                padding: 44px 80px;
+                background-color: #FEB342;
+            }
+            .features-partition-top{
+                margin: 0;
+            }
+            .features-partition_wrapper{
+                width: 100%;
+                height: auto;
+                background-color: #FEB342;
             }
             .features-partition{
                 width: 100%;
                 height: auto;
+            }
+            .partition-top{
+                margin-bottom: 60px;
             }
             .features-subsection{
                 padding: 0 32px;
@@ -394,11 +428,13 @@ export const Introduction: React.FC = () => {
             .features-mock-img{
                 width: 100%;
                 height: auto;
+                display :none;
             }
             .features-sentense{
                 text-align: justify;
                 line-height: 1.6em;
                 margin-bottom: 40px;
+                padding-bottom: 40px;
             }
             .features-img_wrapper01{
                 width: 270px;
@@ -421,7 +457,7 @@ export const Introduction: React.FC = () => {
                 width: 100%;
                 height: auto;
                 background-color: #FEB342;
-                margin-top: -30px;
+                margin-top: -44px;
                 z-index: 1;
             }
 
@@ -457,10 +493,14 @@ export const Introduction: React.FC = () => {
                 display: flex;
                 margin-bottom: 24px;
             }
-            .footer-logo{
+            .footer-logo_wrapper{
                 widthn: 64px;
                 height: auto;
                 margin-right: 44px;
+            }
+            .footer-logo{
+                widthn: 100%;
+                height: auto;
             }
             .footer-menu{
                 margin-top: 32px;
