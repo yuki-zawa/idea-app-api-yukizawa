@@ -271,6 +271,7 @@ export const IdeaDetail: React.FC = (props: any) => {
               <CircularProgress style={{ margin: "24px auto" }}/>
             </div> :
             <div className="input-container">
+              <div className="add-icon-container">
                 { 
                     !editState ?
                     <p className="icon">{idea.icon ? <Emoji emoji={idea.icon} size={40}/> : "😓"}</p>
