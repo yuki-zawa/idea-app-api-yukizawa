@@ -5,7 +5,7 @@ import { Rating } from '@material-ui/lab';
 import axios from 'axios';
 import { AddTagModal } from './../tag/AddModal'
 import { Icon } from './../../common/Const'
-import { X, Check } from 'react-feather';
+import { X, Check, ArrowRight } from 'react-feather';
 import { Card } from './Card'
 import StarIcon from '@material-ui/icons/Star';
 import AddBtn from './../../images/add-btn.svg';
@@ -155,8 +155,8 @@ export const AddModal: React.FC = (props: any) => {
       {openIconsModal ? <IconsModal setIcon={setIdeaIcon} closeModal={changeIconsModal}/> : ""}
       <div className="container" onClick={() => closeIconsModal()}>
         <div className="top-part"> 
-          <button onClick={() => history.goBack()} style={backLinkStyle}>
-            <X size={24}/>
+          <button className="x-icon" onClick={() => history.goBack()} style={backLinkStyle}>
+            <X  size={24} color="#333"/>
           </button>
           <p className="title">新しいアイデアを追加する</p>
           <button onClick={postIdea} className="add-btn">
@@ -215,7 +215,7 @@ export const AddModal: React.FC = (props: any) => {
           <p className="tag-label">カテゴリータグ</p>
           <div className="genre-tag-container">
             <span className="plus" onClick={openModal}>
-              <img src={AddBtn} alt="" id="genre"/>
+              <img className="plus-img" src={AddBtn} alt="" id="genre"/>
             </span>
             {selectedGenreTag.id !== 0 ? 
             <span className="genre-tag tag" style={{backgroundColor: selectedGenreTag.color}}>
@@ -226,7 +226,7 @@ export const AddModal: React.FC = (props: any) => {
           <p className="tag-label">アイデアタグ</p>
           <div className="idea-tag-container">
             <span className="plus" onClick={openModal}>
-              <img src={AddBtn} alt="" id="idea"/>
+              <img className="plus-img" src={AddBtn} alt="" id="idea"/>
             </span>
             {
               selectedIdeaTags && selectedIdeaTags.map((tag: any, index: number) => {
@@ -241,7 +241,24 @@ export const AddModal: React.FC = (props: any) => {
           </div>
           <p className="memo-label">メモ</p>
           <textarea ref={memoRef} className="memo-container" placeholder="メモをしよう！" onChange={changeDetail}/>
+          <div className="add-btn_container">
+            <button onClick={postIdea} className="add-btn">
+              <span className="add-btn_text">アイデアを追加する</span>
+              <ArrowRight size={24} color="#333" />
+            </button>
+          </div>
         </div>
+        
+        { openAddTagModal ? 
+            <AddTagModal 
+            tagState={tagState}
+            closeFunc={closeModal}
+            selectedGenreTag={selectedGenreTag}
+            setSelectedGenreTag={setSelectedGenreTag}
+            selectedIdeaTags={selectedIdeaTags}
+            setSelectedIdeaTags={setSelectedIdeaTags}
+            /> : ""
+        }
         {props.location.state ? 
           <div className="origin-idea">
             <p>シャッフルした元のアイデア</p>
@@ -263,13 +280,15 @@ export const AddModal: React.FC = (props: any) => {
           // header部分
           .top-part {
             margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+          }
+          .x-icon{
+            position: absolute;
           }
           .title{
             font-size: 14px;
             color: #333;
+            text-align: center;
+            line-height: 28px;
           }
           
           .container {
@@ -290,7 +309,6 @@ export const AddModal: React.FC = (props: any) => {
             margin-bottom: 12px;
           }
           .input-container {
-            padding-bottom: 16px;
             border-bottom: 2px dashed #E3EAF5;
             z-index: 1;
           }
@@ -385,6 +403,7 @@ export const AddModal: React.FC = (props: any) => {
             height: 16px;
             font-size: 16px;
             padding: 0.25rem 0;
+            border: none;
           }
 
           // タグ
@@ -393,8 +412,15 @@ export const AddModal: React.FC = (props: any) => {
             margin-bottom: 6px;
           }
           .plus {
+            width: 24px;
+            height: 24px;
             display: inline-block;
             margin-right: 8px;
+          }
+          .plus-img{
+            margin: 3px 0;
+            width: 18px;
+            height: auto;
           }
           .tag {
             display: inline-block;
@@ -436,7 +462,6 @@ export const AddModal: React.FC = (props: any) => {
             font-size: 14px;
             color: #434343;
             line-height: 1.6em;
-            letter-spacing: .2em;
           }
 
           .origin-idea {
@@ -445,6 +470,21 @@ export const AddModal: React.FC = (props: any) => {
 
           .origin-idea p {
             margin: 8px 0;
+          }
+          .add-btn_container{
+            width: fit-content;
+            margin: 24px auto;
+          }
+          .add-btn{
+            background: #FEB342;
+            border-radius: 4px;
+            padding: 6px 16px;
+            display: flex;
+            align-items: center;
+          }
+          .add-btn_text{
+            margin-right: 4px;
+            font-size: 14px;
           }
         `}</style>
       </div>

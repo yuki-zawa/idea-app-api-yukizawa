@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import InfiniteScroll from "react-infinite-scroller";
-import { Tag } from 'react-feather';
+import { Tag, Search } from 'react-feather';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -14,11 +13,12 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: "5px",
     },
     inputInput: {
-      padding: theme.spacing(1, 1, 1, 0),
+			padding: theme.spacing(1, 1, 1, 0.5),
       // vertical padding + font size from searchIcon
-      paddingLeft: `calc(0.25rem + ${theme.spacing(3)}px)`,
-      transition: theme.transitions.create('width'),
-      width: '100%',
+      // paddingLeft: `4px`,
+      // transition: theme.transitions.create('width'),
+			width: '100%',
+			fontSize: '14px',
       [theme.breakpoints.up('sm')]: {
         width: '12ch',
         '&:focus': {
@@ -224,10 +224,10 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
             <div className="tag-search">
               <div className="search">
                 <div className="search-icon">
-                  <SearchIcon />
+                  <Search size={20} />
                 </div>
                 <InputBase
-                  placeholder="アイデアを検索する"
+                  placeholder="タグを検索する"
                   inputProps={{ 'aria-label': 'search' }}
                   onChange={handleGenreTagChange}
                   classes={{
@@ -278,11 +278,11 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
             </div>
             <div className="tag-search">
               <div className="search">
-                <div className="search-icon">
-                  <SearchIcon />
+								<div className="search-icon">
+                  <Search size={20} />
                 </div>
                 <InputBase
-                  placeholder="アイデアを検索する"
+                  placeholder="タグを検索する"
                   inputProps={{ 'aria-label': 'search' }}
                   onChange={handleIdeaTagChange}
                   classes={{
@@ -291,7 +291,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                           }}
                 />
               </div>
-              <div style={{height:"calc(100% - 60px)", overflow:"auto"}}>
+              <div className="tag-lists">
                 <div style={{borderBottom: "1px solid lightgray"}}>
                   {
                     selectedIdeaTags && selectedIdeaTags.map((ideaTag: any, index: number) => {
@@ -340,6 +340,9 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
         </p>
       </div>
       <style jsx>{`
+        .container{
+            z-index: 100;
+        }
         .tag-search-header {
             text-align: center;
             height: 44px;
@@ -354,23 +357,39 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
             border-radius: 0px 0px 8px 8px;
             transition: all 400ms 0s ease;
         }
-
         .active {
           transform: translateY(80vh);
-        }
-
-        .tag-search-header p {
-          line-height: 32px;
         }
 
         .serch-content {
           width: 100%;
           color: black;
           position: fixed;
-            top: -80vh;
-            z-index: -1;
+					top: -80vh;
+					z-index: -1;
           height: 80vh;
-          background-color: white;
+					background-color: white;
+					padding: 28px 8px;
+					box-sizing: border-box;
+				}
+				.tag-container .label {
+					text-align: left;
+					margin-bottom: 12px;
+					font-size: 14px;
+					color: #333;
+				}
+				
+				.search {
+          osition: relative;
+					display: flex;
+					margin: 6px;
+					border-radius: 4px;
+					background-color: #E3EAF5;
+					align-items: center;
+					padding: 0 8px;
+					box-sizing: border-box;
+				}
+				.search-icon {
         }
 
         .serch-content button{
@@ -397,9 +416,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
           float: right;
         }
 
-        .tag-container .label {
-          text-align: left;
-        }
+        
 
         .tag-search {
           height: 100%;
@@ -407,32 +424,23 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
           box-sizing: border-box;
         }
 
-        .search {
-          position: relative;
-          display: inline-block;
-          padding: 0.5rem 0.5rem;
-          margin: 0.25rem 0.125rem;
-          border-bottom: 2px solid lightgray;
-        }
+        
 
-        .search-icon {
-          position: absolute;
-          z-index: 111;
-          height: 32px;
-          position-events: none;
-          display: flex;
-          align-items: center;
-          justify-content: center; 
-        }
+        
 
         .tag {
-          width: 70%;
-          padding: 0.125rem 0.25rem;
-          margin: 0.5rem auto;
+					line-height: 20px;
+					margin-bottom: 12px;
+					padding: 4px;
+					max-width: 80%;
+					width: fit-content;
           border-radius: 4px;
-          box-shadow: 2px 2px 3px lightgray;
           overflow: hidden;
-        }
+				}
+				.tag-lists{
+					padding: 8px;
+					box-sizing: border-box;
+				}
 
         svg {
           margin-right: 4px;

@@ -242,14 +242,15 @@ export const IdeaList: React.FC = (props: any) => {
         }
 
         .blur{
-          display: ${openShuffleModal ? ";" : "none;"}
-          background-color: gray;
-          opacity: 0.7;
-          filter: blur(7px);
-          width: 100%;
-          height: calc(100vh - 80px);
-          position: absolute;
-          top: 80px;
+          display: ${openShuffleModal ? ";" : "none;"};
+          z-index: 100;
+					background-color: #333;
+					backdrop-filter: blur(8px);
+					opacity: 0.5;
+					width: 100%;
+					height: 100vh;
+					position: absolute;
+					top: 0px;
         }
 
         .list-header {
