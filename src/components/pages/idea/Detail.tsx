@@ -8,9 +8,10 @@ import axios from 'axios';
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { AddTagModal } from './../tag/AddModal'
 import { Icon } from './../../common/Const'
-import Star from './../../images/star.svg'
+import AddBtn from './../../images/add-btn.svg'
 import StarIcon from '@material-ui/icons/Star';
-import { X, Edit3, Trash2 } from 'react-feather';
+import { X, Edit3, Trash2, Check } from 'react-feather';
+
 
 import { Card } from './Card'
 
@@ -231,18 +232,22 @@ export const IdeaDetail: React.FC = (props: any) => {
       <div className="container">
         <div className="top-part"> 
           <button onClick={() => history.goBack()} className="cancel-btn">
-            <X size={20} color="#333"/>
+            <X size={24} color="#333"/>
           </button>
+          <p className="title">アイデア詳細</p>
           { !showLoader && !editState ?
             <div className="btn-container">
               <span className="delete" onClick={deleteIdea}>
-                <Trash2 />
+                <Trash2 size={24} color="#333" />
               </span>
               <span className="edit" onClick={editMode}>
-                <Edit3 />
+                <Edit3 size={24} color="#333" />
               </span>
             </div> : "" }
-          { !showLoader && editState ? <button className="complete" onClick={completeEdit}>完了</button> : "" }
+            
+          { !showLoader && editState ? <button className="complete" onClick={completeEdit}>
+            <Check size={24} color="#579AFF" />
+          </button> : "" }
         </div>
         {
           showLoader ?
@@ -250,26 +255,35 @@ export const IdeaDetail: React.FC = (props: any) => {
               <CircularProgress style={{ margin: "24px auto" }}/>
             </div> :
             <div className="input-container">
-                { 
-                    !editState ?
-                    <p className="icon">{idea.icon ? idea.icon : "😓"}</p>
+              <div className="add-icon-container">
+                { !editState ?
+                    <p className="icon">
+                      {idea.icon ? idea.icon : "😓"}
+                    </p>
                     :<div>
-                        <select name="category" id="category" className="styled-select">
+                      <select name="category" id="category" className="styled-select">
                         <option value="アイコンを選択 ▼">アイコンを選択 ▼</option>
                         {
                           Icon.icons.map((icon: any, i) => {
                             return <option value={icon} key={i} selected={icon === editData.idea.icon} >{icon}</option>
                           })
                         }
-                        </select>
+                      </select>
                     </div>
-                }   
-                {/* https://material-ui.com/components/rating/ */}
+                  }
+              </div>
+                   
+              {/* https://material-ui.com/components/rating/ */}
+              <div className="rating-container">
                 <Rating 
-                    name="size-large" size="large"
+                    name="size-large"
+                    size="large"
+                    style={{height: "auto", lineHeight: "auto"}}
+                    defaultValue={0}
+                    className="star"
+                    icon={<StarIcon />}
                     value={!editState ? idea.priority : editData.idea.priority}
-										readOnly={!editState}
-										icon={<StarIcon />}
+                    readOnly={!editState}
                     onChange={(event, newValue) => {
                     setEditData({
                         ...editData,
@@ -286,35 +300,40 @@ export const IdeaDetail: React.FC = (props: any) => {
                     :<p className="priority-label">{priorityLables[Math.round(editData.idea.priority)]}</p>
                     }
                 </div>
-              {
-                !editState ? 
-                  <h1 className="idea-title">{idea.title}</h1>:
-                  <div>
-                    <input 
-                      onChange={(event) => {
-                        setEditData({
-                          ...editData,
-                          idea: {
-                            ...editData.idea,
-                            title: event.target.value
-                          }
-                        });
-                      }}
-                      value={editData.idea.title}
-                      placeholder="アイデアを一言で表すと？"
-                      type="text"
-                      className="title-input"
-                    />
-                  </div>
-              }
-              <hr/>
+              </div>
+              <div className="title-name-container">
+                {
+                  !editState ? 
+                    <h1 className="idea-title">{idea.title}</h1>:
+                    <div>
+                      <input 
+                        onChange={(event) => {
+                          setEditData({
+                            ...editData,
+                            idea: {
+                              ...editData.idea,
+                              title: event.target.value
+                            }
+                          });
+                        }}
+                        value={editData.idea.title}
+                        placeholder="アイデアを一言で表すと？"
+                        type="text"
+                        className="title-input"
+                      />
+                    </div>
+                }
+              </div>
+
               <p className="tag-label">カテゴリータグ</p>
               <div className="genre-tag-container">
                 {
                   !editState ?
                   (idea.genre_tags[0] ? <span className="genre-tag tag">{idea.genre_tags[0].name}</span> : ''):
-                  <div>
-                    <span className="plus" id="genre" onClick={openModal}>+</span>
+                  <div className="genre-tag-container">
+                    <span className="plus" id="genre" onClick={openModal}>
+                      <img className="plus-img" src={AddBtn} alt="" id="genre"/>
+                    </span>
                     {selectedGenreTag.id !== 0 ? 
                     <span className="genre-tag tag" style={{backgroundColor: selectedGenreTag.color}}>
                       <X size={14} onClick={(event) => selectDelete("genre", event)}/>
@@ -333,8 +352,10 @@ export const IdeaDetail: React.FC = (props: any) => {
                     )
                   })
                   :
-                  <div>
-                    <span className="plus" id="idea" onClick={openModal}>+</span>
+                  <div className="idea-tag-container">
+                    <span className="plus" id="idea" onClick={openModal}>
+                      <img className="plus-img" src={AddBtn} alt="" id="idea"/>
+                    </span>
                     {
                       selectedIdeaTags && selectedIdeaTags.map((tag: any, index: number) => {
                         return(
@@ -400,202 +421,369 @@ export const IdeaDetail: React.FC = (props: any) => {
         }
       </div>
       <style jsx>{`
+        // header部分
+        .top-part {
+          margin-bottom: 20px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .title{
+          padding: 0;
+          border: none;
+          border-radius: 0;
+          outline: none;
+          background: none;
+          pointer-events: none;
+          font-size: 14px;
+          color: #333;
+          text-align: center;
+        }
+        
         .container {
-          height: calc(100% - 40px);
-          width: 100%;
-          box-sizing: border-box;
-          margin-top: 40px;
           background-color: white;
-          padding: 28px 20px;
+          padding: 1.25rem 1rem;
+          padding-top: calc(1.25rem + 40px);
+          z-index: 5;
         }
 
+        // アイコン追加
+        .icon {
+          height: 40px;
+          width: 40px;
+          font-size: 40px;
+          margin-bottom: 16px;
+        }
+        .add-icon-container{
+          margin-bottom: 12px;
+        }
         .input-container {
           padding-bottom: 16px;
-          border-bottom: 2px dashed lightgray;
+          border-bottom: 2px dashed #E3EAF5;
           z-index: 1;
         }
-
         .styled-select {
           /* デフォルトのスタイルを解除 */
           -moz-appearance: none;
           -webkit-appearance: none;
           appearance: none;
           /* スタイル */
+          width: 120px;
+          height: 20px;
+          font-size: 10px;
+          #7A7A7A;
           display: inline-block;
-          width: 70px;
-          height: 70px;
-          padding: 0.5em;
           cursor: pointer;
-          font-size: 32px;
-          border-radius: 4px;
-          background-color: #f7f9fb;
+          background: none;
+          border: none;
         }
-
         /* IEでデフォルトの矢印を消す */
         .styled-select::-ms-expand {
           display: none;
         }
 
-        .top-part {
-          margin-bottom: 24px;
-        }
-
-        hr {
-          border-top: 2px dashed #E3EAF5;
-          margin-bottom: 14px;
-        }
-
-        .btn-container {
-          display: inline-block;
-          float: right;
-        }
-
-        .btn-container span {
-          margin-left: 8px;
-        }
-
-        .cancel-btn{
-          font-size: 16px;
-          color: #007AFF;
-        }
-
-        .complete { 
-          font-size: 16px;
-          color: #007AFF;
+        .edit {
           display: inline-block;
           float: right;
           height: 24px;
+          width: 24px;
           line-height: 24px;
-          font-size: 16px;
+          font-size: 24px;
           font-weight: bold;
+          margin-left: 8px;
         }
-
-        .icon {
-          height: 48px;
-          width: 48px;
-          font-size: 48px;
-          margin-bottom: 16px;
+        // 星
+        .rating-container{
+          display: flex;
+          align-items: center;
+          margin-bottom: 12px;
         }
-
+        .star{
+          font-size: 24px;
+        }
+        .star label{
+          font-size: 24px;
+        }
         .priority {
           position: relative;
           display: inline-block;
-          margin-left: 18px;
-          padding: 7px 10px;
-          min-width: 120px;
+          padding: 4px 8px;
           max-width: 100%;
-          font-size: 10px;
           background: #FEB342;
-          border-radius: 4px;
+          border-radius: 2px;
+          margin-left: 16px;
         }
-        
         .priority:before {
           content: "";
           position: absolute;
           top: 50%;
-          left: -18px;
-          margin-top: -8px;
-          border: 8px solid transparent;
-          border-right: 15px solid #FEB342;
+          left: -12px;
+          margin-top: -5px;
+          border: 5px solid transparent;
+          /* border-radius: 2px; */
+          border-right: 8px solid #FEB342;
         }
-
         .priority-label {
+          font-size: 12px;
           margin: 0;
           padding: 0;
         }
 
+        // タイトル
+        .title-name-container{
+          border-bottom: 2px dashed #E3EAF5;
+          padding-bottom: 16px;
+          margin-bottom: 16px;
+          display: flex;
+          align-items: center;
+        }
         .idea-title {
-          margin: 0.75rem 0;
+          margin-left: 4px;
           font-size: 18px;
-          overflow-x: scroll;
-          -ms-overflow-style: none;    /* IE, Edge 対応 */
-          scrollbar-width: none;       /* Firefox 対応 */
+          color: #7A7A7A;
         }
-
-        .idea-title::-webkit-scrollbar {  /* Chrome, Safari 対応 */
-          display:none;
-        }
-
         .title-input {
+          border: none;
           width: 95%;
           height: 16px;
           font-size: 16px;
-          padding: 0.25rem 0.5rem;
+          padding: 0.25rem 0;
         }
 
+        // タグ
+        .tag-label, .memo-label{
+          font-size: 12px;
+          margin-bottom: 6px;
+        }
         .plus {
+          width: 24px;
+          height: 24px;
           display: inline-block;
           margin-right: 8px;
-          font-size: 30px;
-          font-weight: 400;
         }
-
+        .plus-img{
+          margin: 3px 0;
+          width: 18px;
+          height: auto;
+        }
         .tag {
-          width: 100px;
-          padding: 2px 8px;
+          display: inline-block;
+          height: 20px;
+          display: flex;
+          align-items: center;
+          padding: 0 4px;
           border-radius: 4px;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
         }
-
-        .genre-tag-container{
-          margin-bottom: 24px;
+        .tag-name{
+          margin-left: 4px;
         }
-
-        .tag-label {
-          margin-bottom: 12px;
+        .idea-tag-container, .genre-tag-container {
+          min-height: 20px;
+          display: flex;
+          align-items: center;
+          margin-bottom: 16px;
         }
-
-        .idea-tag-container {
-          width: auto;
-          white-space: nowrap;
-          -ms-overflow-style: none;
-          margin-bottom: 24px;
-        }
-
         .idea-tag-container::-webkit-scrollbar {
           display:none;
         }
-
-        .genre-tag {
-          background-color: ${idea.genre_tags[0] ? idea.genre_tags[0].color : ''};
-        }
-
         .idea-tag {
           margin-right: 8px;
           background-color: #E3EAF5;
         }
 
-        .memo-label{
-            margin-bottom: 6px;
-        }
-
+        //メモ
         .memo-container {
-          min-height: 6em;
-          overflow-y: scroll;
-          border: 1px black solid;
+          height: 160px;
           width: 100%;
-          padding: 0.5em;
           box-sizing: border-box;
-          text-align: justify;
-        }
-
-        .text {
-        }
-
-        .tag-name {
-          vertical-align: text-top;
+          overflow-y: scroll;
+          border: 1px #333 solid;
+          border-radius: 2px;
+          padding: 10px 8px;
+          font-size: 14px;
+          color: #434343;
+          line-height: 1.6em;
         }
 
         .origin-idea {
-          padding-top: 16px;
-          background-color: white;
+          margin-top: 16px;
         }
 
         .origin-idea p {
           margin: 8px 0;
         }
+
+        // .input-container {
+        //   padding-bottom: 16px;
+        //   border-bottom: 2px dashed lightgray;
+        //   z-index: 1;
+        // }
+
+        // .styled-select {
+        //   /* デフォルトのスタイルを解除 */
+        //   -moz-appearance: none;
+        //   -webkit-appearance: none;
+        //   appearance: none;
+        //   /* スタイル */
+        //   display: inline-block;
+        //   width: 70px;
+        //   height: 70px;
+        //   padding: 0.5em;
+        //   cursor: pointer;
+        //   font-size: 32px;
+        //   border-radius: 4px;
+        //   background-color: #f7f9fb;
+        // }
+
+        // /* IEでデフォルトの矢印を消す */
+        // .styled-select::-ms-expand {
+        //   display: none;
+        // }
+        // .btn-container {
+        //   display: inline-block;
+        //   float: right;
+        // }
+
+        // .btn-container span {
+        //   margin-left: 8px;
+        // }
+
+        // .cancel-btn{
+        //   font-size: 16px;
+        //   color: #007AFF;
+        // }
+
+        // .icon {
+        //   height: 48px;
+        //   width: 48px;
+        //   font-size: 48px;
+        //   margin-bottom: 16px;
+        // }
+
+        // .priority {
+        //   position: relative;
+        //   display: inline-block;
+        //   margin-left: 18px;
+        //   padding: 7px 10px;
+        //   min-width: 120px;
+        //   max-width: 100%;
+        //   font-size: 10px;
+        //   background: #FEB342;
+        //   border-radius: 4px;
+        // }
+        
+        // .priority:before {
+        //   content: "";
+        //   position: absolute;
+        //   top: 50%;
+        //   left: -18px;
+        //   margin-top: -8px;
+        //   border: 8px solid transparent;
+        //   border-right: 15px solid #FEB342;
+        // }
+
+        // .priority-label {
+        //   margin: 0;
+        //   padding: 0;
+        // }
+
+        // .idea-title {
+        //   margin: 0.75rem 0;
+        //   font-size: 18px;
+        //   overflow-x: scroll;
+        //   -ms-overflow-style: none;    /* IE, Edge 対応 */
+        //   scrollbar-width: none;       /* Firefox 対応 */
+        // }
+
+        // .idea-title::-webkit-scrollbar {  /* Chrome, Safari 対応 */
+        //   display:none;
+        // }
+
+        // .title-input {
+        //   width: 95%;
+        //   height: 16px;
+        //   font-size: 16px;
+        //   padding: 0.25rem 0.5rem;
+        // }
+
+        // .plus {
+        //   width: 24px;
+        //   height: 24px;
+        //   display: inline-block;
+        //   margin-right: 8px;
+        // }
+        // .plus-img{
+        //   margin: 3px 0;
+        //   width: 18px;
+        //   height: auto;
+        // }
+
+        // .tag {
+        //   width: 100px;
+        //   padding: 2px 8px;
+        //   border-radius: 4px;
+        //   overflow: hidden;
+        //   text-overflow: ellipsis;
+        //   white-space: nowrap;
+        // }
+
+        // .genre-tag-container{
+        //   margin-bottom: 24px;
+        // }
+
+        // .tag-label {
+        //   margin-bottom: 12px;
+        // }
+
+        // .idea-tag-container {
+        //   width: auto;
+        //   white-space: nowrap;
+        //   -ms-overflow-style: none;
+        //   margin-bottom: 24px;
+        // }
+
+        // .idea-tag-container::-webkit-scrollbar {
+        //   display:none;
+        // }
+
+        // .genre-tag {
+        //   background-color: ${idea.genre_tags[0] ? idea.genre_tags[0].color : ''};
+        // }
+
+        // .idea-tag {
+        //   margin-right: 8px;
+        //   background-color: #E3EAF5;
+        // }
+
+        // .memo-label{
+        //     margin-bottom: 6px;
+        // }
+
+        // .memo-container {
+        //   min-height: 6em;
+        //   overflow-y: scroll;
+        //   border: 1px black solid;
+        //   width: 100%;
+        //   padding: 0.5em;
+        //   box-sizing: border-box;
+        //   text-align: justify;
+        // }
+
+        // .tag-name {
+        //   vertical-align: text-top;
+        // }
+
+        // .origin-idea {
+        //   padding-top: 16px;
+        //   background-color: white;
+        // }
+
+        // .origin-idea p {
+        //   margin: 8px 0;
+        // }
       `}</style>
     </HomeLayout>
   );
