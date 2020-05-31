@@ -11,8 +11,9 @@ import { Icon } from './../../common/Const'
 import Star from './../../images/star.svg'
 import StarIcon from '@material-ui/icons/Star';
 import { X, Edit3, Trash2 } from 'react-feather';
-
-import { Card } from './Card'
+import { Emoji } from 'emoji-mart';
+import { IconsModal } from './../../common/IconsModal';
+import { Card } from './Card';
 
 export interface EditParam {
   idea: any,
@@ -79,6 +80,8 @@ export const IdeaDetail: React.FC = (props: any) => {
 
   const [showLoader, setShowLoader] = React.useState(false);
   const [editState, setEditState] = React.useState(false);
+  const [ideaIcon, setIdeaIcon] = useState("");
+  const [openIconsModal, setOpenIconsModal] = useState(false);
 
   const [openAddTagModal, setOpenAddTagModal] = useState(false);
   const [tagState, setTagState] = useState(""); // "genre" or "idea"
@@ -190,6 +193,10 @@ export const IdeaDetail: React.FC = (props: any) => {
     }
   }
 
+  const changeIconsModal = (flag: boolean) => {
+    setOpenIconsModal(flag);
+  }
+
   const getIdeas = async () => {
     await axios
       .get(`/api/v1/ideas/${idea.followers[0].id}`)
@@ -226,6 +233,16 @@ export const IdeaDetail: React.FC = (props: any) => {
     }
   }, [idea]);
 
+  useEffect(() => {
+    setEditData({
+      ...editData,
+      idea: {
+        ...editData.idea,
+        icon: ideaIcon
+      }
+    })
+  },[ideaIcon]);
+
   return (
     <HomeLayout title="STOCKROOM">
       <div className="container">
@@ -252,16 +269,12 @@ export const IdeaDetail: React.FC = (props: any) => {
             <div className="input-container">
                 { 
                     !editState ?
-                    <p className="icon">{idea.icon ? idea.icon : "😓"}</p>
+                    <p className="icon">{idea.icon ? <Emoji emoji={idea.icon} size={40}/> : "😓"}</p>
                     :<div>
-                        <select name="category" id="category" className="styled-select">
-                        <option value="アイコンを選択 ▼">アイコンを選択 ▼</option>
-                        {
-                          Icon.icons.map((icon: any, i) => {
-                            return <option value={icon} key={i} selected={icon === editData.idea.icon} >{icon}</option>
-                          })
-                        }
-                        </select>
+                      <button onClick={() => changeIconsModal(true)}>
+                        {editData.idea.icon ? <Emoji emoji={editData.idea.icon} size={40}/> : "追加"}
+                      </button>
+                      {openIconsModal ? <IconsModal setIcon={setIdeaIcon} closeModal={changeIconsModal}/> : ""}
                     </div>
                 }   
                 {/* https://material-ui.com/components/rating/ */}

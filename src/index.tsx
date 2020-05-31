@@ -8,7 +8,6 @@ import axios from "axios";
 
 // Set axios default endpoint
 axios.defaults.baseURL = process.env.REACT_APP_API_ENDPOINT;
-axios.defaults.withCredentials = true;
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

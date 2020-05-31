@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import { Emoji } from 'emoji-mart';
 
 type CardProps = {
   idea: any,
@@ -29,7 +30,7 @@ export const Card: React.FC<CardProps> = (props: any) => {
     <Link to={`/ideas/${props.idea.id}/detail`} style={cardLinkStyle} onClick={(event) => props.disabled ? event.preventDefault() : ""}>
       <div className="card-container">
         <div className="title-container">
-          <span className="icon">{props.idea.icon ? props.idea.icon : "😓"}</span>
+          <span className="icon">{props.idea.icon ? <Emoji size={20} emoji={props.idea.icon } /> : "😓"}</span>
           <span className="title-text">{props.idea.title}</span>
         </div>
         <div className="priority-container">
