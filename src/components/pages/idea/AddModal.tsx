@@ -9,6 +9,8 @@ import { X, Check } from 'react-feather';
 import { Card } from './Card'
 import StarIcon from '@material-ui/icons/Star';
 import AddBtn from './../../images/add-btn.svg';
+import { IconsModal } from './../../common/IconsModal';
+import { Emoji } from 'emoji-mart';
 
 const backLinkStyle = {
   display: "inline-block",
@@ -30,10 +32,11 @@ const priorityLables = ["ひらめき度を設定しよう", "いいことを思
 
 export const AddModal: React.FC = (props: any) => {
   const history = useHistory();
-  const iconRef = useRef(document.createElement("select"));
   const titleRef = useRef(document.createElement("input"));
   const memoRef = useRef(document.createElement("textarea"));
   const [openAddTagModal, setOpenAddTagModal] = useState(false);
+  const [ideaIcon, setIdeaIcon] = useState("");
+  const [openIconsModal, setOpenIconsModal] = useState(false);
   const [tagState, setTagState] = useState(""); // "genre" or "idea"
 
   const [selectedGenreTag, setSelectedGenreTag] = useState({
@@ -72,14 +75,8 @@ export const AddModal: React.FC = (props: any) => {
       .catch(err => console.log(err));
   }
 
-  const changeCategory = (e: any) => {
-    setAddData({
-      ...addData,
-      idea: {
-        ...addData.idea,
-        icon: e.target.value
-      }
-    })
+  const changeIconsModal = (flag: boolean) => {
+    setOpenIconsModal(flag);
   }
 
   const changeTitle = () => {
@@ -123,6 +120,12 @@ export const AddModal: React.FC = (props: any) => {
     }
   }
 
+  const closeIconsModal = () => {
+    if (openIconsModal) {
+      changeIconsModal(false);
+    }
+  }
+
   useEffect(() => {
     var temp :Array<any> = [];
     selectedIdeaTags.map((tag: any) => {
@@ -137,9 +140,20 @@ export const AddModal: React.FC = (props: any) => {
     })
   },[selectedIdeaTags, selectedGenreTag]);
 
+  useEffect(() => {
+    setAddData({
+      ...addData,
+      idea: {
+        ...addData.idea,
+        icon: ideaIcon
+      }
+    })
+  },[ideaIcon]);
+
   return (
     <HomeLayout title="STOCKROOM">
-      <div className="container">
+      {openIconsModal ? <IconsModal setIcon={setIdeaIcon} closeModal={changeIconsModal}/> : ""}
+      <div className="container" onClick={() => closeIconsModal()}>
         <div className="top-part"> 
           <button onClick={() => history.goBack()} style={backLinkStyle}>
             <X size={24}/>
@@ -150,28 +164,20 @@ export const AddModal: React.FC = (props: any) => {
           </button>
           { openAddTagModal ? 
               <AddTagModal 
-              tagState={tagState}
-              closeFunc={closeModal}
-              selectedGenreTag={selectedGenreTag}
-              setSelectedGenreTag={setSelectedGenreTag}
-              selectedIdeaTags={selectedIdeaTags}
-              setSelectedIdeaTags={setSelectedIdeaTags}
+                tagState={tagState}
+                closeFunc={closeModal}
+                selectedGenreTag={selectedGenreTag}
+                setSelectedGenreTag={setSelectedGenreTag}
+                selectedIdeaTags={selectedIdeaTags}
+                setSelectedIdeaTags={setSelectedIdeaTags}
               /> : ""
           }
         </div>
         <div className="input-container">
           <div className="add-icon-container">
-            <select name="category" id="category" onChange={changeCategory} ref={iconRef} className="styled-select">
-                <option className="icon-option1" value="" hidden>
-                    ＋アイコンを追加する
-                </option>
-              <option value="アイコンを選択 ▼"></option>
-              {
-                Icon.icons.map((icon: any, i) => {
-                  return <option value={icon} key={i}>{icon}</option>
-                })
-              }
-            </select>
+            <button onClick={() => changeIconsModal(true)}>
+              {addData.idea.icon ? <Emoji emoji={addData.idea.icon} size={40}/> : "追加"}
+            </button>
           </div>
           {/* https://material-ui.com/components/rating/ */}
           <div className="rating-container">
@@ -190,10 +196,6 @@ export const AddModal: React.FC = (props: any) => {
                     priority: newValue
                   }
                 })
-              }}
-              onChangeActive={(event, newHover) => {
-                console.log(newHover);
-                console.log(event);
               }}
             />
             <div className="priority">
