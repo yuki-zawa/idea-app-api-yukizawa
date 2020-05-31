@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import axios from 'axios';
-import { X } from 'react-feather';
+import { X, Check } from 'react-feather';
 
 type AddTagModalProps = {
   tagState: string,
@@ -172,11 +172,16 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
 
   return (
     <div className="container">
-      <span onClick={props.closeFunc} className="cross-btn">
-          <X size={20}  />
-      </span>
-      <span onClick={completeModal} className="check-btn">完了</span>
-      <p className="header-title">タグの編集</p>
+        <div className="top-part"> 
+          <span onClick={props.closeFunc} className="cross-btn">
+            <X size={20} />
+          </span>
+          <p className="header-title">タグの編集</p>
+          <span onClick={completeModal} className="check-btn">
+            <Check size={24} color="#579AFF" />
+          </span>
+        </div>
+      
       <div className="change-tag">
         <span id="genre" onClick={changeTag} style={{color: tagState === "genre" ? "" : "lightgray"}}>カテゴリータグ</span>｜<span id="idea" onClick={changeTag} style={{color: tagState === "idea" ? "" : "lightgray"}}>アイデアタグ</span>
       </div>
@@ -222,45 +227,27 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
         {showLoader ? <CircularProgress style={{ margin: "24px auto" }}/> : ""}
       </div>
       <style jsx>{`
+        // header部分
+        .top-part {
+          margin-bottom: 20px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .title{
+          font-size: 14px;
+          color: #333;
+        }
         .container {
           height: calc(100% - 40px);
+          position: absolute;
+          top: 40px;
+          left: 0;
           width: 100%;
+          padding: 1.25rem 1rem;
           box-sizing: border-box;
-          margin-top: 40px;
           background-color: white;
-          padding: 28px 20px;
-          position: absolute;
-          top: 0;
-          left: 0;
-        }
-
-        .inner-header {
-          text-align: center;
-          position: relative;
-          display: inline-block;
-          width: 100%;
-        }
-
-        .header-title{
-          text-align: center;
-          margin-bottom: 32px;
-          font-size: 14px;
-          color: #7A7A7A;
-        }
-
-        .cross-btn {
-          left: 0;
-          right: auto;
-          position: absolute;
-        }
-
-        .check-btn {
-          font-size: 16px;
-          font-weight: bold;
-          color: #579AFF;
-          left: auto;
-          right: 0;
-          position: absolute;
+          z-index: 100;
         }
 
         .change-tag{

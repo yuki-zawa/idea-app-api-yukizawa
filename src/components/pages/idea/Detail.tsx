@@ -412,6 +412,7 @@ export const IdeaDetail: React.FC = (props: any) => {
         .input-container {
           padding-bottom: 16px;
           border-bottom: 2px dashed lightgray;
+          z-index: 1;
         }
 
         .styled-select {
