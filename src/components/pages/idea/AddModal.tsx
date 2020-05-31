@@ -212,8 +212,8 @@ export const AddModal: React.FC = (props: any) => {
 
           <p className="tag-label">カテゴリータグ</p>
           <div className="genre-tag-container">
-            <span className="plus" id="genre" onClick={openModal}>
-              <img src={AddBtn} alt=""/>
+            <span className="plus" onClick={openModal}>
+              <img src={AddBtn} alt="" id="genre"/>
             </span>
             {selectedGenreTag.id !== 0 ? 
             <span className="genre-tag tag" style={{backgroundColor: selectedGenreTag.color}}>
@@ -223,8 +223,8 @@ export const AddModal: React.FC = (props: any) => {
           </div>
           <p className="tag-label">アイデアタグ</p>
           <div className="idea-tag-container">
-            <span className="plus" id="idea" onClick={openModal}>
-              <img src={AddBtn} alt=""/>
+            <span className="plus" onClick={openModal}>
+              <img src={AddBtn} alt="" id="idea"/>
             </span>
             {
               selectedIdeaTags && selectedIdeaTags.map((tag: any, index: number) => {
