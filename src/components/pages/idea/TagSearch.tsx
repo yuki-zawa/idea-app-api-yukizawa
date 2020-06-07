@@ -3,7 +3,7 @@ import InputBase from '@material-ui/core/InputBase';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import InfiniteScroll from "react-infinite-scroller";
-import { Tag, Search } from 'react-feather';
+import { Tag, Search, ArrowRight } from 'react-feather';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -216,69 +216,67 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
   return (
     <div className="container">
       <div className="tag-search-header">
-        <div className="serch-content">
-          <div className="tag-container">
-            <div className="label">
-              <label>カテゴリー</label>
+        <div className="search-content">
+        <h3 className="tag-search_title">タグで絞り込む</h3>
+          <div className="tag-containers">
+            <div className="tag-container">
+            <label className="tag-container_label">カテゴリー</label>
+              <div className="tag-search">
+                <div className="search">
+                  <div className="search-icon">
+                    <Search size={20} />
+                  </div>
+                  <InputBase
+                    placeholder="タグを検索する"
+                    inputProps={{ 'aria-label': 'search' }}
+                    onChange={handleGenreTagChange}
+                    classes={{
+                              root: classes.inputRoot,
+                              input: classes.inputInput,
+                            }}
+                  />
+                </div>
+                <div className="tag-lists">
+                  <div style={{borderBottom: "1px solid #c4c4c4", marginBottom:"8px"}}>
+                    {
+                      selectedGenreTag.id !== 0 ? 
+                        <p style={{backgroundColor: selectedGenreTag.color}} className="tag" data-id={0} onClick={(event) => deleteTag("genre", event)}>
+                          <svg data-id={0} width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8.33317 3L3.74984 7.58333L1.6665 5.5" stroke="#434343" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                          <span data-id={0}>{selectedGenreTag.name}</span>
+                        </p> : ''
+                    }
+                  </div>
+                  <InfiniteScroll
+                    pageStart={1}
+                    hasMore={genreTags && pagenationForGenreTags.total > genreTags.length}
+                    loadMore={fetchMoreGenreTags}
+                    initialLoad={false}
+                    useWindow={false}
+                    style={{height: "100%"}}
+                  >
+                    {
+                      genreTags && genreTags.map((genreTag: any, index: number) => {
+                        return (
+                          <p key={index} data-id={index} style={{backgroundColor: genreTag.color}} className="tag" onClick={(event) => selectTag("genre", event)}>
+                            <svg data-id={index} width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <circle cx="6" cy="6" r="4.5" stroke="#434343" strokeDasharray="2 1"/>
+                            </svg>
+                            <span data-id={index}>{genreTag.name}</span>
+                          </p>
+                        )
+                      })
+                    }
+                  </InfiniteScroll>
+                </div>
+              </div>
             </div>
+            <div className="tag-container">
+            <label className="tag-container_label">アイデア</label>
             <div className="tag-search">
               <div className="search">
                 <div className="search-icon">
-                  <Search size={20} />
-                </div>
-                <InputBase
-                  placeholder="タグを検索する"
-                  inputProps={{ 'aria-label': 'search' }}
-                  onChange={handleGenreTagChange}
-                  classes={{
-                            root: classes.inputRoot,
-                            input: classes.inputInput,
-                          }}
-                />
-              </div>
-              <div style={{height:"calc(100% - 60px)", overflow:"auto"}}>
-                <div style={{borderBottom: "1px solid lightgray"}}>
-                  {
-                    selectedGenreTag.id !== 0 ? 
-                      <p style={{backgroundColor: selectedGenreTag.color}} className="tag" data-id={0} onClick={(event) => deleteTag("genre", event)}>
-                        <svg data-id={0} width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M8.33317 3L3.74984 7.58333L1.6665 5.5" stroke="#434343" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                        <span data-id={0}>{selectedGenreTag.name}</span>
-                      </p> : ''
-                  }
-                </div>
-                <InfiniteScroll
-                  pageStart={1}
-                  hasMore={genreTags && pagenationForGenreTags.total > genreTags.length}
-                  loadMore={fetchMoreGenreTags}
-                  initialLoad={false}
-                  useWindow={false}
-                  style={{height: "100%"}}
-                >
-                  {
-                    genreTags && genreTags.map((genreTag: any, index: number) => {
-                      return (
-                        <p key={index} data-id={index} style={{backgroundColor: genreTag.color}} className="tag" onClick={(event) => selectTag("genre", event)}>
-                          <svg data-id={index} width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="6" cy="6" r="4.5" stroke="#434343" strokeDasharray="2 1"/>
-                          </svg>
-                          <span data-id={index}>{genreTag.name}</span>
-                        </p>
-                      )
-                    })
-                  }
-                </InfiniteScroll>
-              </div>
-            </div>
-          </div>
-          <div className="tag-container">
-            <div className="label">
-              <label>アイデア</label>
-            </div>
-            <div className="tag-search">
-              <div className="search">
-								<div className="search-icon">
                   <Search size={20} />
                 </div>
                 <InputBase
@@ -292,7 +290,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                 />
               </div>
               <div className="tag-lists">
-                <div style={{borderBottom: "1px solid lightgray"}}>
+                <div style={{borderBottom: "1px solid #c4c4c4", marginBottom:"8px"}}>
                   {
                     selectedIdeaTags && selectedIdeaTags.map((ideaTag: any, index: number) => {
                       return (
@@ -330,8 +328,10 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
               </div>
             </div>
           </div>
-          <button onClick={filter}>
-            選択したタグで絞り込む =>
+          </div>
+          <button className="tag-search_btn" onClick={filter}>
+            <span className="tag-search-btn_text">選択したタグで絞り込む</span>
+            <ArrowRight className="tag-search-btn_icon" size={24} color="#333" />
           </button>
         </div>
         <p className="text-container" onClick={searchState ? pullUp : pullDown}>
@@ -341,27 +341,26 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
       </div>
       <style jsx>{`
         .container{
-            z-index: 100;
+          z-index: 100;
         }
         .tag-search-header {
-            text-align: center;
-            height: 44px;
-            position: fixed;
-            width: 100%;
-            top: 44px;
-            box-sizing: border-box;
-            z-index: 99;
-            padding: 8px 0;
-            background-color: #434343;
-            color: white;
-            border-radius: 0px 0px 8px 8px;
-            transition: all 400ms 0s ease;
+          text-align: center;
+          height: 44px;
+          position: fixed;
+          width: 100%;
+          top: 44px;
+          box-sizing: border-box;
+          z-index: 99;
+          padding: 8px 0;
+          background-color: #434343;
+          color: white;
+          border-radius: 0px 0px 8px 8px;
+          transition: all 400ms 0s ease;
         }
         .active {
           transform: translateY(80vh);
         }
-
-        .serch-content {
+        .search-content {
           width: 100%;
           color: black;
           position: fixed;
@@ -371,18 +370,50 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
 					background-color: white;
 					padding: 28px 8px;
 					box-sizing: border-box;
-				}
-				.tag-container .label {
+        }
+
+        //header部分
+        .tag-search_title{
+          font-size: 14px;
+          color: #333;
+          text-align: center;
+          line-height: 28px;
+          margin-bottom: 20px
+        }
+        
+        //本体
+        .tag-containers{
+          display: flex;
+          justify-content: space-between;
+          height: calc(100% - 100px);
+          width: 96%;
+          margin: 0 auto 32px auto;
+        }
+        
+        //タグのコンテナ
+        .tag-container {
+          height: 100%;
+          width: 49%;
+        }
+        .tag-container_label {
+          display: block;
 					text-align: left;
 					margin-bottom: 12px;
 					font-size: 14px;
 					color: #333;
 				}
-				
+        .tag-search {
+          height: calc(100% - 26px);
+          padding: 6px;
+          border: 2px solid lightgray;
+          box-sizing: border-box;
+        }
+
+        //文字で検索
 				.search {
           osition: relative;
 					display: flex;
-					margin: 6px;
+					margin-bottom: 10px;
 					border-radius: 4px;
 					background-color: #E3EAF5;
 					align-items: center;
@@ -392,56 +423,34 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
 				.search-icon {
         }
 
-        .serch-content button{
-          display: block;
-          width: 200px;
-          background-color: #FEB342;
-          padding: 0.5rem 1.25rem;
-          margin: 1rem auto;
-          border-radius: 5px;
-          font-size: 12px;
-          font-weight: bold;
+        //タグを選択
+        .tag-lists{
+          height: calc(100% - 40px);
+          overflow-y: scroll;
         }
 
-        .tag-container {
-          display:inline-block;
-          padding: 1rem 0.25rem;
-
-          width: calc(50% - 1rem);
-          height: 80%;
+        .tag-search_btn{
+          background: #FEB342;
+          border-radius: 4px;
+          padding: 6px 16px;
+          display: flex;
+          align-items: center;
+          margin: 0 auto;
         }
-
-        .tag-container .label .btn {
-          font-size: 8px;
-          float: right;
+        .tag-search-btn_text{
+          margin-right: 4px;
+          font-size: 14px;
         }
-
-        
-
-        .tag-search {
-          height: 100%;
-          border: 2px solid lightgray;
-          box-sizing: border-box;
-        }
-
-        
-
-        
 
         .tag {
 					line-height: 20px;
 					margin-bottom: 12px;
-					padding: 4px;
+					padding: 4px 8px;
 					max-width: 80%;
 					width: fit-content;
           border-radius: 4px;
           overflow: hidden;
 				}
-				.tag-lists{
-					padding: 8px;
-					box-sizing: border-box;
-				}
-
         svg {
           margin-right: 4px;
         }
@@ -451,10 +460,9 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
           display: flex;
           align-items: center;
           justify-content: center;
-
         }
         .text{
-            margin-left: 6px;
+          margin-left: 6px;
         }
       `}</style>
     </div>
