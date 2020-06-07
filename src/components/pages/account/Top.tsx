@@ -7,35 +7,35 @@ import GoogleLogo from './../../images/google-icon.svg';
 const createLinkStyle = {
   textAlign: "center" as "center",
   display: "block",
-  height: "32px",
-  lineHeight: "32px",
+  height: "40px",
+  lineHeight: "40px",
   cursor: "pointer",
   borderRadius: "4px",
   backgroundColor: "#FEB342",
   marginBottom: "16px",
-  fontSize: "14px"
+  fontSize: "16px"
 };
 const googleLinkStyle = {
   display: "flex",
   alignItems: "center" as "center",
-  height: "36px",
-  lineHeight: "36px",
+  height: "40px",
+  lineHeight: "40px",
   cursor: "pointer",
   border: "2px solid #FEB342",
   boxSizing: "border-box" as "border-box",
   marginBottom: "16px",
   borderRadius: "4px",
-  fontSize: "14px"
+  fontSize: "16px"
 };
 const loginLinkStyle = {
   textAlign: "center" as "center",
   display: "block",
-  height: "36px",
-  lineHeight: "36px",
+  height: "40px",
+  lineHeight: "40px",
   cursor: "pointer",
   borderRadius: "4px",
   backgroundColor: "#C4C4C4",
-  fontSize: "14px"
+  fontSize: "16px"
 };
 const detailLinkStyle = {
   textAlign: "center" as "center",
@@ -74,14 +74,17 @@ export const Top: React.FC = () => {
         .login-container{
             width: 314px;
             margin: 0 atuto;
+            width: 100%;
         }
         .container {
           padding: 0 28px;
           box-sizing: border-box;
+          position: fixed;
+          width: 100%;
         }
 
         .title {
-          margin-bottom: 100px;
+          margin-bottom: 120px;
           padding-top: 60px;
           padding-left: 12px;
         }
@@ -122,7 +125,7 @@ export const Top: React.FC = () => {
             position: fixed;
             padding: 40px 28px;
             box-sizing: border-box;
-            bottom: 80px;
+            bottom: 0;
         }
         .intro-title {
           font-weight: bold;

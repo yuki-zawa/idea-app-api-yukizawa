@@ -159,9 +159,6 @@ export const AddModal: React.FC = (props: any) => {
             <X  size={24} color="#333"/>
           </button>
           <p className="title">新しいアイデアを追加する</p>
-          <button onClick={postIdea} className="add-btn">
-            <Check size={24} color="#579AFF" />
-          </button>
           { openAddTagModal ? 
               <AddTagModal 
                 tagState={tagState}
@@ -176,7 +173,7 @@ export const AddModal: React.FC = (props: any) => {
         <div className="input-container">
           <div className="add-icon-container">
             <button onClick={() => changeIconsModal(true)}>
-              {addData.idea.icon ? <Emoji emoji={addData.idea.icon} size={40}/> : "追加"}
+              {addData.idea.icon ? <Emoji emoji={addData.idea.icon} size={40}/> : "😊アイコンを追加"}
             </button>
           </div>
           {/* https://material-ui.com/components/rating/ */}
@@ -308,6 +305,9 @@ export const AddModal: React.FC = (props: any) => {
           .add-icon-container{
             margin-bottom: 12px;
           }
+          .add-icon-container button{
+            color: #579AFF;
+          }
           .input-container {
             border-bottom: 2px dashed #E3EAF5;
             z-index: 1;
@@ -399,10 +399,10 @@ export const AddModal: React.FC = (props: any) => {
             color: #7A7A7A;
           }
           .title-input {
-            width: 95%;
+            width: 100%;
             height: 16px;
             font-size: 16px;
-            padding: 0.25rem 0;
+            padding: 4px 8px;
             border: none;
           }
 
@@ -456,7 +456,8 @@ export const AddModal: React.FC = (props: any) => {
             width: 100%;
             box-sizing: border-box;
             overflow-y: scroll;
-            border: 1px #333 solid;
+            border: 1px #333 solid;tart
+
             border-radius: 2px;
             padding: 10px 8px;
             font-size: 14px;

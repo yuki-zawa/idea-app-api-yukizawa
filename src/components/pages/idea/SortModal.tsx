@@ -75,8 +75,8 @@ export const SortModal: React.FC<SortModalProps> = (props: any) => {
         .header {
           height: 32px;
           width: 100%;
-					text-align: center;
-					padding: 4px 0;
+          text-align: center;
+          padding: 4px 0;
         }
 
         .header p {
