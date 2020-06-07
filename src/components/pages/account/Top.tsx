@@ -56,7 +56,7 @@ export const Top: React.FC = () => {
             <p className="start-text">STOCKROOMを始める</p>
             <div className="login-container">
                 <Link to='/account/create' style={createLinkStyle}>アカウントを作成</Link>
-                <a href="https://idea-stocker-api.herokuapp.com/auth/google_oauth2" style={googleLinkStyle}>
+                <a href="http://www.stockroom.work/auth/google_oauth2" style={googleLinkStyle}>
                     <img className="google-logo" src={GoogleLogo} alt=""/>
                     <p className="google-text">Googleアカウントで登録/ログイン</p>
                 </a>
