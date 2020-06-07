@@ -12,6 +12,7 @@ import { IdeaList } from './components/pages/idea/List';
 import { IdeaDetail } from './components/pages/idea/Detail';
 import { AuthComponent } from './components/common/Auth';
 import { AddModal } from './components/pages/idea/AddModal'
+import { MailConfirm } from './components/pages/other/MailConfirm';
 
 function App() {
   return(
@@ -24,6 +25,7 @@ function App() {
             <Route exact path='/help' component={Help}/>
             <Route exact path='/account/create' component={AccountCreate}/>
             <Route exact path='/account/login' component={AccountLogin}/>
+            <Route exact path='/mail_confirmation' component={MailConfirm}/>
             <AuthComponent>
               <Route exact path='/home' component={IdeaList}/>
               <Route exact path='/ideas/new' component={AddModal}/>

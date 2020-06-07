@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'react-feather';
+import axios from 'axios';
 
 const linkStyle = {
   display: "block",
@@ -18,6 +19,28 @@ const backLinkStyle = {
 };
 
 export const AccountCreate: React.FC = () => {
+  const [newUser, setNewUser] = useState({
+    email: "",
+    password: "",
+    password_confirmation: "",
+  })
+
+  const handleFieldChange = (event: any) => {
+    setNewUser({
+      ...newUser,
+      [event.target.name]: event.target.value
+    })
+  }
+
+  const createUser = async () => {
+    await axios
+      .post('/api/v1/users', newUser)
+      .then(res => {
+        window.location.pathname = "/mail_confirmation";
+      })
+      .catch(err => console.log(err));
+  }
+
   return (
     <div className="container">
       <Link to='/' style={backLinkStyle}>
@@ -26,17 +49,21 @@ export const AccountCreate: React.FC = () => {
       <h1 className="title">STOCKROOMを始める</h1>
       <div className="mail-form">
         <label className="mail-form_label">メールアドレス</label>
-        <input className="mail-form_input" type="text" placeholder="メールアドレス"/>
+        <input className="mail-form_input" type="text" placeholder="メールアドレス" onChange={handleFieldChange} name="email"/>
       </div>
       <div className="password-form">
         <label className="password-form_label">パスワード</label>
-        <input className="password-form_input" type="password" placeholder="パスワード"/>
+        <input className="password-form_input" type="password" placeholder="パスワード" onChange={handleFieldChange} name="password"/>
+      </div>
+      <div className="password-form">
+        <label className="password-form_label">パスワード(確認)</label>
+        <input className="password-form_input" type="password" placeholder="パスワード(確認)" onChange={handleFieldChange} name="password_confirmation"/>
       </div>
       <p>
         <Link to='/account/login' style={linkStyle}>ログインはこちら</Link>
       </p>
       <div className="button-container">
-        <button>
+        <button onClick={createUser}>
           登録する
         </button>
       </div>
