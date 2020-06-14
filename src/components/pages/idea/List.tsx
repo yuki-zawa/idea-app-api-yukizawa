@@ -188,8 +188,8 @@ export const IdeaList: React.FC = (props: any) => {
               )
             }) : 
             <div className="no-idea">
-              <p>まだひらめきがありません！</p>
-              <p>ひらめきを追加しましょう！</p>
+              <p className="no-idea_text">まだひらめきがありません！</p>
+              <p className="no-idea_text">ひらめきを追加しましょう！</p>
             </div>
           }
         </InfiniteScroll>
@@ -312,13 +312,11 @@ export const IdeaList: React.FC = (props: any) => {
           border-radius: 72px;
           box-sizing: border-box;
           padding: 12px 40px;
-
           position: fixed;
-					left: 50%;
+          left: 50%;
           transform: translateX(-50%);
           -webkit- transform: translateX(-50%);
-          bottom: 12px;
-          
+          bottom: 24px;
           background-color: #434343;
           display: flex;
           justify-content: space-between;
@@ -343,10 +341,11 @@ export const IdeaList: React.FC = (props: any) => {
         }
 
         .no-idea {
+          margin-top: 24px;
           text-align: center;
         }
 
-        .no-idea p {
+        .no-idea_text {
           margin-bottom: 10px;
           font-size: 20px;
         }

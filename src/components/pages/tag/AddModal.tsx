@@ -256,10 +256,12 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
         }
 
         .input-name {
-          padding: 8px 6px;
+          font-size: 16px;
+          height: 24px;
+          box-sizing: border-box;
+          padding: 4px 8px;
           background: #FFFFFF;
           border: 1px solid #C4C4C4;
-          box-sizing: border-box;
           border-radius: 4px;
           width: calc(100% - 80px);
         }
@@ -305,7 +307,7 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
 
         .tag {
           display: inline;
-          padding: 2px 6px 1px 6px;
+          padding: 4px 8px;
           border-radius: 4px;
           box-sizing: border-box;
           overflow: hidden;

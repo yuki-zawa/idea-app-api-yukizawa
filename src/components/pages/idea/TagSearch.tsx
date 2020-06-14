@@ -3,8 +3,11 @@ import InputBase from '@material-ui/core/InputBase';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import InfiniteScroll from "react-infinite-scroller";
-import { Tag, Search, ArrowRight } from 'react-feather';
+import { Tag, Search, ArrowRight, MoreVertical } from 'react-feather';
 
+const SearchInputStyle = {
+  width: "100%",
+}
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     inputRoot: {
@@ -20,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			width: '100%',
 			fontSize: '14px',
       [theme.breakpoints.up('sm')]: {
-        width: '12ch',
+        width: '100%',
         '&:focus': {
           width: '20ch',
         },
@@ -230,6 +233,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                     placeholder="タグを検索する"
                     inputProps={{ 'aria-label': 'search' }}
                     onChange={handleGenreTagChange}
+                    style={ SearchInputStyle}
                     classes={{
                               root: classes.inputRoot,
                               input: classes.inputInput,
@@ -240,12 +244,20 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                   <div style={{borderBottom: "1px solid #c4c4c4", marginBottom:"8px"}}>
                     {
                       selectedGenreTag.id !== 0 ? 
-                        <p style={{backgroundColor: selectedGenreTag.color}} className="tag" data-id={0} onClick={(event) => deleteTag("genre", event)}>
-                          <svg data-id={0} width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <div className="tag-wrapper" data-id={0} onClick={(event) => deleteTag("genre", event)}>
+                        {/* タグ */}
+                        <div data-id={0} className="tag" style={{backgroundColor: selectedGenreTag.color}}>
+                          <svg data-id={0} width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M8.33317 3L3.74984 7.58333L1.6665 5.5" stroke="#434343" strokeLinecap="round" strokeLinejoin="round"/>
                           </svg>
                           <span data-id={0}>{selectedGenreTag.name}</span>
-                        </p> : ''
+                          {/* メニューボタン */}
+                          <button data-id={0} className="tag-edit-btn">
+                            <MoreVertical data-id={0} size={24} color="#333" />
+                          </button>
+                        </div>
+                    
+                      </div> : ''
                     }
                   </div>
                   <InfiniteScroll
@@ -283,6 +295,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                   placeholder="タグを検索する"
                   inputProps={{ 'aria-label': 'search' }}
                   onChange={handleIdeaTagChange}
+                  style={ SearchInputStyle}
                   classes={{
                             root: classes.inputRoot,
                             input: classes.inputInput,
@@ -351,7 +364,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
           top: 44px;
           box-sizing: border-box;
           z-index: 99;
-          padding: 8px 0;
+          padding: 12px 0;
           background-color: #434343;
           color: white;
           border-radius: 0px 0px 8px 8px;
@@ -385,9 +398,9 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
         .tag-containers{
           display: flex;
           justify-content: space-between;
-          height: calc(100% - 100px);
+          height: calc(100% - 120px);
           width: 96%;
-          margin: 0 auto 32px auto;
+          margin: 0 auto 24px auto;
         }
         
         //タグのコンテナ
@@ -442,17 +455,35 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
           font-size: 14px;
         }
 
+        //タグ
+        .tag-wrapper{
+          height: 44px;
+          width: 100%;
+          display: flex;
+          justify-cotent: space-between;
+        }
         .tag {
-					line-height: 20px;
-					margin-bottom: 12px;
-					padding: 4px 8px;
-					max-width: 80%;
-					width: fit-content;
+          line-height: 20px;
+          margin-bottom: 12px;
+          padding: 4px 8px;
+          max-width: 100%;
+          display: flex;
+          align-items: center;
+          width: fit-content;
           border-radius: 4px;
           overflow: hidden;
+          text-align: left;
 				}
         svg {
           margin-right: 4px;
+        }
+        .tag-edit-btn{
+          width: 44px;
+          height: 44px;
+          cursor: pointer;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
 
         .text-container {

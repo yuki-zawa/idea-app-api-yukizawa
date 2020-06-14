@@ -109,6 +109,7 @@ export const Card: React.FC<CardProps> = (props: any) => {
 
         .genre-tag-container {
           margin-bottom: 8px;
+          overflow-x: hidden;
         }
 
         .idea-tag-container {
@@ -118,6 +119,7 @@ export const Card: React.FC<CardProps> = (props: any) => {
           display: flex;
           flex-direction: row;
           margin-bottom: 14px;
+          overflow-x: hidden;
         }
 
         .idea-tag-container::-webkit-scrollbar {

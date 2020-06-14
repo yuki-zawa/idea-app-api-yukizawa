@@ -346,7 +346,7 @@ export const AddModal: React.FC = (props: any) => {
           .rating-container{
             display: flex;
             align-items: center;
-            margin-bottom: 12px;
+            margin-bottom: 20px;
           }
           .star{
             font-size: 24px;
@@ -387,6 +387,9 @@ export const AddModal: React.FC = (props: any) => {
             display: flex;
             align-items: center;
           }
+          .title-name-container div{
+            width: 100%;
+          }
           .title-name-container::before{
             content: " ";
             width: 2px;
@@ -400,7 +403,8 @@ export const AddModal: React.FC = (props: any) => {
           }
           .title-input {
             width: 100%;
-            height: 16px;
+            height: 24px;
+            box-sizing: border-box;
             font-size: 16px;
             padding: 4px 8px;
             border: none;

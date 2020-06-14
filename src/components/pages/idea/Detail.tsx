@@ -506,7 +506,7 @@ export const IdeaDetail: React.FC = (props: any) => {
         .rating-container{
           display: flex;
           align-items: center;
-          margin-bottom: 12px;
+          margin-bottom: 20px;
         }
         .star{
           font-size: 24px;
@@ -550,7 +550,7 @@ export const IdeaDetail: React.FC = (props: any) => {
         .idea-title {
           margin-left: 4px;
           font-size: 18px;
-          color: #7A7A7A;
+          color: #333;
         }
         .title-input {
           border: none;
@@ -562,14 +562,15 @@ export const IdeaDetail: React.FC = (props: any) => {
 
         // タグ
         .tag-label, .memo-label{
-          font-size: 12px;
+          font-size: 14px;
           margin-bottom: 6px;
         }
         .plus {
-          width: 24px;
-          height: 24px;
-          display: inline-block;
-          margin-right: 8px;
+          width: 44px;
+          height: 44px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
         .plus-img{
           margin: 3px 0;
@@ -581,7 +582,7 @@ export const IdeaDetail: React.FC = (props: any) => {
           height: 20px;
           display: flex;
           align-items: center;
-          padding: 0 4px;
+          padding: 4px 8px;
           border-radius: 4px;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -602,6 +603,7 @@ export const IdeaDetail: React.FC = (props: any) => {
         .idea-tag {
           margin-right: 8px;
           background-color: #E3EAF5;
+          diplay: block;
         }
 
         //メモ
@@ -626,174 +628,6 @@ export const IdeaDetail: React.FC = (props: any) => {
           margin: 8px 0;
         }
 
-        // .input-container {
-        //   padding-bottom: 16px;
-        //   border-bottom: 2px dashed lightgray;
-        //   z-index: 1;
-        // }
-
-        // .styled-select {
-        //   /* デフォルトのスタイルを解除 */
-        //   -moz-appearance: none;
-        //   -webkit-appearance: none;
-        //   appearance: none;
-        //   /* スタイル */
-        //   display: inline-block;
-        //   width: 70px;
-        //   height: 70px;
-        //   padding: 0.5em;
-        //   cursor: pointer;
-        //   font-size: 32px;
-        //   border-radius: 4px;
-        //   background-color: #f7f9fb;
-        // }
-
-        // /* IEでデフォルトの矢印を消す */
-        // .styled-select::-ms-expand {
-        //   display: none;
-        // }
-        // .btn-container {
-        //   display: inline-block;
-        //   float: right;
-        // }
-
-        // .btn-container span {
-        //   margin-left: 8px;
-        // }
-
-        // .cancel-btn{
-        //   font-size: 16px;
-        //   color: #007AFF;
-        // }
-
-        // .icon {
-        //   height: 48px;
-        //   width: 48px;
-        //   font-size: 48px;
-        //   margin-bottom: 16px;
-        // }
-
-        // .priority {
-        //   position: relative;
-        //   display: inline-block;
-        //   margin-left: 18px;
-        //   padding: 7px 10px;
-        //   min-width: 120px;
-        //   max-width: 100%;
-        //   font-size: 10px;
-        //   background: #FEB342;
-        //   border-radius: 4px;
-        // }
-        
-        // .priority:before {
-        //   content: "";
-        //   position: absolute;
-        //   top: 50%;
-        //   left: -18px;
-        //   margin-top: -8px;
-        //   border: 8px solid transparent;
-        //   border-right: 15px solid #FEB342;
-        // }
-
-        // .priority-label {
-        //   margin: 0;
-        //   padding: 0;
-        // }
-
-        // .idea-title {
-        //   margin: 0.75rem 0;
-        //   font-size: 18px;
-        //   overflow-x: scroll;
-        //   -ms-overflow-style: none;    /* IE, Edge 対応 */
-        //   scrollbar-width: none;       /* Firefox 対応 */
-        // }
-
-        // .idea-title::-webkit-scrollbar {  /* Chrome, Safari 対応 */
-        //   display:none;
-        // }
-
-        // .title-input {
-        //   width: 95%;
-        //   height: 16px;
-        //   font-size: 16px;
-        //   padding: 0.25rem 0.5rem;
-        // }
-
-        // .plus {
-        //   width: 24px;
-        //   height: 24px;
-        //   display: inline-block;
-        //   margin-right: 8px;
-        // }
-        // .plus-img{
-        //   margin: 3px 0;
-        //   width: 18px;
-        //   height: auto;
-        // }
-
-        // .tag {
-        //   width: 100px;
-        //   padding: 2px 8px;
-        //   border-radius: 4px;
-        //   overflow: hidden;
-        //   text-overflow: ellipsis;
-        //   white-space: nowrap;
-        // }
-
-        // .genre-tag-container{
-        //   margin-bottom: 24px;
-        // }
-
-        // .tag-label {
-        //   margin-bottom: 12px;
-        // }
-
-        // .idea-tag-container {
-        //   width: auto;
-        //   white-space: nowrap;
-        //   -ms-overflow-style: none;
-        //   margin-bottom: 24px;
-        // }
-
-        // .idea-tag-container::-webkit-scrollbar {
-        //   display:none;
-        // }
-
-        // .genre-tag {
-        //   background-color: ${idea.genre_tags[0] ? idea.genre_tags[0].color : ''};
-        // }
-
-        // .idea-tag {
-        //   margin-right: 8px;
-        //   background-color: #E3EAF5;
-        // }
-
-        // .memo-label{
-        //     margin-bottom: 6px;
-        // }
-
-        // .memo-container {
-        //   min-height: 6em;
-        //   overflow-y: scroll;
-        //   border: 1px black solid;
-        //   width: 100%;
-        //   padding: 0.5em;
-        //   box-sizing: border-box;
-        //   text-align: justify;
-        // }
-
-        // .tag-name {
-        //   vertical-align: text-top;
-        // }
-
-        // .origin-idea {
-        //   padding-top: 16px;
-        //   background-color: white;
-        // }
-
-        // .origin-idea p {
-        //   margin: 8px 0;
-        // }
       `}</style>
     </HomeLayout>
   );
