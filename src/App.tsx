@@ -13,6 +13,7 @@ import { IdeaDetail } from './components/pages/idea/Detail';
 import { AuthComponent } from './components/common/Auth';
 import { AddModal } from './components/pages/idea/AddModal'
 import { MailConfirm } from './components/pages/other/MailConfirm';
+import { Setting } from './components/pages/account/Setting';
 
 function App() {
   return(
@@ -30,6 +31,7 @@ function App() {
               <Route exact path='/home' component={IdeaList}/>
               <Route exact path='/ideas/new' component={AddModal}/>
               <Route exact path='/ideas/:id/detail' component={IdeaDetail}/>
+              <Route exact path='/settings' component={Setting}/>
             </AuthComponent>
           </Switch>
         </BrowserRouter>
