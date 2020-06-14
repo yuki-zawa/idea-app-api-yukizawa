@@ -69,22 +69,19 @@ export const Card2: React.FC<CardProps> = (props: any) => {
         }
 
         .title-text {
-          display: inline-block;
           margin-left: 10px;
           font-size: 16px;
-          font-weight: 500;
-          width: calc(100% - 35px);
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
+          width: calc(100% - 30px);
+          line-height: 1.2em;
         }
 
         .title-container {
           margin-bottom: 2%;
+          display: flex;
         }
 
         .contents{
-            display: flex;
+          display: flex;
         }
 
         .priority-container {
@@ -113,6 +110,7 @@ export const Card2: React.FC<CardProps> = (props: any) => {
           -ms-overflow-style: none;
           display: flex;
           flex-direction: row;
+          overflow-x: hidden;
         }
 
         .tag-container::-webkit-scrollbar {
