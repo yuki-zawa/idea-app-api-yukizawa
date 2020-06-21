@@ -34,9 +34,6 @@ export const Header: React.FC<HeaderProps> = (props) => {
     axios.defaults.headers.common['Authorization'] = '';
     //cookie削除
     document.cookie = "token=; max-age=0";
-    await axios
-      .put('/api/v1/users/1')
-      .catch(err => console.log(err));
     setAuth({
       isLogged: false,
       user: null
