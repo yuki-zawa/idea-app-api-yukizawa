@@ -26,6 +26,10 @@ export const Header: React.FC<HeaderProps> = (props) => {
   const { authState, setAuth } = useContext(AuthContext);
 
   const send = async () => {
+    await axios
+      .put('/api/v1/users/1')
+      .catch(err => console.log(err));
+
     // set Authorization empty header
     axios.defaults.headers.common['Authorization'] = '';
     //cookie削除
