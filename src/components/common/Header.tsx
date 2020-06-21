@@ -28,10 +28,11 @@ export const Header: React.FC<HeaderProps> = (props) => {
   const send = async () => {
     await axios
       .put('/api/v1/users/1')
-      .catch(err => console.log(err));
+      .catch(err => console.log(err))
+      .finally(() => {
+        axios.defaults.headers.common['Authorization'] = '';
+      });
 
-    // set Authorization empty header
-    axios.defaults.headers.common['Authorization'] = '';
     //cookie削除
     document.cookie = "token=; max-age=0";
     setAuth({
