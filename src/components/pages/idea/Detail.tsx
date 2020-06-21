@@ -339,7 +339,7 @@ export const IdeaDetail: React.FC = (props: any) => {
               <div className="genre-tag-container">
                 {
                   !editState ?
-                  (idea.genre_tags[0] ? <span className="genre-tag tag">{idea.genre_tags[0].name}</span> : ''):
+                  (idea.genre_tags[0] ? <span className="genre-tag tag" style={{backgroundColor: idea.genre_tags[0].color}}>{idea.genre_tags[0].name}</span> : ''):
                   <div className="genre-tag-container">
                     <span className="plus" id="genre" onClick={openModal}>
                       <img className="plus-img" src={AddBtn} alt="" id="genre"/>
