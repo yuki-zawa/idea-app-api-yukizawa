@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 import { Emoji } from 'emoji-mart';
+import { ReactComponent as DefaultIcon } from './../../images/defaulticon.svg';
 
 type CardProps = {
   idea: any,
@@ -22,7 +23,7 @@ export const Card: React.FC<CardProps> = (props: any) => {
     backgroundColor: `${props.backgroundColor ? props.backgroundColor : "white"}`,
     marginBottom: "12px",
     borderRadius: "4px",
-    boxShadow: `${props.boxShadow ? props.boxShadow : "0 0px 4px rgba(0,0,0,0.2)"}`,
+    boxShadow: `${props.boxShadow ? props.boxShadow : "rgba(233, 233, 233, 0.25) 0px 0px 8px 0px, rgba(163, 163, 163, 0.25) 0px 2px 6px 0px"}`,
     verticalAlign: "top",
   };
 
@@ -30,14 +31,14 @@ export const Card: React.FC<CardProps> = (props: any) => {
     <Link to={`/ideas/${props.idea.id}/detail`} style={cardLinkStyle} onClick={(event) => props.disabled ? event.preventDefault() : ""}>
       <div className="card-container">
         <div className="title-container">
-          <span className="icon">{props.idea.icon ? <Emoji size={20} emoji={props.idea.icon } /> : "😓"}</span>
+          <span className="icon">{props.idea.icon ? <Emoji size={20} emoji={props.idea.icon } /> : <DefaultIcon />}</span>
           <span className="title-text">{props.idea.title}</span>
         </div>
         <div className="priority-container">
           <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M8 0.5L10.3175 5.195L15.5 5.9525L11.75 9.605L12.635 14.765L8 12.3275L3.365 14.765L4.25 9.605L0.5 5.9525L5.6825 5.195L8 0.5Z" fill="#FEB342" stroke="#FEB342" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
-          <span>{!!props.idea.priority ? props.idea.priority : '-'}</span>
+          <span style={{color:"#feb342"}}>{!!props.idea.priority ? props.idea.priority : '-'}</span>
         </div>
         <div className="genre-tag-container">
           {/* ジャンルタグは基本一つ */}
@@ -74,7 +75,8 @@ export const Card: React.FC<CardProps> = (props: any) => {
 
         .title-text {
           display: inline-block;
-          margin-left: 10px;
+          margin-left: 4px;
+          line-height: 18px;
           font-size: 16px;
           font-weight: 500;
           width: calc(100% - 35px);
@@ -96,7 +98,6 @@ export const Card: React.FC<CardProps> = (props: any) => {
           font-weight: bold;
           vertical-align: top;
         }
-
         .tag {
           display: inline;
           padding: 2px 6px 1px 6px;
@@ -108,17 +109,26 @@ export const Card: React.FC<CardProps> = (props: any) => {
         }
 
         .genre-tag-container {
-          margin-bottom: 8px;
+          width: 100%;
+          height: 21px;
+          display: flex;
+          align-items: center
+          flex-direction: row;
+          margin-bottom: 6px;
+
           overflow-x: hidden;
         }
 
         .idea-tag-container {
           width: 100%;
-          white-space:nowrap;
-          -ms-overflow-style: none;
+          height: 21px;
           display: flex;
+          align-items: center
           flex-direction: row;
           margin-bottom: 14px;
+
+          white-space:nowrap;
+          -ms-overflow-style: none;
           overflow-x: hidden;
         }
 
@@ -127,10 +137,14 @@ export const Card: React.FC<CardProps> = (props: any) => {
         }
 
         .genre-tag {
+          font-size: 16px;
+          color: #333;
           background-color: ${props.idea.genre_tags[0] ? props.idea.genre_tags[0].color : ''};
         }
 
         .idea-tag {
+          font-size: 16px;
+          color: #333;
           margin-right: 8px;
           background-color: #E3EAF5;
         }

@@ -238,19 +238,19 @@ export const IdeaList: React.FC = (props: any) => {
           padding: 148px 12px 72px 12px;
           box-sizing: border-box;
           overflow-y: scroll;
-          background-color: white;
+          background-color: #F5F5F5;
         }
 
         .blur{
           display: ${openShuffleModal ? ";" : "none;"};
           z-index: 100;
-					background-color: #333;
-					backdrop-filter: blur(8px);
-					opacity: 0.5;
-					width: 100%;
-					height: 100vh;
-					position: absolute;
-					top: 0px;
+          background-color: #333;
+          backdrop-filter: blur(8px);
+          opacity: 0.5;
+          width: 100%;
+          height: 100vh;
+          position: absolute;
+          top: 0px;
         }
 
         .list-header {

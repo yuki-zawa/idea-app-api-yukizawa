@@ -85,7 +85,7 @@ export const AccountCreate: React.FC = () => {
         .mail-form_label, .password-form_label{
           display: block;
           margin-bottom: 0.5rem;
-          font-size: 12px;
+          font-size: 14px;
         }
 
         .mail-form_input, .password-form_input{

@@ -173,7 +173,7 @@ export const AddModal: React.FC = (props: any) => {
         <div className="input-container">
           <div className="add-icon-container">
             <button onClick={() => changeIconsModal(true)}>
-              {addData.idea.icon ? <Emoji emoji={addData.idea.icon} size={40}/> : "😊アイコンを追加"}
+              {addData.idea.icon ? <Emoji emoji={addData.idea.icon} size={40}/> : "アイコンを追加"}
             </button>
           </div>
           {/* https://material-ui.com/components/rating/ */}
@@ -309,7 +309,7 @@ export const AddModal: React.FC = (props: any) => {
             color: #579AFF;
           }
           .input-container {
-            border-bottom: 2px dashed #E3EAF5;
+            border-bottom: 2px solid #F1F1F1;
             z-index: 1;
           }
           .styled-select {
@@ -374,14 +374,14 @@ export const AddModal: React.FC = (props: any) => {
             border-right: 8px solid #FEB342;
           }
           .priority-label {
-            font-size: 12px;
+            font-size: 14px;
             margin: 0;
             padding: 0;
           }
 
           // タイトル
           .title-name-container{
-            border-bottom: 2px dashed #E3EAF5;
+            border-bottom: 2px solid #F1F1F1;
             padding-bottom: 16px;
             margin-bottom: 16px;
             display: flex;
@@ -403,27 +403,25 @@ export const AddModal: React.FC = (props: any) => {
           }
           .title-input {
             width: 100%;
-            height: 24px;
             box-sizing: border-box;
             font-size: 16px;
-            padding: 4px 8px;
+            padding: 6px 8px;
             border: none;
           }
 
           // タグ
           .tag-label, .memo-label{
-            font-size: 12px;
-            margin-bottom: 6px;
+            font-size: 14px;
+            margin-bottom: 10px;
           }
           .plus {
-            width: 24px;
-            height: 24px;
-            display: inline-block;
-            margin-right: 8px;
+            width: 36px;
+            height: 44px;
+            text-align: left;
           }
           .plus-img{
-            margin: 3px 0;
-            width: 18px;
+            margin: 10px 0;
+            width: 24px;
             height: auto;
           }
           .tag {
@@ -444,7 +442,7 @@ export const AddModal: React.FC = (props: any) => {
             min-height: 20px;
             display: flex;
             align-items: center;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
           }
           .idea-tag-container::-webkit-scrollbar {
             display:none;

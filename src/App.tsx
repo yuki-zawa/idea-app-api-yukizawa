@@ -44,6 +44,10 @@ function App() {
           color: rgba(0, 0, 0, 0.87);
         }
 
+        p, h1, h2, h3, h4, h5, h6{
+          color: #333;
+        }
+
         a {
           color: inherit;
           text-decoration: none;
@@ -62,6 +66,7 @@ function App() {
           padding: 0;
           appearance: none;
         }
+
       `}</style>
     </div>
   );
