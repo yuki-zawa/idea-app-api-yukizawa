@@ -210,7 +210,7 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
       <div className="btn-container">
         <input ref={nameRef} onChange={handleChange} className="input-name" placeholder="新しいカテゴリーを作成"/>
         <button onClick={postTag} className="add-btn">
-          作成する
+          追加する
         </button>
       </div>
       
@@ -257,13 +257,17 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
 
         .input-name {
           font-size: 16px;
-          height: 24px;
+          line-height: 18px;
           box-sizing: border-box;
-          padding: 4px 8px;
+          padding: 6px 8px;
           background: #FFFFFF;
-          border: 1px solid #C4C4C4;
           border-radius: 4px;
           width: calc(100% - 80px);
+          color: #333;
+          border: 1px solid #C4C4C4;
+        }
+        .input-name::placeholder {
+          color: #c4c4c4;
         }
 
         .btn-container {
@@ -274,21 +278,20 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
         }
 
         .add-btn {
-          padding: 4px 8px;
-          height: 27px;
+          padding: 6px 8px;
+          font-size: 14px;
+          line-height: 18px;
           right: 20.5px;
-          background: #FFFFFF;
-          border: 1px solid #C4C4C4;
+          background: #FEB342;
           box-sizing: border-box;
           border-radius: 4px;
-          font-size: 14px;
           text-align: center;
           color: #333;
           
         }
 
         .label {
-          font-size: 12px;
+          font-size: 14px;
           color: #333;
           margin-bottom: 12px;
         }
@@ -306,7 +309,9 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
         }
 
         .tag {
-          display: inline;
+          display: flex;
+          width: fit-content;
+          align-items: center;
           padding: 4px 8px;
           border-radius: 4px;
           box-sizing: border-box;

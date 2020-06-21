@@ -3,7 +3,7 @@ import InputBase from '@material-ui/core/InputBase';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import InfiniteScroll from "react-infinite-scroller";
-import { Tag, Search, ArrowRight, MoreVertical } from 'react-feather';
+import { Tag, Search, ArrowRight, MoreHorizontal } from 'react-feather';
 
 const SearchInputStyle = {
   width: "100%",
@@ -251,12 +251,10 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                             <path d="M8.33317 3L3.74984 7.58333L1.6665 5.5" stroke="#434343" strokeLinecap="round" strokeLinejoin="round"/>
                           </svg>
                           <span data-id={0}>{selectedGenreTag.name}</span>
-                          {/* メニューボタン */}
-                          <button data-id={0} className="tag-edit-btn">
-                            <MoreVertical data-id={0} size={24} color="#333" />
-                          </button>
                         </div>
-                    
+                        <button data-id={0} className="tag-edit-btn">
+                          <MoreHorizontal data-id={0} size={18} color="#333" />
+                        </button>
                       </div> : ''
                     }
                   </div>
@@ -271,12 +269,17 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                     {
                       genreTags && genreTags.map((genreTag: any, index: number) => {
                         return (
-                          <p key={index} data-id={index} style={{backgroundColor: genreTag.color}} className="tag" onClick={(event) => selectTag("genre", event)}>
-                            <svg data-id={index} width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <circle cx="6" cy="6" r="4.5" stroke="#434343" strokeDasharray="2 1"/>
-                            </svg>
-                            <span data-id={index}>{genreTag.name}</span>
-                          </p>
+                          <div className="tag-wrapper">
+                            <p key={index} data-id={index} style={{backgroundColor: genreTag.color}} className="tag" onClick={(event) => selectTag("genre", event)}>
+                              <svg data-id={index} width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="6" cy="6" r="4.5" stroke="#434343" strokeDasharray="2 1"/>
+                              </svg>
+                              <span data-id={index}>{genreTag.name}</span>
+                            </p>
+                            <button data-id={0} className="tag-edit-btn">
+                              <MoreHorizontal data-id={0} size={18} color="#333" />
+                            </button>
+                          </div>
                         )
                       })
                     }
@@ -457,33 +460,41 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
 
         //タグ
         .tag-wrapper{
-          height: 44px;
           width: 100%;
           display: flex;
           justify-cotent: space-between;
         }
         .tag {
-          line-height: 20px;
+          max-width: calc(100% - 28px);
+          box-sizing: border-box;
+          height: 21px;
           margin-bottom: 12px;
           padding: 4px 8px;
-          max-width: 100%;
           display: flex;
           align-items: center;
           width: fit-content;
           border-radius: 4px;
           overflow: hidden;
           text-align: left;
-				}
+        }
+        .tag span{
+          font-size: 14px;
+          max-width: calc(100% - 16px);
+          white-space: nowrap;
+          overflow-x: hidden;
+          text-overflow: ellipsis;
+        }
         svg {
           margin-right: 4px;
         }
         .tag-edit-btn{
-          width: 44px;
-          height: 44px;
+          width: 24px;
+          height: 24px;
           cursor: pointer;
           display: flex;
           justify-content: center;
           align-items: center;
+          right: 0;
         }
 
         .text-container {
@@ -491,9 +502,11 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
           display: flex;
           align-items: center;
           justify-content: center;
+          color: white;
         }
         .text{
           margin-left: 6px;
+          color: white;
         }
       `}</style>
     </div>

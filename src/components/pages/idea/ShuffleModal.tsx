@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { X, Check, Shuffle, ArrowRight } from 'react-feather';
 import { Link, useHistory } from 'react-router-dom';
-import { Card } from './Card';
+import { Card2 } from './Card2';
 
 
 type ShuffleModalProps = {
@@ -66,24 +66,22 @@ export const ShuffleModal: React.FC<ShuffleModalProps> = (props: any) => {
         <span className="title">アイデアをシャッフルしました！</span>
       </div>
       <div className="cards-container">
-        <Card 
+        <Card2 
           idea={idea1}
           cardWidth={"100%"}
           cardHeight={"144px"}
           backgroundColor={"#FCFCFC"}
-          boxShadow={"0px 0px 12px 0px lightgray"}
           cardContentLine={2}
           disabled={true}
         />
         <div className="cross">
           <X size={24} color="#333" />
         </div>
-        <Card
+        <Card2
           idea={idea2}
           cardWidth={"100%"}
           cardHeight={"144px"}
           backgroundColor={"#FCFCFC"}
-          boxShadow={"0px 0px 12px 0px lightgray"}
           cardContentLine={2}
           disabled={true}
         />
@@ -98,7 +96,7 @@ export const ShuffleModal: React.FC<ShuffleModalProps> = (props: any) => {
       </div>
       <div className="shuffle">
         <button onClick={fetchIdeas}>
-          <Shuffle size={40} color="#333" />
+          <Shuffle size={32} color="#333" />
         </button>
         <p>もう一度シャッフル</p>
       </div>
@@ -109,7 +107,7 @@ export const ShuffleModal: React.FC<ShuffleModalProps> = (props: any) => {
           height: 620px;
           box-sizing: border-box;
           border-radius: 4px;
-          padding: 24px 14px;
+          padding: 20px 14px;
           background-color: white;
           position: absolute;
           top: 50%;
@@ -138,17 +136,17 @@ export const ShuffleModal: React.FC<ShuffleModalProps> = (props: any) => {
         }
 
         .cards-container {
-          margin-bottom: 24px;
+          margin-bottom: 12px;
         }
 
         .cross {
           text-align: center;
-          margin: 4px auto;
+          margin-bottom: 12px;
         }
 
         .add-btn_container{
           width: fit-content;
-          margin: 24px auto;
+          margin: 0 auto 24px auto;
         }
         .add-btn{
           background: #FEB342;
@@ -177,7 +175,7 @@ export const ShuffleModal: React.FC<ShuffleModalProps> = (props: any) => {
         }
 
         .shuffle p {
-          font-size: 8px;
+          font-size: 14px;
           margin-bottom: 8px;
         }
       `}</style>

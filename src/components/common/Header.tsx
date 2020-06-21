@@ -55,7 +55,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
             left: 0;
             top: 0;
             z-index: 100;
-          box-shadow: 0px 0px 10px gray;
+          box-shadow: rgba(233, 233, 233, 0.25) 0px 0px 8px 0px, rgba(163, 163, 163, 0.25) 0px 2px 6px 0px;
         }
         
         ul {

@@ -3,7 +3,6 @@ import { HomeLayout } from "../../common/HomeLayout";
 import useReactRouter from "use-react-router";
 import { useHistory } from 'react-router-dom';
 import { Rating } from '@material-ui/lab';
-
 import axios from 'axios';
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { AddTagModal } from './../tag/AddModal'
@@ -14,6 +13,7 @@ import { X, Edit3, Trash2, Check } from 'react-feather';
 import { Emoji } from 'emoji-mart';
 import { IconsModal } from './../../common/IconsModal';
 import { Card } from './Card'
+import { ReactComponent as DefaultIcon } from './../../images/defaulticon.svg';
 
 export interface EditParam {
   idea: any,
@@ -274,7 +274,8 @@ export const IdeaDetail: React.FC = (props: any) => {
               <div className="add-icon-container">
                 { 
                     !editState ?
-                    <p className="icon">{idea.icon ? <Emoji emoji={idea.icon} size={40}/> : "😓"}</p>
+                    <p className="icon">{idea.icon ? <Emoji emoji={idea.icon} size={40}/> : <DefaultIcon />
+                    }</p>
                     :<div>
                       <button onClick={() => changeIconsModal(true)}>
                         {editData.idea.icon ? <Emoji emoji={editData.idea.icon} size={40}/> : "追加"}
@@ -469,7 +470,7 @@ export const IdeaDetail: React.FC = (props: any) => {
         }
         .input-container {
           padding-bottom: 16px;
-          border-bottom: 2px dashed #E3EAF5;
+          border-bottom: 2px solid #F1F1F1;
           z-index: 1;
         }
         .styled-select {
@@ -541,7 +542,7 @@ export const IdeaDetail: React.FC = (props: any) => {
 
         // タイトル
         .title-name-container{
-          border-bottom: 2px dashed #E3EAF5;
+          border-bottom: 2px solid #F1F1F1;
           padding-bottom: 16px;
           margin-bottom: 16px;
           display: flex;
@@ -563,18 +564,16 @@ export const IdeaDetail: React.FC = (props: any) => {
         // タグ
         .tag-label, .memo-label{
           font-size: 14px;
-          margin-bottom: 6px;
+          margin-bottom: 10px;
         }
         .plus {
-          width: 44px;
+          width: 36px;
           height: 44px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
+          text-align: left;
         }
         .plus-img{
-          margin: 3px 0;
-          width: 18px;
+          margin: 10px 0;
+          width: 24px;
           height: auto;
         }
         .tag {
@@ -595,7 +594,7 @@ export const IdeaDetail: React.FC = (props: any) => {
           min-height: 20px;
           display: flex;
           align-items: center;
-          margin-bottom: 16px;
+          margin-bottom: 20px;
         }
         .idea-tag-container::-webkit-scrollbar {
           display:none;
