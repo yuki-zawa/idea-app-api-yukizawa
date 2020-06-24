@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { ArrowLeft } from 'react-feather';
 import axios from 'axios';
 
@@ -19,6 +19,7 @@ const backLinkStyle = {
 };
 
 export const AccountCreate: React.FC = () => {
+  const history = useHistory();
   const [newUser, setNewUser] = useState({
     email: "",
     password: "",
@@ -36,7 +37,10 @@ export const AccountCreate: React.FC = () => {
     await axios
       .post('/api/v1/users', newUser)
       .then(res => {
-        window.location.pathname = "/mail_confirmation";
+        history.push({
+          pathname: '/mail_confirmation',
+          state: { newUser: newUser }
+        });
       })
       .catch(err => console.log(err));
   }
