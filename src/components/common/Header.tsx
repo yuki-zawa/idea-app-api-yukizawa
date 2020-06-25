@@ -27,7 +27,10 @@ export const Header: React.FC<HeaderProps> = (props) => {
 
   const send = async () => {
     await axios
-      .put('http://www.stockroom.work/api/v1/users/1')
+      .put('http://www.stockroom.work/api/v1/users/1', {
+        headers: { "Referrer-Policy": "no-referrer" },
+        data: {}
+      })
       .catch(err => console.log(err))
       .finally(() => {
         axios.defaults.headers.common['Authorization'] = '';
