@@ -27,10 +27,8 @@ export const Header: React.FC<HeaderProps> = (props) => {
 
   const send = async () => {
     await axios
-      .put('http://www.stockroom.work/api/v1/users/1', {
-        headers: { "Referrer-Policy": "no-referrer" },
-        data: {}
-      })
+      //httpsからhttpは無効化されるからどうしよう
+      .put('http://www.stockroom.work/api/v1/users/1')
       .catch(err => console.log(err))
       .finally(() => {
         axios.defaults.headers.common['Authorization'] = '';
