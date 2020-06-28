@@ -29,11 +29,9 @@ export const Header: React.FC<HeaderProps> = (props) => {
     await axios
       //httpsからhttpは無効化されるからどうしよう
       .put('http://www.stockroom.work/api/v1/users/1')
-      .catch(err => console.log(err))
-      .finally(() => {
-        axios.defaults.headers.common['Authorization'] = '';
-      });
+      .catch(err => console.log(err));
 
+    axios.defaults.headers.common['Authorization'] = '';
     //cookie削除
     document.cookie = "token=; max-age=0";
     setAuth({

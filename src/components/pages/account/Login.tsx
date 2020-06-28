@@ -111,7 +111,7 @@ export const AccountLogin: React.FC = (props: any) => {
   return (
     <div className="container">
       <Link to='/' style={backLinkStyle}>
-          <ArrowLeft size={24}/>
+        <ArrowLeft size={24}/>
       </Link>
       <div className="err">{err}</div>
       <h1 className="title">ログイン</h1>
@@ -136,7 +136,6 @@ export const AccountLogin: React.FC = (props: any) => {
 
 
       <style jsx>{`
-        
         .container {
             padding: 60px 24px 0 24px;
         }

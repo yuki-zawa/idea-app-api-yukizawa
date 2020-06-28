@@ -20,6 +20,7 @@ const backLinkStyle = {
 
 export const AccountCreate: React.FC = () => {
   const history = useHistory();
+  const [err, setErr] = useState("");
   const [newUser, setNewUser] = useState({
     email: "",
     password: "",
@@ -27,6 +28,7 @@ export const AccountCreate: React.FC = () => {
   })
 
   const handleFieldChange = (event: any) => {
+    setErr("");
     setNewUser({
       ...newUser,
       [event.target.name]: event.target.value
@@ -34,15 +36,37 @@ export const AccountCreate: React.FC = () => {
   }
 
   const createUser = async () => {
-    await axios
-      .post('/api/v1/users', newUser)
-      .then(res => {
-        history.push({
-          pathname: '/mail_confirmation',
-          state: { newUser: newUser }
+    validate(newUser);
+    if(err == ""){
+      await axios
+        .post('/api/v1/users', newUser)
+        .then(res => {
+          history.push({
+            pathname: '/mail_confirmation',
+            state: { newUser: newUser }
+          });
+        })
+        .catch(err => {
+          console.log(err);
+          setErr("すでに存在しているメールアドレスです");
         });
-      })
-      .catch(err => console.log(err));
+    }
+  }
+
+  const validate = (form: any) => {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if(!re.test(String(form.email).toLowerCase())){
+      setErr("不正な形式のメールアドレスです");
+      return;
+    };
+    if(form.password.length < 6){
+      setErr("パスワードが短すぎます");
+      return;
+    }
+    if(form.password != form.password_confirmation){
+      setErr("パスワードが一致していません");
+      return;
+    }
   }
 
   return (
@@ -50,6 +74,7 @@ export const AccountCreate: React.FC = () => {
       <Link to='/' style={backLinkStyle}>
         <ArrowLeft size={24}/>
       </Link>
+      <div className="err">{err}</div>
       <h1 className="title">STOCKROOMを始める</h1>
       <div className="mail-form">
         <label className="mail-form_label">メールアドレス</label>
@@ -75,13 +100,21 @@ export const AccountCreate: React.FC = () => {
       <style jsx>{`
         .container {
           padding: 60px 24px 0 24px;
-
         }
+
+        .err {
+          height: 77px;
+          color: red;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
         .title {
-          margin-top: 77px;
           font-size: 18px;
           margin-bottom: 32px;
         }
+
         .mail-form, .password-form {
           margin-bottom: 24px;
         }
@@ -106,6 +139,7 @@ export const AccountCreate: React.FC = () => {
           width: 314px;
           margin: 0 auto;
         }
+
         .button-container button {
           text-align: center;
           padding: 0.5rem 0.25rem;

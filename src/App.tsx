@@ -14,6 +14,7 @@ import { AuthComponent } from './components/common/Auth';
 import { AddModal } from './components/pages/idea/AddModal'
 import { MailConfirm } from './components/pages/other/MailConfirm';
 import { Setting } from './components/pages/account/Setting';
+import { Invalid } from './components/pages/other/Invalid';
 
 function App() {
   return(
@@ -27,6 +28,7 @@ function App() {
             <Route exact path='/account/create' component={AccountCreate}/>
             <Route exact path='/account/login' component={AccountLogin}/>
             <Route exact path='/mail_confirmation' component={MailConfirm}/>
+            <Route exact path='/invalid' component={Invalid}/>
             <AuthComponent>
               <Route exact path='/home' component={IdeaList}/>
               <Route exact path='/ideas/new' component={AddModal}/>
