@@ -1,4 +1,7 @@
 import React from 'react';
+import HeaderIcon from "./../images/header-logo.png"
+import { Settings } from 'react-feather';
+import { Link } from 'react-router-dom';
 
 type HeaderProps = {
   title: string,
@@ -9,19 +12,30 @@ type HeaderProps = {
 export const Header: React.FC<HeaderProps> = (props) => {
   return (
     <header>
-      <ul>
-        <li className="title">{props.title}</li>
-      </ul>
+      <img className="header-icon" src={HeaderIcon} alt="STOCKROOM"/>
+      <Link to='/settings'>
+        <Settings color="#7A7A7A" size={24} />
+      </Link>
+      
       <style jsx>{`
         header {
           width: 100%;
-          height: 44px;
+          height: 52px;
+          padding: 10px 15px;
           background-color: white;
+          justify-content: space-between;
+          display: flex;
+          box-sizing: border-box;
           position: fixed;
-            left: 0;
-            top: 0;
-            z-index: 100;
+          align-items: center;
+          left: 0;
+          top: 0;
+          z-index: 100;
           box-shadow: rgba(233, 233, 233, 0.25) 0px 0px 8px 0px, rgba(163, 163, 163, 0.25) 0px 2px 6px 0px;
+        }
+        .header-icon{
+          height: 32px;
+          width: auto
         }
         
         ul {
