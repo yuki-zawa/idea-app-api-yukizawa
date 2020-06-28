@@ -430,7 +430,7 @@ export const AddModal: React.FC = (props: any) => {
             display: flex;
             align-items: center;
             padding: 0 4px;
-            border-radius: 4px;
+            border-radius: 24px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
