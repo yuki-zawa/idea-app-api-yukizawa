@@ -1,17 +1,4 @@
-import React, {useContext} from 'react';
-import useReactRouter from "use-react-router";
-import { AuthContext } from "./context/provider";
-import axios from "axios";
-
-const linkStyle = {
-  textAlign: "center" as "center",
-  display: "block",
-  height: "8vh",
-  lineHeight: "8vh",
-  paddingLeft: "10px",
-  float: "left" as "left",
-  cursor: "pointer",
-};
+import React from 'react';
 
 type HeaderProps = {
   title: string,
@@ -19,38 +6,11 @@ type HeaderProps = {
   history?: any,
 };
 
-
-
 export const Header: React.FC<HeaderProps> = (props) => {
-  const path = useReactRouter().location.pathname;
-  const { authState, setAuth } = useContext(AuthContext);
-
-  const send = async () => {
-    await axios
-      //httpsからhttpは無効化されるからどうしよう
-      .put('http://www.stockroom.work/api/v1/users/1')
-      .catch(err => console.log(err))
-      .finally(() => {
-        axios.defaults.headers.common['Authorization'] = '';
-      });
-
-    //cookie削除
-    document.cookie = "token=; max-age=0";
-    setAuth({
-      isLogged: false,
-      user: null
-    });
-    window.location.pathname = '/'
-    return;
-  }
-
   return (
     <header>
       <ul>
         <li className="title">{props.title}</li>
-        <button onClick={ send }>
-          ログアウト
-        </button>
       </ul>
       <style jsx>{`
         header {
