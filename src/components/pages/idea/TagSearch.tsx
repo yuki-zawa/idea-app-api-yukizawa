@@ -421,7 +421,6 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
         .tag-search {
           height: calc(100% - 26px);
           padding: 6px;
-          border: 2px solid lightgray;
           box-sizing: border-box;
         }
 
@@ -469,7 +468,9 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
           box-sizing: border-box;
           height: 21px;
           margin-bottom: 12px;
-          padding: 4px 8px;
+          font-size: 14px;
+          line-height: 14px;
+          padding: 4px 6px;
           display: flex;
           align-items: center;
           width: fit-content;

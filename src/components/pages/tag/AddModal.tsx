@@ -309,10 +309,13 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
         }
 
         .tag {
+          font-size: 14px;
+          line-height: 14px;
+          padding: 4px 6px;
           display: flex;
           width: fit-content;
           align-items: center;
-          padding: 4px 8px;
+          
           border-radius: 4px;
           box-sizing: border-box;
           overflow: hidden;

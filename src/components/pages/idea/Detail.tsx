@@ -581,7 +581,9 @@ export const IdeaDetail: React.FC = (props: any) => {
           height: 20px;
           display: flex;
           align-items: center;
-          padding: 4px 8px;
+          font-size: 14px;
+          line-height: 14px;
+          padding: 4px 6px;
           border-radius: 4px;
           overflow: hidden;
           text-overflow: ellipsis;

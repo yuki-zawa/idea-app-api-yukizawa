@@ -32,14 +32,14 @@ export const Card: React.FC<CardProps> = (props: any) => {
       <div className="card-container">
         <div className="title-container">
           <span className="icon">{props.idea.icon ? <Emoji size={20} emoji={props.idea.icon } /> : <DefaultIcon />}</span>
-          <span className="title-text">{props.idea.title}</span>
+          <div className="priority-container">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 0.5L10.3175 5.195L15.5 5.9525L11.75 9.605L12.635 14.765L8 12.3275L3.365 14.765L4.25 9.605L0.5 5.9525L5.6825 5.195L8 0.5Z" fill="#FEB342" stroke="#FEB342" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            <span style={{color:"#feb342"}}>{!!props.idea.priority ? props.idea.priority : '-'}</span>
+          </div>
         </div>
-        <div className="priority-container">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M8 0.5L10.3175 5.195L15.5 5.9525L11.75 9.605L12.635 14.765L8 12.3275L3.365 14.765L4.25 9.605L0.5 5.9525L5.6825 5.195L8 0.5Z" fill="#FEB342" stroke="#FEB342" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-          <span style={{color:"#feb342"}}>{!!props.idea.priority ? props.idea.priority : '-'}</span>
-        </div>
+        <span className="title-text">{props.idea.title}</span>
         <div className="genre-tag-container">
           {/* ジャンルタグは基本一つ */}
           {props.idea.genre_tags[0] ? <span className="genre-tag tag">{props.idea.genre_tags[0].name}</span> : ""}
@@ -53,6 +53,7 @@ export const Card: React.FC<CardProps> = (props: any) => {
             })
           }
         </div>
+        
         <div className="text-container">
           <p>{props.idea.detail}</p>
         </div>
@@ -61,46 +62,51 @@ export const Card: React.FC<CardProps> = (props: any) => {
       {`
         .card-container{
           height: ${props.cardHeight};
-          padding: 8px 4px;
+          padding: 10px;
           box-sizing: border-box;
-          border: 1px solid #C4C4C4;
+          border: 1px solid rgba(196, 196, 196, 0.5);;
           border-radius: 4px;
         }
 
+        .title-container{
+          margin-bottom: 10px;
+          display: flex;
+          align-items: center;
+        }
         .icon {
           display: inline-block;
           height: 20px;
           width: 20px;
+          
+        }
+        .priority-container {
+          display: inline-block;
+          color: #FEB342;
         }
 
         .title-text {
-          display: inline-block;
-          margin-left: 4px;
           line-height: 18px;
           font-size: 16px;
-          font-weight: 500;
-          width: calc(100% - 35px);
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-        }
-
-        .title-container {
-          margin-bottom: 2%;
-        }
-
-        .priority-container {
+          max-height: 2em;
+          display: inline-block;
           margin-bottom: 8px;
-          color: #FEB342;
+          text-overflow: ellipsis;
+          white-space: pre-wrap;;
         }
+
+
+        
 
         .priority-container span {
           font-weight: bold;
           vertical-align: top;
         }
+
         .tag {
           display: inline;
-          padding: 2px 6px 1px 6px;
+          font-size: 14px;
+          line-height: 14px;
+          padding: 4px 6px;
           border-radius: 4px;
           box-sizing: border-box;
           overflow: hidden;

@@ -59,7 +59,7 @@ export const Card2: React.FC<CardProps> = (props: any) => {
           height: ${props.cardHeight};
           padding: 8px 12px;
           box-sizing: border-box;
-          border: 1px solid #C4C4C4;
+          border: 1px solid rgba(196, 196, 196, 0.5);;
           border-radius: 4px;
         }
 
@@ -97,7 +97,9 @@ export const Card2: React.FC<CardProps> = (props: any) => {
 
         .tag {
           display: inline;
-          padding: 2px 6px 1px 6px;
+          font-size: 14px;
+          line-height: 14px;
+          padding: 4px 6px;
           border-radius: 4px;
           box-sizing: border-box;
           overflow: hidden;

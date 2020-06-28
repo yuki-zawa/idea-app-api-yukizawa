@@ -84,7 +84,7 @@ export const Top: React.FC = () => {
         }
 
         .title {
-          margin-bottom: 120px;
+          margin-bottom: 80px;
           padding-top: 60px;
           padding-left: 12px;
         }
@@ -134,7 +134,7 @@ export const Top: React.FC = () => {
         }
 
         .intro-content {
-          margin-bottom: 32px;
+          margin-bottom: 16px;
         }
 
       `}</style>

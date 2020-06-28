@@ -124,13 +124,18 @@ export const IdeaList: React.FC = (props: any) => {
 
   return (
     <HomeLayout title="STOCKROOM">
+      <Link to='/settings'>
+        <div className="user-btn footer-btn">
+            <Settings color="white" size="28"/>
+        </div>
+      </Link>
       <div className="list-header">
         <div className="search">
           <div className="search-icon">
             <Search size={24} />
           </div>
           <InputBase
-            placeholder="アイデアを検索する"
+            placeholder="ひらめきを検索"
             inputProps={{ 'aria-label': 'search' }}
             classes={{
                       root: classes.inputRoot,
@@ -208,7 +213,7 @@ export const IdeaList: React.FC = (props: any) => {
             </button>
             <Link to='/ideas/new'>
                 <button className="add-btn" >
-                    <Plus color="#434343" size="28"/>
+                    <Plus color="#333" size="36"/>
                 </button>
             </Link>
             {/* <Link to='/ideas/new'>
@@ -216,11 +221,7 @@ export const IdeaList: React.FC = (props: any) => {
                     <Search color="white" size="28"/>
                 </div>
             </Link> */}
-            <Link to='/ideas/new'>
-                <div className="user-btn footer-btn">
-                    <Settings color="white" size="28"/>
-                </div>
-            </Link>
+            
         </div>
         
         
@@ -307,34 +308,31 @@ export const IdeaList: React.FC = (props: any) => {
         }
 
         .footer-menu {
-          width: 280px;
-          height: 72px;
-          border-radius: 72px;
-          box-sizing: border-box;
-          padding: 12px 40px;
+          width: 132px;
+          height: 62px;
           position: fixed;
           left: 50%;
           transform: translateX(-50%);
           -webkit- transform: translateX(-50%);
           bottom: 24px;
-          background-color: #434343;
           display: flex;
           justify-content: space-between;
         }
 
         .add-btn{
-          height: 48px;
-          width: 48px;
+          height: 62px;
+          width: 62px;
           border-radius: 50%;
           background-color: #FEB342;
           display: flex;
           justify-content: center;
           align-items: center;
         }
-
-        .footer-btn {
-          width: 44px;
-          height: 44px;
+        .shuffle-btn{
+          height: 62px;
+          width: 62px;
+          border-radius: 50%;
+          background-color: #579AFF;
           display: flex;
           justify-content: center;
           align-items: center;
