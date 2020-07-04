@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from "../../common/context/provider";
 import { ArrowLeft } from 'react-feather';
+import { isIOS } from 'react-device-detect';
 
 const backLinkStyle = {
   display: "block",
