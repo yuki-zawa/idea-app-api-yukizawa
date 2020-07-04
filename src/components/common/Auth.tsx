@@ -2,7 +2,7 @@ import React, { useContext, useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 import useReactRouter from "use-react-router";
-
+import { isIOS } from 'react-device-detect';
 import { AuthContext } from "../common/context/provider";
 
 type AuthProps = {
@@ -33,6 +33,14 @@ export const AuthComponent: React.FC<AuthProps> = ({ children }) => {
 
     return currentUser;
   }
+
+  const autoLogin = async () => {
+    if(window.matchMedia('(display-mode: standalone)').matches && isIOS){
+      var token = localStorage.getItem("token");
+      document.cookie = `token=${token}`
+    }
+  }
+  autoLogin();
 
   const login = useCallback(async () => {
     try {

@@ -27,6 +27,7 @@ export const Setting: React.FC = () => {
     axios.defaults.headers.common['Authorization'] = '';
     //cookie削除
     document.cookie = "token=; max-age=0";
+    localStorage.removeItem("token");
     window.location.pathname = '/'
     setAuth({
       isLogged: false,
