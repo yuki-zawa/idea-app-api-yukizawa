@@ -15,6 +15,7 @@ export const SortModal: React.FC<SortModalProps> = (props: any) => {
     var queryString = props.currentQuery.replace(/&sort=.*(?=&)|&sort=.*(?!&)/g, '');
     props.setQuery(queryString + `&sort=${event.target.id}`);
     setSortValue(event.target.id);
+    props.handleChangeSortOpen(false)
   }
 
   return (
