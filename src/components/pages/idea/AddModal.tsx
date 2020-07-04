@@ -28,7 +28,7 @@ export interface AddParam {
   ideas: any
 }
 
-const priorityLables = ["ひらめき度を設定しよう", "いいことを思いついた！", "なかなかいいひらめきだ！", "これはすごいひらめきだ！", "君は天才だ！", "世紀の大発見だ！"];
+const priorityLables = ["ひらめき度を設定しよう", "いいことを思いついた！", "なかなかいいだ！", "これはすごいだ！", "君は天才だ！", "世紀の大発見だ！"];
 
 export const AddModal: React.FC = (props: any) => {
   const history = useHistory();
@@ -158,7 +158,7 @@ export const AddModal: React.FC = (props: any) => {
           <button className="x-icon" onClick={() => history.goBack()} style={backLinkStyle}>
             <X  size={24} color="#333"/>
           </button>
-          <p className="title">新しいアイデアを追加する</p>
+          <p className="title">新しいひらめきを追加する</p>
           { openAddTagModal ? 
               <AddTagModal 
                 tagState={tagState}
@@ -172,7 +172,7 @@ export const AddModal: React.FC = (props: any) => {
         </div>
         <div className="input-container">
           <div className="add-icon-container">
-            <button onClick={() => changeIconsModal(true)}>
+            <button className="add-icon_bnt" onClick={() => changeIconsModal(true)}>
               {addData.idea.icon ? <Emoji emoji={addData.idea.icon} size={40}/> : "アイコンを追加"}
             </button>
           </div>
@@ -203,13 +203,13 @@ export const AddModal: React.FC = (props: any) => {
             <input 
               ref={titleRef}
               onChange={changeTitle}
-              placeholder="アイデアを一言で表すと？"
+              placeholder="ひらめきを一言で表すと？"
               type="text"
               className="title-input"
             />
           </div>
 
-          <p className="tag-label">カテゴリータグ</p>
+          <p className="tag-label">カテゴリー</p>
           <div className="genre-tag-container">
             <span className="plus" onClick={openModal}>
               <img className="plus-img" src={AddBtn} alt="" id="genre"/>
@@ -220,7 +220,7 @@ export const AddModal: React.FC = (props: any) => {
               <span className="tag-name">{selectedGenreTag.name}</span>
             </span> : ""}
           </div>
-          <p className="tag-label">アイデアタグ</p>
+          <p className="tag-label">タグ</p>
           <div className="idea-tag-container">
             <span className="plus" onClick={openModal}>
               <img className="plus-img" src={AddBtn} alt="" id="idea"/>
@@ -303,6 +303,11 @@ export const AddModal: React.FC = (props: any) => {
           }
           .add-icon-container{
             margin-bottom: 12px;
+          }
+          .icon-add_btn{
+            padding: 4px 11px;
+            background: #EBEBEB;
+            border-radius: 22px;
           }
           .add-icon-container button{
             color: #579AFF;
@@ -415,8 +420,9 @@ export const AddModal: React.FC = (props: any) => {
           }
           .plus {
             width: 36px;
-            height: 44px;
-            text-align: left;
+            height: 36px;
+            padding: 7px 8px 9px 8px;
+            margin-right: 8px;
           }
           .plus-img{
             margin: 10px 0;
@@ -429,7 +435,7 @@ export const AddModal: React.FC = (props: any) => {
             display: flex;
             align-items: center;
             padding: 0 4px;
-            border-radius: 24px;
+            border-radius: 2px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -458,10 +464,9 @@ export const AddModal: React.FC = (props: any) => {
             box-sizing: border-box;
             overflow-y: scroll;
             border: 1px #333 solid;tart
-
             border-radius: 2px;
             padding: 10px 8px;
-            font-size: 14px;
+            font-size: 16px;
             color: #434343;
             line-height: 1.6em;
           }

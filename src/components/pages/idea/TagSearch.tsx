@@ -68,7 +68,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
 
   const pullUp = () => {
     document.getElementsByClassName('tag-search-header')[0].classList.remove('active');
-    document.getElementsByClassName('tag-search-header')[0].getElementsByClassName('text')[0].textContent = "タグで絞り込む";
+    document.getElementsByClassName('tag-search-header')[0].getElementsByClassName('text')[0].textContent = "ひらめきを絞り込む";
     setSearchState(false);
   }
 
@@ -222,7 +222,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
             <button className="x-icon" onClick={searchState ? pullUp : pullDown}>
               <X  size={24} color="#333"/>
             </button>
-            <h3 className="tag-search_title">タグで絞り込み</h3>
+            <h3 className="tag-search_title">ひらめきを絞り込み</h3>
           </div>
         
           <div className="tag-containers">
@@ -361,18 +361,18 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
           </div>
           </div>
           <button className="tag-search_btn" onClick={filter}>
-            <span className="tag-search-btn_text">タグで絞り込む</span>
+            <span className="tag-search-btn_text">ひらめきを絞り込む</span>
             <ArrowRight className="tag-search-btn_icon" size={24} color="#333" />
           </button>
         </div>
         <p className="text-container" onClick={searchState ? pullUp : pullDown}>
             <Tag size={18} color="#579AFF"/>
-            <span className="text">タグで絞り込む</span>
+            <span className="text">ひらめきを絞り込む</span>
         </p>
       </div>
       <style jsx>{`
         .container{
-          z-index: 100;
+          z-index: 120;
         }
         .tag-search-header {
           // text-align: center;
@@ -382,7 +382,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
           width: 100%;
           top: 108px;
           box-sizing: border-box;
-          z-index: 99;
+          z-index: 105;
           // padding: 12px 0;
           // background-color: white;
           color: #579AFF;

@@ -64,15 +64,15 @@ export const Setting: React.FC = () => {
         </div>
         <div className="inner-container">
           <div className="mail-container">
-            <Mail size={24} color="#333" />
-            <div style={{ display: "inline-block", marginLeft: "24px" }}>
+            <div className="mail-label">
+              <Mail className="icon" size={24} color="#333" />
               <h3>登録メールアドレス</h3>
-              <p>{authState.user.email}</p>
             </div>
+            <p>{authState.user.email}</p>
           </div>
           <div className="pass-container">
-            <Lock size={24} color="#333" />
-            <h3 style={{ display: "inline-block", marginLeft: "24px" }}>パスワードを変更する</h3>
+            <Lock className="icon" size={24} color="#333" />
+            <h3 className="pass-btn">パスワードを変更する</h3>
           </div>
           <div className="help-container">
             <p>
@@ -94,11 +94,33 @@ export const Setting: React.FC = () => {
         <style jsx>{`
           .container {
             background-color: white;
-            padding: 1.25rem 1rem;
-            padding-top: calc(1.25rem + 40px);
+            padding: 60px 12px 72px 12px;
             z-index: 5;
           }
-        
+          .inner-container {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            box-sizing: border-box;
+          }
+          .icon{
+            margin-right: 16px;
+          }
+          .mail-container {
+            margin-bottom: 40px;
+          }
+          .mail-label{
+            display: flex;
+            align-items: center;
+          }
+          .pass-container{
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+          }
+          .help-container, .account-container{
+            margin-bottom: 40px;
+          }
           .top-part {
             margin-bottom: 20px;
           }
@@ -114,15 +136,9 @@ export const Setting: React.FC = () => {
             line-height: 28px;
           }
 
-          .mail-container, .pass-container, .help-container, .account-container {
-            margin-top: 50px;
-          }
-
-          .inner-container {
-            width: 100%;
-            max-width: 400px;
-            margin: 0 auto;
-          }
+          
+          
+          
 
           .help-container p {
             margin: 1rem 0;
