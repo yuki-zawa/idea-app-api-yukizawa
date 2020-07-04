@@ -9,7 +9,7 @@ import { AddTagModal } from './../tag/AddModal'
 import { Icon } from './../../common/Const'
 import AddBtn from './../../images/add-btn.svg'
 import StarIcon from '@material-ui/icons/Star';
-import { X, Edit3, Trash2, Check } from 'react-feather';
+import { X, Edit3, Trash2, Check, PlusCircle } from 'react-feather';
 import { Emoji } from 'emoji-mart';
 import { IconsModal } from './../../common/IconsModal';
 import { Card } from './Card'
@@ -21,7 +21,7 @@ export interface EditParam {
   idea_tags: any
 }
 
-const priorityLables = ["ひらめき度を設定しよう", "いいことを思いついた！", "なかなかいいひらめきだ！", "これはすごいひらめきだ！", "君は天才だ！", "世紀の大発見だ！"];
+const priorityLables = ["ひらめき度を設定しよう", "いいことを思いついた！", "なかなかいいだ！", "これはすごいだ！", "君は天才だ！", "世紀の大発見だ！"];
 
 export const IdeaDetail: React.FC = (props: any) => {
   const history = useHistory();
@@ -250,7 +250,7 @@ export const IdeaDetail: React.FC = (props: any) => {
           <button onClick={() => history.goBack()} className="cancel-btn">
             <X size={24} color="#333"/>
           </button>
-          <p className="title">アイデア詳細</p>
+          <p className="title">ひらめき詳細</p>
           { !showLoader && !editState ?
             <div className="btn-container">
               <span className="delete" onClick={deleteIdea}>
@@ -277,8 +277,8 @@ export const IdeaDetail: React.FC = (props: any) => {
                     <p className="icon">{idea.icon ? <Emoji emoji={idea.icon} size={40}/> : <DefaultIcon />
                     }</p>
                     :<div>
-                      <button onClick={() => changeIconsModal(true)}>
-                        {editData.idea.icon ? <Emoji emoji={editData.idea.icon} size={40}/> : "追加"}
+                      <button className="icon-add_btn" onClick={() => changeIconsModal(true)}>
+                        {editData.idea.icon ? <Emoji emoji={editData.idea.icon} size={40}/> : "アイコンを追加"}
                       </button>
                       {openIconsModal ? <IconsModal setIcon={setIdeaIcon} closeModal={changeIconsModal}/> : ""}
                     </div>
@@ -328,7 +328,7 @@ export const IdeaDetail: React.FC = (props: any) => {
                           });
                         }}
                         value={editData.idea.title}
-                        placeholder="アイデアを一言で表すと？"
+                        placeholder="ひらめきを一言で表すと？"
                         type="text"
                         className="title-input"
                       />
@@ -336,14 +336,15 @@ export const IdeaDetail: React.FC = (props: any) => {
                 }
               </div>
 
-              <p className="tag-label">カテゴリータグ</p>
+              <p className="tag-label">カテゴリー</p>
               <div className="genre-tag-container">
                 {
                   !editState ?
                   (idea.genre_tags[0] ? <span className="genre-tag tag" style={{backgroundColor: idea.genre_tags[0].color}}>{idea.genre_tags[0].name}</span> : ''):
                   <div className="genre-tag-container">
                     <span className="plus" id="genre" onClick={openModal}>
-                      <img className="plus-img" src={AddBtn} alt="" id="genre"/>
+                      <PlusCircle size={20} color="#333" />
+                      {/* <img className="plus-img" src={AddBtn} alt="" id="genre"/> */}
                     </span>
                     {selectedGenreTag.id !== 0 ? 
                     <span className="genre-tag tag" style={{backgroundColor: selectedGenreTag.color}}>
@@ -353,7 +354,7 @@ export const IdeaDetail: React.FC = (props: any) => {
                   </div>
                 }
               </div>
-              <p className="tag-label">アイデアタグ</p>
+              <p className="tag-label">タグ</p>
               <div className="idea-tag-container">
                 {
                   !editState ?
@@ -365,7 +366,8 @@ export const IdeaDetail: React.FC = (props: any) => {
                   :
                   <div className="idea-tag-container">
                     <span className="plus" id="idea" onClick={openModal}>
-                      <img className="plus-img" src={AddBtn} alt="" id="idea"/>
+                      <PlusCircle size={20} color="#333" />
+                      {/* <img className="plus-img" src={AddBtn} alt="" id="idea"/> */}
                     </span>
                     {
                       selectedIdeaTags && selectedIdeaTags.map((tag: any, index: number) => {
@@ -464,6 +466,11 @@ export const IdeaDetail: React.FC = (props: any) => {
           width: 40px;
           font-size: 40px;
           margin-bottom: 16px;
+        }
+        .icon-add_btn{
+          padding: 4px 11px;
+          background: #EBEBEB;
+          border-radius: 22px;
         }
         .add-icon-container{
           margin-bottom: 12px;
@@ -568,8 +575,10 @@ export const IdeaDetail: React.FC = (props: any) => {
         }
         .plus {
           width: 36px;
-          height: 44px;
-          text-align: left;
+          height: 36px;
+          padding: 7px 8px 9px 8px;
+          margin-right: 8px;
+          box-sizing: border-box;
         }
         .plus-img{
           margin: 10px 0;
@@ -615,7 +624,7 @@ export const IdeaDetail: React.FC = (props: any) => {
           border: 1px #333 solid;
           border-radius: 2px;
           padding: 10px 8px;
-          font-size: 14px;
+          font-size: 16px;
           color: #434343;
           line-height: 1.6em;
         }

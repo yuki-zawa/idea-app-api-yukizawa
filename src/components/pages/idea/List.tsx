@@ -98,7 +98,7 @@ export const IdeaList: React.FC = (props: any) => {
 
   const shuffle = () => {
     if(pagenation.total < 2) {
-      window.alert("アイデアを二つ以上登録してください");
+      window.alert("を二つ以上登録してください");
       return;
     }
     setOpenShuffleModal(true);
@@ -156,15 +156,16 @@ export const IdeaList: React.FC = (props: any) => {
               <List className="switch-icon" size="18" onClick={() => handleChangeListState(true)}/>
           }
         </div>
-        {openSortModal ?
+        
+      </div>
+      {openSortModal ?
         <SortModal
           handleChangeSortOpen={handleChangeSortOpen}
           setQuery={setTagSearchQuery}
           currentQuery={tagSearchQuery}
         />
         : ""}
-      </div>
-      <TagSearch
+      <TagSearch 
         setQuery={setTagSearchQuery}
         currentQuery={tagSearchQuery}
       />
@@ -194,7 +195,7 @@ export const IdeaList: React.FC = (props: any) => {
               )
             }) : 
             <div className="no-idea">
-              <p className="no-idea_text">まだひらめきがありません！</p>
+              <p className="no-idea_text">まだひらめきがありません。</p>
               <p className="no-idea_text">ひらめきを追加しましょう！</p>
             </div>
           }
@@ -259,7 +260,7 @@ export const IdeaList: React.FC = (props: any) => {
           width: 100%;
           top: 52px;
           height: 56px;
-          z-index: 98;
+          z-index: 100;
           padding: 10px 16px 0 16px;
           box-sizing: border-box;
           background-color: white;
@@ -335,7 +336,7 @@ export const IdeaList: React.FC = (props: any) => {
         }
 
         .no-idea {
-          margin-top: 24px;
+          margin-top: 60px;
           text-align: center;
         }
 

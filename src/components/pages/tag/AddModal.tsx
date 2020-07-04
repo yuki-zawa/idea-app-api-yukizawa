@@ -183,7 +183,7 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
         </div>
       
       <div className="change-tag">
-        <span id="genre" onClick={changeTag} style={{color: tagState === "genre" ? "" : "lightgray"}}>カテゴリータグ</span>｜<span id="idea" onClick={changeTag} style={{color: tagState === "idea" ? "" : "lightgray"}}>アイデアタグ</span>
+        <span id="genre" onClick={changeTag} style={{color: tagState === "genre" ? "" : "lightgray"}}>カテゴリー</span>｜<span id="idea" onClick={changeTag} style={{color: tagState === "idea" ? "" : "lightgray"}}>タグ</span>
       </div>
 
       <p className="label">選択中のカテゴリー</p>

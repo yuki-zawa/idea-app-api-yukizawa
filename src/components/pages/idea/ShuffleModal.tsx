@@ -89,7 +89,7 @@ export const ShuffleModal: React.FC<ShuffleModalProps> = (props: any) => {
       <div className="add-btn_container">
         <button className="add-btn" onClick={onClick}>
           <span className="add-btn_text">
-           アイデアを追加する
+        　　を追加する
           </span>
           <ArrowRight size={24} color="#333" />
         </button>

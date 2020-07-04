@@ -114,7 +114,7 @@ export const Introduction: React.FC = () => {
                 <section className="about-subsection">
                     <h2 className="about-subtitle">タグ機能で頭の中を<br />整理しよう</h2>
                     <p className="about-sentence">
-                        ひらめきはタグ機能を使って整理できます。さらに、絞り込み機能でいつでも探してるひらめきを探し出すことができます。
+                        絞り込み機能でいつでも探してるひらめきを見つけることができます。
                 </p>
                     <div className="about-img_wrapper02">
                         <img className="about-img" src={About02} alt="" />
@@ -123,7 +123,7 @@ export const Introduction: React.FC = () => {
                 <section className="about-subsection_last">
                     <h2 className="about-subtitle">プロジェクトを超えて<br />ひらめきを活用しよう</h2>
                     <p className="about-sentence">
-                        ひらめきを一箇所にまとめることで、プロジェクトを超えて柔軟にひらめきを活用することができます！
+                    ひらめきを一箇所にまとめることで、プロジェクトを超えて柔軟に活用することができます！
                 </p>
                     <div className="about-img_wrapper03">
                         <img className="about-img" src={About03} alt="" />
@@ -186,7 +186,7 @@ export const Introduction: React.FC = () => {
                     <div className="features-img_wrapper03">
                         <img className="features-img" src={FeaturesImg03} alt="" />
                     </div>
-                    <p className="features-sentense">新しいアイデアがなかなか出てこない時、「シャッフル機能」でランダムなアイデアの組み合わせを提案。あなたの新たなひらめきをサポートします！</p>
+                    <p className="features-sentense">新しいアイデアがなかなか出てこない時、「シャッフル機能」でランダムなひらめきの組み合わせを提案。あなたの新たなひらめきをサポートします！</p>
                     <img className="features-mock-img" src={FeaturesMock03} alt="" />
                 </section>
                 <div className="demand-partition_wrapper">
