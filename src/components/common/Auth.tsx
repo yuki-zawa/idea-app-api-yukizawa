@@ -2,7 +2,6 @@ import React, { useContext, useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 import useReactRouter from "use-react-router";
-
 import { AuthContext } from "../common/context/provider";
 
 type AuthProps = {
