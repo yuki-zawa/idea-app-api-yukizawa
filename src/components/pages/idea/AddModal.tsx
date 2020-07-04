@@ -290,8 +290,7 @@ export const AddModal: React.FC = (props: any) => {
           
           .container {
             background-color: white;
-            padding: 1.25rem 1rem;
-            padding-top: calc(1.25rem + 40px);
+            padding: 64px 16px 16px 16px;
             z-index: 5;
           }
 

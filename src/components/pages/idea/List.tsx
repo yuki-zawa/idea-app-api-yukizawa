@@ -17,20 +17,20 @@ import { SortModal } from "./SortModal";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     inputRoot: {
-      color: 'inherit',
-      padding: theme.spacing(0, 0, 0, 1.5),
-      width: '100%',
+      // color: 'inherit',
+      // padding: theme.spacing(0, 0, 0, 1.5),
+      // width: '100%',
     },
     inputInput: {
-      padding: theme.spacing(1, 1, 0.5, 0),
+      padding: theme.spacing(0),
       // vertical padding + font size from searchIcon
-      paddingLeft: `calc(0.25rem + ${theme.spacing(3)}px)`,
-      transition: theme.transitions.create('width'),
-      width: '100%',
+      // paddingLeft: `calc(0.25rem + ${theme.spacing(3)}px)`,
+      // transition: theme.transitions.create('width'),
+      // width: '100%',
       [theme.breakpoints.up('sm')]: {
-        width: '100%',
+        // width: '100%',
         '&:focus': {
-          width: '20ch',
+          // width: '20ch',
         },
       },
     },
@@ -131,9 +131,7 @@ export const IdeaList: React.FC = (props: any) => {
       </Link>
       <div className="list-header">
         <div className="search">
-          <div className="search-icon">
-            <Search size={24} />
-          </div>
+          
           <InputBase
             placeholder="ひらめきを検索"
             inputProps={{ 'aria-label': 'search' }}
@@ -143,6 +141,9 @@ export const IdeaList: React.FC = (props: any) => {
                     }}
             onChange={handleChange}
           />
+          <div className="search-icon">
+            <Search size={16} color="#7A7A7A" />
+          </div>
         </div>
         <div className="sort">
           <img className="sort-icon" src={ Sort } alt="sort-icon" onClick={() => handleChangeSortOpen(true)}/>
@@ -236,7 +237,7 @@ export const IdeaList: React.FC = (props: any) => {
         .container {
           height: 100vh;
           width: 100%;
-          padding: 148px 12px 72px 12px;
+          padding: 128px 12px 72px 12px;
           box-sizing: border-box;
           overflow-y: scroll;
           background-color: #F5F5F5;
@@ -256,23 +257,29 @@ export const IdeaList: React.FC = (props: any) => {
 
         .list-header {
           width: 100%;
-          top: 88px;
+          top: 52px;
           height: 56px;
           z-index: 98;
-          padding: 16px 16px 0 16px;
+          padding: 10px 16px 0 16px;
           box-sizing: border-box;
           background-color: white;
           position: fixed;
           display: flex;
+          border-bottom: 1px solid rgba(196, 196, 196, 0.5);
         }
 
         .search {
-          background-color: #F1F1F1;
-          border: 1px solid #c4c4c4;
-          border-radius: 4px;
+          background-color: #EBEBEB;
+          border-radius: 2px;
           height: 32px;
           margin-right: 12px;
-          width: calc(100% - 88px);
+          width: 270px;
+          display: flex;
+          padding: 10px;
+          box-sizing: border-box;
+          justify-content: space-between;
+          align-items: center;
+
         }
 
         .sort{
@@ -283,7 +290,7 @@ export const IdeaList: React.FC = (props: any) => {
           display: flex;
           align-items: center;
           justify-content: center;
-          margin-right: 12px;
+          margin-right: 8px;
         }
 
         .switch{
@@ -294,17 +301,6 @@ export const IdeaList: React.FC = (props: any) => {
           display: flex;
           align-items: center;
           justify-content: center;
-        }
-
-        .search-icon {
-          position: absolute;
-          z-index: 111;
-          height: 32px;
-          position-events: none;
-          display: flex;
-          align-items: center;
-          justify-content: center; 
-          padding-left: 10px;
         }
 
         .footer-menu {
