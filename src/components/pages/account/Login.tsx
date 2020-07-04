@@ -52,8 +52,13 @@ export const AccountLogin: React.FC = (props: any) => {
       .catch(err => console.log(err));
       // set Authorization header
       axios.defaults.headers.common['Authorization'] = 'Bearer ' + user.token;
-      //cookieに保存
-      document.cookie = `token=${user.token}`
+      //pwaならlocalstorageに保存
+      if(window.matchMedia('(display-mode: standalone)').matches && isIOS){
+        localStorage.setItem('token', user.token);
+      }else{
+        //cookieに保存
+        document.cookie = `token=${user.token}`
+      }
       
       setAuth({
         isLogged: true,
@@ -106,12 +111,11 @@ export const AccountLogin: React.FC = (props: any) => {
   }, [authState, setAuth, props.history]);
 
   const autoLogin = async () => {
-    if(window.matchMedia('(display-mode: standalone)').matches && isIOS){
+    // if(window.matchMedia('(display-mode: standalone)').matches && isIOS){
       var token = localStorage.getItem("token");
       document.cookie = `token=${token}`
-    }
+    //}
   }
-  //autoLogin();
 
   useEffect(() => {
     setUserData();
