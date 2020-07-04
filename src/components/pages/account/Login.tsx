@@ -116,9 +116,9 @@ export const AccountLogin: React.FC = (props: any) => {
       document.cookie = `token=${token}`
     }
   }
+  autoLogin();
 
   useEffect(() => {
-    autoLogin();
     setUserData();
   }, [setUserData]);
 
