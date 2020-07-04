@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from "../../common/context/provider";
 import { ArrowLeft } from 'react-feather';
-import { isIOS } from 'react-device-detect';
 
 const backLinkStyle = {
   display: "block",
@@ -52,14 +51,9 @@ export const AccountLogin: React.FC = (props: any) => {
       .catch(err => console.log(err));
       // set Authorization header
       axios.defaults.headers.common['Authorization'] = 'Bearer ' + user.token;
-      //pwaならlocalstorageに保存　ログアウト時も削除するように　providerやAuthの方にも実装しなきゃ
-      if(window.matchMedia('(display-mode: standalone)').matches && isIOS){
-        localStorage.setItem('token', user.token);
-      }else{
-        //cookieに保存
-        document.cookie = `token=${user.token}`
-      }
-
+      //cookieに保存
+      document.cookie = `token=${user.token}`
+      
       setAuth({
         isLogged: true,
         user: user
