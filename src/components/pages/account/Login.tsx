@@ -102,7 +102,15 @@ export const AccountLogin: React.FC = (props: any) => {
       axios.defaults.headers.common['Authorization'] = '';
       console.log(err);
     }
-  }, [authState, setAuth, props.history])
+  }, [authState, setAuth, props.history]);
+
+  const autoLogin = async () => {
+    if(window.matchMedia('(display-mode: standalone)').matches && isIOS){
+      var token = localStorage.getItem("token");
+      document.cookie = `token=${token}`
+    }
+  }
+  autoLogin();
 
   useEffect(() => {
     setUserData();
