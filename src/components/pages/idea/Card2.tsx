@@ -96,15 +96,16 @@ export const Card2: React.FC<CardProps> = (props: any) => {
         }
 
         .tag {
-          display: inline;
-          font-size: 14px;
-          line-height: 14px;
-          padding: 4px 6px;
-          border-radius: 4px;
-          box-sizing: border-box;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
+            font-size: 14px;
+            color: #333;
+            line-height: 16.8px;
+            padding: 0 2px;
+            display: inline;
+            border-radius: 2px;
+            box-sizing: border-box;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .tag-container {
