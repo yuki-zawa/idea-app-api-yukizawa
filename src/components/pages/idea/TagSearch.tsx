@@ -3,6 +3,7 @@ import InputBase from '@material-ui/core/InputBase';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import InfiniteScroll from "react-infinite-scroller";
+import { EditTagModal } from "./EditTagModal";
 import { Tag, Search, ArrowRight, MoreHorizontal, X } from 'react-feather';
 
 const SearchInputStyle = {
@@ -37,6 +38,12 @@ type TagSearchProps = {
 
 export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
   const classes = useStyles();
+  const [editTagModalOpen, setEditTagModalOpen] = useState(false);
+  const [editTag, setEditTag] = useState({
+    id: 0,
+    name: '',
+    color: ''
+  });
   const [searchState, setSearchState] = useState(false);
   const [genreTags, setGenreTags] = useState<any>([]);
   const [ideaTags, setIdeaTags] = useState<any>([]);
@@ -59,6 +66,15 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
     perPage: 10,
     currentPage: 1
   });
+
+  const openEditTagModal = (tag: any) => {
+    setEditTagModalOpen(true);
+    setEditTag({
+      id: tag.id,
+      name: tag.name,
+      color: tag.color,
+    });
+  }
 
   const pullDown = () => {
     document.getElementsByClassName('tag-search-header')[0].classList.add('active');
@@ -249,16 +265,16 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                   <div style={{borderBottom: "1px solid #c4c4c4", marginBottom:"8px"}}>
                     {
                       selectedGenreTag.id !== 0 ? 
-                      <div className="tag-wrapper" data-id={0} onClick={(event) => deleteTag("genre", event)}>
+                      <div className="tag-wrapper" data-id={0}>
                         {/* タグ */}
-                        <div data-id={0} className="tag" style={{backgroundColor: selectedGenreTag.color}}>
+                        <div data-id={0} className="tag" style={{backgroundColor: selectedGenreTag.color}} onClick={(event) => deleteTag("genre", event)}>
                           {/* <svg data-id={0} width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M8.33317 3L3.74984 7.58333L1.6665 5.5" stroke="#434343" strokeLinecap="round" strokeLinejoin="round"/>
                           </svg> */}
                           <span data-id={0}>{selectedGenreTag.name}</span>
                         </div>
-                        <button data-id={0} className="tag-edit-btn">
-                          <MoreHorizontal data-id={0} size={18} color="#333" />
+                        <button data-id={selectedGenreTag.id} className="tag-edit-btn" onClick={() => openEditTagModal(selectedGenreTag)}>
+                          <MoreHorizontal data-id={selectedGenreTag.id} size={18} color="#333" />
                         </button>
                       </div> : ''
                     }
@@ -281,8 +297,8 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                               </svg> */}
                               <span data-id={index}>{genreTag.name}</span>
                             </p>
-                            <button data-id={0} className="tag-edit-btn">
-                              <MoreHorizontal data-id={0} size={18} color="#333" />
+                            <button data-id={genreTag.id} className="tag-edit-btn" onClick={() => openEditTagModal(genreTag)}>
+                              <MoreHorizontal data-id={genreTag.id} size={18} color="#333" />
                             </button>
                           </div>
                         )
@@ -322,8 +338,8 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                             </svg> */}
                             <span data-id={index}>{ideaTag.name}</span>
                           </p>
-                          <button data-id={0} className="tag-edit-btn">
-                            <MoreHorizontal data-id={0} size={18} color="#333" />
+                          <button data-id={ideaTag.id} className="tag-edit-btn" onClick={() => openEditTagModal(ideaTag)}>
+                            <MoreHorizontal data-id={ideaTag.id} size={18} color="#333" />
                           </button>
                         </div>
                       )
@@ -348,10 +364,10 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                             </svg> */}
                             <span data-id={index}>{ideaTag.name}</span>
                           </p>
-                          <button data-id={0} className="tag-edit-btn">
-                          <MoreHorizontal data-id={0} size={18} color="#333" />
-                        </button>
-                      </div>
+                          <button data-id={ideaTag.id} className="tag-edit-btn" onClick={() => openEditTagModal(ideaTag)}>
+                            <MoreHorizontal data-id={ideaTag.id} size={18} color="#333" />
+                          </button>
+                        </div>
                       )
                     })
                   }
@@ -370,6 +386,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
             <span className="text">ひらめきを絞り込む</span>
         </p>
       </div>
+      {editTagModalOpen ? <EditTagModal setEditTagModalOpen={setEditTagModalOpen} editTag={editTag} fetchGenreTags={fetchGenreTags} fetchIdeaTags={fetchIdeaTags}/> : ''}
       <style jsx>{`
         .container{
           z-index: 120;
@@ -536,6 +553,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
           justify-content: center;
           align-items: center;
           right: 0;
+          z-index: 999;
         }
 
 
