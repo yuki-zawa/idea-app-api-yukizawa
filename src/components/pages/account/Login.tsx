@@ -37,7 +37,6 @@ export const AccountLogin: React.FC = (props: any) => {
   const buttonRef = useRef(document.createElement("button"));
 
   const [err, setErr] = useState("");
-
   const send = async () => {
     try {
       if(!mailRef.current.value || !passwordRef.current.value) return;
@@ -53,9 +52,9 @@ export const AccountLogin: React.FC = (props: any) => {
       // set Authorization header
       axios.defaults.headers.common['Authorization'] = 'Bearer ' + user.token;
       //pwaならlocalstorageに保存
-      if(window.matchMedia('(display-mode: standalone)').matches && isIOS){
+      if (window.matchMedia('(display-mode: standalone)').matches && isIOS) {
         localStorage.setItem('token', user.token);
-      }else{
+      } else {
         //cookieに保存
         document.cookie = `token=${user.token}`
       }
@@ -83,10 +82,10 @@ export const AccountLogin: React.FC = (props: any) => {
   const setUserData = useCallback(async () => {
     try {
       let TokenInCookie = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-      if (!TokenInCookie) return;
+      if(!TokenInCookie || TokenInCookie == "null") return;
+
       // set Authorization header
       axios.defaults.headers.common['Authorization'] = 'Bearer ' + TokenInCookie;
-
       const user = await axios.get(
         '/api/v1/users/me'
       )
@@ -111,11 +110,15 @@ export const AccountLogin: React.FC = (props: any) => {
   }, [authState, setAuth, props.history]);
 
   const autoLogin = async () => {
-    // if(window.matchMedia('(display-mode: standalone)').matches && isIOS){
+    if(window.matchMedia('(display-mode: standalone)').matches && isIOS){
       var token = localStorage.getItem("token");
-      document.cookie = `token=${token}`
-    //}
+      if(token){
+        document.cookie = `token=${token}`
+      }
+    }
   }
+
+  autoLogin();
 
   useEffect(() => {
     setUserData();
