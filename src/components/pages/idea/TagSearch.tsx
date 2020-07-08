@@ -273,9 +273,9 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                           </svg> */}
                           <span data-id={0}>{selectedGenreTag.name}</span>
                         </div>
-                        <button data-id={selectedGenreTag.id} className="tag-edit-btn" onClick={() => openEditTagModal(selectedGenreTag)}>
+                        {/* <button data-id={selectedGenreTag.id} className="tag-edit-btn" onClick={() => openEditTagModal(selectedGenreTag)}>
                           <MoreHorizontal data-id={selectedGenreTag.id} size={18} color="#333" />
-                        </button>
+                        </button> */}
                       </div> : ''
                     }
                   </div>
