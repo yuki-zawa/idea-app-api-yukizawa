@@ -378,12 +378,35 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
           </div>
           <button className="tag-search_btn" onClick={filter}>
             <span className="tag-search-btn_text">ひらめきを絞り込む</span>
-            <ArrowRight className="tag-search-btn_icon" size={24} color="#333" />
+            {/* <ArrowRight className="tag-search-btn_icon" size={24} color="#333" /> */}
           </button>
         </div>
-        <p className="text-container" onClick={searchState ? pullUp : pullDown}>
+        {/* 元のボタン */}
+        {/* <p className="text-container" onClick={searchState ? pullUp : pullDown}>
             <Tag size={18} color="#579AFF"/>
             <span className="text">ひらめきを絞り込む</span>
+        </p> */}
+        {/* 絞り込み中のボタン */}
+        <p className="text-container">
+            <X size={18} color="#579AFF"/>
+            {/* <span className="text">絞り込み解除</span> */}
+            <div className="selected-tag_container">
+              <div className="tag-wrapper_selected">
+                <p className="tag_selected" style={{backgroundColor: "#FFF6C8"}}>
+                  <span>カテゴリー</span>
+                </p>
+              </div>
+              <div className="tag-wrapper_selected">
+                <p className="tag_selected" style={{backgroundColor: "#EFEFEF"}}>
+                  <span>アイデア1</span>
+                </p>
+              </div>
+              <div className="tag-wrapper_selected">
+                <p className="tag_selected" style={{backgroundColor: "#EFEFEF"}}>
+                  <span>アイデア2</span>
+                </p>
+              </div>
+            </div>
         </p>
       </div>
       {editTagModalOpen ? <EditTagModal setEditTagModalOpen={setEditTagModalOpen} editTag={editTag} fetchGenreTags={fetchGenreTags} fetchIdeaTags={fetchIdeaTags}/> : ''}
@@ -405,6 +428,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
           color: #579AFF;
           // border-radius: 0px 0px 8px 8px;
           // transition: all 400ms 0s ease;
+          overflow-x: scroll;
         }
         .text-container {
           display: flex;
@@ -417,6 +441,29 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
           border-radius: 18px;
           border: 1px solid #579AFF;
           background-color: white;
+        }
+        //絞り込み解除ボタン
+        .selected-tag_container{
+          display: flex;
+          margin-left: 4px;
+          max-width: calc(100% - 18px);
+          overflow: scroll;
+        }
+        .tag-wrapper_selected{
+          margin: 0 2px;
+          height: 18px;
+        }
+        .tag_selected{
+          display: inline-block;
+          padding: 2px 4px;
+          font-size: 14px;
+          line-height: 14px;
+          color: #333;
+          border-radius: 2px;
+          box-sizing: border-box;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
 
         
@@ -522,16 +569,17 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
         }
         .tag {
           max-width: calc(100% - 28px);
+          display: inline-block;
+          padding: 2px 4px;
           font-size: 14px;
+          line-height: 14px;
           color: #333;
-          line-height: 16.8px;
-          padding: 0 2px;
-          display: inline;
           border-radius: 2px;
           box-sizing: border-box;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
+
           display: flex;
           align-items: center;
           width: fit-content;

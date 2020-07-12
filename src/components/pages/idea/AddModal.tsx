@@ -431,11 +431,12 @@ export const AddModal: React.FC = (props: any) => {
           }
           .tag {
             display: inline-block;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            padding: 0 4px;
+            padding: 2px 4px;
+            font-size: 14px;
+            line-height: 14px;
+            color: #333;
             border-radius: 2px;
+            box-sizing: border-box;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
