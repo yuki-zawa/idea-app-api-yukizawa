@@ -67,14 +67,14 @@ export const Setting: React.FC = () => {
         <div className="inner-container">
           <div className="mail-container">
             <div className="mail-label">
-              <Mail className="icon" size={24} color="#333" />
-              <h3>登録メールアドレス</h3>
+              <Mail size={24} color="#333" />
+              <h3 className="mail-label">登録メールアドレス</h3>
             </div>
             <p>{authState.user.email}</p>
           </div>
           <div className="pass-container">
             <Lock className="icon" size={24} color="#333" />
-            <h3 className="pass-btn">パスワードを変更する</h3>
+            <h3 className="pass-label">パスワードを変更する</h3>
           </div>
           <div className="help-container">
             <p>
@@ -104,9 +104,6 @@ export const Setting: React.FC = () => {
             max-width: 400px;
             padding: 20px;
             box-sizing: border-box;
-          }
-          .icon{
-            margin-right: 16px;
           }
           .mail-container {
             margin-bottom: 40px;
