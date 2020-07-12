@@ -139,8 +139,7 @@ export const AccountLogin: React.FC = (props: any) => {
         <div className="password-form">
           <label>パスワード</label>
           <input ref={ passwordRef } type="password" placeholder="パスワード"/>
-          {/* FIXME パスワードを忘れた方はこちら 機能もつける */}
-          <Link to='/' style={passwordForgotLinkStyle}>➡︎パスワードを忘れた方はこちら</Link>
+          <Link to='/password' style={passwordForgotLinkStyle}>➡︎パスワードを忘れた方はこちら</Link>
           <Link to='/account/create' style={createLinkStyle}>新規登録はこちら</Link>
         </div>
         <div className="button-container">
