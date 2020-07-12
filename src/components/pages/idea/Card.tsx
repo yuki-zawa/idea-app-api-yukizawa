@@ -85,7 +85,6 @@ export const Card: React.FC<CardProps> = (props: any) => {
           display: inline-block;
           height: 20px;
           width: 20px;
-          
         }
         .priority-container {
           display: inline-block;
@@ -151,11 +150,11 @@ export const Card: React.FC<CardProps> = (props: any) => {
         }
 
         .tag{
+          display: inline-block;
+          padding: 2px 4px;
           font-size: 14px;
+          line-height: 14px;
           color: #333;
-          line-height: 16.8px;
-          padding: 0 2px;
-          display: inline;
           border-radius: 2px;
           box-sizing: border-box;
           overflow: hidden;
