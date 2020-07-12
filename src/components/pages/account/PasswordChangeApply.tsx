@@ -36,11 +36,7 @@ export const PasswordChangeApply: React.FC = () => {
     validate(data);
     if(err == ""){
       await axios
-        .post(`/api/v1/password_resets`, data, {
-          headers: {
-            'Access-Control-Allow-Origin': '*'
-          }
-        })
+        .post(`/api/v1/password_resets`, data)
         .then(() => {
           history.push({
             pathname: '/password_confirmation',
