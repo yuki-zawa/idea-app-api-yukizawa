@@ -36,6 +36,9 @@ export const PasswordChange: React.FC = () => {
           user: newPassword,
           email: query.email
         })
+        .then(() => {
+          window.location.pathname = "/account/login";
+        })
         .catch(err => {
           console.log(err);
           setErr("不正です。もう一度最初から操作をしてください");
