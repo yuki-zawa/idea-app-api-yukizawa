@@ -13,6 +13,7 @@ import { IdeaDetail } from './components/pages/idea/Detail';
 import { AuthComponent } from './components/common/Auth';
 import { AddModal } from './components/pages/idea/AddModal'
 import { MailConfirm } from './components/pages/other/MailConfirm';
+import { PasswordConfirm } from './components/pages/other/PasswordConfirm';
 import { Setting } from './components/pages/account/Setting';
 import { Invalid } from './components/pages/other/Invalid';
 import { PasswordChange } from './components/pages/account/PasswordChange';
@@ -33,6 +34,7 @@ function App() {
             <Route exact path='/invalid' component={Invalid}/>
             <Route exact path='/password/reset' component={PasswordChange}/>
             <Route exact path='/password' component={PasswordChangeApply}/>
+            <Route exact path='/password_confirmation' component={PasswordConfirm}/>
             <AuthComponent>
               <Route exact path='/home' component={IdeaList}/>
               <Route exact path='/ideas/new' component={AddModal}/>
