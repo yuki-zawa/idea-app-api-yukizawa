@@ -78,13 +78,13 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
 
   const pullDown = () => {
     document.getElementsByClassName('tag-search-header')[0].classList.add('active');
-    document.getElementsByClassName('tag-search-header')[0].getElementsByClassName('text')[0].textContent = "キャンセル";
+    // document.getElementsByClassName('tag-search-header')[0].getElementsByClassName('text')[0].textContent = "キャンセル";
     setSearchState(true);
   }
 
   const pullUp = () => {
     document.getElementsByClassName('tag-search-header')[0].classList.remove('active');
-    document.getElementsByClassName('tag-search-header')[0].getElementsByClassName('text')[0].textContent = "ひらめきを絞り込む";
+    // document.getElementsByClassName('tag-search-header')[0].getElementsByClassName('text')[0].textContent = "ひらめきを絞り込む";
     setSearchState(false);
   }
 
@@ -198,6 +198,19 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
     pullUp();
   }
 
+  const filterRelease = () => {
+    var queryString = props.currentQuery.replace(/&genre_tags=.*(?=&)|&genre_tags=.*(?!&)|&idea_tags=.*(?=&)|&idea_tags=.*(?!&)/g, '');
+    props.setQuery(queryString);
+    pullUp();
+    setSelectedGenreTag({
+      id: 0,
+      name: '',
+      color: '',
+      user_id: 0
+    });
+    setSelectedIdeaTags([]);
+  }
+
   const handleIdeaTagChange = (event: any) => {
     setIdeaTagWord(event.target.value);
   }
@@ -224,11 +237,11 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
 
   useEffect(() => {
     fetchGenreTags();
-  }, [genreTagWord]);
+  }, [genreTagWord, props.currentQuery]);
 
   useEffect(() => {
     fetchIdeaTags();
-  }, [ideaTagWord]);
+  }, [ideaTagWord, props.currentQuery]);
 
   return (
     <div className="container">
@@ -376,38 +389,46 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
             </div>
           </div>
           </div>
+          <button className="tag-search_btn" onClick={filterRelease}>
+            <span className="tag-search-btn_text">絞り込みを解除</span>
+            {/* <ArrowRight className="tag-search-btn_icon" size={24} color="#333" /> */}
+          </button>
           <button className="tag-search_btn" onClick={filter}>
-            <span className="tag-search-btn_text">ひらめきを絞り込む</span>
+            <span className="tag-search-btn_text">絞り込む</span>
             {/* <ArrowRight className="tag-search-btn_icon" size={24} color="#333" /> */}
           </button>
         </div>
-        {/* 元のボタン */}
-        {/* <p className="text-container" onClick={searchState ? pullUp : pullDown}>
-            <Tag size={18} color="#579AFF"/>
+        {selectedGenreTag.id === 0 && selectedIdeaTags.length === 0 ?
+          <p className="text-container" onClick={pullDown}>
+            <Tag size={18} color="#579AFF" />
             <span className="text">ひらめきを絞り込む</span>
-        </p> */}
-        {/* 絞り込み中のボタン */}
-        <p className="text-container">
-            <X size={18} color="#579AFF"/>
-            {/* <span className="text">絞り込み解除</span> */}
+          </p> :
+          <p className="text-container" onClick={pullDown}>
+            <Tag size={18} color="#579AFF" />
+
             <div className="selected-tag_container">
-              <div className="tag-wrapper_selected">
-                <p className="tag_selected" style={{backgroundColor: "#FFF6C8"}}>
-                  <span>カテゴリー</span>
-                </p>
-              </div>
-              <div className="tag-wrapper_selected">
-                <p className="tag_selected" style={{backgroundColor: "#EFEFEF"}}>
-                  <span>アイデア1</span>
-                </p>
-              </div>
-              <div className="tag-wrapper_selected">
-                <p className="tag_selected" style={{backgroundColor: "#EFEFEF"}}>
-                  <span>アイデア2</span>
-                </p>
-              </div>
+              {
+                selectedGenreTag.id !== 0 ?
+                  <div className="tag-wrapper_selected">
+                    <p className="tag_selected" style={{ backgroundColor: selectedGenreTag.color }}>
+                      <span>{selectedGenreTag.name}</span>
+                    </p>
+                  </div> : ''
+              }
+              {
+                selectedIdeaTags.map((tag: any) => {
+                  return (
+                    <div className="tag-wrapper_selected">
+                      <p className="tag_selected" style={{ backgroundColor: "#EFEFEF" }}>
+                        <span>{tag.name}</span>
+                      </p>
+                    </div>
+                  );
+                })
+              }
             </div>
-        </p>
+          </p>
+        }
       </div>
       {editTagModalOpen ? <EditTagModal setEditTagModalOpen={setEditTagModalOpen} editTag={editTag} fetchGenreTags={fetchGenreTags} fetchIdeaTags={fetchIdeaTags}/> : ''}
       <style jsx>{`
@@ -420,9 +441,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
           height: 60px;
           position: fixed;
           width: 100%;
-          max-width: 1000px;
-          left: 50%;
-          transform: translateX(-50%);
+          // transform: translateX(-50%);
           top: 108px;
           box-sizing: border-box;
           z-index: 105;
@@ -431,7 +450,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
           color: #579AFF;
           // border-radius: 0px 0px 8px 8px;
           // transition: all 400ms 0s ease;
-          overflow-x: scroll;
+          // overflow-x: scroll;
         }
         .text-container {
           display: flex;
