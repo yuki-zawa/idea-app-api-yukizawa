@@ -178,6 +178,7 @@ export const IdeaList: React.FC = (props: any) => {
           loadMore={fetchMoreIdeas}
           initialLoad={false}
           useWindow={false}
+          style={{display: "flex",flexWrap: "wrap",justifyContent:"space-evenly"}}
         >
           {
             !(!showLoader && ideas.length === 0) ? ideas && ideas.map((idea, index) => {
@@ -244,11 +245,17 @@ export const IdeaList: React.FC = (props: any) => {
           box-sizing: border-box;
           overflow-y: scroll;
           background-color: #F5F5F5;
-          width: 100%;
           max-width: 1000px;
           margin: 0 auto;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-around;
         }
-
+        @media (max-width: 1000px){
+          .container {
+            max-width: 640px;
+          }
+        }
         .blur{
           display: ${openShuffleModal ? ";" : "none;"};
           z-index: 100;
