@@ -18,6 +18,7 @@ import { Setting } from './components/pages/account/Setting';
 import { Invalid } from './components/pages/other/Invalid';
 import { PasswordChange } from './components/pages/account/PasswordChange';
 import { PasswordChangeApply } from './components/pages/account/PasswordChangeApply';
+import { CurrentPasswordChange } from './components/pages/account/CurrentPasswordChange';
 
 function App() {
   return(
@@ -40,6 +41,7 @@ function App() {
               <Route exact path='/ideas/new' component={AddModal}/>
               <Route exact path='/ideas/:id/detail' component={IdeaDetail}/>
               <Route exact path='/settings' component={Setting}/>
+              <Route exact path='/password/change' component={CurrentPasswordChange}/>
             </AuthComponent>
           </Switch>
         </BrowserRouter>

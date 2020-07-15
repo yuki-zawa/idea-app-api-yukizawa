@@ -12,6 +12,7 @@ const backLinkStyle = {
   width: "24px",
   cursor: "pointer",
   fontWeight: "bold" as "bold",
+  position: "absolute" as "absolute",
   fontSize: "24px"
 };
 
@@ -60,9 +61,9 @@ export const Setting: React.FC = () => {
     <HomeLayout title="STOCKROOM">
       <div className="container">
         <div className="top-part">
-          <button className="x-icon" onClick={() => history.goBack()} style={backLinkStyle}>
+          <Link className="x-icon" to='/home' style={backLinkStyle}>
             <X size={20} color="#7A7A7A" />
-          </button>
+          </Link>
           <p className="title">設定とアカウント情報</p>
         </div>
         <div className="inner-container">
@@ -80,7 +81,7 @@ export const Setting: React.FC = () => {
             <Lock size={20} color="#7A7A7A" />
           </span>
           <div className="pass-contents">
-            <button className="change-btn">パスワードを変更</button>
+            <Link to='password/change' className="change-btn">パスワードを変更</Link>
           </div>
           </div>
           <div className="line"></div>
