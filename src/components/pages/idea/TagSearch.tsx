@@ -389,14 +389,17 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
             </div>
           </div>
           </div>
-          <button className="tag-search_btn" onClick={filterRelease}>
-            <span className="tag-search-btn_text">絞り込みを解除</span>
-            {/* <ArrowRight className="tag-search-btn_icon" size={24} color="#333" /> */}
-          </button>
-          <button className="tag-search_btn" onClick={filter}>
-            <span className="tag-search-btn_text">絞り込む</span>
-            {/* <ArrowRight className="tag-search-btn_icon" size={24} color="#333" /> */}
-          </button>
+          <div className="search-btn_container">
+            <button className="tag-search_btn_release" onClick={filterRelease}>
+              <span className="tag-search-btn_text">絞り込みを解除</span>
+              {/* <ArrowRight className="tag-search-btn_icon" size={24} color="#333" /> */}
+            </button>
+            <button className="tag-search_btn" onClick={filter}>
+              <span className="tag-search-btn_text">絞り込む</span>
+              {/* <ArrowRight className="tag-search-btn_icon" size={24} color="#333" /> */}
+            </button>
+          </div>
+          
         </div>
         {selectedGenreTag.id === 0 && selectedIdeaTags.length === 0 ?
           <p className="text-container" onClick={pullDown}>
@@ -464,6 +467,12 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
           border: 1px solid #579AFF;
           background-color: white;
         }
+        @media (min-width: 1000px){
+          .text-container {
+            margin-left: calc(50% - 500px)
+          }
+        }
+
         //絞り込み解除ボタン
         .selected-tag_container{
           display: flex;
@@ -512,6 +521,9 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
         //header部分
         .top-part {
           margin-bottom: 20px;
+          max-width: 1000px;
+          margin: 0 auto;   
+          padding: 18px 0;   
         }
         .x-icon{
           position: absolute;
@@ -530,6 +542,12 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
           height: calc(100vh - 220px);
           width: 100%;
           margin-bottom: 24px
+        }
+        @media (min-width: 1000px){
+          .tag-containers{
+            max-width: 1000px;
+            margin: 0 auto 24px auto;
+          }
         }
         
         //タグのコンテナ
@@ -569,17 +587,30 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
           overflow-y: scroll;
         }
 
-        .tag-search_btn{
-          background: #FEB342;
-          border-radius: 4px;
-          padding: 6px 16px;
+        .search-btn_container{
           display: flex;
-          align-items: center;
+          justify-content: space-between;
+          max-width: 1000px;
           margin: 0 auto;
         }
-        .tag-search-btn_text{
-          margin-right: 4px;
-          font-size: 14px;
+        .tag-search_btn{
+          background: #579AFF;
+          color: white;
+          border-radius: 4px;
+          width: 144px;
+          height: 32px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .tag-search_btn_release{
+          background: #EBEBEB;
+          border-radius: 4px;
+          width: 144px;
+          height: 32px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
         //タグ

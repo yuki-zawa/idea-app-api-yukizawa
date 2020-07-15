@@ -18,7 +18,8 @@ export const Card2: React.FC<CardProps> = (props: any) => {
   const cardLinkStyle = {
     display: "inline-block",
     width: `${props.cardWidth ? props.cardWidth : "100%"}`,
-    maxWidth: `${props.cardMaxWidth ? props.cardWidth : "450px"}`,
+    maxWidth: `${props.cardMaxWidth ? props.cardWidth : "1000px"}`,
+    margin: "1%",
     marginBottom: `${props.marginBottom ? props.marginBottom : "12px"}`,
     cursor: "pointer",
     backgroundColor: `${props.backgroundColor ? props.backgroundColor : "white"}`,

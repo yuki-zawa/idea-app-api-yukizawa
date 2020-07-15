@@ -277,6 +277,9 @@ export const AddModal: React.FC = (props: any) => {
           // header部分
           .top-part {
             margin-bottom: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 18px 0;
           }
           .x-icon{
             position: absolute;

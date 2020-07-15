@@ -440,6 +440,9 @@ export const IdeaDetail: React.FC = (props: any) => {
           display: flex;
           justify-content: space-between;
           align-items: center;
+          max-width: 1000px;
+          margin: 0 auto;  
+          padding: 18px 0;    
         }
         .title{
           padding: 0;
@@ -459,7 +462,11 @@ export const IdeaDetail: React.FC = (props: any) => {
           padding-top: calc(1.25rem + 40px);
           z-index: 5;
         }
-
+        @media (min-width: 1000px){
+          .container {
+            padding: 52px calc(50% - 500px) 0 calc(50% - 500px);
+          }
+        }
         // アイコン追加
         .icon {
           height: 40px;

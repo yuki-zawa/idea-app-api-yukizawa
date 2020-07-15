@@ -118,6 +118,9 @@ export const Setting: React.FC = () => {
         <style jsx>{`
           .top-part {
             margin-bottom: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 18px 0;
           }
           .x-icon{
             position: absolute;
