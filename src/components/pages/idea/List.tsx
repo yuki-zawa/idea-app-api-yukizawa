@@ -47,7 +47,7 @@ export const IdeaList: React.FC = (props: any) => {
   const [listState, setListState] = useState(false);
   const [pagenation, setPagenation] = React.useState({
     total: 0,
-    perPage: 10,
+    perPage: 12,
     currentPage: 1
   });
 
@@ -57,7 +57,7 @@ export const IdeaList: React.FC = (props: any) => {
     setShowLoader(true);
 
     let response = await axios
-      .get(`/api/v1/ideas?page=${1}&limit=${10}${tagSearchQuery}`)
+      .get(`/api/v1/ideas?page=${1}&limit=${12}${tagSearchQuery}`)
       .then(result => result.data)
       .catch(error => console.log(error))
       .finally(() => {
