@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
+import { HomeLayout } from "../../common/HomeLayout";
+import { X } from 'react-feather';
 import axios from 'axios';
 import queryString from 'query-string';
 
@@ -11,67 +13,83 @@ const linkStyle = {
   color: "#579AFF"
 };
 
-export const PasswordChange: React.FC = () => {
+const backLinkStyle = {
+  display: "inline-block",
+  height: "24px",
+  width: "24px",
+  cursor: "pointer",
+  fontWeight: "bold" as "bold",
+  position: "absolute" as "absolute",
+  fontSize: "24px"
+};
+
+export const CurrentPasswordChange: React.FC = () => {
+  const history = useHistory();
   const location = useLocation();
   const [err, setErr] = useState("");
-  const [newPassword, setNewPassword] = useState({
+  const [newData, setNewData] = useState({
     password: "",
-    password_confirmation: "",
+    newPassword: "",
+    newPasswordConfirmation: "",
   })
-  const query = queryString.parse(location.search);
 
   const handleFieldChange = (event: any) => {
     setErr("");
-    setNewPassword({
-      ...newPassword,
+    setNewData({
+      ...newData,
       [event.target.name]: event.target.value
     })
   }
 
   const changePassword = async () => {
-    validate(newPassword);
+    if (!validate(newData)) return;
     if(err == ""){
       await axios
-        .put(`/api/v1/password_resets/${query.token}`, {
-          user: newPassword,
-          email: query.email
-        })
+        .put(`/api/v1/users/pass/change`, newData)
         .then(() => {
-          window.location.pathname = "/account/login";
+          window.location.pathname = "/settings";
         })
         .catch(err => {
           console.log(err);
-          setErr("不正です。もう一度最初から操作をしてください");
+          setErr("現在のパスワードが違います。");
         });
     }
   }
 
   const validate = (form: any) => {
-    if(form.password.length < 6 || form.password.length < 6){
+    if(form.password.length < 6 || form.newPassword.length < 6){
       setErr("パスワードが短すぎます");
-      return;
+      return false;
     }
-    if(form.password != form.password_confirmation){
+    if(form.newPassword != form.newPasswordConfirmation){
       setErr("パスワードが一致していません");
-      return;
+      return false;
     }
+    return true;
   }
 
   return (
+  <HomeLayout title="STOCKROOM">
     <div className="container">
+      <div className="top-part">
+        <Link className="x-icon" to='/settings' style={backLinkStyle}>
+          <X size={24} color="#333" />
+        </Link>
+        <p className="title">パスワードの変更</p>
+      </div>
       <div className="err">{err}</div>
-      <h1 className="title">パスワード変更</h1>
       <div className="password-form">
-        <label className="password-form_label">パスワード</label>
-        <input className="password-form_input" type="password" placeholder="パスワード" onChange={handleFieldChange} name="password"/>
+        <label className="password-form_label">現在のパスワード</label>
+        <input className="password-form_input" type="password" placeholder="現在のパスワード" onChange={handleFieldChange} name="password"/>
       </div>
       <div className="password-form">
-        <label className="password-form_label">パスワード(確認)</label>
-        <input className="password-form_input" type="password" placeholder="パスワード(確認)" onChange={handleFieldChange} name="password_confirmation"/>
+        <label className="password-form_label">新しいパスワード</label>
+        <input className="password-form_input" type="password" placeholder="新しいパスワード" onChange={handleFieldChange} name="newPassword"/>
       </div>
-      <p>
-        <Link to='/' style={linkStyle}>トップへ戻る</Link>
-      </p>
+      <div className="password-form">
+        <label className="password-form_label">新しいパスワード(確認)</label>
+        <input className="password-form_input" type="password" placeholder="パスワード(確認)" onChange={handleFieldChange} name="newPasswordConfirmation"/>
+      </div>
       <div className="button-container">
         <button onClick={changePassword}>
           変更する
@@ -81,6 +99,18 @@ export const PasswordChange: React.FC = () => {
       <style jsx>{`
         .container {
           padding: 60px 24px 0 24px;
+          background-color: white;
+        }
+
+        .top-part {
+          margin-bottom: 20px;
+        }
+
+        .title{
+          font-size: 14px;
+          color: #333;
+          text-align: center;
+          line-height: 28px;
         }
 
         .err {
@@ -132,5 +162,6 @@ export const PasswordChange: React.FC = () => {
         }
       `}</style>
     </div>
+  </HomeLayout>
   );
 }
