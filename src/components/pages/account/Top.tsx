@@ -79,7 +79,8 @@ export const Top: React.FC = () => {
         .container {
           padding: 0 28px;
           box-sizing: border-box;
-          position: fixed;
+          max-width: 360px;
+          margin: 0 auto;
           width: 100%;
         }
 

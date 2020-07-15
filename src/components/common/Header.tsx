@@ -12,10 +12,13 @@ type HeaderProps = {
 export const Header: React.FC<HeaderProps> = (props) => {
   return (
     <header>
-      <img className="header-icon" src={HeaderIcon} alt="STOCKROOM"/>
-      <Link to='/settings'>
-        <Settings color="#7A7A7A" size={24} />
-      </Link>
+      <div className="header-container">
+        <img className="header-icon" src={HeaderIcon} alt="STOCKROOM"/>
+        <Link to='/settings'>
+          <Settings color="#7A7A7A" size={24} />
+        </Link>
+      </div>
+      
       
       <style jsx>{`
         header {
@@ -23,14 +26,18 @@ export const Header: React.FC<HeaderProps> = (props) => {
           height: 52px;
           padding: 10px 15px;
           background-color: white;
-          justify-content: space-between;
-          display: flex;
           box-sizing: border-box;
           position: fixed;
-          align-items: center;
           left: 0;
           top: 0;
           z-index: 100;
+        }
+        .header-container{
+          max-width: 1000px;
+          margin: 0 auto;
+          justify-content: space-between;
+          display: flex;
+          align-items: center;
         }
         .header-icon{
           height: 32px;

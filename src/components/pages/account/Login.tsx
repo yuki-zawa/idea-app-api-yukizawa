@@ -152,7 +152,9 @@ export const AccountLogin: React.FC = (props: any) => {
 
       <style jsx>{`
         .container {
-            padding: 60px 24px 0 24px;
+          padding: 60px 24px 0 24px;
+          max-width: 360px;
+          margin: 0 auto;
         }
 
         .err {

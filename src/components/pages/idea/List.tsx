@@ -130,33 +130,35 @@ export const IdeaList: React.FC = (props: any) => {
         </div>
       </Link>
       <div className="list-header">
-        <div className="search">
-          
-          <InputBase
-            placeholder="ひらめきを検索"
-            inputProps={{ 'aria-label': 'search' }}
-            classes={{
-                      root: classes.inputRoot,
-                      input: classes.inputInput,
-                    }}
-            onChange={handleChange}
-          />
-          <div className="search-icon">
-            <Search size={16} color="#7A7A7A" />
+        <div className="list-header-inner">
+          <div className="search">
+            <InputBase
+              placeholder="ひらめきを検索"
+              inputProps={{ 'aria-label': 'search' }}
+              classes={{
+                        root: classes.inputRoot,
+                        input: classes.inputInput,
+                      }}
+              onChange={handleChange}
+            />
+            <div className="search-icon">
+              <Search size={16} color="#7A7A7A" />
+            </div>
+          </div>
+          <div className="header-btn">
+            <div className="sort">
+              <img className="sort-icon" src={ Sort } alt="sort-icon" onClick={() => handleChangeSortOpen(true)}/>
+            </div>
+            <div className="switch">
+              {
+                listState ?
+                  <Grid className="grid-icon" size="18" onClick={() => handleChangeListState(false)}/>
+                  :
+                  <List className="switch-icon" size="18" onClick={() => handleChangeListState(true)}/>
+              }
+            </div>
           </div>
         </div>
-        <div className="sort">
-          <img className="sort-icon" src={ Sort } alt="sort-icon" onClick={() => handleChangeSortOpen(true)}/>
-        </div>
-        <div className="switch">
-          {
-            listState ?
-              <Grid className="grid-icon" size="18" onClick={() => handleChangeListState(false)}/>
-              :
-              <List className="switch-icon" size="18" onClick={() => handleChangeListState(true)}/>
-          }
-        </div>
-        
       </div>
       {openSortModal ?
         <SortModal
@@ -242,6 +244,9 @@ export const IdeaList: React.FC = (props: any) => {
           box-sizing: border-box;
           overflow-y: scroll;
           background-color: #F5F5F5;
+          width: 100%;
+          max-width: 1000px;
+          margin: 0 auto;
         }
 
         .blur{
@@ -265,8 +270,13 @@ export const IdeaList: React.FC = (props: any) => {
           box-sizing: border-box;
           background-color: white;
           position: fixed;
-          display: flex;
           border-bottom: 1px solid rgba(196, 196, 196, 0.5);
+        }
+        .list-header-inner{
+          max-width: 1000px;
+          margin: auto;
+          display: flex;
+          justify-content: space-between;
         }
 
         .search {
@@ -274,15 +284,17 @@ export const IdeaList: React.FC = (props: any) => {
           border-radius: 2px;
           height: 32px;
           margin-right: 12px;
-          width: 270px;
+          width: calc(100% - 80px);
+          max-width: 400px;
           display: flex;
           padding: 10px;
           box-sizing: border-box;
           justify-content: space-between;
           align-items: center;
-
         }
-
+        .header-btn{
+          display: flex;
+        }
         .sort{
           width: 32px;
           height: 32px;

@@ -420,6 +420,9 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
           height: 60px;
           position: fixed;
           width: 100%;
+          max-width: 1000px;
+          left: 50%;
+          transform: translateX(-50%);
           top: 108px;
           box-sizing: border-box;
           z-index: 105;
