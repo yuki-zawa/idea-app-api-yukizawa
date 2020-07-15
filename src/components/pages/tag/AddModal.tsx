@@ -233,6 +233,9 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
           display: flex;
           justify-content: space-between;
           align-items: center;
+          max-width: 1000px;
+          margin: 0 auto;
+          padding: 18px 0;
         }
         .title{
           font-size: 14px;

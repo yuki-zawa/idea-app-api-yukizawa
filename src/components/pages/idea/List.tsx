@@ -178,7 +178,8 @@ export const IdeaList: React.FC = (props: any) => {
           loadMore={fetchMoreIdeas}
           initialLoad={false}
           useWindow={false}
-          style={{display: "flex",flexWrap: "wrap",justifyContent:"space-evenly"}}
+          // style={{display: "flex",flexWrap: "wrap",margin: "0 auto"}}
+          style={{width: "100%"}}
         >
           {
             !(!showLoader && ideas.length === 0) ? ideas && ideas.map((idea, index) => {
@@ -238,8 +239,11 @@ export const IdeaList: React.FC = (props: any) => {
         : "" 
       }
       <style jsx>{`
+        main::-webkit-scrollbar {
+          display:none;
+        }
         .container {
-          height: 100vh;
+          height: calc(100vh - 32px);
           width: 100%;
           padding: 128px 12px 72px 12px;
           box-sizing: border-box;
