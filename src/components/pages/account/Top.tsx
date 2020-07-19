@@ -49,27 +49,30 @@ const detailLinkStyle = {
 export const Top: React.FC = () => {
   return (
     <div>
-        <div className="container">
-            <div className="title">
-                <img className="top-logo" src={ Logo } />
-            </div>
-            <p className="start-text">STOCKROOMを始める</p>
-            <div className="login-container">
-                <Link to='/account/create' style={createLinkStyle}>アカウントを作成</Link>
-                <a href="http://www.stockroom.work/auth/google_oauth2" style={googleLinkStyle}>
-                    <img className="google-logo" src={GoogleLogo} alt=""/>
-                    <p className="google-text">Googleで登録/ログイン</p>
-                </a>
-                <Link to='/account/login' style={loginLinkStyle}>ログイン</Link>
-            </div>
+      <div className="container">
+        <div className="title">
+          <img className="top-logo" src={Logo} />
         </div>
-        <div className="introduction">
-            <h2 className="intro-title">What is STOCKROOM ?</h2>
-            <p className="intro-content">
-                STOCKROOMとは、「ひらめき」を簡単にストック、整理できるメモアプリです。を一つの場所にまとめることで、スムーズで柔軟な創造活動をサポートします！
+        <p className="start-text">STOCKROOMを始める</p>
+        <div className="login-container">
+          <Link to='/account/create' style={createLinkStyle}>アカウントを作成</Link>
+          {
+            window.matchMedia('(display-mode: standalone)').matches ? '' :
+              <a href="http://www.stockroom.work/auth/google_oauth2" style={googleLinkStyle}>
+                <img className="google-logo" src={GoogleLogo} alt="" />
+                <p className="google-text">Googleで登録/ログイン</p>
+              </a>
+          }
+          <Link to='/account/login' style={loginLinkStyle}>ログイン</Link>
+        </div>
+      </div>
+      <div className="introduction">
+        <h2 className="intro-title">What is STOCKROOM ?</h2>
+        <p className="intro-content">
+          STOCKROOMとは、「ひらめき」を簡単にストック、整理できるメモアプリです。を一つの場所にまとめることで、スムーズで柔軟な創造活動をサポートします！
             </p>
-            <Link to='/introduction' style={detailLinkStyle}>詳しくはこちら➡︎</Link>
-        </div>
+        <Link to='/introduction' style={detailLinkStyle}>詳しくはこちら➡︎</Link>
+      </div>
       <style jsx>{`
         .login-container{
             width: 314px;
