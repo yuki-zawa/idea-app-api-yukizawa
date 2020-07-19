@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { X, Check, Shuffle, ArrowRight } from 'react-feather';
 import { Link, useHistory } from 'react-router-dom';
-import { Card2 } from './Card2';
+import { Card } from './Card';
 
 
 type ShuffleModalProps = {
@@ -61,12 +61,12 @@ export const ShuffleModal: React.FC<ShuffleModalProps> = (props: any) => {
     <div className="container">
       <div className="title-container">
         <span className="close-btn" onClick={props.closeShuffleModal}>
-          <X size={24} color="#333" />
+          <X size={18} color="#333" />
         </span>
-        <span className="title">アイデアをシャッフルしました！</span>
+        <span className="title">ひらめきをシャッフルしました！</span>
       </div>
       <div className="cards-container">
-        <Card2 
+        <Card 
           idea={idea1}
           cardWidth={"100%"}
           cardHeight={"144px"}
@@ -74,10 +74,7 @@ export const ShuffleModal: React.FC<ShuffleModalProps> = (props: any) => {
           cardContentLine={2}
           disabled={true}
         />
-        <div className="cross">
-          <X size={24} color="#333" />
-        </div>
-        <Card2
+        <Card
           idea={idea2}
           cardWidth={"100%"}
           cardHeight={"144px"}
@@ -87,38 +84,36 @@ export const ShuffleModal: React.FC<ShuffleModalProps> = (props: any) => {
         />
       </div>
       <div className="add-btn_container">
-        <button className="add-btn" onClick={onClick}>
-          <span className="add-btn_text">
-        　　を追加する
-          </span>
-          <ArrowRight size={24} color="#333" />
-        </button>
+        <button className="add-btn" onClick={onClick}>ひらめきを追加する</button>
       </div>
-      <div className="shuffle">
+      <div className="shuffle-btn">
         <button onClick={fetchIdeas}>
-          <Shuffle size={32} color="#333" />
+          <Shuffle size={18} color="#579AFF" />
         </button>
-        <p>もう一度シャッフル</p>
+        <p className="shuffle-btn_text">もう一度シャッフル</p>
       </div>
       <style jsx>{`
         .container {
-          width: 90%;
-          max-width: 360px;
-          height: 620px;
-          box-sizing: border-box;
-          border-radius: 4px;
-          padding: 20px 14px;
-          background-color: white;
+          z-index: 1000;
           position: absolute;
-          top: 50%;
+          top: calc(50% - 24px);
           left: 50%;
-          transform: translate(-50%, -40%);
-          -webkit-transform: translate(-50%, -40%);
-          -ms-transform: translate(-50%, -40%);
-          overflow: scroll;
-          z-index: 200;
-        }
+          transform: translate(-50%, -50%);
+          -webkit-transform: translate(-50%, -50%);
+          -ms-transform: translate(-50%, -50%);
 
+          width: 90%;
+          max-width: 320px;
+          height: 456px;
+          border-radius: 6px;
+          box-sizing: border-box;
+          border: 1px solid #C4C4C4;
+          padding: 20px 18px;
+          background-color: white;
+          
+          overflow: visible;
+        }
+        
         .title-container{
           width: 100%;
           height: 24px;
@@ -126,10 +121,10 @@ export const ShuffleModal: React.FC<ShuffleModalProps> = (props: any) => {
         }
         .title {
           display: block;
-          text-align: center;
           font-size: 14px;
-          line-height: 28px;
-          color: #333;
+          line-height: 19px;
+          text-align: center;
+          color: #7A7A7A;
         }
         .close-btn {
           position: absolute;
@@ -152,31 +147,38 @@ export const ShuffleModal: React.FC<ShuffleModalProps> = (props: any) => {
           background: #FEB342;
           border-radius: 4px;
           padding: 6px 16px;
-          display: flex;
-          align-items: center;
+          text-align: center;
+          font-size: 16px;
+          color: #333;
         }
-        .add-btn_text{
-          margin-right: 4px;
-          font-size: 14px;
+        .add-btn:hover{
+          background: #EC920;
         }
 
         .shuffle {
           text-align: center;
         }
 
-        .shuffle button {
-          padding: 12px;
-          height: 64px;
-          width: 64px;
-          border-radius: 50%;
-          background-color: #E3EAF5;
-          margin-bottom: 12px;
+        .shuffle-btn {
+          display: flex;
+          padding: 8px 16px;
+          box-sizing: border-box;
+          border-radius: 36px;
 
+          position: absolute;
+          top: 480px;
+
+          background: #FFFFFF;
+          border: 1px solid #579AFF;
+
+          left: 50%;
+          transform: translateX(-50%);
+          -webkit- transform: translateX(-50%);
         }
-
-        .shuffle p {
+        .shuffle-btn_text{
           font-size: 14px;
-          margin-bottom: 8px;
+          color: #579AFF;
+          font-weight: bold;
         }
       `}</style>
     </div>

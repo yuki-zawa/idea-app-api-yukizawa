@@ -64,7 +64,7 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
   const postTag = async () => {
     if (nameRef.current.value === ''){
       //FIXME エラー表示させる
-      window.alert("文字が空")
+      window.alert("空白のタグは追加できません。")
     }
     var url;
     if (tagState === "genre"){
@@ -252,7 +252,6 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
           background-color: white;
           z-index: 100;
         }
-
         .change-tag{
           text-align: center;
           margin-bottom: 36px;

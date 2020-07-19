@@ -81,7 +81,10 @@ export const Setting: React.FC = () => {
             <Lock size={20} color="#7A7A7A" />
           </span>
           <div className="pass-contents">
-            <Link to='password/change' className="change-btn">パスワードを変更</Link>
+            <Link 
+              to='password/change' className="change-btn" style={{fontSize: "16px", fontWeight: "bold", lineHeight: "22px"}}>
+                パスワードを変更
+            </Link>
           </div>
           </div>
           <div className="line"></div>
@@ -140,9 +143,10 @@ export const Setting: React.FC = () => {
           }
           .inner-container {
             width: 100%;
-            max-width: 400px;
+            max-width: 600px;
             padding: 20px;
             box-sizing: border-box;
+            margin: 0 auto;
           }
 
           .line{
