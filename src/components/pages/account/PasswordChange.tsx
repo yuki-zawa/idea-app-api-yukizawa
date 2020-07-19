@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import queryString from 'query-string';
+import { Eye } from 'react-feather';
 
 const linkStyle = {
   display: "block",
@@ -57,6 +58,16 @@ export const PasswordChange: React.FC = () => {
     }
   }
 
+  const appear = (name: string) => {
+    const input = document.getElementsByName(name);
+    input[0].setAttribute('type','text');
+  }
+
+  const disAppear = (name: string) => {
+    const input = document.getElementsByName(name);
+    input[0].setAttribute('type','password');
+  }
+
   return (
     <div className="container">
       <div className="err">{err}</div>
@@ -64,10 +75,12 @@ export const PasswordChange: React.FC = () => {
       <div className="password-form">
         <label className="password-form_label">パスワード</label>
         <input className="password-form_input" type="password" placeholder="パスワード" onChange={handleFieldChange} name="password"/>
+        <Eye size={24} color="black" onMouseDown={() => appear('password')} onTouchStart={() => appear('password')} onTouchEnd={() => disAppear('password')} onMouseUp={() => disAppear('password')}/>
       </div>
       <div className="password-form">
         <label className="password-form_label">パスワード(確認)</label>
         <input className="password-form_input" type="password" placeholder="パスワード(確認)" onChange={handleFieldChange} name="password_confirmation"/>
+        <Eye size={24} color="black" onMouseDown={() => appear('password_confirmation')} onMouseUp={() => disAppear('password_confirmation')} onTouchStart={() => appear('password_confirmation')} onTouchEnd={() => disAppear('password_confirmation')}/>
       </div>
       <p>
         <Link to='/' style={linkStyle}>トップへ戻る</Link>
