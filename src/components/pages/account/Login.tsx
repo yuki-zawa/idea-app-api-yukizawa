@@ -2,7 +2,7 @@ import React, { useRef, useContext, useEffect, useCallback, useState } from 'rea
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from "../../common/context/provider";
-import { ArrowLeft } from 'react-feather';
+import { ArrowLeft, Eye } from 'react-feather';
 import { isIOS } from 'react-device-detect';
 
 const backLinkStyle = {
@@ -120,6 +120,16 @@ export const AccountLogin: React.FC = (props: any) => {
 
   autoLogin();
 
+  const appear = (name: string) => {
+    const input = document.getElementsByName(name);
+    input[0].setAttribute('type','text');
+  }
+
+  const disAppear = (name: string) => {
+    const input = document.getElementsByName(name);
+    input[0].setAttribute('type','password');
+  }
+
   useEffect(() => {
     setUserData();
   }, [setUserData]);
@@ -138,7 +148,8 @@ export const AccountLogin: React.FC = (props: any) => {
         </div>
         <div className="password-form">
           <label>パスワード</label>
-          <input ref={ passwordRef } type="password" placeholder="パスワード"/>
+          <input ref={ passwordRef } type="password" placeholder="パスワード" name="password"/>
+          <Eye size={24} color="black" onMouseDown={() => appear('password')} onTouchStart={() => appear('password')} onTouchEnd={() => disAppear('password')} onMouseUp={() => disAppear('password')}/>
           <Link to='/password' style={passwordForgotLinkStyle}>➡︎パスワードを忘れた方はこちら</Link>
           <Link to='/account/create' style={createLinkStyle}>新規登録はこちら</Link>
         </div>

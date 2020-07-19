@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useHistory } from 'react-router-dom';
 import { HomeLayout } from "../../common/HomeLayout";
-import { X } from 'react-feather';
+import { X, Eye } from 'react-feather';
 import axios from 'axios';
 import queryString from 'query-string';
 
@@ -68,6 +68,16 @@ export const CurrentPasswordChange: React.FC = () => {
     return true;
   }
 
+  const appear = (name: string) => {
+    const input = document.getElementsByName(name);
+    input[0].setAttribute('type','text');
+  }
+
+  const disAppear = (name: string) => {
+    const input = document.getElementsByName(name);
+    input[0].setAttribute('type','password');
+  }
+
   return (
   <HomeLayout title="STOCKROOM">
     <div className="container">
@@ -81,14 +91,17 @@ export const CurrentPasswordChange: React.FC = () => {
       <div className="password-form">
         <label className="password-form_label">現在のパスワード</label>
         <input className="password-form_input" type="password" placeholder="現在のパスワード" onChange={handleFieldChange} name="password"/>
+        <Eye size={24} color="black" onMouseDown={() => appear('password')} onTouchStart={() => appear('password')} onTouchEnd={() => disAppear('password')} onMouseUp={() => disAppear('password')}/>
       </div>
       <div className="password-form">
         <label className="password-form_label">新しいパスワード</label>
         <input className="password-form_input" type="password" placeholder="新しいパスワード" onChange={handleFieldChange} name="newPassword"/>
+        <Eye size={24} color="black" onMouseDown={() => appear('newPassword')} onMouseUp={() => disAppear('newPassword')} onTouchStart={() => appear('newPassword')} onTouchEnd={() => disAppear('newPassword')}/>
       </div>
       <div className="password-form">
         <label className="password-form_label">新しいパスワード(確認)</label>
         <input className="password-form_input" type="password" placeholder="パスワード(確認)" onChange={handleFieldChange} name="newPasswordConfirmation"/>
+        <Eye size={24} color="black" onMouseDown={() => appear('newPasswordConfirmation')} onMouseUp={() => disAppear('newPasswordConfirmation')} onTouchStart={() => appear('newPasswordConfirmation')} onTouchEnd={() => disAppear('newPasswordConfirmation')}/>
       </div>
       <div className="button-container">
         <button onClick={changePassword}>
@@ -126,17 +139,17 @@ export const CurrentPasswordChange: React.FC = () => {
           margin-bottom: 32px;
         }
 
-        .mail-form, .password-form {
+        .password-form {
           margin-bottom: 24px;
         }
 
-        .mail-form_label, .password-form_label{
+        .password-form_label{
           display: block;
           margin-bottom: 0.5rem;
           font-size: 14px;
         }
 
-        .mail-form_input, .password-form_input{
+        .password-form_input{
           padding: 0.5rem 0.5rem;
           width: 100%;
           border: none;
