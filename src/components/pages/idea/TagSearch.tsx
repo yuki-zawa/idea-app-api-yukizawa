@@ -469,7 +469,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
         }
         @media (min-width: 1000px){
           .text-container {
-            margin-left: calc(50% - 500px)
+            margin-left: calc(50% - 500px);
           }
         }
 

@@ -318,6 +318,8 @@ export const AddModal: React.FC = (props: any) => {
           .input-container {
             border-bottom: 2px solid #F1F1F1;
             z-index: 1;
+            max-width: 1000px;
+            margin: 0 auto;
           }
           .styled-select {
             /* デフォルトのスタイルを解除 */

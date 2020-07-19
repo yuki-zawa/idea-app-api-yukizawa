@@ -98,7 +98,7 @@ export const IdeaList: React.FC = (props: any) => {
 
   const shuffle = () => {
     if(pagenation.total < 2) {
-      window.alert("を二つ以上登録してください");
+      window.alert("ひらめきを二つ以上登録してください");
       return;
     }
     setOpenShuffleModal(true);
@@ -262,14 +262,14 @@ export const IdeaList: React.FC = (props: any) => {
         }
         .blur{
           display: ${openShuffleModal ? ";" : "none;"};
-          z-index: 100;
-          background-color: #333;
-          backdrop-filter: blur(8px);
-          opacity: 0.5;
-          width: 100%;
+          z-index: 900;
           height: 100vh;
+          width: 100%;
           position: absolute;
           top: 0px;
+          background: rgba(0, 0, 0, 0.6);
+          mix-blend-mode: normal;
+          backdrop-filter: blur(8px);
         }
 
         .list-header {
