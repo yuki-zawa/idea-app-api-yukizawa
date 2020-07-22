@@ -219,7 +219,7 @@ export const IdeaList: React.FC = (props: any) => {
             </button>
             <Link to='/ideas/new'>
                 <button className="add-btn" >
-                    <Plus color="#333" size="36"/>
+                    <Plus size="36"/>
                 </button>
             </Link>
             {/* <Link to='/ideas/new'>
@@ -315,6 +315,7 @@ export const IdeaList: React.FC = (props: any) => {
           align-items: center;
           justify-content: center;
           margin-right: 8px;
+          cursor: pointer;
         }
 
         .switch{
@@ -325,6 +326,7 @@ export const IdeaList: React.FC = (props: any) => {
           display: flex;
           align-items: center;
           justify-content: center;
+          cursor: pointer;
         }
 
         .footer-menu {
@@ -347,7 +349,14 @@ export const IdeaList: React.FC = (props: any) => {
           display: flex;
           justify-content: center;
           align-items: center;
+          color: #333;
         }
+
+        .add-btn:hover{
+          color: white;
+          background: #EC920C;
+        }
+
         .shuffle-btn{
           height: 62px;
           width: 62px;
@@ -356,6 +365,10 @@ export const IdeaList: React.FC = (props: any) => {
           display: flex;
           justify-content: center;
           align-items: center;
+        }
+
+        .shuffle-btn:hover{
+          background: #2E72D8;
         }
 
         .no-idea {

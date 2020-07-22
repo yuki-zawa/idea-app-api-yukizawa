@@ -403,11 +403,11 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
         </div>
         {selectedGenreTag.id === 0 && selectedIdeaTags.length === 0 ?
           <p className="text-container" onClick={pullDown}>
-            <Tag size={18} color="#579AFF" />
+            <Tag size={18} />
             <span className="text">ひらめきを絞り込む</span>
           </p> :
           <p className="text-container" onClick={pullDown}>
-            <Tag size={18} color="#579AFF" />
+            <Tag size={18} />
 
             <div className="selected-tag_container">
               {
@@ -459,14 +459,28 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
           display: flex;
           align-items: center;
           justify-content: center;
-          color: white;
+          color: #579AFF;
           width: fit-content;
-          color: white;
           padding: 8px 16px;
           border-radius: 18px;
           border: 1px solid #579AFF;
           background-color: white;
+          cursor: pointer;
         }
+
+        .text{
+          font-weight: bold;
+          margin-left: 6px;
+        }
+
+        .text-container:hover {
+          ${
+            selectedGenreTag.id === 0 && selectedIdeaTags.length === 0 ?
+            "color: white;border: 1px solid #579AFF;background-color: #579AFF;"
+            : ''
+          }
+        }
+
         @media (min-width: 1000px){
           .text-container {
             margin-left: calc(50% - 500px);
@@ -497,12 +511,6 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
           white-space: nowrap;
         }
 
-        
-        .text{
-          font-weight: bold;
-          margin-left: 6px;
-          color: #579AFF;
-        }
         .active {
           transform: translateY(100vh);
         }
@@ -603,6 +611,9 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
           align-items: center;
           justify-content: center;
         }
+        .tag-search_btn:hover{
+          background: #2E72D8;
+        }
         .tag-search_btn_release{
           background: #EBEBEB;
           border-radius: 4px;
@@ -611,6 +622,9 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
           display: flex;
           align-items: center;
           justify-content: center;
+        }
+        .tag-search_btn_release:hover{
+          background: #D0D0D0;
         }
 
         //タグ
@@ -632,7 +646,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
-
+          cursor: pointer;
           display: flex;
           align-items: center;
           width: fit-content;

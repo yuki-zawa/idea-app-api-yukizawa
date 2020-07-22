@@ -109,6 +109,7 @@ export const SortModal: React.FC<SortModalProps> = (props: any) => {
 
         .list p {
           padding: 10px 0;
+          cursor: pointer;
         }
 
         .selected {
