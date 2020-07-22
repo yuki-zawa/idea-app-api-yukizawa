@@ -245,7 +245,11 @@ export const IdeaDetail: React.FC = (props: any) => {
 
   return (
     <HomeLayout title="STOCKROOM">
-      <div className="container">
+      <div className="container" onClick={() => {
+        if (openIconsModal) {
+          setOpenIconsModal(false)
+        }
+      }}>
         <div className="top-part"> 
           <button onClick={() => history.goBack()} className="cancel-btn">
             <X size={24} color="#333"/>
