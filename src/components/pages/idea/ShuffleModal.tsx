@@ -73,6 +73,7 @@ export const ShuffleModal: React.FC<ShuffleModalProps> = (props: any) => {
           backgroundColor={"#FCFCFC"}
           cardContentLine={2}
           disabled={true}
+          tagNotDisplay={true}
         />
         <Card
           idea={idea2}
@@ -81,17 +82,16 @@ export const ShuffleModal: React.FC<ShuffleModalProps> = (props: any) => {
           backgroundColor={"#FCFCFC"}
           cardContentLine={2}
           disabled={true}
+          tagNotDisplay={true}
         />
       </div>
       <div className="add-btn_container">
         <button className="add-btn" onClick={onClick}>ひらめきを追加する</button>
       </div>
-      <div className="shuffle-btn">
-        <button onClick={fetchIdeas}>
-          <Shuffle size={18} color="#579AFF" />
-        </button>
+      <button className="shuffle-btn"　onClick={fetchIdeas}>
+        <Shuffle className="shuffle-btn_icon" size={18} color="#579AFF" />
         <p className="shuffle-btn_text">もう一度シャッフル</p>
-      </div>
+      </button>
       <style jsx>{`
         .container {
           z-index: 1000;
@@ -175,10 +175,17 @@ export const ShuffleModal: React.FC<ShuffleModalProps> = (props: any) => {
           transform: translateX(-50%);
           -webkit- transform: translateX(-50%);
         }
+        .shuffle-btn_icon{
+          margin-right: 8px;
+        }
         .shuffle-btn_text{
           font-size: 14px;
           color: #579AFF;
           font-weight: bold;
+          margin-left: 6px;
+        }
+        .genre-tag-container{
+          display: none;
         }
       `}</style>
     </div>

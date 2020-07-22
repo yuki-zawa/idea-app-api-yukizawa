@@ -198,7 +198,7 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
           :
           selectedIdeaTags.map((tag: any, index: number) => {
             return(
-              <p className="tag" key={index} style={{backgroundColor: "#E3EAF5"}}>
+              <p className="tag" key={index} style={{backgroundColor: "rgb(232, 240, 254)"}}>
                 <X size={14} onClick={(event) => selectDelete("idea", event)} data-id={tag.id}/>
                 <span>{tag.name}</span>
               </p>
@@ -218,7 +218,7 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
         {
           !showLoader && tags.map((tag: any, index: number) => {
             return(
-              <p className="tag" key={index} data-id={index} onClick={selectTag} style={{backgroundColor: tagState === "genre"? tag.color :"#E3EAF5"}}>{tag.name}</p>
+              <p className="tag" key={index} data-id={index} onClick={selectTag} style={{backgroundColor: tagState === "genre"? tag.color :"#  rgb(232, 240, 254)"}}>{tag.name}</p>
             )
           })
         }
@@ -273,18 +273,19 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
         }
 
         .btn-container {
-          margin-bottom: 24px;
           display: flex;
           align-items: center;
           justify-content: space-between;
+          max-width: 1000px;
+          margin: 0 auto 24px auto;
         }
 
         .add-btn {
-          padding: 6px 8px;
+          padding: 5px 8px;
           font-size: 14px;
           line-height: 18px;
           right: 20.5px;
-          background: #FEB342;
+          border: 2px solid #FEB342;
           box-sizing: border-box;
           border-radius: 4px;
           text-align: center;
@@ -295,7 +296,8 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
         .label {
           font-size: 14px;
           color: #333;
-          margin-bottom: 12px;
+          max-width: 1000px;
+          margin: 0 auto 12px auto;
         }
 
         .selected-tag-container {
@@ -304,6 +306,8 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
           white-space:nowrap;
           overflow-x: scroll;
           -ms-overflow-style: none;
+          max-width: 1000px;
+          margin: 0 auto;
         }
 
         .selected-tag-container::-webkit-scrollbar {
@@ -330,11 +334,14 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
         .selected-tag-container {
           padding-top: 4px;
           margin-bottom: 44px;
+          display: flex;
         }
 
         .tag-container{
           display: flex;
           flex-wrap: wrap;
+          max-width: 1000px;
+          margin: 0 auto;
         }
       `}</style>
     </div>

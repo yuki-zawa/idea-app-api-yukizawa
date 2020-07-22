@@ -10,6 +10,7 @@ type CardProps = {
   cardContentLine: number,
   boxShadow?: string,
   backgroundColor?: string,
+  tagNotDisplay?: boolean,
   disabled?: boolean
 };
 
@@ -48,21 +49,24 @@ export const Card: React.FC<CardProps> = (props: any) => {
             <p className="memo-text">{props.idea.detail}</p>
           </div>
         </div>
-        <div className="genre-tag-container">
-          {/* ジャンルタグは基本一つ */}
-          {props.idea.genre_tags[0] ? <span className="genre-tag tag">{props.idea.genre_tags[0].name}</span> : ""}
-        </div>
-        <div className="idea-tag-container">
-          {
-            props.idea.idea_tags.map((tag: any, index: number) => {
-              return(
-                <span className="idea-tag tag" key={index}>{tag.name}</span>
-              )
-            })
-          }
-        </div>
-        
-        
+        {
+          props.tagNotDisplay ? '' : 
+          <div>
+            <div className="genre-tag-container">
+              {/* ジャンルタグは基本一つ */}
+              {props.idea.genre_tags[0] ? <span className="genre-tag tag">{props.idea.genre_tags[0].name}</span> : ""}
+            </div>
+            <div className="idea-tag-container">
+              {
+                props.idea.idea_tags.map((tag: any, index: number) => {
+                  return(
+                    <span className="idea-tag tag" key={index}>{tag.name}</span>
+                  )
+                })
+              }
+            </div>
+          </div>
+        }
       </div>
       <style jsx>
       {`
@@ -168,7 +172,7 @@ export const Card: React.FC<CardProps> = (props: any) => {
 
         .idea-tag {
           margin-right: 8px;
-          background-color: #E3EAF5;
+          background-color: rgb(232, 240, 254);
         }
 
         
