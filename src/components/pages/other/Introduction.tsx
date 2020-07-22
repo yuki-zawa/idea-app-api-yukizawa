@@ -26,47 +26,73 @@ import FooterLogo from './../../../../src/components/images/footer-logo.svg'
 import { AuthContext } from "../../common/context/provider";
 import { link } from 'fs';
 
-const headerLinkStyle = {
-    borderBottom: '2px #feb342 solid',
-    marginRight: '12px',
-    fontSize: '14px',
-    fontWeight: 'bold' as 'bold',
-    lineHeight: '22px',
-};
-
-const topStartBtnStyle = {
-    backgroundColor: '#FEB342',
-    width: '120px',
-    height: '32px',
-    fontWeight: 'bold' as 'bold',
-    borderRadius: '4px',
-    marginRight: '0',
-    marginLeft: 'auto' as 'auto',
-    lineHeight: '32px',
-    fontSize: '12px',
-    textAlign: 'center' as 'center',
-}
-
-const demandBtnStyle = {
-    backgroundColor: 'white',
-    width: '120px',
-    height: '32px',
-    fontWeight: 'bold' as 'bold',
-    borderRadius: '4px',
-    lineHeight: '32px',
-    fontSize: '12px',
-    display: 'inline-block'
-}
 
 export const Introduction: React.FC = () => {
     const { authState } = useContext(AuthContext);
     const [linkUrl, setlinkUrl] = useState("/");
+    // いい方法がわからなかった
+    const [color, setColor] = useState("black");
+    const [backgroundColor, setBackgroundColor] = useState("#FEB342");
+    const [color1, setColor1] = useState("black");
+
+    const headerLinkStyle = {
+        borderBottom: '2px #feb342 solid',
+        marginRight: '12px',
+        fontSize: '14px',
+        fontWeight: 'bold' as 'bold',
+        lineHeight: '22px',
+    };
+    
+    const topStartBtnStyle = {
+        backgroundColor: backgroundColor,
+        color: color,
+        width: '120px',
+        height: '32px',
+        fontWeight: 'bold' as 'bold',
+        borderRadius: '4px',
+        marginRight: '0',
+        marginLeft: 'auto' as 'auto',
+        lineHeight: '32px',
+        fontSize: '12px',
+        textAlign: 'center' as 'center',
+    }
+    
+    const demandBtnStyle = {
+        backgroundColor: 'white',
+        width: '120px',
+        height: '32px',
+        fontWeight: 'bold' as 'bold',
+        borderRadius: '4px',
+        lineHeight: '32px',
+        fontSize: '12px',
+        display: 'inline-block',
+        color: color1
+    }
+    
 
     useEffect(() => {
         if (authState.user) {
             setlinkUrl("/home")
         }
     }, [authState.user])
+
+    const hover = (type: string) => {
+        if(type == 'topStartBtnStyle'){
+            setBackgroundColor("#EC920C");
+            setColor("white");
+        }else if(type == 'demandBtnStyle'){
+            setColor1("#EC920C");
+        }
+    }
+
+    const leave = (type: string) => {
+        if(type == 'topStartBtnStyle'){
+            setBackgroundColor("#FEB342");
+            setColor("black");
+        }else if(type == 'demandBtnStyle'){
+            setColor1("black");
+        }
+    }
 
     return (
         <div className="body">
@@ -94,7 +120,7 @@ export const Introduction: React.FC = () => {
                             <p className="firstview-caption-body">あなただけの、</p><br />
                             <p className="firstview-caption-body">ひらめきをストックする場所。</p>
                         </div>
-                        <Link to={linkUrl} style={topStartBtnStyle}>さっそく始める</Link>
+                        <Link to={linkUrl} style={topStartBtnStyle} onPointerEnter={() => hover('topStartBtnStyle')} onPointerLeave={() => leave('topStartBtnStyle')}>さっそく始める</Link>
                     </div>
                 </div>
             </section>
@@ -204,7 +230,7 @@ export const Introduction: React.FC = () => {
                     創作活動を充実させましょう!
                 </p>
                 <div className="demand-btn_wrapper">
-                    <Link to={linkUrl} style={demandBtnStyle}>
+                    <Link to={linkUrl} style={demandBtnStyle} onPointerEnter={() => hover('demandBtnStyle')} onPointerLeave={() => leave('demandBtnStyle')}>
                         さっそく始める
                     </Link>
                 </div>
@@ -222,10 +248,10 @@ export const Introduction: React.FC = () => {
                               <li className="footer-option">ログイン</li>
                           </ul>
                         }
-                        <ul className="footer-help">
+                        {/* <ul className="footer-help">
                           <li className="footer-option">お問い合わせ</li>
                           <li className="footer-option">利用規約</li>
-                        </ul>
+                        </ul> */}
                     </div>
                 </div>
                 <div className="footer-copyright_wrapper">
@@ -560,6 +586,7 @@ export const Introduction: React.FC = () => {
             }
             .footer-option{
                 margin-bottom: 18px;
+                cursor: pointer;
             }
             .footer-copyright_wrapper{
                 text-align:center;
