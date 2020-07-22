@@ -109,14 +109,14 @@ export const Setting: React.FC = () => {
               <Link to="/introduction">STOCKROOMについて</Link>
             </span>
           </div>
-          <div className="block help-container">
+          {/* <div className="block help-container">
             <span className="icon">
               <HelpCircle size={20} color="#7A7A7A" />
             </span>
             <span className="link-text">
               <Link to="/help">ヘルプ</Link>
             </span>
-          </div>
+          </div> */}
           
         </div>
         <style jsx>{`

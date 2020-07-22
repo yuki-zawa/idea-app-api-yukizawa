@@ -548,7 +548,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
           justify-content: space-between;
           height: calc(100vh - 220px);
           width: 100%;
-          margin-bottom: 24px
+          margin-bottom: 40px
         }
         @media (min-width: 800px){
           .tag-containers{

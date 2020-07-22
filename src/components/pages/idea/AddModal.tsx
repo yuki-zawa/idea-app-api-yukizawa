@@ -5,7 +5,7 @@ import { Rating } from '@material-ui/lab';
 import axios from 'axios';
 import { AddTagModal } from './../tag/AddModal'
 import { Icon } from './../../common/Const'
-import { X, Check, ArrowRight } from 'react-feather';
+import { X, Check, ArrowRight, PlusCircle } from 'react-feather';
 import { Card } from './Card'
 import StarIcon from '@material-ui/icons/Star';
 import AddBtn from './../../images/add-btn.svg';
@@ -212,7 +212,8 @@ export const AddModal: React.FC = (props: any) => {
           <p className="tag-label">カテゴリー</p>
           <div className="genre-tag-container">
             <span className="plus" onClick={openModal}>
-              <img className="plus-img" src={AddBtn} alt="" id="genre"/>
+              <PlusCircle size={20} color="#333" id="genre"/>
+              {/* <img className="plus-img" src={AddBtn} alt="" id="genre"/> */}
             </span>
             {selectedGenreTag.id !== 0 ? 
             <span className="genre-tag tag" style={{backgroundColor: selectedGenreTag.color}}>
@@ -223,7 +224,8 @@ export const AddModal: React.FC = (props: any) => {
           <p className="tag-label">タグ</p>
           <div className="idea-tag-container">
             <span className="plus" onClick={openModal}>
-              <img className="plus-img" src={AddBtn} alt="" id="idea"/>
+              <PlusCircle size={20} color="#333" id="idea"/>
+              {/* <img className="plus-img" src={AddBtn} alt="" id="genre"/> */}
             </span>
             {
               selectedIdeaTags && selectedIdeaTags.map((tag: any, index: number) => {
@@ -428,6 +430,7 @@ export const AddModal: React.FC = (props: any) => {
             height: 36px;
             padding: 7px 8px 9px 8px;
             margin-right: 8px;
+            box-sizing: border-box;
           }
           .plus-img{
             margin: 10px 0;
