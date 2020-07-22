@@ -130,6 +130,11 @@ export const PasswordChangeApply: React.FC = () => {
           font-size: 16px;
           border-radius :4px;
         }
+
+        .button-container button:hover{
+          color: white;
+          background: #EC920C;
+        }
       `}</style>
     </div>
   );

@@ -516,6 +516,11 @@ export const IdeaDetail: React.FC = (props: any) => {
           font-size: 24px;
           font-weight: bold;
           margin-left: 8px;
+          cursor: pointer;
+        }
+
+        .delete {
+          cursor: pointer;
         }
         // 星
         .rating-container{

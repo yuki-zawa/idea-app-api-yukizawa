@@ -72,7 +72,7 @@ export const Setting: React.FC = () => {
               <Mail size={20} color="#7A7A7A" />
             </span>
             <div className="mail-contents">
-              <button className="change-btn">メールアドレスを変更</button>
+              <button className="change-btn">メールアドレス</button>
               <p className="mail-address">{authState.user.email}</p>
             </div>
           </div>
@@ -176,6 +176,11 @@ export const Setting: React.FC = () => {
             line-height: 22px;
             font-weight: bold;
           }
+
+          .change-btn, .mail-address {
+            cursor: unset;
+          }
+
           .link-text a{
             color: #333;
             font-size: 16px;
