@@ -206,7 +206,7 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
           })
         }
       </div>
-      <p className="label">カテゴリーを変更する</p>
+      <p className="label">カテゴリーを選択する</p>
       <div className="btn-container">
         <input ref={nameRef} onChange={handleChange} className="input-name" placeholder="新しいカテゴリーを作成"/>
         <button onClick={postTag} className="add-btn">
@@ -218,7 +218,7 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
         {
           !showLoader && tags.map((tag: any, index: number) => {
             return(
-              <p className="tag" key={index} data-id={index} onClick={selectTag} style={{backgroundColor: tagState === "genre"? tag.color :"#  rgb(232, 240, 254)"}}>{tag.name}</p>
+              <p className="tag" key={index} data-id={index} onClick={selectTag} style={{backgroundColor: tagState === "genre"? tag.color :"rgb(232, 240, 254)"}}>{tag.name}</p>
             )
           })
         }
