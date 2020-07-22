@@ -460,7 +460,7 @@ export const AddModal: React.FC = (props: any) => {
           }
           .idea-tag {
             margin-right: 8px;
-            background-color: #E3EAF5;
+            background-color: rgb(232, 240, 254);
           }
 
           //メモ

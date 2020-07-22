@@ -144,12 +144,14 @@ export const AccountLogin: React.FC = (props: any) => {
       <div className="form">
         <div className="mail-form">
           <label>メールアドレス</label>
-          <input ref={ mailRef } type="text" placeholder="メールアドレス"/>
+          <input className="login-form_input" ref={ mailRef } type="text" placeholder="メールアドレス"/>
         </div>
         <div className="password-form">
           <label>パスワード</label>
-          <input ref={ passwordRef } type="password" placeholder="パスワード" name="password"/>
-          <Eye size={24} color="black" onMouseDown={() => appear('password')} onTouchStart={() => appear('password')} onTouchEnd={() => disAppear('password')} onMouseUp={() => disAppear('password')}/>
+          <div className="pass_inner-container">
+            <input className="password-form_input" ref={ passwordRef } type="password" placeholder="パスワード" name="password"/>
+            <Eye size={24} color="black" onMouseDown={() => appear('password')} onTouchStart={() => appear('password')} onTouchEnd={() => disAppear('password')} onMouseUp={() => disAppear('password')}/>
+          </div>
           <Link to='/password' style={passwordForgotLinkStyle}>➡︎パスワードを忘れた方はこちら</Link>
           <Link to='/account/create' style={createLinkStyle}>新規登録はこちら</Link>
         </div>
@@ -181,7 +183,7 @@ export const AccountLogin: React.FC = (props: any) => {
           margin-bottom: 32px;
         }
 
-        .mail-form, .password-form {
+        .mail-form {
           margin-bottom: 24px;
         }
 
@@ -191,14 +193,30 @@ export const AccountLogin: React.FC = (props: any) => {
           font-size: 12px;
         }
 
-        .form input {
+        .login-form_input {
           padding: 0.5rem 0.5rem;
           width: 100%;
           border: none;
           border-bottom: #FEB342 2px solid;
-          background-color: #E3EAF5;
+          background-color: rgb(232, 240, 254);
           font-size: 18px;
           box-sizing: border-box;
+        }
+
+        .password-form_input{
+          font-size: 18px;
+          box-sizing: border-box;
+          width: calc(100% - 24px);
+          background: transparent;
+          border: none;
+          outline: none;
+        }
+        .pass_inner-container{
+          display: flex;
+          padding: 0.5rem 0.5rem;
+          border: none;
+          border-bottom: #FEB342 2px solid;
+          background-color: rgb(232, 240, 254);
         }
 
         .button-container {

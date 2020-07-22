@@ -92,13 +92,17 @@ export const AccountCreate: React.FC = () => {
       </div>
       <div className="password-form">
         <label className="password-form_label">パスワード</label>
-        <input className="password-form_input" type="password" placeholder="パスワード" onChange={handleFieldChange} name="password"/>
-        <Eye size={24} color="black" onMouseDown={() => appear('password')} onTouchStart={() => appear('password')} onTouchEnd={() => disAppear('password')} onMouseUp={() => disAppear('password')}/>
+        <div className="pass_inner-container">
+          <input className="password-form_input" type="password" placeholder="パスワード" onChange={handleFieldChange} name="password"/>
+          <Eye size={24} color="black" onMouseDown={() => appear('password')} onTouchStart={() => appear('password')} onTouchEnd={() => disAppear('password')} onMouseUp={() => disAppear('password')}/>
+        </div>
       </div>
       <div className="password-form">
         <label className="password-form_label">パスワード(確認)</label>
-        <input className="password-form_input" type="password" placeholder="パスワード(確認)" onChange={handleFieldChange} name="password_confirmation"/>
-        <Eye size={24} color="black" onMouseDown={() => appear('password_confirmation')} onMouseUp={() => disAppear('password_confirmation')} onTouchStart={() => appear('password_confirmation')} onTouchEnd={() => disAppear('password_confirmation')}/>
+        <div className="pass_inner-container">
+          <input className="password-form_input" type="password" placeholder="パスワード(確認)" onChange={handleFieldChange} name="password_confirmation"/>
+          <Eye size={24} color="black" onMouseDown={() => appear('password_confirmation')} onMouseUp={() => disAppear('password_confirmation')} onTouchStart={() => appear('password_confirmation')} onTouchEnd={() => disAppear('password_confirmation')}/>
+        </div>
       </div>
       <p>
         <Link to='/account/login' style={linkStyle}>ログインはこちら</Link>
@@ -139,14 +143,29 @@ export const AccountCreate: React.FC = () => {
           font-size: 14px;
         }
 
-        .mail-form_input, .password-form_input{
+        .mail-form_input{
           padding: 0.5rem 0.5rem;
           width: 100%;
           border: none;
           border-bottom: #FEB342 2px solid;
-          background-color: #E3EAF5;
+          background-color: rgb(232, 240, 254);
           font-size: 18px;
           box-sizing: border-box;
+        }
+        .password-form_input{
+          font-size: 18px;
+          box-sizing: border-box;
+          width: calc(100% - 24px);
+          background: transparent;
+          border: none;
+          outline: none;
+        }
+        .pass_inner-container{
+          display: flex;
+          padding: 0.5rem 0.5rem;
+          border: none;
+          border-bottom: #FEB342 2px solid;
+          background-color: rgb(232, 240, 254);
         }
 
         .button-container {
@@ -168,6 +187,8 @@ export const AccountCreate: React.FC = () => {
           color: white;
           background: #EC920C;
         }
+
+        
       `}</style>
     </div>
   );

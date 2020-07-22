@@ -253,7 +253,16 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
             </button>
             <h3 className="tag-search_title">ひらめきを絞り込み</h3>
           </div>
-        
+          <div className="search-btn_container">
+            <button className="tag-search_btn_release" onClick={filterRelease}>
+              <span className="tag-search-btn_text">絞り込みを解除</span>
+              {/* <ArrowRight className="tag-search-btn_icon" size={24} color="#333" /> */}
+            </button>
+            <button className="tag-search_btn" onClick={filter}>
+              <span className="tag-search-btn_text">絞り込む</span>
+              {/* <ArrowRight className="tag-search-btn_icon" size={24} color="#333" /> */}
+            </button>
+          </div>
           <div className="tag-containers">
             <div className="tag-container">
             <label className="tag-container_label">カテゴリー</label>
@@ -345,7 +354,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                     selectedIdeaTags && selectedIdeaTags.map((ideaTag: any, index: number) => {
                       return (
                         <div className="tag-wrapper">
-                          <p key={index} style={{backgroundColor: '#E3EAF5'}} className="tag" data-id={index} onClick={(event) => deleteTag("idea", event)}>
+                          <p key={index} style={{backgroundColor: 'rgb(232, 240, 254)'}} className="tag" data-id={index} onClick={(event) => deleteTag("idea", event)}>
                             {/* <svg data-id={index} width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <path d="M8.33317 3L3.74984 7.58333L1.6665 5.5" stroke="#434343" strokeLinecap="round" strokeLinejoin="round"/>
                             </svg> */}
@@ -371,7 +380,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                     ideaTags && ideaTags.map((ideaTag: any, index: number) => {
                       return (
                         <div className="tag-wrapper">
-                          <p key={index} data-id={index} style={{backgroundColor: '#E3EAF5'}} className="tag" onClick={(event) => selectTag("idea", event)}>
+                          <p key={index} data-id={index} style={{backgroundColor: 'rgb(232, 240, 254)'}} className="tag" onClick={(event) => selectTag("idea", event)}>
                             {/* <svg data-id={index} width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <circle cx="6" cy="6" r="4.5" stroke="#434343" strokeDasharray="2 1"/>
                             </svg> */}
@@ -389,16 +398,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
             </div>
           </div>
           </div>
-          <div className="search-btn_container">
-            <button className="tag-search_btn_release" onClick={filterRelease}>
-              <span className="tag-search-btn_text">絞り込みを解除</span>
-              {/* <ArrowRight className="tag-search-btn_icon" size={24} color="#333" /> */}
-            </button>
-            <button className="tag-search_btn" onClick={filter}>
-              <span className="tag-search-btn_text">絞り込む</span>
-              {/* <ArrowRight className="tag-search-btn_icon" size={24} color="#333" /> */}
-            </button>
-          </div>
+          
           
         </div>
         {selectedGenreTag.id === 0 && selectedIdeaTags.length === 0 ?
@@ -408,7 +408,6 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
           </p> :
           <p className="text-container" onClick={pullDown}>
             <Tag size={18} />
-
             <div className="selected-tag_container">
               {
                 selectedGenreTag.id !== 0 ?
@@ -551,9 +550,9 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
           width: 100%;
           margin-bottom: 24px
         }
-        @media (min-width: 1000px){
+        @media (min-width: 800px){
           .tag-containers{
-            max-width: 1000px;
+            max-width: 800px;
             margin: 0 auto 24px auto;
           }
         }
@@ -598,8 +597,8 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
         .search-btn_container{
           display: flex;
           justify-content: space-between;
-          max-width: 1000px;
-          margin: 0 auto;
+          max-width: 800px;
+          margin: 0 auto 24px auto;
         }
         .tag-search_btn{
           background: #579AFF;

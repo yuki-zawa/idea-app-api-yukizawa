@@ -154,7 +154,7 @@ export const CurrentPasswordChange: React.FC = () => {
           width: 100%;
           border: none;
           border-bottom: #FEB342 2px solid;
-          background-color: #E3EAF5;
+          background-color: rgb(232, 240, 254);
           font-size: 18px;
           box-sizing: border-box;
         }
