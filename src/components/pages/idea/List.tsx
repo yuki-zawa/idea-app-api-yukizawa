@@ -116,7 +116,7 @@ export const IdeaList: React.FC = (props: any) => {
 
 
   return (
-    <HomeLayout title="STOCKROOM">
+    <HomeLayout title="STOCKROOM" position="fixed">
       <div className="list-header">
         <div className="list-header-inner">
           <div className="search">
@@ -159,6 +159,7 @@ export const IdeaList: React.FC = (props: any) => {
         setQuery={setTagSearchQuery}
         currentQuery={tagSearchQuery}
       />
+      <div className="bg-gray"></div>
       <div className={`container`}>
         <InfiniteScroll
           pageStart={1}
@@ -227,21 +228,33 @@ export const IdeaList: React.FC = (props: any) => {
         : "" 
       }
       <style jsx>{`
+        main{
+          position: fixed;
+        }
         main::-webkit-scrollbar {
           display:none;
+        }
+        .bg-gray{
+          width: 100%;
+          height: 100vh;
+          top: 0;
+          left: 0;
+          position: fixed;
+          background-color: #F5F5F5;
         }
         .container {
           height: calc(100vh - 32px);
           width: 100%;
-          padding: 48px 12px 100px 12px;
+          padding: 48px 12px 180px 12px;
           box-sizing: border-box;
           overflow-y: scroll;
           background-color: #F5F5F5;
           max-width: 1000px;
-          margin: 108px auto 0 auto;
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: space-around;
+          top: 108px;
+          position: fixed;
+          left: 50%;
+          transform: translateX(-50%);
+          -webkit- transform: translateX(-50%);
         }
         @media (max-width: 1000px){
           .container {
@@ -281,12 +294,11 @@ export const IdeaList: React.FC = (props: any) => {
         .search {
           background-color: #EBEBEB;
           border-radius: 2px;
-          height: 32px;
           margin-right: 12px;
           width: calc(100% - 80px);
           max-width: 400px;
           display: flex;
-          padding: 10px;
+          padding: 8px;
           box-sizing: border-box;
           justify-content: space-between;
           align-items: center;

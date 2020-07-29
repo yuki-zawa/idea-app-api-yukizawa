@@ -89,8 +89,8 @@ export const ShuffleModal: React.FC<ShuffleModalProps> = (props: any) => {
         <button className="add-btn" onClick={onClick}>ひらめきを追加する</button>
       </div>
       <button className="shuffle-btn"　onClick={fetchIdeas}>
-        <Shuffle className="shuffle-btn_icon" size={18} color="#579AFF" />
-        <p className="shuffle-btn_text">もう一度シャッフル</p>
+        <Shuffle className="shuffle-btn_icon" size={18} />
+        <span className="shuffle-btn_text">もう一度シャッフル</span>
       </button>
       <style jsx>{`
         .container {
@@ -128,6 +128,7 @@ export const ShuffleModal: React.FC<ShuffleModalProps> = (props: any) => {
         }
         .close-btn {
           position: absolute;
+          cursor: pointer;
         }
 
         .cards-container {
@@ -152,7 +153,8 @@ export const ShuffleModal: React.FC<ShuffleModalProps> = (props: any) => {
           color: #333;
         }
         .add-btn:hover{
-          background: #EC920;
+          background: #EC920C;
+          color: #white;
         }
 
         .shuffle {
@@ -169,18 +171,22 @@ export const ShuffleModal: React.FC<ShuffleModalProps> = (props: any) => {
           top: 480px;
 
           background: #FFFFFF;
+          color: #579AFF;
           border: 1px solid #579AFF;
 
           left: 50%;
           transform: translateX(-50%);
           -webkit- transform: translateX(-50%);
         }
+        .shuffle-btn:hover{
+          background: #579AFF;
+          color: white;
+        }
         .shuffle-btn_icon{
           margin-right: 8px;
         }
         .shuffle-btn_text{
           font-size: 14px;
-          color: #579AFF;
           font-weight: bold;
           margin-left: 6px;
         }
