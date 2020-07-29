@@ -252,7 +252,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
           </div>
           <div className="search-btn_container">
             <button className="tag-search_btn_release" onClick={filterRelease}>
-              <span className="tag-search-btn_text">絞り込みを解除</span>
+              <span>絞り込みを解除</span>
             </button>
             <button className="tag-search_btn" onClick={filter}>
               <CheckCircle color="white" size="16"/>
@@ -411,6 +411,8 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
             </div>
           </p>
         }
+      </div>
+      <div className={editTagModalOpen ? "blur" : ""}>
       </div>
       {editTagModalOpen ? <EditTagModal setEditTagModalOpen={setEditTagModalOpen} editTag={editTag} fetchGenreTags={fetchGenreTags} fetchIdeaTags={fetchIdeaTags}/> : ''}
       <style jsx>{`
@@ -650,6 +652,17 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
           z-index: 999;
         }
 
+        .blur {
+          filter: blur(4px);
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          z-index: 110;
+          backdrop-filter: blur(8px);
+          background: rgba(0, 0, 0, 0.6);
+        }
 
       `}</style>
     </div>
