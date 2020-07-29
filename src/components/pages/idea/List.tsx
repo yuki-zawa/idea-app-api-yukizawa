@@ -116,7 +116,7 @@ export const IdeaList: React.FC = (props: any) => {
 
 
   return (
-    <HomeLayout title="STOCKROOM">
+    <HomeLayout title="STOCKROOM" position="fixed">
       <div className="list-header">
         <div className="list-header-inner">
           <div className="search">
@@ -227,6 +227,9 @@ export const IdeaList: React.FC = (props: any) => {
         : "" 
       }
       <style jsx>{`
+        main{
+          position: fixed;
+        }
         main::-webkit-scrollbar {
           display:none;
         }
@@ -281,12 +284,11 @@ export const IdeaList: React.FC = (props: any) => {
         .search {
           background-color: #EBEBEB;
           border-radius: 2px;
-          height: 32px;
           margin-right: 12px;
           width: calc(100% - 80px);
           max-width: 400px;
           display: flex;
-          padding: 10px;
+          padding: 8px;
           box-sizing: border-box;
           justify-content: space-between;
           align-items: center;

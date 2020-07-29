@@ -47,3 +47,10 @@ input,textarea {
   outline: #FEB342;
   border-radius: none;
 }
+input :focus{
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -webkit-appearance: none;
+  background: none;
+}
