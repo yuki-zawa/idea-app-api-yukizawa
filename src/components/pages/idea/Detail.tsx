@@ -245,6 +245,7 @@ export const IdeaDetail: React.FC = (props: any) => {
 
   return (
     <HomeLayout title="STOCKROOM">
+      {editState && openIconsModal ? <IconsModal setIcon={setIdeaIcon} closeModal={changeIconsModal}/> : ""}
       <div className="container" onClick={() => {
         if (openIconsModal) {
           setOpenIconsModal(false)
@@ -284,7 +285,6 @@ export const IdeaDetail: React.FC = (props: any) => {
                       <button className="icon-add_btn" onClick={() => changeIconsModal(true)}>
                         {editData.idea.icon ? <Emoji emoji={editData.idea.icon} size={40}/> : "アイコンを追加"}
                       </button>
-                      {openIconsModal ? <IconsModal setIcon={setIdeaIcon} closeModal={changeIconsModal}/> : ""}
                     </div>
                   }
               </div>
