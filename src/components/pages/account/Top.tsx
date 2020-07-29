@@ -7,95 +7,107 @@ import GoogleLogo from './../../images/google-icon.svg';
 const createLinkStyle = {
   textAlign: "center" as "center",
   display: "block",
-  height: "32px",
-  lineHeight: "32px",
+  height: "40px",
+  lineHeight: "40px",
   cursor: "pointer",
   borderRadius: "4px",
   backgroundColor: "#FEB342",
   marginBottom: "16px",
-  fontSize: "14px"
+  fontSize: "16px"
 };
 const googleLinkStyle = {
   display: "flex",
   alignItems: "center" as "center",
-  height: "36px",
-  lineHeight: "36px",
+  height: "40px",
+  lineHeight: "40px",
   cursor: "pointer",
   border: "2px solid #FEB342",
   boxSizing: "border-box" as "border-box",
   marginBottom: "16px",
   borderRadius: "4px",
-  fontSize: "14px"
+  fontSize: "16px"
 };
 const loginLinkStyle = {
   textAlign: "center" as "center",
   display: "block",
-  height: "36px",
-  lineHeight: "36px",
+  height: "40px",
+  lineHeight: "40px",
   cursor: "pointer",
   borderRadius: "4px",
   backgroundColor: "#C4C4C4",
-  fontSize: "14px"
+  fontSize: "16px"
 };
 const detailLinkStyle = {
   textAlign: "center" as "center",
-  display: "block",
-  height: "36px",
-  lineHeight: "36px",
+  position: "absolute" as "absolute",
+  display: "inline-block",
+  padding: "6px",
   cursor: "pointer",
-  borderRadius: "4px"
+  borderBottom: "2px solid #FEB342",
+  left: "50%",
+  transform: "translateX(-50%)",
 };
 
 export const Top: React.FC = () => {
   return (
     <div>
-        <div className="container">
-            <div className="title">
-                <img className="top-logo" src={ Logo } />
-            </div>
-            <p className="start-text">STOCKROOMを始める</p>
-            <div className="login-container">
-                <Link to='/account/create' style={createLinkStyle}>アカウントを作成</Link>
-                <Link to='/' style={googleLinkStyle}>
-                    <img className="google-logo" src={GoogleLogo} alt=""/>
-                    <p className="google-text">Googleアカウントで登録/ログイン</p>
-                </Link>{/* FIXME このリンクは変更になる可能性があるのであとで編集してほしい */}
-                <Link to='/account/login' style={loginLinkStyle}>ログイン</Link>
-            </div>
+      <div className="container">
+        <div className="title">
+          <img className="top-logo" src={Logo} />
         </div>
-        <div className="introduction">
-            <h2 className="intro-title">What is STOCKROOM ?</h2>
-            <p className="intro-content">
-                STOCKROOMとは、「ひらめき」を簡単にストック、整理できるメモアプリです。ひらめきを一つの場所にまとめることで、スムーズで柔軟な創造活動をサポートします！
+        <p className="start-text">STOCKROOMを始める</p>
+        <div className="login-container">
+          <Link to='/account/create' style={createLinkStyle}>アカウントを作成</Link>
+          {
+            window.matchMedia('(display-mode: standalone)').matches ? '' :
+              <a href="http://www.stockroom.work/auth/google_oauth2" style={googleLinkStyle}>
+                <img className="google-logo" src={GoogleLogo} alt="" />
+                <p className="google-text">Googleで登録/ログイン</p>
+              </a>
+          }
+          <Link to='/account/login' style={loginLinkStyle}>ログイン</Link>
+        </div>
+      </div>
+      <div className="introduction">
+        <h2 className="intro-title">What is STOCKROOM ?</h2>
+        <p className="intro-content">
+          STOCKROOMとは、「ひらめき」を簡単にストック、整理できるメモアプリです。を一つの場所にまとめることで、スムーズで柔軟な創造活動をサポートします！
             </p>
-            <Link to='/introduction' style={detailLinkStyle}>詳しくはこちら➡︎</Link>
-        </div>
+        <Link to='/introduction' style={detailLinkStyle}>詳しくはこちら</Link>
+      </div>
       <style jsx>{`
         .login-container{
             width: 314px;
             margin: 0 atuto;
+            width: 100%;
         }
         .container {
           padding: 0 28px;
           box-sizing: border-box;
+          max-width: 600px;
+          margin: 0 auto;
+          width: 100%;
+          position: fixed;
+          left: 50%;
+          transform: translateX(-50%);
         }
 
         .title {
-          margin-bottom: 100px;
+          margin-bottom: 40px;
           padding-top: 60px;
           padding-left: 12px;
         }
         .top-logo{
-            width: 70px;
+            width: 60px;
             height: auto;
         }
 
         .google-text{
-            margin: 0 auto;
-            font-size: 14px;
+            margin-left: calc((100% - 226px)/2);
+            
         }
         .google-logo{
-            position: absolute;
+            // position: absolute;
             margin-left: 8px;
             width: 20px;
             height: auto;
@@ -118,11 +130,14 @@ export const Top: React.FC = () => {
         }
 
         .introduction{
-            text-align: justify;
-            position: fixed;
-            padding: 40px 28px;
-            box-sizing: border-box;
-            bottom: 80px;
+          text-align: justify;
+          bottom: 80px;
+          width: 90%;
+          max-width: 520px;
+          position: fixed;
+          left: 50%;
+          transform: translateX(-50%);
+          -webkit- transform: translateX(-50%);
         }
         .intro-title {
           font-weight: bold;
@@ -131,7 +146,11 @@ export const Top: React.FC = () => {
         }
 
         .intro-content {
-          margin-bottom: 32px;
+          margin-bottom: 16px;
+          line-height: 1.7em;
+        }
+        .link-btn{
+          border-bottom: 2px solid #FEB342;
         }
 
       `}</style>

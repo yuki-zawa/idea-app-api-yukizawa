@@ -15,6 +15,7 @@ export const SortModal: React.FC<SortModalProps> = (props: any) => {
     var queryString = props.currentQuery.replace(/&sort=.*(?=&)|&sort=.*(?!&)/g, '');
     props.setQuery(queryString + `&sort=${event.target.id}`);
     setSortValue(event.target.id);
+    props.handleChangeSortOpen(false)
   }
 
   return (
@@ -64,19 +65,25 @@ export const SortModal: React.FC<SortModalProps> = (props: any) => {
           width: 100%;
           border: 1px solid #C4C4C4;
           border-radius: 4px;
-          box-shadow: 0 0px 4px rgba(0,0,0,0.2);
+          box-shadow: rgba(233, 233, 233, 0.25) 0px 0px 8px 0px, rgba(163, 163, 163, 0.25) 0px 2px 6px 0px;
           position: absolute;
-          top: 56px;
+          top: 120px;
           max-width: 320px;
           right: 16px;
           left: auto;
+          z-index: 160;
+        }
+        @media (min-width: 1000px){
+          .container {
+            right: calc(50% - 500px);
+          }
         }
 
         .header {
           height: 32px;
           width: 100%;
-					text-align: center;
-					padding: 4px 0;
+          text-align: center;
+          padding: 4px 0;
         }
 
         .header p {
@@ -107,6 +114,7 @@ export const SortModal: React.FC<SortModalProps> = (props: any) => {
 
         .list p {
           padding: 10px 0;
+          cursor: pointer;
         }
 
         .selected {
