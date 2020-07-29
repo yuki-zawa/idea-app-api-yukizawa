@@ -172,7 +172,7 @@ export const AddModal: React.FC = (props: any) => {
         </div>
         <div className="input-container">
           <div className="add-icon-container">
-            <button className="add-icon_bnt" onClick={() => changeIconsModal(true)}>
+            <button className="icon-add-btn" onClick={() => changeIconsModal(true)}>
               {addData.idea.icon ? <Emoji emoji={addData.idea.icon} size={40}/> : "アイコンを追加"}
             </button>
           </div>
@@ -309,13 +309,11 @@ export const AddModal: React.FC = (props: any) => {
           .add-icon-container{
             margin-bottom: 12px;
           }
-          .icon-add_btn{
+          .icon-add-btn{
             padding: 4px 11px;
             background: #EBEBEB;
             border-radius: 22px;
-          }
-          .add-icon-container button{
-            color: #579AFF;
+            color: #333;
           }
           .input-container {
             border-bottom: 2px solid #F1F1F1;

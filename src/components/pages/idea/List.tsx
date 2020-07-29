@@ -233,7 +233,7 @@ export const IdeaList: React.FC = (props: any) => {
         .container {
           height: calc(100vh - 32px);
           width: 100%;
-          padding: 48px 12px 72px 12px;
+          padding: 48px 12px 100px 12px;
           box-sizing: border-box;
           overflow-y: scroll;
           background-color: #F5F5F5;
