@@ -51,7 +51,7 @@ function App() {
 
         html {
           font-family: Avenir, 'Helvetica neue', Helvetica, '游ゴシック', YuGothic, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, 'ＭＳ Ｐゴシック', sans-serif;
-          color: rgba(0, 0, 0, 0.87);
+          color: #333;
         }
 
         p, h1, h2, h3, h4, h5, h6{

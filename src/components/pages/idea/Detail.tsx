@@ -320,7 +320,7 @@ export const IdeaDetail: React.FC = (props: any) => {
                 {
                   !editState ? 
                     <h1 className="idea-title">{idea.title}</h1>:
-                    <div>
+                    <div className="title-name_inner-container">
                       <input 
                         onChange={(event) => {
                           setEditData({
@@ -570,6 +570,10 @@ export const IdeaDetail: React.FC = (props: any) => {
           margin-bottom: 16px;
           display: flex;
           align-items: center;
+          width: 100%;
+        }
+        .title-name_inner-container{
+          width: 100%;
         }
         .idea-title {
           margin-left: 4px;
@@ -577,11 +581,11 @@ export const IdeaDetail: React.FC = (props: any) => {
           color: #333;
         }
         .title-input {
-          border: none;
-          width: 95%;
-          height: 16px;
+          width: 100%;
+          box-sizing: border-box;
           font-size: 16px;
-          padding: 0.25rem 0;
+          padding: 6px 8px;
+          border: none;
         }
 
         // タグ

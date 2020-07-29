@@ -90,10 +90,13 @@ export const Card: React.FC<CardProps> = (props: any) => {
           display: inline-block;
           height: 20px;
           width: 20px;
+          margin-right: 4px;
         }
         .priority-container {
           display: inline-block;
           color: #FEB342;
+          display: flex;
+          align-items: center;
         }
         .title-container{
           width: 100%;
@@ -112,6 +115,7 @@ export const Card: React.FC<CardProps> = (props: any) => {
           width: 100%;
           overflow: hidden;
           margin-bottom: 8px;
+          height: 48px;
         }
         .memo-text{
           font-size: 14px;
@@ -122,9 +126,6 @@ export const Card: React.FC<CardProps> = (props: any) => {
           // -webkit-line-clamp: ${props.cardContentLine};
         }
 
-
-        
-
         .priority-container span {
           font-weight: bold;
           vertical-align: top;
@@ -133,7 +134,7 @@ export const Card: React.FC<CardProps> = (props: any) => {
         .genre-tag-container {
           width: 100%;
           box-sizing: border-box;
-          padding: 10px 10px 8px 10px;
+          padding: 10px 10px 6px 10px;
           display: flex;
           align-items: center
           flex-direction: row;

@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+input,textarea {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -webkit-appearance: none;
+  max-width: 100%;
+}

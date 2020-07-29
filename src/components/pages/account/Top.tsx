@@ -126,11 +126,13 @@ export const Top: React.FC = () => {
 
         .introduction{
           text-align: justify;
-          padding: 40px 28px;
-          box-sizing: border-box;
-          bottom: 0;
-          max-width: 640px;
-          margin: 0 auto;
+          bottom: 20px;
+          width: 90%;
+          max-width: 520px;
+          position: fixed;
+          left: 50%;
+          transform: translateX(-50%);
+          -webkit- transform: translateX(-50%);
         }
         .intro-title {
           font-weight: bold;

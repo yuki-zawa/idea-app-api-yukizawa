@@ -7,7 +7,7 @@ const linkStyle = {
   display: "block",
   cursor: "pointer",
   fontSize: "14px",
-  marginBottom: "30px",
+  he: "ight14px",
   color: "#579AFF"
 };
 const backLinkStyle = {
@@ -85,7 +85,11 @@ export const AccountCreate: React.FC = () => {
         <ArrowLeft size={24}/>
       </Link>
       <div className="err">{err}</div>
-      <h1 className="title">STOCKROOMを始める</h1>
+      <div className="label-container">
+        <h1 className="title">STOCKROOMを始める</h1>
+        <Link to='/account/login' style={linkStyle}>ログインはこちら</Link>
+      </div>
+      
       <div className="mail-form">
         <label className="mail-form_label">メールアドレス</label>
         <input className="mail-form_input" type="text" placeholder="メールアドレス" onChange={handleFieldChange} name="email"/>
@@ -94,19 +98,17 @@ export const AccountCreate: React.FC = () => {
         <label className="password-form_label">パスワード</label>
         <div className="pass_inner-container">
           <input className="password-form_input" type="password" placeholder="パスワード" onChange={handleFieldChange} name="password"/>
-          <Eye size={24} color="black" onMouseDown={() => appear('password')} onTouchStart={() => appear('password')} onTouchEnd={() => disAppear('password')} onMouseUp={() => disAppear('password')}/>
+          <Eye size={20} color="#333" onMouseDown={() => appear('password')} onTouchStart={() => appear('password')} onTouchEnd={() => disAppear('password')} onMouseUp={() => disAppear('password')}/>
         </div>
       </div>
       <div className="password-form">
         <label className="password-form_label">パスワード(確認)</label>
         <div className="pass_inner-container">
           <input className="password-form_input" type="password" placeholder="パスワード(確認)" onChange={handleFieldChange} name="password_confirmation"/>
-          <Eye size={24} color="black" onMouseDown={() => appear('password_confirmation')} onMouseUp={() => disAppear('password_confirmation')} onTouchStart={() => appear('password_confirmation')} onTouchEnd={() => disAppear('password_confirmation')}/>
+          <Eye size={20} color="#333" onMouseDown={() => appear('password_confirmation')} onMouseUp={() => disAppear('password_confirmation')} onTouchStart={() => appear('password_confirmation')} onTouchEnd={() => disAppear('password_confirmation')}/>
         </div>
       </div>
-      <p>
-        <Link to='/account/login' style={linkStyle}>ログインはこちら</Link>
-      </p>
+      
       <div className="button-container">
         <button onClick={createUser}>
           登録する
@@ -128,9 +130,15 @@ export const AccountCreate: React.FC = () => {
           align-items: center;
         }
 
+        .label-container{
+          display: flex;
+          align-items: flex-end;;
+          margin-bottom: 32px;
+        }
         .title {
           font-size: 18px;
-          margin-bottom: 32px;
+          margin-right: 8px;
+          height: 18px;
         }
 
         .mail-form, .password-form {
@@ -159,9 +167,12 @@ export const AccountCreate: React.FC = () => {
           background: transparent;
           border: none;
           outline: none;
+          padding: 0;
+          margin: 0;
         }
         .pass_inner-container{
           display: flex;
+          align-items: center;
           padding: 0.5rem 0.5rem;
           border: none;
           border-bottom: #FEB342 2px solid;
