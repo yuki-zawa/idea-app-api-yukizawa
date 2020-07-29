@@ -27,6 +27,9 @@ export const MailConfirm: React.FC = (props: any) => {
       <style jsx>{`
         .container {
           padding: 1rem 2rem;
+          padding: 1rem 2rem;
+          max-width: 520px;
+          margin: 0 auto;
         }
 
         .title {
@@ -38,6 +41,7 @@ export const MailConfirm: React.FC = (props: any) => {
         .info {
           margin-top: 120px;
           font-size: 16px;
+          line-height: 1.7em;
         }
 
         .btn-container {

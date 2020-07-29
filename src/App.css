@@ -43,4 +43,6 @@ input,textarea {
   -webkit-box-sizing: border-box;
   -webkit-appearance: none;
   max-width: 100%;
+  background: none;
+  outline: #FEB342;
 }

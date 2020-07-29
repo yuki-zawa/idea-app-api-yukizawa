@@ -21,7 +21,7 @@ export interface EditParam {
   idea_tags: any
 }
 
-const priorityLables = ["ひらめき度を設定しよう", "いいことを思いついた！", "なかなかいいだ！", "これはすごいだ！", "君は天才だ！", "世紀の大発見だ！"];
+const priorityLables = ["ひらめき度を設定しよう", "いいことを思いついた！", "なかなかいいひらめきだ！", "これはすごいひらめきだ！", "君は天才だ！", "世紀の大発見だ！"];
 
 export const IdeaDetail: React.FC = (props: any) => {
   const history = useHistory();
