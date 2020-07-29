@@ -80,7 +80,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
   }
 
   const pullUp = () => {
-    // document.getElementsByClassName('tag-search-header')[0].classList.remove('active');
+    document.getElementsByClassName('tag-search-header')[0].classList.remove('active');
   }
 
   const fetchGenreTags = async () => {
