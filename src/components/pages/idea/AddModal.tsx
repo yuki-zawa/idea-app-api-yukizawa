@@ -397,10 +397,9 @@ export const AddModal: React.FC = (props: any) => {
             margin-bottom: 16px;
             display: flex;
             align-items: center;
-          }
-          .title-name-container div{
             width: 100%;
           }
+        
           .title-name-container::before{
             content: " ";
             width: 2px;

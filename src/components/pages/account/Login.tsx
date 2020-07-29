@@ -26,7 +26,7 @@ const createLinkStyle = {
   display: "block",
   cursor: "pointer",
   fontSize: "14px",
-  marginBottom: "30px",
+  height: "14px",
   color: "#579AFF"
 };
 
@@ -140,7 +140,10 @@ export const AccountLogin: React.FC = (props: any) => {
         <ArrowLeft size={24}/>
       </Link>
       <div className="err">{err}</div>
-      <h1 className="title">ログイン</h1>
+      <div className="label-container">
+        <h1 className="title">ログイン</h1>
+        <Link className="label_sub" to='/account/create' style={createLinkStyle}>新規登録はこちら</Link>
+      </div>
       <div className="form">
         <div className="mail-form">
           <label>メールアドレス</label>
@@ -150,10 +153,10 @@ export const AccountLogin: React.FC = (props: any) => {
           <label>パスワード</label>
           <div className="pass_inner-container">
             <input className="password-form_input" ref={ passwordRef } type="password" placeholder="パスワード" name="password"/>
-            <Eye size={24} color="black" onMouseDown={() => appear('password')} onTouchStart={() => appear('password')} onTouchEnd={() => disAppear('password')} onMouseUp={() => disAppear('password')}/>
+            <Eye size={20} color="#333" onMouseDown={() => appear('password')} onTouchStart={() => appear('password')} onTouchEnd={() => disAppear('password')} onMouseUp={() => disAppear('password')}/>
           </div>
           <Link to='/password' style={passwordForgotLinkStyle}>➡︎パスワードを忘れた方はこちら</Link>
-          <Link to='/account/create' style={createLinkStyle}>新規登録はこちら</Link>
+          
         </div>
         <div className="button-container">
           <button ref={ buttonRef } onClick={ send }>
@@ -177,10 +180,15 @@ export const AccountLogin: React.FC = (props: any) => {
           justify-content: center;
           align-items: center;
         }
-
+        .label-container{
+          display: flex;
+          align-items: flex-end;;
+          margin-bottom: 32px;
+        }
         .title {
           font-size: 18px;
-          margin-bottom: 32px;
+          margin-right: 8px;
+          height: 18px;
         }
 
         .mail-form {
@@ -202,7 +210,6 @@ export const AccountLogin: React.FC = (props: any) => {
           font-size: 18px;
           box-sizing: border-box;
         }
-
         .password-form_input{
           font-size: 18px;
           box-sizing: border-box;
@@ -210,9 +217,12 @@ export const AccountLogin: React.FC = (props: any) => {
           background: transparent;
           border: none;
           outline: none;
+          padding: 0;
+          margin: 0;
         }
         .pass_inner-container{
           display: flex;
+          align-items: center;
           padding: 0.5rem 0.5rem;
           border: none;
           border-bottom: #FEB342 2px solid;
