@@ -2,8 +2,7 @@ import React, { useRef, useContext, useEffect, useCallback, useState } from 'rea
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from "../../common/context/provider";
-import { ArrowLeft, Eye } from 'react-feather';
-import { isIOS } from 'react-device-detect';
+import { ArrowLeft } from 'react-feather';
 
 const backLinkStyle = {
   display: "block",
@@ -26,7 +25,7 @@ const createLinkStyle = {
   display: "block",
   cursor: "pointer",
   fontSize: "14px",
-  height: "14px",
+  marginBottom: "30px",
   color: "#579AFF"
 };
 
@@ -37,6 +36,7 @@ export const AccountLogin: React.FC = (props: any) => {
   const buttonRef = useRef(document.createElement("button"));
 
   const [err, setErr] = useState("");
+
   const send = async () => {
     try {
       if(!mailRef.current.value || !passwordRef.current.value) return;
@@ -51,13 +51,8 @@ export const AccountLogin: React.FC = (props: any) => {
       .catch(err => console.log(err));
       // set Authorization header
       axios.defaults.headers.common['Authorization'] = 'Bearer ' + user.token;
-      //pwaならlocalstorageに保存
-      if (window.matchMedia('(display-mode: standalone)').matches && isIOS) {
-        localStorage.setItem('token', user.token);
-      } else {
-        //cookieに保存
-        document.cookie = `token=${user.token}`
-      }
+      //cookieに保存
+      document.cookie = `token=${user.token}`
       
       setAuth({
         isLogged: true,
@@ -82,10 +77,10 @@ export const AccountLogin: React.FC = (props: any) => {
   const setUserData = useCallback(async () => {
     try {
       let TokenInCookie = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-      if(!TokenInCookie || TokenInCookie == "null") return;
-
+      if (!TokenInCookie) return;
       // set Authorization header
       axios.defaults.headers.common['Authorization'] = 'Bearer ' + TokenInCookie;
+
       const user = await axios.get(
         '/api/v1/users/me'
       )
@@ -107,28 +102,7 @@ export const AccountLogin: React.FC = (props: any) => {
       axios.defaults.headers.common['Authorization'] = '';
       console.log(err);
     }
-  }, [authState, setAuth, props.history]);
-
-  const autoLogin = async () => {
-    if(window.matchMedia('(display-mode: standalone)').matches && isIOS){
-      var token = localStorage.getItem("token");
-      if(token){
-        document.cookie = `token=${token}`
-      }
-    }
-  }
-
-  autoLogin();
-
-  const appear = (name: string) => {
-    const input = document.getElementsByName(name);
-    input[0].setAttribute('type','text');
-  }
-
-  const disAppear = (name: string) => {
-    const input = document.getElementsByName(name);
-    input[0].setAttribute('type','password');
-  }
+  }, [authState, setAuth, props.history])
 
   useEffect(() => {
     setUserData();
@@ -137,26 +111,21 @@ export const AccountLogin: React.FC = (props: any) => {
   return (
     <div className="container">
       <Link to='/' style={backLinkStyle}>
-        <ArrowLeft size={24}/>
+          <ArrowLeft size={24}/>
       </Link>
       <div className="err">{err}</div>
-      <div className="label-container">
-        <h1 className="title">ログイン</h1>
-        <Link className="label_sub" to='/account/create' style={createLinkStyle}>新規登録はこちら</Link>
-      </div>
+      <h1 className="title">ログイン</h1>
       <div className="form">
         <div className="mail-form">
           <label>メールアドレス</label>
-          <input className="login-form_input" ref={ mailRef } type="text" placeholder="メールアドレス"/>
+          <input ref={ mailRef } type="text" placeholder="メールアドレス"/>
         </div>
         <div className="password-form">
           <label>パスワード</label>
-          <div className="pass_inner-container">
-            <input className="password-form_input" ref={ passwordRef } type="password" placeholder="パスワード" name="password"/>
-            <Eye size={20} color="#333" onMouseDown={() => appear('password')} onTouchStart={() => appear('password')} onTouchEnd={() => disAppear('password')} onMouseUp={() => disAppear('password')}/>
-          </div>
-          <Link to='/password' style={passwordForgotLinkStyle}>➡︎パスワードを忘れた方はこちら</Link>
-          
+          <input ref={ passwordRef } type="password" placeholder="パスワード"/>
+          {/* FIXME パスワードを忘れた方はこちら 機能もつける */}
+          <Link to='/' style={passwordForgotLinkStyle}>➡︎パスワードを忘れた方はこちら</Link>
+          <Link to='/account/create' style={createLinkStyle}>新規登録はこちら</Link>
         </div>
         <div className="button-container">
           <button ref={ buttonRef } onClick={ send }>
@@ -168,9 +137,7 @@ export const AccountLogin: React.FC = (props: any) => {
 
       <style jsx>{`
         .container {
-          padding: 60px 24px 0 24px;
-          max-width: 360px;
-          margin: 0 auto;
+            padding: 60px 24px 0 24px;
         }
 
         .err {
@@ -180,18 +147,13 @@ export const AccountLogin: React.FC = (props: any) => {
           justify-content: center;
           align-items: center;
         }
-        .label-container{
-          display: flex;
-          align-items: flex-end;;
-          margin-bottom: 32px;
-        }
+
         .title {
           font-size: 18px;
-          margin-right: 8px;
-          height: 18px;
+          margin-bottom: 32px;
         }
 
-        .mail-form {
+        .mail-form, .password-form {
           margin-bottom: 24px;
         }
 
@@ -201,32 +163,14 @@ export const AccountLogin: React.FC = (props: any) => {
           font-size: 12px;
         }
 
-        .login-form_input {
+        .form input {
           padding: 0.5rem 0.5rem;
           width: 100%;
           border: none;
           border-bottom: #FEB342 2px solid;
-          background-color: rgb(232, 240, 254);
+          background-color: #E3EAF5;
           font-size: 18px;
           box-sizing: border-box;
-        }
-        .password-form_input{
-          font-size: 18px;
-          box-sizing: border-box;
-          width: calc(100% - 24px);
-          background: transparent;
-          border: none;
-          outline: none;
-          padding: 0;
-          margin: 0;
-        }
-        .pass_inner-container{
-          display: flex;
-          align-items: center;
-          padding: 0.5rem 0.5rem;
-          border: none;
-          border-bottom: #FEB342 2px solid;
-          background-color: rgb(232, 240, 254);
         }
 
         .button-container {
@@ -242,11 +186,6 @@ export const AccountLogin: React.FC = (props: any) => {
           background-color: #FEB342;
           font-size: 16px;
           border-radius :4px;
-        }
-
-        .button-container button:hover {
-          color: white;
-          background: #EC920C;
         }
       `}</style>
     </div>

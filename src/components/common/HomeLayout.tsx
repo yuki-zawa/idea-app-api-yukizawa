@@ -22,7 +22,7 @@ export const HomeLayout: React.FC<HomeLayoutProps> = ({ children, title }) => {
 
         main {
           width: 100%;
-          background-color: #F5F5F5;
+          background-color: #E3EAF5;
           -ms-overflow-style: none;    /* IE, Edge 対応 */
           scrollbar-width: none;       /* Firefox 対応 */
         }
