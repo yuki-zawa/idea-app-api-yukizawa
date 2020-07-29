@@ -17,20 +17,13 @@ import { SortModal } from "./SortModal";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     inputRoot: {
-      // color: 'inherit',
-      // padding: theme.spacing(0, 0, 0, 1.5),
-      // width: '100%',
+      width: '100%'
     },
     inputInput: {
       padding: theme.spacing(0),
-      // vertical padding + font size from searchIcon
-      // paddingLeft: `calc(0.25rem + ${theme.spacing(3)}px)`,
-      // transition: theme.transitions.create('width'),
-      // width: '100%',
+      width: '100%',
       [theme.breakpoints.up('sm')]: {
-        // width: '100%',
         '&:focus': {
-          // width: '20ch',
         },
       },
     },
@@ -124,11 +117,6 @@ export const IdeaList: React.FC = (props: any) => {
 
   return (
     <HomeLayout title="STOCKROOM">
-      <Link to='/settings'>
-        <div className="user-btn footer-btn">
-            <Settings color="white" size="28"/>
-        </div>
-      </Link>
       <div className="list-header">
         <div className="list-header-inner">
           <div className="search">
@@ -245,12 +233,12 @@ export const IdeaList: React.FC = (props: any) => {
         .container {
           height: calc(100vh - 32px);
           width: 100%;
-          padding: 0 12px 72px 12px;
+          padding: 48px 12px 72px 12px;
           box-sizing: border-box;
           overflow-y: scroll;
           background-color: #F5F5F5;
           max-width: 1000px;
-          margin: 128px auto 0 auto;
+          margin: 108px auto 0 auto;
           display: flex;
           flex-wrap: wrap;
           justify-content: space-around;
@@ -380,6 +368,8 @@ export const IdeaList: React.FC = (props: any) => {
           margin-bottom: 10px;
           font-size: 20px;
         }
+
+        
       `}</style>
     </HomeLayout>
   );

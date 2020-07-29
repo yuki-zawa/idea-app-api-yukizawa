@@ -67,11 +67,16 @@ export const SortModal: React.FC<SortModalProps> = (props: any) => {
           border-radius: 4px;
           box-shadow: rgba(233, 233, 233, 0.25) 0px 0px 8px 0px, rgba(163, 163, 163, 0.25) 0px 2px 6px 0px;
           position: absolute;
-          top: 110px;
+          top: 120px;
           max-width: 320px;
           right: 16px;
           left: auto;
           z-index: 160;
+        }
+        @media (min-width: 1000px){
+          .container {
+            right: calc(50% - 500px);
+          }
         }
 
         .header {

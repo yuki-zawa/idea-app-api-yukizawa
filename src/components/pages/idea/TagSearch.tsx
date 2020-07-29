@@ -4,7 +4,7 @@ import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import InfiniteScroll from "react-infinite-scroller";
 import { EditTagModal } from "./EditTagModal";
-import { Tag, Search, ArrowRight, MoreHorizontal, X } from 'react-feather';
+import { Tag, Search, Edit2, CheckCircle, X } from 'react-feather';
 
 const SearchInputStyle = {
   width: "100%",
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
       // paddingLeft: `4px`,
       // transition: theme.transitions.create('width'),
 			width: '100%',
-			fontSize: '14px',
+			fontSize: '16px',
       [theme.breakpoints.up('sm')]: {
         width: '100%',
         '&:focus': {
@@ -259,6 +259,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
               {/* <ArrowRight className="tag-search-btn_icon" size={24} color="#333" /> */}
             </button>
             <button className="tag-search_btn" onClick={filter}>
+              <CheckCircle color="white" size="16"/>
               <span className="tag-search-btn_text">絞り込む</span>
               {/* <ArrowRight className="tag-search-btn_icon" size={24} color="#333" /> */}
             </button>
@@ -296,7 +297,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                           <span data-id={0}>{selectedGenreTag.name}</span>
                         </div>
                         {/* <button data-id={selectedGenreTag.id} className="tag-edit-btn" onClick={() => openEditTagModal(selectedGenreTag)}>
-                          <MoreHorizontal data-id={selectedGenreTag.id} size={18} color="#333" />
+                          <  Edit2 data-id={selectedGenreTag.id} size={18} color="#333" />
                         </button> */}
                       </div> : ''
                     }
@@ -320,7 +321,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                               <span data-id={index}>{genreTag.name}</span>
                             </p>
                             <button data-id={genreTag.id} className="tag-edit-btn" onClick={() => openEditTagModal(genreTag)}>
-                              <MoreHorizontal data-id={genreTag.id} size={18} color="#333" />
+                              <  Edit2 data-id={genreTag.id} size={16} color="#7A7A7A" />
                             </button>
                           </div>
                         )
@@ -331,7 +332,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
               </div>
             </div>
             <div className="tag-container">
-            <label className="tag-container_label">アイデア</label>
+            <label className="tag-container_label">タグ</label>
             <div className="tag-search">
               <div className="search">
                 <InputBase
@@ -361,7 +362,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                             <span data-id={index}>{ideaTag.name}</span>
                           </p>
                           <button data-id={ideaTag.id} className="tag-edit-btn" onClick={() => openEditTagModal(ideaTag)}>
-                            <MoreHorizontal data-id={ideaTag.id} size={18} color="#333" />
+                            <  Edit2 data-id={ideaTag.id} size={16} color="#7A7A7A" />
                           </button>
                         </div>
                       )
@@ -387,7 +388,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                             <span data-id={index}>{ideaTag.name}</span>
                           </p>
                           <button data-id={ideaTag.id} className="tag-edit-btn" onClick={() => openEditTagModal(ideaTag)}>
-                            <MoreHorizontal data-id={ideaTag.id} size={18} color="#333" />
+                            <  Edit2 data-id={ideaTag.id} size={16} color="#7A7A7A" />
                           </button>
                         </div>
                       )
@@ -578,11 +579,11 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
 				.search {
           osition: relative;
 					display: flex;
-					margin-bottom: 20px;
+					margin-bottom: 14px;
 					border-radius: 2px;
 					background-color: #EBEBEB;
 					align-items: center;
-					padding: 8px 10px;
+					padding: 4px 6px;
 					box-sizing: border-box;
 				}
 				.search-icon {
@@ -612,6 +613,9 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
         }
         .tag-search_btn:hover{
           background: #2E72D8;
+        }
+        .tag-search-btn_text{
+          margin-left: 6px;
         }
         .tag-search_btn_release{
           background: #EBEBEB;

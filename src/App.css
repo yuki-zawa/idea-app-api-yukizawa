@@ -45,4 +45,5 @@ input,textarea {
   max-width: 100%;
   background: none;
   outline: #FEB342;
+  border-radius: none;
 }

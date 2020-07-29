@@ -88,6 +88,8 @@ export const Top: React.FC = () => {
           margin: 0 auto;
           width: 100%;
           position: fixed;
+          left: 50%;
+          transform: translateX(-50%);
         }
 
         .title {

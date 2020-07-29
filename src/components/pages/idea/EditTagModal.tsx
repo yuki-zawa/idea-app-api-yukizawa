@@ -42,7 +42,7 @@ export const EditTagModal: React.FC<EditTagModalProps> = (props: any) => {
   }
 
   const deleteTag = async () => {
-    if(window.confirm('本当に削除しますか？')){
+    if(window.confirm('このタグを削除しますか？')){
       var url = '/api/v1/';
       if(props.editTag.color) {
         url += 'genre_tags/';
@@ -102,15 +102,17 @@ export const EditTagModal: React.FC<EditTagModalProps> = (props: any) => {
           padding-bottom: 20px;
         }
         .header{
-          padding: 10px 0 8px 0;
+          padding: 14px 0 8px 0;
           border-bottom: 1px solid #C4C4C4;
+          font-size: 16px;
         }
         .submit-btn {
           color: #579AFF;
+          font-size: 16px;
           font-weight: bold;
           position: absolute;
           right: 10px;
-          top: 8px;
+          top: 7.5px;
         }
         .form-container {
           width: 100%;
@@ -120,6 +122,7 @@ export const EditTagModal: React.FC<EditTagModalProps> = (props: any) => {
 
         .title-input {
           width: 100%;
+          font-size: 16px;
           padding: 4px;
           outline: none;
           border: none;
