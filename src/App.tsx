@@ -12,13 +12,6 @@ import { IdeaList } from './components/pages/idea/List';
 import { IdeaDetail } from './components/pages/idea/Detail';
 import { AuthComponent } from './components/common/Auth';
 import { AddModal } from './components/pages/idea/AddModal'
-import { MailConfirm } from './components/pages/other/MailConfirm';
-import { PasswordConfirm } from './components/pages/other/PasswordConfirm';
-import { Setting } from './components/pages/account/Setting';
-import { Invalid } from './components/pages/other/Invalid';
-import { PasswordChange } from './components/pages/account/PasswordChange';
-import { PasswordChangeApply } from './components/pages/account/PasswordChangeApply';
-import { CurrentPasswordChange } from './components/pages/account/CurrentPasswordChange';
 
 function App() {
   return(
@@ -31,17 +24,10 @@ function App() {
             <Route exact path='/help' component={Help}/>
             <Route exact path='/account/create' component={AccountCreate}/>
             <Route exact path='/account/login' component={AccountLogin}/>
-            <Route exact path='/mail_confirmation' component={MailConfirm}/>
-            <Route exact path='/invalid' component={Invalid}/>
-            <Route exact path='/password/reset' component={PasswordChange}/>
-            <Route exact path='/password' component={PasswordChangeApply}/>
-            <Route exact path='/password_confirmation' component={PasswordConfirm}/>
             <AuthComponent>
               <Route exact path='/home' component={IdeaList}/>
               <Route exact path='/ideas/new' component={AddModal}/>
               <Route exact path='/ideas/:id/detail' component={IdeaDetail}/>
-              <Route exact path='/settings' component={Setting}/>
-              <Route exact path='/password/change' component={CurrentPasswordChange}/>
             </AuthComponent>
           </Switch>
         </BrowserRouter>
@@ -51,11 +37,7 @@ function App() {
 
         html {
           font-family: Avenir, 'Helvetica neue', Helvetica, '游ゴシック', YuGothic, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, 'ＭＳ Ｐゴシック', sans-serif;
-          color: #333;
-        }
-
-        p, h1, h2, h3, h4, h5, h6{
-          color: #333;
+          color: rgba(0, 0, 0, 0.87);
         }
 
         a {
@@ -76,7 +58,6 @@ function App() {
           padding: 0;
           appearance: none;
         }
-
       `}</style>
     </div>
   );

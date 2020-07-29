@@ -1,7 +1,17 @@
-import React from 'react';
-import HeaderIcon from "./../images/header-logo.png"
-import { Settings } from 'react-feather';
-import { Link } from 'react-router-dom';
+import React, {useContext} from 'react';
+import useReactRouter from "use-react-router";
+import { AuthContext } from "./context/provider";
+import axios from "axios";
+
+const linkStyle = {
+  textAlign: "center" as "center",
+  display: "block",
+  height: "8vh",
+  lineHeight: "8vh",
+  paddingLeft: "10px",
+  float: "left" as "left",
+  cursor: "pointer",
+};
 
 type HeaderProps = {
   title: string,
@@ -9,39 +19,43 @@ type HeaderProps = {
   history?: any,
 };
 
+
+
 export const Header: React.FC<HeaderProps> = (props) => {
+  const path = useReactRouter().location.pathname;
+  const { authState, setAuth } = useContext(AuthContext);
+
+  const send = async () => {
+    // set Authorization empty header
+    axios.defaults.headers.common['Authorization'] = '';
+    //cookie削除
+    document.cookie = "token=; expires=0";
+    setAuth({
+      isLogged: false,
+      user: null
+    });
+    window.location.pathname = '/'
+    return;
+  }
+
   return (
     <header>
-      <div className="header-container">
-        <img className="header-icon" src={HeaderIcon} alt="STOCKROOM"/>
-        <Link to='/settings'>
-          <Settings color="#7A7A7A" size={24} />
-        </Link>
-      </div>
-      
-      
+      <ul>
+        <li className="title">{props.title}</li>
+        <button onClick={ send }>
+          ログアウト
+        </button>
+      </ul>
       <style jsx>{`
         header {
           width: 100%;
-          height: 52px;
-          padding: 10px 15px;
+          height: 44px;
           background-color: white;
-          box-sizing: border-box;
           position: fixed;
-          left: 0;
-          top: 0;
-          z-index: 100;
-        }
-        .header-container{
-          max-width: 1000px;
-          margin: 0 auto;
-          justify-content: space-between;
-          display: flex;
-          align-items: center;
-        }
-        .header-icon{
-          height: 32px;
-          width: auto
+            left: 0;
+            top: 0;
+            z-index: 100;
+          box-shadow: 0px 0px 10px gray;
         }
         
         ul {

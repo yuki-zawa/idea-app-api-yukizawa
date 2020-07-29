@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import axios from 'axios';
-import { X, Check } from 'react-feather';
+import { X } from 'react-feather';
 
 type AddTagModalProps = {
   tagState: string,
@@ -64,7 +64,7 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
   const postTag = async () => {
     if (nameRef.current.value === ''){
       //FIXME エラー表示させる
-      window.alert("空白のタグは追加できません。")
+      window.alert("文字が空")
     }
     var url;
     if (tagState === "genre"){
@@ -172,18 +172,13 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
 
   return (
     <div className="container">
-        <div className="top-part"> 
-          <span onClick={props.closeFunc} className="cross-btn">
-            <X size={20} />
-          </span>
-          <p className="header-title">タグの編集</p>
-          <span onClick={completeModal} className="check-btn">
-            <Check size={24} color="#579AFF" />
-          </span>
-        </div>
-      
+      <span onClick={props.closeFunc} className="cross-btn">
+          <X size={20}  />
+      </span>
+      <span onClick={completeModal} className="check-btn">完了</span>
+      <p className="header-title">タグの編集</p>
       <div className="change-tag">
-        <span id="genre" onClick={changeTag} style={{color: tagState === "genre" ? "" : "lightgray"}}>カテゴリー</span>｜<span id="idea" onClick={changeTag} style={{color: tagState === "idea" ? "" : "lightgray"}}>タグ</span>
+        <span id="genre" onClick={changeTag} style={{color: tagState === "genre" ? "" : "lightgray"}}>カテゴリータグ</span>｜<span id="idea" onClick={changeTag} style={{color: tagState === "idea" ? "" : "lightgray"}}>アイデアタグ</span>
       </div>
 
       <p className="label">選択中のカテゴリー</p>
@@ -198,7 +193,7 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
           :
           selectedIdeaTags.map((tag: any, index: number) => {
             return(
-              <p className="tag" key={index} style={{backgroundColor: "rgb(232, 240, 254)"}}>
+              <p className="tag" key={index} style={{backgroundColor: "#E3EAF5"}}>
                 <X size={14} onClick={(event) => selectDelete("idea", event)} data-id={tag.id}/>
                 <span>{tag.name}</span>
               </p>
@@ -206,11 +201,11 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
           })
         }
       </div>
-      <p className="label">カテゴリーを選択する</p>
+      <p className="label">カテゴリーを変更する</p>
       <div className="btn-container">
         <input ref={nameRef} onChange={handleChange} className="input-name" placeholder="新しいカテゴリーを作成"/>
         <button onClick={postTag} className="add-btn">
-          追加する
+          作成する
         </button>
       </div>
       
@@ -218,7 +213,7 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
         {
           !showLoader && tags.map((tag: any, index: number) => {
             return(
-              <p className="tag" key={index} data-id={index} onClick={selectTag} style={{backgroundColor: tagState === "genre"? tag.color :"rgb(232, 240, 254)"}}>{tag.name}</p>
+              <p className="tag" key={index} data-id={index} onClick={selectTag} style={{backgroundColor: tagState === "genre"? tag.color :"#E3EAF5"}}>{tag.name}</p>
             )
           })
         }
@@ -227,77 +222,86 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
         {showLoader ? <CircularProgress style={{ margin: "24px auto" }}/> : ""}
       </div>
       <style jsx>{`
-        // header部分
-        .top-part {
-          margin-bottom: 20px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          max-width: 1000px;
-          margin: 0 auto;
-          padding: 18px 0;
-        }
-        .title{
-          font-size: 14px;
-          color: #333;
-        }
         .container {
           height: calc(100% - 40px);
-          position: absolute;
-          top: 40px;
-          left: 0;
           width: 100%;
-          padding: 1.25rem 1rem;
           box-sizing: border-box;
+          margin-top: 40px;
           background-color: white;
-          z-index: 100;
+          padding: 28px 20px;
+          position: absolute;
+          top: 0;
+          left: 0;
         }
+
+        .inner-header {
+          text-align: center;
+          position: relative;
+          display: inline-block;
+          width: 100%;
+        }
+
+        .header-title{
+          text-align: center;
+          margin-bottom: 32px;
+          font-size: 14px;
+          color: #7A7A7A;
+        }
+
+        .cross-btn {
+          left: 0;
+          right: auto;
+          position: absolute;
+        }
+
+        .check-btn {
+          font-size: 16px;
+          font-weight: bold;
+          color: #579AFF;
+          left: auto;
+          right: 0;
+          position: absolute;
+        }
+
         .change-tag{
           text-align: center;
           margin-bottom: 36px;
         }
 
         .input-name {
-          font-size: 16px;
-          line-height: 18px;
-          box-sizing: border-box;
-          padding: 6px 8px;
+          padding: 8px 6px;
           background: #FFFFFF;
+          border: 1px solid #C4C4C4;
+          box-sizing: border-box;
           border-radius: 4px;
           width: calc(100% - 80px);
-          color: #333;
-          border: 1px solid #C4C4C4;
-        }
-        .input-name::placeholder {
-          color: #c4c4c4;
         }
 
         .btn-container {
+          margin-bottom: 24px;
           display: flex;
           align-items: center;
           justify-content: space-between;
-          max-width: 1000px;
-          margin: 0 auto 24px auto;
         }
 
         .add-btn {
-          padding: 7px 9px;
-          font-size: 14px;
-          line-height: 18px;
+          padding: 4px 8px;
+          height: 27px;
           right: 20.5px;
-          background-color: #EBEBEB;
+          background: #FFFFFF;
+          border: 1px solid #C4C4C4;
           box-sizing: border-box;
           border-radius: 4px;
+          font-size: 14px;
           text-align: center;
           color: #333;
           
         }
 
         .label {
-          font-size: 14px;
+          font-size: 12px;
           color: #333;
-          max-width: 1000px;
-          margin: 0 auto 12px auto;
+          margin-bottom: 12px;
         }
 
         .selected-tag-container {
@@ -306,11 +310,6 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
           white-space:nowrap;
           overflow-x: scroll;
           -ms-overflow-style: none;
-          max-width: 1000px;
-          margin: 0 auto;
-          flex-wrap: wrap;
-          height: fit-content;
-          min-height: 26px;
         }
 
         .selected-tag-container::-webkit-scrollbar {
@@ -318,33 +317,23 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
         }
 
         .tag {
-          display: inline-block;
-          padding: 2px 4px;
-          font-size: 14px;
-          line-height: 14px;
-          color: #333;
-          border-radius: 2px;
+          display: inline;
+          padding: 2px 6px 1px 6px;
+          border-radius: 4px;
           box-sizing: border-box;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
-
-          display: flex;
-          width: fit-content;
-          align-items: center;
           margin: 0 12px 8px 0;
         }
         .selected-tag-container {
           padding-top: 4px;
           margin-bottom: 44px;
-          display: flex;
         }
 
         .tag-container{
           display: flex;
           flex-wrap: wrap;
-          max-width: 1000px;
-          margin: 0 auto;
         }
       `}</style>
     </div>

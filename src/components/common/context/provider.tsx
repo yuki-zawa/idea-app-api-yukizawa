@@ -41,7 +41,7 @@ export const Provider: React.FC<ProviderProps> = ({ children }) => {
         });
       })
       .catch(() => {
-        document.cookie = "token=; max-age=0";
+        document.cookie = "token=; expires=0";
       });
 
   }, []);
