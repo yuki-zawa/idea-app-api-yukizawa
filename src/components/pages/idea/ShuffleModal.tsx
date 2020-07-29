@@ -96,7 +96,7 @@ export const ShuffleModal: React.FC<ShuffleModalProps> = (props: any) => {
         .container {
           z-index: 1000;
           position: absolute;
-          top: calc(50% - 24px);
+          top: calc(50vh - 24px);
           left: 50%;
           transform: translate(-50%, -50%);
           -webkit-transform: translate(-50%, -50%);
