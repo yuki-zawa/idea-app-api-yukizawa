@@ -76,11 +76,13 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
   }
 
   const pullDown = () => {
-    document.getElementsByClassName('tag-search-header1')[0].classList.add('active');
+    var target = document.getElementsByClassName('tag-search-header') as HTMLCollectionOf<HTMLElement>;
+    target[0].style.transform = "translateY(100vh)";
   }
 
   const pullUp = () => {
-    document.getElementsByClassName('tag-search-header')[0].classList.remove('active');
+    var target = document.getElementsByClassName('tag-search-header') as HTMLCollectionOf<HTMLElement>;
+    target[0].style.transform = "translateY(0vh)";
   }
 
   const fetchGenreTags = async () => {
@@ -240,7 +242,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
 
   return (
     <div className="container">
-      <div className="tag-search-header1">
+      <div className="tag-search-header">
         <div className="search-content">
           <div className="top-part"> 
             <button className="x-icon" onClick={pullUp}>
@@ -415,7 +417,7 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
         .container{
           z-index: 120;
         }
-        .tag-search-header1 {
+        .tag-search-header {
           // text-align: center;
           padding: 8px 12px 8px 12px;
           height: 60px;
@@ -488,9 +490,6 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
           white-space: nowrap;
         }
 
-        .active {
-          transform: translateY(100vh);
-        }
         .search-content {
           width: 100%;
           height: calc(100vh - 52px);
