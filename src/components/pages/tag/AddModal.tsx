@@ -281,11 +281,11 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
         }
 
         .add-btn {
-          padding: 5px 8px;
+          padding: 7px 9px;
           font-size: 14px;
           line-height: 18px;
           right: 20.5px;
-          border: 2px solid #FEB342;
+          background-color: #EBEBEB;
           box-sizing: border-box;
           border-radius: 4px;
           text-align: center;
@@ -308,6 +308,9 @@ export const AddTagModal: React.FC<AddTagModalProps> = (props: any) => {
           -ms-overflow-style: none;
           max-width: 1000px;
           margin: 0 auto;
+          flex-wrap: wrap;
+          height: fit-content;
+          min-height: 26px;
         }
 
         .selected-tag-container::-webkit-scrollbar {

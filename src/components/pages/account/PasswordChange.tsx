@@ -75,12 +75,12 @@ export const PasswordChange: React.FC = () => {
       <div className="password-form">
         <label className="password-form_label">パスワード</label>
         <input className="password-form_input" type="password" placeholder="パスワード" onChange={handleFieldChange} name="password"/>
-        <Eye size={24} color="black" onMouseDown={() => appear('password')} onTouchStart={() => appear('password')} onTouchEnd={() => disAppear('password')} onMouseUp={() => disAppear('password')}/>
+        <Eye size={24} color="#333" onMouseDown={() => appear('password')} onTouchStart={() => appear('password')} onTouchEnd={() => disAppear('password')} onMouseUp={() => disAppear('password')}/>
       </div>
       <div className="password-form">
         <label className="password-form_label">パスワード(確認)</label>
         <input className="password-form_input" type="password" placeholder="パスワード(確認)" onChange={handleFieldChange} name="password_confirmation"/>
-        <Eye size={24} color="black" onMouseDown={() => appear('password_confirmation')} onMouseUp={() => disAppear('password_confirmation')} onTouchStart={() => appear('password_confirmation')} onTouchEnd={() => disAppear('password_confirmation')}/>
+        <Eye size={24} color="#333" onMouseDown={() => appear('password_confirmation')} onMouseUp={() => disAppear('password_confirmation')} onTouchStart={() => appear('password_confirmation')} onTouchEnd={() => disAppear('password_confirmation')}/>
       </div>
       <p>
         <Link to='/' style={linkStyle}>トップへ戻る</Link>

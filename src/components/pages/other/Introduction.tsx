@@ -31,9 +31,9 @@ export const Introduction: React.FC = () => {
     const { authState } = useContext(AuthContext);
     const [linkUrl, setlinkUrl] = useState("/");
     // いい方法がわからなかった
-    const [color, setColor] = useState("black");
+    const [color, setColor] = useState("#333");
     const [backgroundColor, setBackgroundColor] = useState("#FEB342");
-    const [color1, setColor1] = useState("black");
+    const [color1, setColor1] = useState("#333");
 
     const headerLinkStyle = {
         borderBottom: '2px #feb342 solid',
@@ -88,9 +88,9 @@ export const Introduction: React.FC = () => {
     const leave = (type: string) => {
         if(type == 'topStartBtnStyle'){
             setBackgroundColor("#FEB342");
-            setColor("black");
+            setColor("#333");
         }else if(type == 'demandBtnStyle'){
-            setColor1("black");
+            setColor1("#333");
         }
     }
 
@@ -276,7 +276,7 @@ export const Introduction: React.FC = () => {
             .header{
                 background-color: white;
                 padding: 8px 12px;
-                border-bottom: black solid 3px;
+                border-bottom: #333 solid 3px;
                 position: fixed;
                 width: 100%;
                 box-sizing: border-box;
@@ -347,7 +347,7 @@ export const Introduction: React.FC = () => {
             }
             .firstview-caption-body{
                 line-height: 1.4em;
-                border-bottom: black solid 2px;
+                border-bottom: #333 solid 2px;
                 display: inline-block;
                 margin-bottom: 16px;
             }
@@ -482,7 +482,7 @@ export const Introduction: React.FC = () => {
                 font-size: 24px;
                 line-height: 1.4em;
                 font-weight: bold;
-                color: black;
+                color: #333;
                 margin-bottom: 20px;
             }
             .features-mock-img{

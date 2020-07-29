@@ -39,11 +39,13 @@ const loginLinkStyle = {
 };
 const detailLinkStyle = {
   textAlign: "center" as "center",
-  display: "block",
-  height: "36px",
-  lineHeight: "36px",
+  position: "absolute" as "absolute",
+  display: "inline-block",
+  padding: "6px",
   cursor: "pointer",
-  borderRadius: "4px"
+  borderBottom: "2px solid #FEB342",
+  left: "50%",
+  transform: "translateX(-50%)",
 };
 
 export const Top: React.FC = () => {
@@ -71,7 +73,7 @@ export const Top: React.FC = () => {
         <p className="intro-content">
           STOCKROOMとは、「ひらめき」を簡単にストック、整理できるメモアプリです。を一つの場所にまとめることで、スムーズで柔軟な創造活動をサポートします！
             </p>
-        <Link to='/introduction' style={detailLinkStyle}>詳しくはこちら➡︎</Link>
+        <Link to='/introduction' style={detailLinkStyle}>詳しくはこちら</Link>
       </div>
       <style jsx>{`
         .login-container{
@@ -85,15 +87,18 @@ export const Top: React.FC = () => {
           max-width: 600px;
           margin: 0 auto;
           width: 100%;
+          position: fixed;
+          left: 50%;
+          transform: translateX(-50%);
         }
 
         .title {
-          margin-bottom: 80px;
+          margin-bottom: 40px;
           padding-top: 60px;
           padding-left: 12px;
         }
         .top-logo{
-            width: 70px;
+            width: 60px;
             height: auto;
         }
 
@@ -126,7 +131,7 @@ export const Top: React.FC = () => {
 
         .introduction{
           text-align: justify;
-          bottom: 20px;
+          bottom: 80px;
           width: 90%;
           max-width: 520px;
           position: fixed;
@@ -142,6 +147,10 @@ export const Top: React.FC = () => {
 
         .intro-content {
           margin-bottom: 16px;
+          line-height: 1.7em;
+        }
+        .link-btn{
+          border-bottom: 2px solid #FEB342;
         }
 
       `}</style>

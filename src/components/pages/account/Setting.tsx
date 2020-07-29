@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import axios from "axios";
-import { X, Mail, Lock, HelpCircle, LogOut, AlertTriangle} from 'react-feather';
+import { X, Mail, Lock, ArrowRightCircle, LogOut, AlertTriangle} from 'react-feather';
 import { useHistory, Link } from 'react-router-dom';
 import { HomeLayout } from "../../common/HomeLayout";
 import { AuthContext } from "./../../common/context/provider";
@@ -14,6 +14,12 @@ const backLinkStyle = {
   fontWeight: "bold" as "bold",
   position: "absolute" as "absolute",
   fontSize: "24px"
+};
+const btnLinkStyle = {
+  fontSize: "16px", 
+  fontWeight: "bold" as "bold", 
+  // borderBottom: "1px solid #7A7A7A", 
+  lineHeight: "22px"
 };
 
 export const Setting: React.FC = () => {
@@ -72,7 +78,7 @@ export const Setting: React.FC = () => {
               <Mail size={20} color="#7A7A7A" />
             </span>
             <div className="mail-contents">
-              <button className="change-btn">メールアドレス</button>
+              <p className="mail-label">メールアドレス</p>
               <p className="mail-address">{authState.user.email}</p>
             </div>
           </div>
@@ -82,7 +88,7 @@ export const Setting: React.FC = () => {
           </span>
           <div className="pass-contents">
             <Link 
-              to='password/change' className="change-btn" style={{fontSize: "16px", fontWeight: "bold", lineHeight: "22px"}}>
+              to='password/change' className="change-btn" style={btnLinkStyle}>
                 パスワードを変更
             </Link>
           </div>
@@ -92,13 +98,13 @@ export const Setting: React.FC = () => {
             <span className="icon">
               <LogOut size={20} color="#7A7A7A" />
             </span>
-            <button className="link-text" onClick={send}>ログアウト</button>
+            <button className="link-text" onClick={send} style={btnLinkStyle}>ログアウト</button>
           </div>
           <div className="block delete-container">
             <span className="icon">
               <AlertTriangle className="icon" size={20} color="#7A7A7A" />
             </span>
-            <button className="link-text" onClick={deleteAccount}>アカウントを削除</button>
+            <button className="link-text" onClick={deleteAccount} style={btnLinkStyle}>アカウントを削除</button>
           </div>
           <div className="line"></div>
           <div className="block about-container">
@@ -106,7 +112,7 @@ export const Setting: React.FC = () => {
               <DefaultIcon />
             </span>
             <span className="link-text">
-              <Link to="/introduction">STOCKROOMについて</Link>
+              <Link to="/introduction" style={btnLinkStyle}>STOCKROOMについて</Link>
             </span>
           </div>
           {/* <div className="block help-container">
@@ -181,17 +187,16 @@ export const Setting: React.FC = () => {
             cursor: unset;
           }
 
-          .link-text a{
-            color: #333;
+          .mail-label{
+            color: #7A7A7A;
             font-size: 16px;
             line-height: 22px;
-            font-weight: bold;
           }
           .mail-address{
-            font-size: 14px;
+            font-size: 16px;
             line-height: 24px;
             margin-left: 4px;
-            color: #7A7A7A;
+            color: #333;
           }
         `}</style>
       </div>

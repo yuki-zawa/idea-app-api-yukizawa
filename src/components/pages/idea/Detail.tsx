@@ -9,7 +9,7 @@ import { AddTagModal } from './../tag/AddModal'
 import { Icon } from './../../common/Const'
 import AddBtn from './../../images/add-btn.svg'
 import StarIcon from '@material-ui/icons/Star';
-import { X, Edit3, Trash2, Check, PlusCircle } from 'react-feather';
+import { X,   Edit2, Trash2, Check, PlusCircle } from 'react-feather';
 import { Emoji } from 'emoji-mart';
 import { IconsModal } from './../../common/IconsModal';
 import { Card } from './Card'
@@ -21,7 +21,7 @@ export interface EditParam {
   idea_tags: any
 }
 
-const priorityLables = ["ひらめき度を設定しよう", "いいことを思いついた！", "なかなかいいだ！", "これはすごいだ！", "君は天才だ！", "世紀の大発見だ！"];
+const priorityLables = ["ひらめき度を設定しよう", "いいことを思いついた！", "なかなかいいひらめきだ！", "これはすごいひらめきだ！", "君は天才だ！", "世紀の大発見だ！"];
 
 export const IdeaDetail: React.FC = (props: any) => {
   const history = useHistory();
@@ -153,7 +153,7 @@ export const IdeaDetail: React.FC = (props: any) => {
   }
 
   const deleteIdea = async () => {
-    if (window.confirm("本当にこのアイデアを削除しますか?")) { 
+    if (window.confirm("このひらめきを削除しますか?")) { 
       await axios
         .delete(`/api/v1/ideas/${match.params.id}`)
         .then(res => {
@@ -261,7 +261,7 @@ export const IdeaDetail: React.FC = (props: any) => {
                 <Trash2 size={24} color="#333" />
               </span>
               <span className="edit" onClick={editMode}>
-                <Edit3 size={24} color="#333" />
+                <  Edit2 size={24} color="#333" />
               </span>
             </div> : "" }
             
