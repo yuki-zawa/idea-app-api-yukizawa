@@ -99,8 +99,8 @@ export const AddModal: React.FC = (props: any) => {
     })
   }
 
-  const openModal = (event: any) => {
-    setTagState(event.target.id);
+  const openModal = (type: string) => {
+    setTagState(type);
     setOpenAddTagModal(true);
   }
 
@@ -211,7 +211,7 @@ export const AddModal: React.FC = (props: any) => {
 
           <p className="tag-label">カテゴリー</p>
           <div className="genre-tag-container">
-            <span className="plus" onClick={openModal}>
+            <span className="plus" onClick={() => openModal("genre")}>
               <PlusCircle size={20} color="#333" id="genre"/>
               {/* <img className="plus-img" src={AddBtn} alt="" id="genre"/> */}
             </span>
@@ -223,7 +223,7 @@ export const AddModal: React.FC = (props: any) => {
           </div>
           <p className="tag-label">タグ</p>
           <div className="idea-tag-container">
-            <span className="plus" onClick={openModal}>
+            <span className="plus" onClick={() => openModal("idea")}>
               <PlusCircle size={20} color="#333" id="idea"/>
               {/* <img className="plus-img" src={AddBtn} alt="" id="genre"/> */}
             </span>

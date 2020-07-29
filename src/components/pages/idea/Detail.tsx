@@ -172,8 +172,8 @@ export const IdeaDetail: React.FC = (props: any) => {
     putIdea();
   }
 
-  const openModal = (event: any) => {
-    setTagState(event.target.id);
+  const openModal = (type: string) => {
+    setTagState(type);
     setOpenAddTagModal(true);
   }
 
@@ -346,7 +346,7 @@ export const IdeaDetail: React.FC = (props: any) => {
                   !editState ?
                   (idea.genre_tags[0] ? <span className="genre-tag tag" style={{backgroundColor: idea.genre_tags[0].color}}>{idea.genre_tags[0].name}</span> : ''):
                   <div className="genre-tag-container">
-                    <span className="plus" id="genre" onClick={openModal}>
+                    <span className="plus" onClick={() => openModal("genre")}>
                       <PlusCircle size={20} color="#333" />
                       {/* <img className="plus-img" src={AddBtn} alt="" id="genre"/> */}
                     </span>
@@ -369,7 +369,7 @@ export const IdeaDetail: React.FC = (props: any) => {
                   })
                   :
                   <div className="idea-tag-container">
-                    <span className="plus" id="idea" onClick={openModal}>
+                    <span className="plus" id="idea" onClick={() => openModal("idea")}>
                       <PlusCircle size={20} color="#333" />
                       {/* <img className="plus-img" src={AddBtn} alt="" id="idea"/> */}
                     </span>
