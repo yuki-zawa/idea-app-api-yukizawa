@@ -13,7 +13,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
   return (
     <header>
       <div className="header-container">
-        <img className="header-icon" src={HeaderIcon} alt="STOCKROOM"/>
+        <img className="header-icon" src={HeaderIcon} alt="STOCKROOM" onClick={() => window.location.href="/home"}/>
         <Link to='/settings'>
           <Settings color="#7A7A7A" size={24} />
         </Link>
@@ -41,7 +41,8 @@ export const Header: React.FC<HeaderProps> = (props) => {
         }
         .header-icon{
           height: 32px;
-          width: auto
+          width: auto;
+          cursor: pointer;
         }
         
         ul {
