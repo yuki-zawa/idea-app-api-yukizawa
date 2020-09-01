@@ -71,7 +71,7 @@ export const Top: React.FC = () => {
       <div className="introduction">
         <h2 className="intro-title">What is STOCKROOM ?</h2>
         <p className="intro-content">
-          STOCKROOMとは、「ひらめき」を簡単にストック、整理できるメモアプリです。を一つの場所にまとめることで、スムーズで柔軟な創造活動をサポートします！
+          STOCKROOMとは、「ひらめき」を簡単にストック、整理できるメモアプリです。ひらめきを一つの場所にまとめることで、スムーズで柔軟な創造活動をサポートします！
             </p>
         <Link to='/introduction' style={detailLinkStyle}>詳しくはこちら</Link>
       </div>
