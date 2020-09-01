@@ -169,8 +169,8 @@ export const IdeaDetail: React.FC = (props: any) => {
     putIdea();
   }
 
-  const openModal = (event: any) => {
-    setTagState(event.target.id);
+  const openModal = (type: string) => {
+    setTagState(type);
     setOpenAddTagModal(true);
   }
 
@@ -228,7 +228,12 @@ export const IdeaDetail: React.FC = (props: any) => {
 
   return (
     <HomeLayout title="STOCKROOM">
-      <div className="container">
+      {editState && openIconsModal ? <IconsModal setIcon={setIdeaIcon} closeModal={changeIconsModal}/> : ""}
+      <div className="container" onClick={() => {
+        if (openIconsModal) {
+          setOpenIconsModal(false)
+        }
+      }}>
         <div className="top-part"> 
           <button onClick={() => history.goBack()} className="cancel-btn">
             <X size={20} color="#333"/>
@@ -254,14 +259,9 @@ export const IdeaDetail: React.FC = (props: any) => {
                     !editState ?
                     <p className="icon">{idea.icon ? idea.icon : "😓"}</p>
                     :<div>
-                        <select name="category" id="category" className="styled-select">
-                        <option value="アイコンを選択 ▼">アイコンを選択 ▼</option>
-                        {
-                          Icon.icons.map((icon: any, i) => {
-                            return <option value={icon} key={i} selected={icon === editData.idea.icon} >{icon}</option>
-                          })
-                        }
-                        </select>
+                      <button className="icon-add_btn" onClick={() => changeIconsModal(true)}>
+                        {editData.idea.icon ? <Emoji emoji={editData.idea.icon} size={40}/> : "アイコンを追加"}
+                      </button>
                     </div>
                 }   
                 {/* https://material-ui.com/components/rating/ */}
@@ -312,9 +312,12 @@ export const IdeaDetail: React.FC = (props: any) => {
               <div className="genre-tag-container">
                 {
                   !editState ?
-                  (idea.genre_tags[0] ? <span className="genre-tag tag">{idea.genre_tags[0].name}</span> : ''):
-                  <div>
-                    <span className="plus" id="genre" onClick={openModal}>+</span>
+                  (idea.genre_tags[0] ? <span className="genre-tag tag" style={{backgroundColor: idea.genre_tags[0].color}}>{idea.genre_tags[0].name}</span> : ''):
+                  <div className="genre-tag-container">
+                    <span className="plus" onClick={() => openModal("genre")}>
+                      <PlusCircle size={20} color="#333" />
+                      {/* <img className="plus-img" src={AddBtn} alt="" id="genre"/> */}
+                    </span>
                     {selectedGenreTag.id !== 0 ? 
                     <span className="genre-tag tag" style={{backgroundColor: selectedGenreTag.color}}>
                       <X size={14} onClick={(event) => selectDelete("genre", event)}/>
@@ -333,8 +336,11 @@ export const IdeaDetail: React.FC = (props: any) => {
                     )
                   })
                   :
-                  <div>
-                    <span className="plus" id="idea" onClick={openModal}>+</span>
+                  <div className="idea-tag-container">
+                    <span className="plus" id="idea" onClick={() => openModal("idea")}>
+                      <PlusCircle size={20} color="#333" />
+                      {/* <img className="plus-img" src={AddBtn} alt="" id="idea"/> */}
+                    </span>
                     {
                       selectedIdeaTags && selectedIdeaTags.map((tag: any, index: number) => {
                         return(

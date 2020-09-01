@@ -100,8 +100,8 @@ export const AddModal: React.FC = (props: any) => {
     })
   }
 
-  const openModal = (event: any) => {
-    setTagState(event.target.id);
+  const openModal = (type: string) => {
+    setTagState(type);
     setOpenAddTagModal(true);
   }
 
@@ -142,15 +142,10 @@ export const AddModal: React.FC = (props: any) => {
           <button onClick={() => history.goBack()} style={backLinkStyle}>←</button>
         </div>
         <div className="input-container">
-          <div>
-            <select name="category" id="category" onChange={changeCategory} ref={iconRef} className="styled-select">
-              <option value="アイコンを選択 ▼">アイコンを選択 ▼</option>
-              {
-                Icon.icons.map((icon: any, i) => {
-                  return <option value={icon} key={i}>{icon}</option>
-                })
-              }
-            </select>
+          <div className="add-icon-container">
+            <button className="icon-add-btn" onClick={() => changeIconsModal(true)}>
+              {addData.idea.icon ? <Emoji emoji={addData.idea.icon} size={40}/> : "アイコンを追加"}
+            </button>
           </div>
           {/* https://material-ui.com/components/rating/ */}
           <div>
@@ -189,7 +184,10 @@ export const AddModal: React.FC = (props: any) => {
           <hr/>
           <p>カテゴリータグ</p>
           <div className="genre-tag-container">
-            <span className="plus" id="genre" onClick={openModal}>+</span>
+            <span className="plus" onClick={() => openModal("genre")}>
+              <PlusCircle size={20} color="#333" id="genre"/>
+              {/* <img className="plus-img" src={AddBtn} alt="" id="genre"/> */}
+            </span>
             {selectedGenreTag.id !== 0 ? 
             <span className="genre-tag tag" style={{backgroundColor: selectedGenreTag.color}}>
               <X size={14} onClick={(event) => selectDelete("genre", event)}/>
@@ -198,7 +196,10 @@ export const AddModal: React.FC = (props: any) => {
           </div>
           <p>アイデアタグ</p>
           <div className="idea-tag-container">
-            <span className="plus" id="idea" onClick={openModal}>+</span>
+            <span className="plus" onClick={() => openModal("idea")}>
+              <PlusCircle size={20} color="#333" id="idea"/>
+              {/* <img className="plus-img" src={AddBtn} alt="" id="genre"/> */}
+            </span>
             {
               selectedIdeaTags && selectedIdeaTags.map((tag: any, index: number) => {
                 return(
@@ -247,7 +248,22 @@ export const AddModal: React.FC = (props: any) => {
             padding: 1.25rem 1rem;
             padding-top: calc(1.25rem + 40px);
           }
-
+          // アイコン追加
+          .icon {
+            height: 48px;
+            width: 48px;
+            font-size: 48px;
+            margin-bottom: 16px;
+          }
+          .add-icon-container{
+            margin-bottom: 12px;
+          }
+          .icon-add-btn{
+            padding: 4px 11px;
+            background: #EBEBEB;
+            border-radius: 22px;
+            color: #333;
+          }
           .input-container {
             padding-bottom: 16px;
             border-bottom: 2px dashed lightgray;

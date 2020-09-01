@@ -89,13 +89,17 @@ export const ShuffleModal: React.FC<ShuffleModalProps> = (props: any) => {
         <button onClick={fetchIdeas}>⇆</button>
         <p>もう一度シャッフルする</p>
       </div>
+      <button className="shuffle-btn"　onClick={fetchIdeas}>
+        <Shuffle className="shuffle-btn_icon" size={18} />
+        <span className="shuffle-btn_text">もう一度シャッフル</span>
+      </button>
       <style jsx>{`
         .container {
           background-color: white;
           width: 90%;
           height: 75%;
           position: absolute;
-          top: 50%;
+          top: calc(50vh - 24px);
           left: 50%;
           transform: translate(-50%, -40%);
           -webkit-transform: translate(-50%, -40%);
@@ -112,12 +116,9 @@ export const ShuffleModal: React.FC<ShuffleModalProps> = (props: any) => {
           width: calc(100% - 32px);
           text-align: center;
         }
-
-        span.close-btn {
-          font-size: 16px;
-          padding: 0.75rem 0.5rem;
-          height: 16px;
-          width: 16px;
+        .close-btn {
+          position: absolute;
+          cursor: pointer;
         }
 
         .cards-container {
@@ -134,32 +135,46 @@ export const ShuffleModal: React.FC<ShuffleModalProps> = (props: any) => {
           text-align: center;
           margin: 16px 0;
         }
-
-        .new-btn {
-          background-color: #FEB342;
-          font-size: 16px;
-          padding: 0.5rem 0.75rem;
-          border-radius: 5px;
+        .add-btn:hover{
+          background: #EC920C;
+          color: #white;
         }
 
         .shuffle {
           text-align: center;
         }
 
-        .shuffle button {
-          height: 56px;
-          width: 56px;
-          font-size: 40px;
-          line-height: 56px;
-          border-radius: 50%;
-          box-shadow: 0px 0px 8px gray;
-          margin: 0.75rem 0.75rem;
-          background-color: #E3EAF5;
-        }
+        .shuffle-btn {
+          display: flex;
+          padding: 8px 16px;
+          box-sizing: border-box;
+          border-radius: 36px;
 
-        .shuffle p {
-          font-size: 8px;
-          margin-bottom: 8px;
+          position: absolute;
+          top: 480px;
+
+          background: #FFFFFF;
+          color: #579AFF;
+          border: 1px solid #579AFF;
+
+          left: 50%;
+          transform: translateX(-50%);
+          -webkit- transform: translateX(-50%);
+        }
+        .shuffle-btn:hover{
+          background: #579AFF;
+          color: white;
+        }
+        .shuffle-btn_icon{
+          margin-right: 8px;
+        }
+        .shuffle-btn_text{
+          font-size: 14px;
+          font-weight: bold;
+          margin-left: 6px;
+        }
+        .genre-tag-container{
+          display: none;
         }
       `}</style>
     </div>
