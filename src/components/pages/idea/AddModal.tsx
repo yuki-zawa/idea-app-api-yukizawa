@@ -5,12 +5,8 @@ import { Rating } from '@material-ui/lab';
 import axios from 'axios';
 import { AddTagModal } from './../tag/AddModal'
 import { Icon } from './../../common/Const'
-import { X, Check, ArrowRight, PlusCircle } from 'react-feather';
+import { X } from 'react-feather';
 import { Card } from './Card'
-import StarIcon from '@material-ui/icons/Star';
-import AddBtn from './../../images/add-btn.svg';
-import { IconsModal } from './../../common/IconsModal';
-import { Emoji } from 'emoji-mart';
 
 const backLinkStyle = {
   display: "inline-block",
@@ -32,11 +28,10 @@ const priorityLables = ["ひらめき度を設定しよう", "いいことを思
 
 export const AddModal: React.FC = (props: any) => {
   const history = useHistory();
+  const iconRef = useRef(document.createElement("select"));
   const titleRef = useRef(document.createElement("input"));
   const memoRef = useRef(document.createElement("textarea"));
   const [openAddTagModal, setOpenAddTagModal] = useState(false);
-  const [ideaIcon, setIdeaIcon] = useState("");
-  const [openIconsModal, setOpenIconsModal] = useState(false);
   const [tagState, setTagState] = useState(""); // "genre" or "idea"
 
   const [selectedGenreTag, setSelectedGenreTag] = useState({
@@ -75,8 +70,14 @@ export const AddModal: React.FC = (props: any) => {
       .catch(err => console.log(err));
   }
 
-  const changeIconsModal = (flag: boolean) => {
-    setOpenIconsModal(flag);
+  const changeCategory = (e: any) => {
+    setAddData({
+      ...addData,
+      idea: {
+        ...addData.idea,
+        icon: e.target.value
+      }
+    })
   }
 
   const changeTitle = () => {
@@ -120,12 +121,6 @@ export const AddModal: React.FC = (props: any) => {
     }
   }
 
-  const closeIconsModal = () => {
-    if (openIconsModal) {
-      changeIconsModal(false);
-    }
-  }
-
   useEffect(() => {
     var temp :Array<any> = [];
     selectedIdeaTags.map((tag: any) => {
@@ -140,35 +135,11 @@ export const AddModal: React.FC = (props: any) => {
     })
   },[selectedIdeaTags, selectedGenreTag]);
 
-  useEffect(() => {
-    setAddData({
-      ...addData,
-      idea: {
-        ...addData.idea,
-        icon: ideaIcon
-      }
-    })
-  },[ideaIcon]);
-
   return (
     <HomeLayout title="STOCKROOM">
-      {openIconsModal ? <IconsModal setIcon={setIdeaIcon} closeModal={changeIconsModal}/> : ""}
-      <div className="container" onClick={() => closeIconsModal()}>
+      <div className="container">
         <div className="top-part"> 
-          <button className="x-icon" onClick={() => history.goBack()} style={backLinkStyle}>
-            <X  size={24} color="#333"/>
-          </button>
-          <p className="title">新しいひらめきを追加する</p>
-          { openAddTagModal ? 
-              <AddTagModal 
-                tagState={tagState}
-                closeFunc={closeModal}
-                selectedGenreTag={selectedGenreTag}
-                setSelectedGenreTag={setSelectedGenreTag}
-                selectedIdeaTags={selectedIdeaTags}
-                setSelectedIdeaTags={setSelectedIdeaTags}
-              /> : ""
-          }
+          <button onClick={() => history.goBack()} style={backLinkStyle}>←</button>
         </div>
         <div className="input-container">
           <div className="add-icon-container">
@@ -177,14 +148,12 @@ export const AddModal: React.FC = (props: any) => {
             </button>
           </div>
           {/* https://material-ui.com/components/rating/ */}
-          <div className="rating-container">
+          <div>
             <Rating 
               name="size-large"
               size="large"
-              style={{height: "auto", lineHeight: "auto"}}
+              style={{height: "40px", lineHeight: "40px"}}
               defaultValue={0}
-              className="star"
-              icon={<StarIcon />}
               onChange={(event, newValue) => {
                 setAddData({
                   ...addData,
@@ -194,22 +163,26 @@ export const AddModal: React.FC = (props: any) => {
                   }
                 })
               }}
+              onChangeActive={(event, newHover) => {
+                console.log(newHover);
+                console.log(event);
+              }}
             />
             <div className="priority">
               <p className="priority-label">{addData.idea.priority ? priorityLables[addData.idea.priority] : priorityLables[0]}</p>
             </div>
           </div>
-          <div className="title-name-container">
+          <div>
             <input 
               ref={titleRef}
               onChange={changeTitle}
-              placeholder="ひらめきを一言で表すと？"
+              placeholder="アイデアを一言で表すと？"
               type="text"
               className="title-input"
             />
           </div>
-
-          <p className="tag-label">カテゴリー</p>
+          <hr/>
+          <p>カテゴリータグ</p>
           <div className="genre-tag-container">
             <span className="plus" onClick={() => openModal("genre")}>
               <PlusCircle size={20} color="#333" id="genre"/>
@@ -217,11 +190,11 @@ export const AddModal: React.FC = (props: any) => {
             </span>
             {selectedGenreTag.id !== 0 ? 
             <span className="genre-tag tag" style={{backgroundColor: selectedGenreTag.color}}>
-              <X className="tag-delete_icon" size={14} onClick={(event) => selectDelete("genre", event)}/>
+              <X size={14} onClick={(event) => selectDelete("genre", event)}/>
               <span className="tag-name">{selectedGenreTag.name}</span>
             </span> : ""}
           </div>
-          <p className="tag-label">タグ</p>
+          <p>アイデアタグ</p>
           <div className="idea-tag-container">
             <span className="plus" onClick={() => openModal("idea")}>
               <PlusCircle size={20} color="#333" id="idea"/>
@@ -231,7 +204,7 @@ export const AddModal: React.FC = (props: any) => {
               selectedIdeaTags && selectedIdeaTags.map((tag: any, index: number) => {
                 return(
                   <span className="idea-tag tag" key={index}>
-                    <X className="tag-delete_icon" size={14} onClick={(event) => selectDelete("idea", event)} data-id={tag.id}/>
+                    <X size={14} onClick={(event) => selectDelete("idea", event)} data-id={tag.id}/>
                     <span className="tag-name">{tag.name}</span>
                   </span>
                 )
@@ -240,24 +213,7 @@ export const AddModal: React.FC = (props: any) => {
           </div>
           <p className="memo-label">メモ</p>
           <textarea ref={memoRef} className="memo-container" placeholder="メモをしよう！" onChange={changeDetail}/>
-          <div className="add-btn_container">
-            <button onClick={postIdea} className="add-btn">
-              <span className="add-btn_text">アイデアを追加する</span>
-              <ArrowRight size={24} color="#333" />
-            </button>
-          </div>
         </div>
-        
-        { openAddTagModal ? 
-            <AddTagModal 
-            tagState={tagState}
-            closeFunc={closeModal}
-            selectedGenreTag={selectedGenreTag}
-            setSelectedGenreTag={setSelectedGenreTag}
-            selectedIdeaTags={selectedIdeaTags}
-            setSelectedIdeaTags={setSelectedIdeaTags}
-            /> : ""
-        }
         {props.location.state ? 
           <div className="origin-idea">
             <p>シャッフルした元のアイデア</p>
@@ -274,31 +230,24 @@ export const AddModal: React.FC = (props: any) => {
             })}
           </div>
         : ""}
-        
+        <button onClick={postIdea} className="add-btn">追加する</button>
+        { openAddTagModal ? 
+            <AddTagModal 
+              tagState={tagState}
+              closeFunc={closeModal}
+              selectedGenreTag={selectedGenreTag}
+              setSelectedGenreTag={setSelectedGenreTag}
+              selectedIdeaTags={selectedIdeaTags}
+              setSelectedIdeaTags={setSelectedIdeaTags}
+            /> : ""
+        }
         <style jsx>{`
-          // header部分
-          .top-part {
-            margin-bottom: 20px;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 18px 0;
-          }
-          .x-icon{
-            position: absolute;
-          }
-          .title{
-            font-size: 14px;
-            color: #333;
-            text-align: center;
-            line-height: 28px;
-          }
-          
+        
           .container {
             background-color: white;
-            padding: 64px 16px 16px 16px;
-            z-index: 5;
+            padding: 1.25rem 1rem;
+            padding-top: calc(1.25rem + 40px);
           }
-
           // アイコン追加
           .icon {
             height: 48px;
@@ -316,29 +265,37 @@ export const AddModal: React.FC = (props: any) => {
             color: #333;
           }
           .input-container {
-            border-bottom: 2px solid #F1F1F1;
-            z-index: 1;
-            max-width: 1000px;
-            margin: 0 auto;
+            padding-bottom: 16px;
+            border-bottom: 2px dashed lightgray;
           }
+
           .styled-select {
             /* デフォルトのスタイルを解除 */
             -moz-appearance: none;
             -webkit-appearance: none;
             appearance: none;
             /* スタイル */
-            width: 120px;
-            height: 20px;
-            font-size: 10px;
-            #7A7A7A;
             display: inline-block;
+            width: 70px;
+            height: 70px;
+            padding: 0.5em;
             cursor: pointer;
-            background: none;
-            border: none;
+            font-size: 32px;
+            border-radius: 4px;
+            background-color: #f7f9fb;
           }
+
           /* IEでデフォルトの矢印を消す */
           .styled-select::-ms-expand {
             display: none;
+          }
+
+          .top-part {
+            margin-bottom: 24px;
+          }
+
+          hr {
+            border-top: 4px dashed lightgray;
           }
 
           .edit {
@@ -351,130 +308,119 @@ export const AddModal: React.FC = (props: any) => {
             font-weight: bold;
           }
 
-          // 星
-          .rating-container{
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
+          .icon {
+            height: 48px;
+            width: 48px;
+            font-size: 48px;
+            margin-bottom: 16px;
           }
-          .star{
-            font-size: 24px;
-          }
-          .star label{
-            font-size: 24px;
-          }
+
           .priority {
             position: relative;
             display: inline-block;
-            padding: 4px 8px;
+            margin: 1em 0 1em 24px;
+            padding: 7px 10px;
+            min-width: 120px;
             max-width: 100%;
+            font-size: 16px;
             background: #FEB342;
-            border-radius: 2px;
-            margin-left: 16px;
+            border-radius: 5px;
           }
+          
           .priority:before {
             content: "";
             position: absolute;
             top: 50%;
-            left: -12px;
-            margin-top: -5px;
-            border: 5px solid transparent;
-            /* border-radius: 2px; */
-            border-right: 8px solid #FEB342;
+            left: -20px;
+            margin-top: -8px;
+            border: 8px solid transparent;
+            border-right: 15px solid #FEB342;
           }
+
           .priority-label {
-            font-size: 14px;
             margin: 0;
             padding: 0;
           }
 
-          // タイトル
-          .title-name-container{
-            border-bottom: 2px solid #F1F1F1;
-            padding-bottom: 16px;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            width: 100%;
-          }
-        
-          .title-name-container::before{
-            content: " ";
-            width: 2px;
-            height: 22px;
-            background: #579AFF;
-          }
           .idea-title {
-            margin-left: 4px;
-            font-size: 18px;
-            color: #7A7A7A;
-          }
-          .title-input {
-            width: 100%;
-            box-sizing: border-box;
-            font-size: 16px;
-            padding: 6px 8px;
-            border: none;
+            margin: 0.75rem 0;
+            font-size: 24px;
           }
 
-          // タグ
-          .tag-label, .memo-label{
-            font-size: 14px;
-            margin-bottom: 10px;
+          .title-input {
+            width: 95%;
+            height: 16px;
+            font-size: 16px;
+            padding: 0.25rem 0.5rem;
           }
+
           .plus {
-            width: 36px;
-            height: 36px;
-            padding: 7px 8px 9px 8px;
+            display: inline-block;
             margin-right: 8px;
-            box-sizing: border-box;
+            font-size: 30px;
+            font-weight: 400;
           }
-          .plus-img{
-            margin: 10px 0;
-            width: 24px;
-            height: auto;
-          }
+
           .tag {
             display: inline-block;
-            padding: 2px 4px;
-            font-size: 14px;
-            line-height: 14px;
-            color: #333;
-            border-radius: 2px;
-            box-sizing: border-box;
+            width: 100px;
+            padding: 0.25rem 0.25rem;
+            border-radius: 4px;
+            box-shadow: 2px 2px 3px lightgray;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
           }
-          .tag-name{
-            margin-left: 4px;
+
+          .genre-tag-container, .idea-tag-container, .memo-label {
+            margin-bottom: 5px;
           }
-          .idea-tag-container, .genre-tag-container {
-            min-height: 20px;
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
+
+          .genre-tag-container p, .idea-tag-container p {
+            margin: 0.5rem 0;
           }
+
+          .idea-tag-container {
+            height: 64px;
+            width: auto;
+            white-space: nowrap;
+            overflow-x: auto;
+            -ms-overflow-style: none;
+          }
+
           .idea-tag-container::-webkit-scrollbar {
             display:none;
           }
+
           .idea-tag {
             margin-right: 8px;
-            background-color: rgb(232, 240, 254);
+            background-color: #E3EAF5;
           }
 
-          //メモ
           .memo-container {
             height: 160px;
             width: 100%;
-            box-sizing: border-box;
             overflow-y: scroll;
-            border: 1px #333 solid;tart
-            border-radius: 2px;
-            padding: 10px 8px;
-            font-size: 16px;
-            color: #434343;
-            line-height: 1.6em;
+            border: 1px black solid;
+          }
+
+          .text {
+            padding: 1rem 0.75rem;
+          }
+
+          .add-btn {
+            display: block;
+            width: 200px;
+            background-color: #FEB342;
+            padding: 0.5rem 1.25rem;
+            margin: 1rem auto;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
+          }
+
+          .tag-name {
+            vertical-align: text-top;
           }
 
           .origin-idea {
@@ -483,21 +429,6 @@ export const AddModal: React.FC = (props: any) => {
 
           .origin-idea p {
             margin: 8px 0;
-          }
-          .add-btn_container{
-            width: fit-content;
-            margin: 24px auto;
-          }
-          .add-btn{
-            background: #FEB342;
-            border-radius: 4px;
-            padding: 6px 16px;
-            display: flex;
-            align-items: center;
-          }
-          .add-btn_text{
-            margin-right: 4px;
-            font-size: 14px;
           }
         `}</style>
       </div>

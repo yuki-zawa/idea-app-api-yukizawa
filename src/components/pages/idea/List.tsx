@@ -17,13 +17,20 @@ import { SortModal } from "./SortModal";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     inputRoot: {
-      width: '100%'
+      color: 'inherit',
+      padding: theme.spacing(0, 0, 0, 1.5),
+      width: '100%',
     },
     inputInput: {
-      padding: theme.spacing(0),
+      padding: theme.spacing(1, 1, 0.5, 0),
+      // vertical padding + font size from searchIcon
+      paddingLeft: `calc(0.25rem + ${theme.spacing(3)}px)`,
+      transition: theme.transitions.create('width'),
       width: '100%',
       [theme.breakpoints.up('sm')]: {
+        width: '100%',
         '&:focus': {
+          width: '20ch',
         },
       },
     },
@@ -40,7 +47,7 @@ export const IdeaList: React.FC = (props: any) => {
   const [listState, setListState] = useState(false);
   const [pagenation, setPagenation] = React.useState({
     total: 0,
-    perPage: 12,
+    perPage: 10,
     currentPage: 1
   });
 
@@ -50,7 +57,7 @@ export const IdeaList: React.FC = (props: any) => {
     setShowLoader(true);
 
     let response = await axios
-      .get(`/api/v1/ideas?page=${1}&limit=${12}${tagSearchQuery}`)
+      .get(`/api/v1/ideas?page=${1}&limit=${10}${tagSearchQuery}`)
       .then(result => result.data)
       .catch(error => console.log(error))
       .finally(() => {
@@ -91,7 +98,7 @@ export const IdeaList: React.FC = (props: any) => {
 
   const shuffle = () => {
     if(pagenation.total < 2) {
-      window.alert("ひらめきを二つ以上登録してください");
+      window.alert("アイデアを二つ以上登録してください");
       return;
     }
     setOpenShuffleModal(true);
@@ -118,44 +125,40 @@ export const IdeaList: React.FC = (props: any) => {
   return (
     <HomeLayout title="STOCKROOM" position="fixed">
       <div className="list-header">
-        <div className="list-header-inner">
-          <div className="search">
-            <InputBase
-              placeholder="ひらめきを検索"
-              inputProps={{ 'aria-label': 'search' }}
-              classes={{
-                        root: classes.inputRoot,
-                        input: classes.inputInput,
-                      }}
-              onChange={handleChange}
-            />
-            <div className="search-icon">
-              <Search size={16} color="#7A7A7A" />
-            </div>
+        <div className="search">
+          <div className="search-icon">
+            <Search size={24} />
           </div>
-          <div className="header-btn">
-            <div className="sort">
-              <img className="sort-icon" src={ Sort } alt="sort-icon" onClick={() => handleChangeSortOpen(true)}/>
-            </div>
-            <div className="switch">
-              {
-                listState ?
-                  <Grid className="grid-icon" size="18" onClick={() => handleChangeListState(false)}/>
-                  :
-                  <List className="switch-icon" size="18" onClick={() => handleChangeListState(true)}/>
-              }
-            </div>
-          </div>
+          <InputBase
+            placeholder="アイデアを検索する"
+            inputProps={{ 'aria-label': 'search' }}
+            classes={{
+                      root: classes.inputRoot,
+                      input: classes.inputInput,
+                    }}
+            onChange={handleChange}
+          />
         </div>
-      </div>
-      {openSortModal ?
+        <div className="sort">
+          <img className="sort-icon" src={ Sort } alt="sort-icon" onClick={() => handleChangeSortOpen(true)}/>
+        </div>
+        <div className="switch">
+          {
+            listState ?
+              <Grid className="grid-icon" size="18" onClick={() => handleChangeListState(false)}/>
+              :
+              <List className="switch-icon" size="18" onClick={() => handleChangeListState(true)}/>
+          }
+        </div>
+        {openSortModal ?
         <SortModal
           handleChangeSortOpen={handleChangeSortOpen}
           setQuery={setTagSearchQuery}
           currentQuery={tagSearchQuery}
         />
         : ""}
-      <TagSearch 
+      </div>
+      <TagSearch
         setQuery={setTagSearchQuery}
         currentQuery={tagSearchQuery}
       />
@@ -167,8 +170,6 @@ export const IdeaList: React.FC = (props: any) => {
           loadMore={fetchMoreIdeas}
           initialLoad={false}
           useWindow={false}
-          // style={{display: "flex",flexWrap: "wrap",margin: "0 auto"}}
-          style={{width: "100%"}}
         >
           {
             !(!showLoader && ideas.length === 0) ? ideas && ideas.map((idea, index) => {
@@ -188,8 +189,8 @@ export const IdeaList: React.FC = (props: any) => {
               )
             }) : 
             <div className="no-idea">
-              <p className="no-idea_text">まだひらめきがありません。</p>
-              <p className="no-idea_text">ひらめきを追加しましょう！</p>
+              <p>まだひらめきがありません！</p>
+              <p>ひらめきを追加しましょう！</p>
             </div>
           }
         </InfiniteScroll>
@@ -208,7 +209,7 @@ export const IdeaList: React.FC = (props: any) => {
             </button>
             <Link to='/ideas/new'>
                 <button className="add-btn" >
-                    <Plus size="36"/>
+                    <Plus color="#434343" size="28"/>
                 </button>
             </Link>
             {/* <Link to='/ideas/new'>
@@ -216,7 +217,11 @@ export const IdeaList: React.FC = (props: any) => {
                     <Search color="white" size="28"/>
                 </div>
             </Link> */}
-            
+            <Link to='/ideas/new'>
+                <div className="user-btn footer-btn">
+                    <Settings color="white" size="28"/>
+                </div>
+            </Link>
         </div>
         
         
@@ -243,7 +248,7 @@ export const IdeaList: React.FC = (props: any) => {
           background-color: #F5F5F5;
         }
         .container {
-          height: calc(100vh - 32px);
+          height: 100vh;
           width: 100%;
           padding: 48px 12px 180px 12px;
           box-sizing: border-box;
@@ -261,34 +266,28 @@ export const IdeaList: React.FC = (props: any) => {
             max-width: 640px;
           }
         }
+
         .blur{
-          display: ${openShuffleModal ? ";" : "none;"};
-          z-index: 900;
-          height: 100vh;
+          display: ${openShuffleModal ? ";" : "none;"}
+          background-color: gray;
+          opacity: 0.7;
+          filter: blur(7px);
           width: 100%;
+          height: calc(100vh - 80px);
           position: absolute;
-          top: 0px;
-          background: rgba(0, 0, 0, 0.6);
-          mix-blend-mode: normal;
-          backdrop-filter: blur(8px);
+          top: 80px;
         }
 
         .list-header {
           width: 100%;
-          top: 52px;
+          top: 88px;
           height: 56px;
-          z-index: 100;
-          padding: 10px 16px 0 16px;
+          z-index: 98;
+          padding: 16px 16px 0 16px;
           box-sizing: border-box;
           background-color: white;
           position: fixed;
-          border-bottom: 1px solid rgba(196, 196, 196, 0.5);
-        }
-        .list-header-inner{
-          max-width: 1000px;
-          margin: auto;
           display: flex;
-          justify-content: space-between;
         }
 
         .search {
@@ -306,6 +305,7 @@ export const IdeaList: React.FC = (props: any) => {
         .header-btn{
           display: flex;
         }
+
         .sort{
           width: 32px;
           height: 32px;
@@ -314,8 +314,7 @@ export const IdeaList: React.FC = (props: any) => {
           display: flex;
           align-items: center;
           justify-content: center;
-          margin-right: 8px;
-          cursor: pointer;
+          margin-right: 12px;
         }
 
         .switch{
@@ -326,62 +325,63 @@ export const IdeaList: React.FC = (props: any) => {
           display: flex;
           align-items: center;
           justify-content: center;
-          cursor: pointer;
+        }
+
+        .search-icon {
+          position: absolute;
+          z-index: 111;
+          height: 32px;
+          position-events: none;
+          display: flex;
+          align-items: center;
+          justify-content: center; 
+          padding-left: 10px;
         }
 
         .footer-menu {
-          width: 132px;
-          height: 62px;
+          width: 280px;
+          height: 72px;
+          border-radius: 72px;
+          box-sizing: border-box;
+          padding: 12px 40px;
+
           position: fixed;
-          left: 50%;
+					left: 50%;
           transform: translateX(-50%);
           -webkit- transform: translateX(-50%);
-          bottom: 24px;
+          bottom: 12px;
+          
+          background-color: #434343;
           display: flex;
           justify-content: space-between;
         }
 
         .add-btn{
-          height: 62px;
-          width: 62px;
+          height: 48px;
+          width: 48px;
           border-radius: 50%;
           background-color: #FEB342;
           display: flex;
           justify-content: center;
           align-items: center;
-          color: #333;
         }
 
-        .add-btn:hover{
-          color: white;
-          background: #EC920C;
-        }
-
-        .shuffle-btn{
-          height: 62px;
-          width: 62px;
-          border-radius: 50%;
-          background-color: #579AFF;
+        .footer-btn {
+          width: 44px;
+          height: 44px;
           display: flex;
           justify-content: center;
           align-items: center;
         }
 
-        .shuffle-btn:hover{
-          background: #2E72D8;
-        }
-
         .no-idea {
-          margin-top: 60px;
           text-align: center;
         }
 
-        .no-idea_text {
+        .no-idea p {
           margin-bottom: 10px;
           font-size: 20px;
         }
-
-        
       `}</style>
     </HomeLayout>
   );

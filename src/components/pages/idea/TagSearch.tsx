@@ -1,28 +1,26 @@
 import React, { useState, useEffect } from "react";
+import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import InfiniteScroll from "react-infinite-scroller";
-import { EditTagModal } from "./EditTagModal";
-import { Tag, Search, Edit2, CheckCircle, X } from 'react-feather';
+import { Tag } from 'react-feather';
 
-const SearchInputStyle = {
-  width: "100%",
-}
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     inputRoot: {
-      color: '#7A7A7A',
+      color: 'inherit',
+      backgroundColor: "#E3EAF5",
+      borderRadius: "5px",
     },
     inputInput: {
-			padding: theme.spacing(0),
+      padding: theme.spacing(1, 1, 1, 0),
       // vertical padding + font size from searchIcon
-      // paddingLeft: `4px`,
-      // transition: theme.transitions.create('width'),
-			width: '100%',
-			fontSize: '16px',
+      paddingLeft: `calc(0.25rem + ${theme.spacing(3)}px)`,
+      transition: theme.transitions.create('width'),
+      width: '100%',
       [theme.breakpoints.up('sm')]: {
-        width: '100%',
+        width: '12ch',
         '&:focus': {
           width: '20ch',
         },
@@ -65,15 +63,6 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
     perPage: 10,
     currentPage: 1
   });
-
-  const openEditTagModal = (tag: any) => {
-    setEditTagModalOpen(true);
-    setEditTag({
-      id: tag.id,
-      name: tag.name,
-      color: tag.color,
-    });
-  }
 
   const pullDown = () => {
     var target = document.getElementsByClassName('tag-search-header') as HTMLCollectionOf<HTMLElement>;
@@ -211,19 +200,6 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
     pullUp();
   }
 
-  const filterRelease = () => {
-    var queryString = props.currentQuery.replace(/&genre_tags=.*(?=&)|&genre_tags=.*(?!&)|&idea_tags=.*(?=&)|&idea_tags=.*(?!&)/g, '');
-    props.setQuery(queryString);
-    pullUp();
-    setSelectedGenreTag({
-      id: 0,
-      name: '',
-      color: '',
-      user_id: 0
-    });
-    setSelectedIdeaTags([]);
-  }
-
   const handleIdeaTagChange = (event: any) => {
     setIdeaTagWord(event.target.value);
   }
@@ -234,11 +210,11 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
 
   useEffect(() => {
     fetchGenreTags();
-  }, [genreTagWord, props.currentQuery]);
+  }, [genreTagWord]);
 
   useEffect(() => {
     fetchIdeaTags();
-  }, [ideaTagWord, props.currentQuery]);
+  }, [ideaTagWord]);
 
   return (
     <div className="container">
@@ -314,28 +290,51 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
                     }
                   </InfiniteScroll>
                 </div>
+                <InfiniteScroll
+                  pageStart={1}
+                  hasMore={genreTags && pagenationForGenreTags.total > genreTags.length}
+                  loadMore={fetchMoreGenreTags}
+                  initialLoad={false}
+                  useWindow={false}
+                  style={{height: "100%"}}
+                >
+                  {
+                    genreTags && genreTags.map((genreTag: any, index: number) => {
+                      return (
+                        <p key={index} data-id={index} style={{backgroundColor: genreTag.color}} className="tag" onClick={(event) => selectTag("genre", event)}>
+                          <svg data-id={index} width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="6" cy="6" r="4.5" stroke="#434343" strokeDasharray="2 1"/>
+                          </svg>
+                          <span data-id={index}>{genreTag.name}</span>
+                        </p>
+                      )
+                    })
+                  }
+                </InfiniteScroll>
               </div>
             </div>
-            <div className="tag-container">
-            <label className="tag-container_label">タグ</label>
+          </div>
+          <div className="tag-container">
+            <div className="label">
+              <label>アイデア</label>
+            </div>
             <div className="tag-search">
               <div className="search">
+                <div className="search-icon">
+                  <SearchIcon />
+                </div>
                 <InputBase
-                  placeholder="タグを検索"
+                  placeholder="アイデアを検索する"
                   inputProps={{ 'aria-label': 'search' }}
                   onChange={handleIdeaTagChange}
-                  style={ SearchInputStyle}
                   classes={{
                             root: classes.inputRoot,
                             input: classes.inputInput,
                           }}
                 />
-                <div className="search-icon">
-                  <Search size={16} color="#7A7A7A"/>
-                </div>
               </div>
-              <div className="tag-lists">
-                <div style={{borderBottom: "1px solid #c4c4c4", marginBottom:"8px"}}>
+              <div style={{height:"calc(100% - 60px)", overflow:"auto"}}>
+                <div style={{borderBottom: "1px solid lightgray"}}>
                   {
                     selectedIdeaTags && selectedIdeaTags.map((ideaTag: any, index: number) => {
                       return (
@@ -377,95 +376,40 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
               </div>
             </div>
           </div>
-          </div>
-          
-          
+          <button onClick={filter}>
+            選択したタグで絞り込む =>
+          </button>
         </div>
-        {selectedGenreTag.id === 0 && selectedIdeaTags.length === 0 ?
-          <p className="text-container" onClick={pullDown}>
-            <Tag size={18} />
-            <span className="text">ひらめきを絞り込む</span>
-          </p> :
-          <p className="text-container" onClick={pullDown}>
-            <Tag size={18} />
-            <div className="selected-tag_container">
-              {
-                selectedGenreTag.id !== 0 ?
-                  <div className="tag-wrapper_selected">
-                    <p className="tag_selected" style={{ backgroundColor: selectedGenreTag.color }}>
-                      <span>{selectedGenreTag.name}</span>
-                    </p>
-                  </div> : ''
-              }
-              {
-                selectedIdeaTags.map((tag: any) => {
-                  return (
-                    <div className="tag-wrapper_selected">
-                      <p className="tag_selected" style={{ backgroundColor: "#EFEFEF" }}>
-                        <span>{tag.name}</span>
-                      </p>
-                    </div>
-                  );
-                })
-              }
-            </div>
-          </p>
-        }
+        <p className="text-container" onClick={searchState ? pullUp : pullDown}>
+            <Tag size={18}/>
+            <span className="text">タグで絞り込む</span>
+        </p>
       </div>
       <div className={editTagModalOpen ? "blur" : ""}>
       </div>
       {editTagModalOpen ? <EditTagModal setEditTagModalOpen={setEditTagModalOpen} editTag={editTag} fetchGenreTags={fetchGenreTags} fetchIdeaTags={fetchIdeaTags}/> : ''}
       <style jsx>{`
-        .container{
-          z-index: 120;
-        }
         .tag-search-header {
-          // text-align: center;
-          padding: 8px 12px 8px 12px;
-          height: 60px;
-          position: fixed;
-          width: 100%;
-          // transform: translateX(-50%);
-          top: 108px;
-          box-sizing: border-box;
-          z-index: 105;
-          // padding: 12px 0;
-          // background-color: white;
-          color: #579AFF;
-          // border-radius: 0px 0px 8px 8px;
-          // transition: all 400ms 0s ease;
-          // overflow-x: scroll;
-        }
-        .text-container {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #579AFF;
-          width: fit-content;
-          padding: 8px 16px;
-          border-radius: 18px;
-          border: 1px solid #579AFF;
-          background-color: white;
-          cursor: pointer;
+            text-align: center;
+            height: 44px;
+            position: fixed;
+            width: 100%;
+            top: 44px;
+            box-sizing: border-box;
+            z-index: 99;
+            padding: 8px 0;
+            background-color: #434343;
+            color: white;
+            border-radius: 0px 0px 8px 8px;
+            transition: all 400ms 0s ease;
         }
 
-        .text{
-          font-weight: bold;
-          margin-left: 6px;
+        .active {
+          transform: translateY(80vh);
         }
 
-        .text-container:hover {
-          ${
-            selectedGenreTag.id === 0 && selectedIdeaTags.length === 0 ?
-            "color: white;border: 1px solid #579AFF;background-color: #579AFF;"
-            : ''
-          }
-        }
-
-        @media (min-width: 1000px){
-          .text-container {
-            margin-left: calc(50% - 500px);
-          }
+        .tag-search-header p {
+          line-height: 32px;
         }
 
         //絞り込み解除ボタン
@@ -494,159 +438,82 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
 
         .search-content {
           width: 100%;
-          height: calc(100vh - 52px);
-          padding: 16px;
-          box-sizing: border-box;
-          position: absolute;
-          top: calc(-100vh - 52px);
-          left: 0;
-          z-index: 1000;
+          color: black;
+          position: fixed;
+            top: -80vh;
+            z-index: -1;
+          height: 80vh;
           background-color: white;
         }
 
-        //header部分
-        .top-part {
-          margin-bottom: 20px;
-          max-width: 1000px;
-          margin: 0 auto;   
-          padding: 18px 0;   
-        }
-        .x-icon{
-          position: absolute;
-        }
-        .tag-search_title{
-          font-size: 14px;
-          color: #333;
-          text-align: center;
-          line-height: 28px;
-        }
-        
-        //本体
-        .tag-containers{
-          display: flex;
-          justify-content: space-between;
-          height: calc(100vh - 220px);
-          width: 100%;
-          margin-bottom: 40px
-        }
-        @media (min-width: 800px){
-          .tag-containers{
-            max-width: 800px;
-            margin: 0 auto 24px auto;
-          }
-        }
-        
-        //タグのコンテナ
-        .tag-container {
-          height: 100%;
-          width: calc(50% - 12px);
-        }
-        .tag-container_label {
+        .serch-content button{
           display: block;
-					text-align: left;
-					margin-bottom: 8px;
-					font-size: 14px;
-					color: #333;
-				}
-        .tag-search {
-          height: calc(100% - 22px);
-          box-sizing: border-box;
+          width: 200px;
+          background-color: #FEB342;
+          padding: 0.5rem 1.25rem;
+          margin: 1rem auto;
+          border-radius: 5px;
+          font-size: 12px;
+          font-weight: bold;
         }
 
-        //文字で検索
-				.search {
-          osition: relative;
-					display: flex;
-					margin-bottom: 14px;
-					border-radius: 2px;
-					background-color: #EBEBEB;
-					align-items: center;
-					padding: 4px 6px;
-					box-sizing: border-box;
-				}
-				.search-icon {
+        .tag-container {
+          display:inline-block;
+          padding: 1rem 0.25rem;
+
+          width: calc(50% - 1rem);
+          height: 80%;
         }
 
-        //タグを選択
-        .tag-lists{
-          height: calc(100% - 60px);
-          overflow-y: scroll;
+        .tag-container .label .btn {
+          font-size: 8px;
+          float: right;
         }
 
-        .search-btn_container{
-          display: flex;
-          justify-content: space-between;
-          max-width: 800px;
-          margin: 0 auto 24px auto;
-        }
-        .tag-search_btn{
-          background: #579AFF;
-          color: white;
-          border-radius: 4px;
-          width: 144px;
-          height: 32px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        .tag-search_btn:hover{
-          background: #2E72D8;
-        }
-        .tag-search-btn_text{
-          margin-left: 6px;
-        }
-        .tag-search_btn_release{
-          background: #EBEBEB;
-          border-radius: 4px;
-          width: 144px;
-          height: 32px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        .tag-search_btn_release:hover{
-          background: #D0D0D0;
-        }
-
-        //タグ
-        .tag-wrapper{
-          width: 100%;
-          display: flex;
-          margin-bottom: 8px;
-          justify-content: space-between;
-        }
-        .tag {
-          max-width: calc(100% - 28px);
-          display: inline-block;
-          padding: 2px 4px;
-          font-size: 14px;
-          line-height: 14px;
-          color: #333;
-          border-radius: 2px;
-          box-sizing: border-box;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          width: fit-content;
-          overflow: hidden;
+        .tag-container .label {
           text-align: left;
         }
-        .tag span{
-          font-size: 14px;
-          line-height: 16.8px;
-          white-space: nowrap;
-          overflow-x: hidden;
-          text-overflow: ellipsis;
+
+        .tag-search {
+          height: 100%;
+          border: 2px solid lightgray;
+          box-sizing: border-box;
         }
-        .tag-edit-btn{
-          width: 24px;
-          height: 24px;
-          cursor: pointer;
+
+        .search {
+          position: relative;
+          display: inline-block;
+          padding: 0.5rem 0.5rem;
+          margin: 0.25rem 0.125rem;
+          border-bottom: 2px solid lightgray;
+        }
+
+        .search-icon {
+          position: absolute;
+          z-index: 111;
+          height: 32px;
+          position-events: none;
           display: flex;
-          justify-content: center;
+          align-items: center;
+          justify-content: center; 
+        }
+
+        .tag {
+          width: 70%;
+          padding: 0.125rem 0.25rem;
+          margin: 0.5rem auto;
+          border-radius: 4px;
+          box-shadow: 2px 2px 3px lightgray;
+          overflow: hidden;
+        }
+
+        svg {
+          margin-right: 4px;
+        }
+
+        .text-container {
+          font-weight: bold;
+          display: flex;
           align-items: center;
           right: 0;
           z-index: 999;
@@ -664,6 +531,9 @@ export const TagSearch: React.FC<TagSearchProps> = (props: any) => {
           background: rgba(0, 0, 0, 0.6);
         }
 
+        .text{
+            margin-left: 6px;
+        }
       `}</style>
     </div>
 
