@@ -123,7 +123,7 @@ export const IdeaList: React.FC = (props: any) => {
 
 
   return (
-    <HomeLayout title="STOCKROOM" position="fixed">
+    <HomeLayout title="STOCKROOM">
       <div className="list-header">
         <div className="search">
           <div className="search-icon">
@@ -162,7 +162,6 @@ export const IdeaList: React.FC = (props: any) => {
         setQuery={setTagSearchQuery}
         currentQuery={tagSearchQuery}
       />
-      <div className="bg-gray"></div>
       <div className={`container`}>
         <InfiniteScroll
           pageStart={1}
@@ -233,38 +232,13 @@ export const IdeaList: React.FC = (props: any) => {
         : "" 
       }
       <style jsx>{`
-        main{
-          position: fixed;
-        }
-        main::-webkit-scrollbar {
-          display:none;
-        }
-        .bg-gray{
-          width: 100%;
-          height: 100vh;
-          top: 0;
-          left: 0;
-          position: fixed;
-          background-color: #F5F5F5;
-        }
         .container {
           height: 100vh;
           width: 100%;
-          padding: 48px 12px 180px 12px;
+          padding: 148px 12px 72px 12px;
           box-sizing: border-box;
           overflow-y: scroll;
-          background-color: #F5F5F5;
-          max-width: 1000px;
-          top: 108px;
-          position: fixed;
-          left: 50%;
-          transform: translateX(-50%);
-          -webkit- transform: translateX(-50%);
-        }
-        @media (max-width: 1000px){
-          .container {
-            max-width: 640px;
-          }
+          background-color: white;
         }
 
         .blur{
@@ -291,19 +265,12 @@ export const IdeaList: React.FC = (props: any) => {
         }
 
         .search {
-          background-color: #EBEBEB;
-          border-radius: 2px;
+          background-color: #F1F1F1;
+          border: 1px solid #c4c4c4;
+          border-radius: 4px;
+          height: 32px;
           margin-right: 12px;
-          width: calc(100% - 80px);
-          max-width: 400px;
-          display: flex;
-          padding: 8px;
-          box-sizing: border-box;
-          justify-content: space-between;
-          align-items: center;
-        }
-        .header-btn{
-          display: flex;
+          width: calc(100% - 88px);
         }
 
         .sort{
