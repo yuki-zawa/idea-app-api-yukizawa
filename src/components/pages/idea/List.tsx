@@ -181,9 +181,9 @@ export const IdeaList: React.FC = (props: any) => {
                   <Card
                     idea={idea} 
                     key={index}
-                    cardWidth={"48%"}
-                    cardHeight={"200px"}
-                    cardContentLine={4}
+                    width={"48%"}
+                    height={"200px"}
+                    contentLine={4}
                   />
               )
             }) : 

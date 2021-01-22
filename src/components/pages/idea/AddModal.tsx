@@ -265,10 +265,10 @@ export const AddModal: React.FC = (props: any) => {
               return (
                 <Card 
                   idea={idea}
-                  cardWidth={"100%"}
-                  cardHeight={"170px"}
+                  width={"100%"}
+                  height={"170px"}
                   backgroundColor={"#FCFCFC"}
-                  cardContentLine={2}
+                  contentLine={2}
                 />
               )
             })}

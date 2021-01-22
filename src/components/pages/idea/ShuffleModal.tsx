@@ -4,6 +4,7 @@ import { X, Check, Shuffle, ArrowRight } from 'react-feather';
 import { Link, useHistory } from 'react-router-dom';
 import { Card } from './Card';
 
+import { InitIdea } from "../../../types/Idea";
 
 type ShuffleModalProps = {
   closeShuffleModal: any,
@@ -12,30 +13,8 @@ type ShuffleModalProps = {
 
 export const ShuffleModal: React.FC<ShuffleModalProps> = (props: any) => {
   const history = useHistory();
-  const [idea1, setIdea1] = useState({
-    id: 0,
-    icon: "",
-    title: "",
-    detail: "",
-    priority: 0,
-    genre_tags: [{
-      name: "",
-      color: ""
-    }],
-    idea_tags: []
-  });
-  const [idea2, setIdea2] = useState({
-    id: 0,
-    icon: "",
-    title: "",
-    detail: "",
-    priority: 0,
-    genre_tags: [{
-      name: "",
-      color: ""
-    }],
-    idea_tags: []
-  });
+  const [idea1, setIdea1] = useState(new InitIdea());
+  const [idea2, setIdea2] = useState(new InitIdea());
   const fetchIdeas = async () => {
     await axios
       .get(`/api/v1/ideas/random`)
@@ -68,19 +47,19 @@ export const ShuffleModal: React.FC<ShuffleModalProps> = (props: any) => {
       <div className="cards-container">
         <Card 
           idea={idea1}
-          cardWidth={"100%"}
-          cardHeight={"144px"}
+          width={"100%"}
+          height={"144px"}
           backgroundColor={"#FCFCFC"}
-          cardContentLine={2}
+          contentLine={2}
           disabled={true}
           tagNotDisplay={true}
         />
         <Card
           idea={idea2}
-          cardWidth={"100%"}
-          cardHeight={"144px"}
+          width={"100%"}
+          height={"144px"}
           backgroundColor={"#FCFCFC"}
-          cardContentLine={2}
+          contentLine={2}
           disabled={true}
           tagNotDisplay={true}
         />

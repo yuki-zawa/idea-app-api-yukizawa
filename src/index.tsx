@@ -5,9 +5,30 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 import axios from "axios";
+import camelcaseKeys from 'camelcase-keys'
 
 // Set axios default endpoint
 axios.defaults.baseURL = process.env.REACT_APP_API_ENDPOINT;
+
+// snake to camel
+axios.interceptors.response.use(
+  response => {
+    const { data } = response;
+
+    if(data.data) {
+      const convertedData = camelcaseKeys(data.data);
+      return { ...response, data: {...data, data: convertedData} };
+    } else {
+      const convertedData = camelcaseKeys(data);
+      return { ...response, data: convertedData};
+    }
+
+  },
+  error => {
+    console.log(error);
+    return Promise.reject(error);
+  }
+);
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

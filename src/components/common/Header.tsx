@@ -19,7 +19,6 @@ export const Header: React.FC<HeaderProps> = (props) => {
         </Link>
       </div>
       
-      
       <style jsx>{`
         header {
           width: 100%;
