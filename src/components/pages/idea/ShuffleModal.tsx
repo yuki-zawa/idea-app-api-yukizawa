@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
-import { X, Check, Shuffle, ArrowRight } from 'react-feather';
-import { Link, useHistory } from 'react-router-dom';
+import { X, Shuffle } from 'react-feather';
+import { useHistory } from 'react-router-dom';
 import { Card } from './Card';
 
 import { InitIdea } from "../../../types/Idea";

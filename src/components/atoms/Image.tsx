@@ -10,12 +10,10 @@ interface ImageProps {
 }
 
 export enum ImageThemes {
-  INIT = 'INIT',
   STAR = 'STAR'
 }
 
 enum ModifierClassNames {
-  INIT = 'init',
   STAR = 'star'
 }
 
@@ -28,7 +26,7 @@ const Image: React.FC<ImageProps> = ({theme = [], src, height, width, alt, propS
       <style jsx>
         {`
           .init {
-            display: flex;
+            display: inline-block;
             align-items: center;
           }
 

@@ -2,6 +2,10 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import { Emoji } from 'emoji-mart';
 import { ReactComponent as DefaultIcon } from './../../images/defaulticon.svg';
+import Image, { ImageThemes } from "../../atoms/Image";
+import Star from './../../images/star.svg';
+import CommonStyle from "../../../common/CommonStyle";
+import { IdeaTag } from "../../../types/IdeaTag";
 
 type CardProps = {
   idea: any,
@@ -36,23 +40,21 @@ export const Card2: React.FC<CardProps> = ({idea, width='100%', height, contentL
           <span className="title-text">{idea.title}</span>
         </div>
         <div className="contents">
-            <div className="priority-container">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M8 0.5L10.3175 5.195L15.5 5.9525L11.75 9.605L12.635 14.765L8 12.3275L3.365 14.765L4.25 9.605L0.5 5.9525L5.6825 5.195L8 0.5Z" fill="#FEB342" stroke="#FEB342" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span style={{color:"#feb342"}}>{!!idea.priority ? idea.priority : '-'}</span>
-            </div>
-            <div className="tag-container">
-            {/* ジャンルタグは基本一つ */}
-            {idea.genreTags[0] ? <span className="genre-tag tag">{idea.genreTags[0].name}</span> : ''}
-            {
-              idea.ideaTags.map((tag: any, index: number) => {
-                return(
-                    <span className="idea-tag tag" key={index}>{tag.name}</span>
-                )
-              })
-            }
-            </div>
+          <div className="priority-container">
+            <Image src={Star} theme={[ImageThemes.STAR]} />
+            <span>{!!idea.priority ? idea.priority : '-'}</span>
+          </div>
+          <div className="tag-container">
+          {/* ジャンルタグは基本一つ */}
+          {idea.genreTags[0] ? <span className="genre-tag tag">{idea.genreTags[0].name}</span> : ''}
+          {
+            idea.ideaTags.map((tag: IdeaTag, index: number) => {
+              return(
+                <span className="idea-tag tag" key={index}>{tag.name}</span>
+              )
+            })
+          }
+          </div>
         </div>
       </div>
       <style jsx>
@@ -95,6 +97,7 @@ export const Card2: React.FC<CardProps> = ({idea, width='100%', height, contentL
         .priority-container span {
           font-weight: bold;
           vertical-align: top;
+          color: ${CommonStyle.Color.Star};
         }
 
         .tag {

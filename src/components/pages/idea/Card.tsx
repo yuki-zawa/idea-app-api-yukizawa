@@ -7,11 +7,12 @@ import Image, { ImageThemes } from "../../atoms/Image";
 import Star from './../../images/star.svg';
 import CommonStyle from "../../../common/CommonStyle";
 import { Idea } from "../../../types/Idea";
+import { IdeaTag } from "../../../types/IdeaTag";
 
 type CardProps = {
   idea: Idea,
   width: string,
-  height: string,
+  height?: string,
   contentLine: number,
   boxShadow?: string,
   backgroundColor?: string,
@@ -61,7 +62,7 @@ export const Card: React.FC<CardProps> = ({ idea, width, height, contentLine, bo
             </div>
             <div className="idea-tag-container">
               {
-                idea.ideaTags.map((tag: any, index: number) => {
+                idea.ideaTags.map((tag: IdeaTag, index: number) => {
                   return(
                     <span className="idea-tag tag" key={index}>{tag.name}</span>
                   )

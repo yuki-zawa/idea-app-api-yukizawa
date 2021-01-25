@@ -385,7 +385,6 @@ export const IdeaDetail: React.FC = () => {
                 <Card 
                   idea={idea}
                   width={"100%"}
-                  height={"170px"}
                   backgroundColor={"#FCFCFC"}
                   contentLine={2}
                 />

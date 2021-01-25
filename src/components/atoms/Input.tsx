@@ -3,7 +3,6 @@ import React from 'react';
 import CommonStyle from '../../common/CommonStyle';
 
 interface InputProps {
-  id?: string;
   theme?: InputThemes[];
   propStyle?: {};
   handleChange: any;
@@ -21,7 +20,7 @@ enum ModifierClassNames {
 }
 
 
-const Input: React.FC<InputProps> = ({ id, theme = [InputThemes.INIT], propStyle = {}, handleChange, label, placeholder, name }) => {
+const Input: React.FC<InputProps> = ({ theme = [InputThemes.INIT], propStyle = {}, handleChange, label, placeholder, name }) => {
   const modifierClasses = theme?.map(data => ModifierClassNames[data]).join(' ');
   return (
     <div className={["form-container", modifierClasses].join(' ')} style={propStyle}>

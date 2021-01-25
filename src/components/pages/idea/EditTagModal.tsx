@@ -16,7 +16,6 @@ export const EditTagModal: React.FC<EditTagModalProps> = (props: any) => {
   const [data, setData] = useState(props.editTag);
 
   const handleChange = (event: any) => {
-    console.log(event.target)
     setData({
       ...data,
       [event.target.name]: event.target.value
