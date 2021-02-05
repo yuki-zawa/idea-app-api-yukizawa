@@ -1,17 +1,18 @@
-import React, { useState, useRef, useEffect } from "react";
-import { HomeLayout } from "../../common/HomeLayout";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { Rating } from '@material-ui/lab';
-import axios from 'axios';
-import { AddTagModal } from './../tag/AddModal'
-import { X, ArrowRight, PlusCircle } from 'react-feather';
-import { Card } from './Card'
 import StarIcon from '@material-ui/icons/Star';
+import { X, ArrowRight, PlusCircle } from 'react-feather';
+// common
+import { HomeLayout } from "../../common/HomeLayout";
+import { AddTagModal } from './../tag/AddModal'
+import { Card } from './Card'
 import { IconsModal } from './../../common/IconsModal';
 import { Emoji } from 'emoji-mart';
-import { InitGenreTag } from "../../../types/GenreTag";
+import { GenreTag, InitGenreTag } from "../../../types/GenreTag";
 import { IdeaTag } from "../../../types/IdeaTag";
-import { InitIdea } from "../../../types/Idea";
+import { Idea, InitIdea } from "../../../types/Idea";
 
 const backLinkStyle = {
   display: "inline-block",
@@ -23,10 +24,10 @@ const backLinkStyle = {
 };
 
 export interface AddParam {
-  idea: any,
+  idea: Idea,
   genre_tag: any,
-  idea_tags: any,
-  ideas: any
+  idea_tags: Array<IdeaTag>,
+  ideas: Array<Idea>
 }
 
 const priorityLables = ["ひらめき度を設定しよう", "いいことを思いついた！", "なかなかいいひらめきだ！", "これはすごいひらめきだ！", "君は天才だ！", "世紀の大発見だ！"];
@@ -166,7 +167,7 @@ export const AddModal: React.FC = (props: any) => {
                   ...addData,
                   idea: {
                     ...addData.idea,
-                    priority: newValue
+                    priority: newValue!
                   }
                 })
               }}
