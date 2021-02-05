@@ -14,6 +14,7 @@ import { Emoji } from 'emoji-mart';
 import { IconsModal } from './../../common/IconsModal';
 import { Card } from './Card'
 import { ReactComponent as DefaultIcon } from './../../images/defaulticon.svg';
+import { InitIdea } from "../../../types/Idea";
 
 export interface EditParam {
   idea: any,
@@ -23,22 +24,10 @@ export interface EditParam {
 
 const priorityLables = ["ひらめき度を設定しよう", "いいことを思いついた！", "なかなかいいひらめきだ！", "これはすごいひらめきだ！", "君は天才だ！", "世紀の大発見だ！"];
 
-export const IdeaDetail: React.FC = (props: any) => {
+export const IdeaDetail: React.FC = () => {
   const history = useHistory();
   const { match }: any = useReactRouter();
-  const [idea, setIdea] = useState({
-    icon: "",
-    title: "",
-    detail: "",
-    priority: 0,
-    genre_tags: [{
-      id: 0,
-      name: "",
-      color: ""
-    }],
-    idea_tags: [],
-    followers: new Array()
-  });
+  const [idea, setIdea] = useState(new InitIdea());
   const [editData, setEditData] = useState<EditParam>({
     idea: {
       icon: "",
@@ -52,31 +41,8 @@ export const IdeaDetail: React.FC = (props: any) => {
     idea_tags: []
   })
 //この下はやばい、直さないとやばい
-  const [idea1, setIdea1] = useState({
-    id: 0,
-    icon: "",
-    title: "",
-    detail: "",
-    priority: 0,
-    genre_tags: [{
-      name: "",
-      color: ""
-    }],
-    idea_tags: []
-  });
-  const [idea2, setIdea2] = useState({
-    id: 0,
-    icon: "",
-    title: "",
-    detail: "",
-    priority: 0,
-    genre_tags: [{
-      name: "",
-      color: ""
-    }],
-    idea_tags: []
-  });
-
+  const [idea1, setIdea1] = useState(new InitIdea());
+  const [idea2, setIdea2] = useState(new InitIdea());
 
   const [showLoader, setShowLoader] = React.useState(false);
   const [editState, setEditState] = React.useState(false);
@@ -103,27 +69,28 @@ export const IdeaDetail: React.FC = (props: any) => {
       .finally(() => {
         setShowLoader(false);
       });
-      setIdea(response);
-      setEditData({
-        idea: {
-          icon: response.icon,
-          title: response.title,
-          detail: response.detail,
-          priority: response.priority,
-        },
-        genre_tag: {
-          id: response.genre_tags[0] ? response.genre_tags[0].id : 0,
-          name: response.genre_tags[0] ? response.genre_tags[0].name : '',
-          color: response.genre_tags[0] ? response.genre_tags[0].color : '',
-        },
-        idea_tags: response.idea_tags
-      })
-      setSelectedGenreTag(response.genre_tags[0] ? response.genre_tags[0] : {
-        id: 0,
-        name: "",
-        color: "",
-      });
-      setSelectedIdeaTags(response.idea_tags)
+    setIdea(response);
+
+    setEditData({
+      idea: {
+        icon: response.icon,
+        title: response.title,
+        detail: response.detail,
+        priority: response.priority,
+      },
+      genre_tag: {
+        id: response.genreTags[0] ? response.genreTags[0].id : 0,
+        name: response.genreTags[0] ? response.genreTags[0].name : '',
+        color: response.genreTags[0] ? response.genreTags[0].color : '',
+      },
+      idea_tags: response.ideaTags
+    })
+    setSelectedGenreTag(response.genreTags[0] ? response.genreTags[0] : {
+      id: 0,
+      name: "",
+      color: "",
+    });
+    setSelectedIdeaTags(response.ideaTags)
   }
 
   const putIdea = async () => {
@@ -144,11 +111,11 @@ export const IdeaDetail: React.FC = (props: any) => {
         priority: response.priority,
       },
       genre_tag: {
-        id: response.genre_tags[0] ? response.genre_tags[0].id : 0,
-        name: response.genre_tags[0] ? response.genre_tags[0].name : '',
-        color: response.genre_tags[0] ? response.genre_tags[0].color : '',
+        id: response.genreTags[0] ? response.genreTags[0].id : 0,
+        name: response.genreTags[0] ? response.genreTags[0].name : '',
+        color: response.genreTags[0] ? response.genreTags[0].color : '',
       },
-      idea_tags: response.idea_tags
+      idea_tags: response.ideaTags
     })
   }
 
@@ -344,7 +311,7 @@ export const IdeaDetail: React.FC = (props: any) => {
               <div className="genre-tag-container">
                 {
                   !editState ?
-                  (idea.genre_tags[0] ? <span className="genre-tag tag" style={{backgroundColor: idea.genre_tags[0].color}}>{idea.genre_tags[0].name}</span> : ''):
+                  (idea.genreTags[0] ? <span className="genre-tag tag" style={{backgroundColor: idea.genreTags[0].color}}>{idea.genreTags[0].name}</span> : ''):
                   <div className="genre-tag-container">
                     <span className="plus" onClick={() => openModal("genre")}>
                       <PlusCircle size={20} color="#333" />
@@ -362,7 +329,7 @@ export const IdeaDetail: React.FC = (props: any) => {
               <div className="idea-tag-container">
                 {
                   !editState ?
-                  idea.idea_tags.map((tag: any, index: number) => {
+                  idea.ideaTags.map((tag: any, index: number) => {
                     return(
                       <span className="idea-tag tag" key={index}>{tag.name}</span>
                     )
@@ -417,10 +384,9 @@ export const IdeaDetail: React.FC = (props: any) => {
               return (
                 <Card 
                   idea={idea}
-                  cardWidth={"100%"}
-                  cardHeight={"170px"}
+                  width={"100%"}
                   backgroundColor={"#FCFCFC"}
-                  cardContentLine={2}
+                  contentLine={2}
                 />
               )
             })}

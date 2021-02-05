@@ -1,16 +1,18 @@
-import React, { useState, useRef, useEffect } from "react";
-import { HomeLayout } from "../../common/HomeLayout";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { Rating } from '@material-ui/lab';
-import axios from 'axios';
-import { AddTagModal } from './../tag/AddModal'
-import { Icon } from './../../common/Const'
-import { X, Check, ArrowRight, PlusCircle } from 'react-feather';
-import { Card } from './Card'
 import StarIcon from '@material-ui/icons/Star';
-import AddBtn from './../../images/add-btn.svg';
+import { X, ArrowRight, PlusCircle } from 'react-feather';
+// common
+import { HomeLayout } from "../../common/HomeLayout";
+import { AddTagModal } from './../tag/AddModal'
+import { Card } from './Card'
 import { IconsModal } from './../../common/IconsModal';
 import { Emoji } from 'emoji-mart';
+import { GenreTag, InitGenreTag } from "../../../types/GenreTag";
+import { IdeaTag } from "../../../types/IdeaTag";
+import { Idea, InitIdea } from "../../../types/Idea";
 
 const backLinkStyle = {
   display: "inline-block",
@@ -22,36 +24,25 @@ const backLinkStyle = {
 };
 
 export interface AddParam {
-  idea: any,
+  idea: Idea,
   genre_tag: any,
-  idea_tags: any,
-  ideas: any
+  idea_tags: Array<IdeaTag>,
+  ideas: Array<Idea>
 }
 
 const priorityLables = ["ひらめき度を設定しよう", "いいことを思いついた！", "なかなかいいひらめきだ！", "これはすごいひらめきだ！", "君は天才だ！", "世紀の大発見だ！"];
 
 export const AddModal: React.FC = (props: any) => {
   const history = useHistory();
-  const titleRef = useRef(document.createElement("input"));
-  const memoRef = useRef(document.createElement("textarea"));
   const [openAddTagModal, setOpenAddTagModal] = useState(false);
   const [ideaIcon, setIdeaIcon] = useState("");
   const [openIconsModal, setOpenIconsModal] = useState(false);
   const [tagState, setTagState] = useState(""); // "genre" or "idea"
 
-  const [selectedGenreTag, setSelectedGenreTag] = useState({
-    id: 0,
-    name: "",
-    color: "",
-  });
-  const [selectedIdeaTags, setSelectedIdeaTags] = useState([]);
+  const [selectedGenreTag, setSelectedGenreTag] = useState(new InitGenreTag());
+  const [selectedIdeaTags, setSelectedIdeaTags] = useState(new Array<IdeaTag>());
   const [addData, setAddData] = useState<AddParam>({
-    idea: {
-      icon: "",
-      title: "",
-      detail: "",
-      priority: 0,
-    },
+    idea: new InitIdea(),
     genre_tag: {},
     idea_tags: [],
     ideas: []
@@ -79,24 +70,14 @@ export const AddModal: React.FC = (props: any) => {
     setOpenIconsModal(flag);
   }
 
-  const changeTitle = () => {
+  const handleChange = (event: any) => {
     setAddData({
       ...addData,
       idea: {
         ...addData.idea,
-        title: titleRef.current.value
+        [event.target.name]: event.target.value
       }
-    })
-  }
-
-  const changeDetail = () => {
-    setAddData({
-      ...addData,
-      idea: {
-        ...addData.idea,
-        detail: memoRef.current.value
-      }
-    })
+    });
   }
 
   const openModal = (type: string) => {
@@ -112,11 +93,7 @@ export const AddModal: React.FC = (props: any) => {
     if (type === "idea") {
       setSelectedIdeaTags(selectedIdeaTags.filter((tag: any) => tag.id !== Number(event.target.dataset.id)))
     } else {
-      setSelectedGenreTag({
-        id: 0,
-        name: "",
-        color: "",
-      })
+      setSelectedGenreTag(new InitGenreTag())
     }
   }
 
@@ -156,7 +133,7 @@ export const AddModal: React.FC = (props: any) => {
       <div className="container" onClick={() => closeIconsModal()}>
         <div className="top-part"> 
           <button className="x-icon" onClick={() => history.goBack()} style={backLinkStyle}>
-            <X  size={24} color="#333"/>
+            <X size={24} color="#333"/>
           </button>
           <p className="title">新しいひらめきを追加する</p>
           { openAddTagModal ? 
@@ -190,7 +167,7 @@ export const AddModal: React.FC = (props: any) => {
                   ...addData,
                   idea: {
                     ...addData.idea,
-                    priority: newValue
+                    priority: newValue!
                   }
                 })
               }}
@@ -201,8 +178,8 @@ export const AddModal: React.FC = (props: any) => {
           </div>
           <div className="title-name-container">
             <input 
-              ref={titleRef}
-              onChange={changeTitle}
+              name="title"
+              onChange={handleChange}
               placeholder="ひらめきを一言で表すと？"
               type="text"
               className="title-input"
@@ -213,7 +190,6 @@ export const AddModal: React.FC = (props: any) => {
           <div className="genre-tag-container">
             <span className="plus" onClick={() => openModal("genre")}>
               <PlusCircle size={20} color="#333" id="genre"/>
-              {/* <img className="plus-img" src={AddBtn} alt="" id="genre"/> */}
             </span>
             {selectedGenreTag.id !== 0 ? 
             <span className="genre-tag tag" style={{backgroundColor: selectedGenreTag.color}}>
@@ -225,7 +201,6 @@ export const AddModal: React.FC = (props: any) => {
           <div className="idea-tag-container">
             <span className="plus" onClick={() => openModal("idea")}>
               <PlusCircle size={20} color="#333" id="idea"/>
-              {/* <img className="plus-img" src={AddBtn} alt="" id="genre"/> */}
             </span>
             {
               selectedIdeaTags && selectedIdeaTags.map((tag: any, index: number) => {
@@ -239,7 +214,7 @@ export const AddModal: React.FC = (props: any) => {
             }
           </div>
           <p className="memo-label">メモ</p>
-          <textarea ref={memoRef} className="memo-container" placeholder="メモをしよう！" onChange={changeDetail}/>
+          <textarea name="detail" className="memo-container" placeholder="メモをしよう！" onChange={handleChange}/>
           <div className="add-btn_container">
             <button onClick={postIdea} className="add-btn">
               <span className="add-btn_text">アイデアを追加する</span>
@@ -250,12 +225,12 @@ export const AddModal: React.FC = (props: any) => {
         
         { openAddTagModal ? 
             <AddTagModal 
-            tagState={tagState}
-            closeFunc={closeModal}
-            selectedGenreTag={selectedGenreTag}
-            setSelectedGenreTag={setSelectedGenreTag}
-            selectedIdeaTags={selectedIdeaTags}
-            setSelectedIdeaTags={setSelectedIdeaTags}
+              tagState={tagState}
+              closeFunc={closeModal}
+              selectedGenreTag={selectedGenreTag}
+              setSelectedGenreTag={setSelectedGenreTag}
+              selectedIdeaTags={selectedIdeaTags}
+              setSelectedIdeaTags={setSelectedIdeaTags}
             /> : ""
         }
         {props.location.state ? 
@@ -265,10 +240,9 @@ export const AddModal: React.FC = (props: any) => {
               return (
                 <Card 
                   idea={idea}
-                  cardWidth={"100%"}
-                  cardHeight={"170px"}
+                  width={"100%"}
                   backgroundColor={"#FCFCFC"}
-                  cardContentLine={2}
+                  contentLine={2}
                 />
               )
             })}
@@ -330,7 +304,6 @@ export const AddModal: React.FC = (props: any) => {
             width: 120px;
             height: 20px;
             font-size: 10px;
-            #7A7A7A;
             display: inline-block;
             cursor: pointer;
             background: none;

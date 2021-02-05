@@ -2,76 +2,80 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import { Emoji } from 'emoji-mart';
 import { ReactComponent as DefaultIcon } from './../../images/defaulticon.svg';
+import Text, { TextThemes } from "../../atoms/Text";
+import Image, { ImageThemes } from "../../atoms/Image";
+import Star from './../../images/star.svg';
+import CommonStyle from "../../../common/CommonStyle";
+import { Idea } from "../../../types/Idea";
+import { IdeaTag } from "../../../types/IdeaTag";
 
 type CardProps = {
-  idea: any,
-  cardWidth: string,
-  cardHeight: string,
-  cardContentLine: number,
+  idea: Idea,
+  width: string,
+  height?: string,
+  contentLine: number,
   boxShadow?: string,
   backgroundColor?: string,
   tagNotDisplay?: boolean,
   disabled?: boolean
 };
 
-export const Card: React.FC<CardProps> = (props: any) => {
+export const Card: React.FC<CardProps> = ({ idea, width, height, contentLine, boxShadow, backgroundColor='white', tagNotDisplay, disabled }) => {
   const cardLinkStyle = {
     display: "inline-block",
-    width: `${props.cardWidth}`,
-    maxWidth: `${props.cardMaxWidth ? props.cardWidth : "300px"}`,
-    height: ``,
+    width: `${width}`,
+    maxWidth: `300px`,
     margin: "1%",
     cursor: "pointer",
-    backgroundColor: `${props.backgroundColor ? props.backgroundColor : "white"}`,
+    backgroundColor: backgroundColor,
     marginBottom: "12px",
     borderRadius: "4px",
-    boxShadow: `${props.boxShadow ? props.boxShadow : "rgba(233, 233, 233, 0.25) 0px 0px 8px 0px, rgba(163, 163, 163, 0.25) 0px 2px 6px 0px"}`,
+    boxShadow: `${boxShadow ? boxShadow : "rgba(233, 233, 233, 0.25) 0px 0px 8px 0px, rgba(163, 163, 163, 0.25) 0px 2px 6px 0px"}`,
     verticalAlign: "top",
   };
 
   return (
-    <Link to={`/ideas/${props.idea.id}/detail`} style={cardLinkStyle} onClick={(event) => props.disabled ? event.preventDefault() : ""}>
+    idea ? 
+    <Link to={`/ideas/${idea.id}/detail`} style={cardLinkStyle} onClick={(event) => disabled ? event.preventDefault() : ""}>
       <div className="card-container">
         <div className="main-container">
           <div className="header-container">
-            <span className="icon">{props.idea.icon ? <Emoji size={20} emoji={props.idea.icon } /> : <DefaultIcon />}</span>
+            <span className="icon">{idea.icon ? <Emoji size={20} emoji={idea.icon} /> : <DefaultIcon />}</span>
             <div className="priority-container">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M8 0.5L10.3175 5.195L15.5 5.9525L11.75 9.605L12.635 14.765L8 12.3275L3.365 14.765L4.25 9.605L0.5 5.9525L5.6825 5.195L8 0.5Z" fill="#FEB342" stroke="#FEB342" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-              <span style={{color:"#feb342"}}>{!!props.idea.priority ? props.idea.priority : '-'}</span>
+              <Image src={Star} theme={[ImageThemes.STAR]} />
+              <span>{!!idea.priority ? idea.priority : '-'}</span>
             </div>
           </div>
           <div className="title-container">
-            <h1 className="title-text">{props.idea.title}</h1>
+            <Text theme={[TextThemes.IDEA_CARD_TITLE]}>{idea.title}</Text>
           </div>
           <div className="memo-container">
-            <p className="memo-text">{props.idea.detail}</p>
+            <Text theme={[TextThemes.IDEA_CARD_DETAIL]}>{idea.detail}</Text>
           </div>
         </div>
         {
-          props.tagNotDisplay ? '' : 
-          <div>
+          tagNotDisplay ? '' : 
+          <>
             <div className="genre-tag-container">
               {/* ジャンルタグは基本一つ */}
-              {props.idea.genre_tags[0] ? <span className="genre-tag tag">{props.idea.genre_tags[0].name}</span> : ""}
+              {idea.genreTags[0] ? <span className="genre-tag tag">{idea.genreTags[0].name}</span> : ""}
             </div>
             <div className="idea-tag-container">
               {
-                props.idea.idea_tags.map((tag: any, index: number) => {
+                idea.ideaTags.map((tag: IdeaTag, index: number) => {
                   return(
                     <span className="idea-tag tag" key={index}>{tag.name}</span>
                   )
                 })
               }
             </div>
-          </div>
+          </>
         }
       </div>
       <style jsx>
       {`
         .card-container{
-          height: ${props.cardHeight};
+          height: ${height};
           box-sizing: border-box;
           border: 1px solid rgba(196, 196, 196, 0.5);;
           border-radius: 4px;
@@ -104,31 +108,18 @@ export const Card: React.FC<CardProps> = (props: any) => {
           overflow: hidden;
           margin-bottom: 8px;
         }
-        .title-text {
-          line-height: 18px;
-          font-size: 16px;
-          display: -webkit-box;
-          -webkit-box-orient: vertical;
-          -webkit-line-clamp: 2;
-        }
+
         .memo-container{
           width: 100%;
           overflow: hidden;
           margin-bottom: 8px;
           height: 48px;
         }
-        .memo-text{
-          font-size: 14px;
-          line-height: 16px;
-          display: -webkit-box;
-          -webkit-box-orient: vertical;
-          -webkit-line-clamp: 3;
-          // -webkit-line-clamp: ${props.cardContentLine};
-        }
 
         .priority-container span {
           font-weight: bold;
-          vertical-align: top;
+          vertical-align: middle;
+          color: ${CommonStyle.Color.Star};
         }
 
         .genre-tag-container {
@@ -168,7 +159,7 @@ export const Card: React.FC<CardProps> = (props: any) => {
           white-space: nowrap;
         }
         .genre-tag {
-          background-color: ${props.idea.genre_tags[0] ? props.idea.genre_tags[0].color : ''};
+          background-color: ${idea.genreTags[0] ? idea.genreTags[0].color : ''};
         }
 
         .idea-tag {
@@ -179,7 +170,6 @@ export const Card: React.FC<CardProps> = (props: any) => {
         
       `}
       </style>
-    </Link>
-
+    </Link> : null
   );
 }
